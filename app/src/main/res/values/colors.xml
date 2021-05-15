@@ -1,10 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- DARK THEME -->
+    <!-- primaries -->
+    <color name="darkThemeColorPrimaryLight">#222532</color>
+    <color name="darkThemeColorPrimary">#1B1D28</color>
+    <color name="darkThemeColorPrimaryDark">#15171E</color>
+
+    <!-- buttons -->
+    <color name="darkThemeColorBtnHighlightedBorderless">#25FFFFFF</color>
+    <color name="darkThemeColorBtnHighlighted">#3597fb</color>
+    <color name="darkThemeColorBtnNormal">#688CCA</color>
+    <color name="darkThemeColorBtnCancel">#e24f48</color>
+    <color name="darkThemeColorBtnNavBarActive">#688CCA</color>
+    <color name="darkThemeColorBtnNavBarInactive">#66686E</color>
+
+    <!-- fonts -->
+    <color name="darkThemeColorFontBright">#2c94ff</color>
+    <color name="darkThemeColorFontNormal">#E5E3D2</color>
+    <color name="darkThemeColorFontDim">#C6C5B7</color>
+    <color name="darkThemeColorFontTextFieldText">#424242</color>
+    <color name="darkThemeColorFontTextFieldHint">#767676</color>
+
+    <!-- interface elements -->
+    <color name="darkThemeColorTextField">#C6C7C1</color>
+    <color name="darkThemeColorTextFieldHighlighted">#767676</color>
+    <color name="darkThemeColorNavBar">#1B1D28</color>
+
+    <!-- LIGHT THEME -->
+    <!-- primaries -->
+    <color name="lightThemeColorPrimaryLight">#FFF8E7</color>
+    <color name="lightThemeColorPrimary">#FDF6E3</color>
+    <color name="lightThemeColorPrimaryDark">#AEA899</color>
+
+    <!-- buttons -->
+    <color name="lightThemeColorBtnHighlightedBorderless">#25000000</color>
+    <color name="lightThemeColorBtnHighlighted">#3597fb</color>
+    <color name="lightThemeColorBtnNormal">#688CCA</color>
+    <color name="lightThemeColorBtnCancel">#DA103F</color>
+    <color name="lightThemeColorBtnNavBarActive">#3597fb</color>
+    <color name="lightThemeColorBtnNavBarInactive">#1A1C23</color>
+
+    <!-- fonts -->
+    <color name="lightThemeColorFontBright">#3597fb</color>
+    <color name="lightThemeColorFontNormal">#1A1C23</color>
+    <color name="lightThemeColorFontDim">#2E303E</color>
+    <color name="lightThemeColorFontTextFieldText">#2E303E</color>
+    <color name="lightThemeColorFontTextFieldHint">#1A1C23</color>
+
+    <!-- interface elements -->
+    <color name="lightThemeColorTextField">#DCD3BA</color>
+    <color name="lightThemeColorTextFieldHighlighted">#1A1C23</color>
+    <color name="lightThemeColorNavBar">#FDF6E3</color>
 </resources>

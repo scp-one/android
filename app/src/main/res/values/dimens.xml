@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SPACING -->
+    <dimen name="spacingSmallest">4dp</dimen>
+    <dimen name="spacingSmall">8dp</dimen>
+    <dimen name="spacingSmallPlus">12dp</dimen>
+    <dimen name="spacingRegular">16dp</dimen>
+    <dimen name="spacingRegularPlus">20dp</dimen>
+    <dimen name="spacingLarge">24dp</dimen>
+    <dimen name="spacingFormHeaderImage">64dp</dimen>
+
+    <dimen name="defaultAvatarSize">48dp</dimen>
+
+    <dimen name="defaultCornerRadius">8dp</dimen>
+    <dimen name="defaultCardElevation">3dp</dimen>
+
+    <!-- FONTS -->
+    <!-- small font sizes -->
+    <dimen name="fontSizeSmallSub">10sp</dimen>
+    <dimen name="fontSizeSmallBody">14sp</dimen>
+    <dimen name="fontSizeSmallHeadline">22sp</dimen>
+
+    <!-- regular font sizes -->
+    <dimen name="fontSizeRegularSub">12sp</dimen>
+    <dimen name="fontSizeRegularBody">16sp</dimen>
+    <dimen name="fontSizeRegularHeadline">24sp</dimen>
+
+    <!-- large font sizes -->
+    <dimen name="fontSizeLargeSub">16sp</dimen>
+    <dimen name="fontSizeLargeBody">20sp</dimen>
+    <dimen name="fontSizeLargeHeadline">28sp</dimen>
+</resources>

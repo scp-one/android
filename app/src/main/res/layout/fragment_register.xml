@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/spacingFormHeaderImage"
+                android:paddingEnd="@dimen/spacingFormHeaderImage"
+                android:src="@drawable/ic_header_police"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:contentDescription="todo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:text="@string/fragment_register_text_view_register_hint"
+                android:textSize="?attr/themeFontSizeHeadline"
+                android:fontFamily="?attr/themeFontFamilyMedium"
+                android:textColor="?attr/themeColorFontNormal" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacingRegular"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/layout_form_input_flair" />
+
+                    <include android:id="@+id/fragment_register_edit_text_username"
+                        layout="@layout/layout_edit_text_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular" />
+
+                    <include android:id="@+id/fragment_register_edit_text_email"
+                        layout="@layout/layout_edit_text_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular" />
+
+                    <include android:id="@+id/fragment_register_edit_text_password"
+                        layout="@layout/layout_edit_text_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_register_text_view_login_hint"
+                    android:textSize="?attr/themeFontSizeBody"
+                    android:fontFamily="?attr/themeFontFamilyRegular"
+                    android:textColor="?attr/themeColorFontDim" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/fragment_register_button_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacingSmall"
+                    android:padding="@dimen/spacingSmallest"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/fragment_register_button_login_text"
+                    android:textSize="?attr/themeFontSizeBody"
+                    android:fontFamily="?attr/themeFontFamilyMedium"
+                    android:textColor="?attr/themeColorFontBright"
+                    android:textAllCaps="false"
+                    android:background="@drawable/ripple_button_borderless" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_register_button_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:paddingTop="@dimen/spacingRegularPlus"
+                android:paddingBottom="@dimen/spacingRegularPlus"
+                android:text="@string/fragment_register_button_register_text"
+                android:textSize="?attr/themeFontSizeBody"
+                android:fontFamily="?attr/themeFontFamilyMedium"
+                android:textColor="?attr/themeColorFontNormal"
+                android:textAllCaps="false"
+                android:background="@drawable/ripple_button" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

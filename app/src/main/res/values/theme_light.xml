@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- LIGHT THEME -->
+    <style name="Theme.Light" parent="Theme.Base">
+        <!-- colors - primaries -->
+        <item name="themeColorPrimaryLight">@color/lightThemeColorPrimaryLight</item>
+        <item name="themeColorPrimary">@color/lightThemeColorPrimary</item>
+        <item name="themeColorPrimaryDark">@color/lightThemeColorPrimaryDark</item>
+        <!-- colors - buttons -->
+        <item name="themeColorBtnHighlightedBorderless">@color/lightThemeColorBtnHighlightedBorderless</item>
+        <item name="themeColorBtnHighlighted">@color/lightThemeColorBtnHighlighted</item>
+        <item name="themeColorBtnNormal">@color/lightThemeColorBtnNormal</item>
+        <item name="themeColorBtnCancel">@color/lightThemeColorBtnCancel</item>
+        <item name="themeColorBtnNavBarActive">@color/lightThemeColorBtnNavBarActive</item>
+        <item name="themeColorBtnNavBarInactive">@color/lightThemeColorBtnNavBarInactive</item>
+        <!-- colors - fonts -->
+        <item name="themeColorFontBright">@color/lightThemeColorFontBright</item>
+        <item name="themeColorFontNormal">@color/lightThemeColorFontNormal</item>
+        <item name="themeColorFontDim">@color/lightThemeColorFontDim</item>
+        <item name="themeColorFontTextFieldText">@color/lightThemeColorFontTextFieldText</item>
+        <item name="themeColorFontTextFieldHint">@color/lightThemeColorFontTextFieldHint</item>
+        <!-- colors - interface elements -->
+        <item name="themeColorTextField">@color/lightThemeColorTextField</item>
+        <item name="themeColorTextFieldHighlighted">@color/lightThemeColorTextFieldHighlighted</item>
+        <item name="themeColorNavBar">@color/lightThemeColorNavBar</item>
+
+        <!-- colors - android elements -->
+        <item name="android:statusBarColor">@color/lightThemeColorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/lightThemeColorNavBar</item>
+    </style>
+
+    <!-- FONT SIZES -->
+    <style name="Theme.Light.FontSmall" parent="Theme.Light">
+        <item name="themeFontSizeSub">@dimen/fontSizeSmallSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeSmallBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeSmallHeadline</item>
+    </style>
+
+    <style name="Theme.Light.FontRegular" parent="Theme.Light">
+        <item name="themeFontSizeSub">@dimen/fontSizeRegularSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeRegularBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeRegularHeadline</item>
+    </style>
+
+    <style name="Theme.Light.FontLarge" parent="Theme.Light">
+        <item name="themeFontSizeSub">@dimen/fontSizeLargeSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeLargeBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeLargeHeadline</item>
+    </style>
+</resources>

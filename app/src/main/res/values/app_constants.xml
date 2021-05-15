@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="nav_tab_stack_max">10</integer>
+    <integer name="image_max_width">1080</integer>
+    <integer name="image_compression_quality">80</integer>
+</resources>

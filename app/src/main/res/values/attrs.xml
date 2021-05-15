@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- COLORS -->
+    <!-- primaries -->
+    <attr name="themeColorPrimaryLight" format="reference" />
+    <attr name="themeColorPrimary" format="reference" />
+    <attr name="themeColorPrimaryDark" format="reference" />
+
+    <!-- buttons -->
+    <attr name="themeColorBtnHighlightedBorderless" format="reference" />
+    <attr name="themeColorBtnHighlighted" format="reference" />
+    <attr name="themeColorBtnNormal" format="reference" />
+    <attr name="themeColorBtnCancel" format="reference" />
+    <attr name="themeColorBtnNavBarActive" format="reference" />
+    <attr name="themeColorBtnNavBarInactive" format="reference" />
+
+    <!-- fonts -->
+    <attr name="themeColorFontBright" format="reference" />
+    <attr name="themeColorFontNormal" format="reference" />
+    <attr name="themeColorFontDim" format="reference" />
+    <attr name="themeColorFontTextFieldText" format="reference" />
+    <attr name="themeColorFontTextFieldHint" format="reference" />
+
+    <!-- interface elements -->
+    <attr name="themeColorTextField" format="reference" />
+    <attr name="themeColorTextFieldHighlighted" format="reference" />
+    <attr name="themeColorNavBar" format="reference" />
+
+    <!-- FONTS -->
+    <!-- families -->
+    <attr name="themeFontFamilyRegular" format="reference" />
+    <attr name="themeFontFamilyMedium" format="reference" />
+    <attr name="themeFontFamilyBold" format="reference" />
+
+    <!-- sizes -->
+    <attr name="themeFontSizeSub" format="reference" />
+    <attr name="themeFontSizeBody" format="reference" />
+    <attr name="themeFontSizeHeadline" format="reference" />
+</resources>
