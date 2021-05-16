@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat
 
 fun Context.makeToast(message: String?, gravity: Int = Gravity.TOP) {
     val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
-    toast.setGravity(gravity, 0, 0)
+//    toast.setGravity(gravity, 0, 0)
     toast.show()
 }
 

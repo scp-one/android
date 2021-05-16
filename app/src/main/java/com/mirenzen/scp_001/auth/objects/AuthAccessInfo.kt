@@ -1,4 +1,4 @@
-package com.mirenzen.scp_001.auth.classes
+package com.mirenzen.scp_001.auth.objects
 
 import kotlinx.serialization.Serializable
 

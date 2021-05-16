@@ -12,14 +12,13 @@ import com.mirenzen.scp_001.app.util.NavMan
 import com.mirenzen.scp_001.auth.AuthService
 import com.mirenzen.scp_001.auth.dtos.AuthCredentialsDto
 import com.mirenzen.scp_001.auth.util.AuthMan
-import com.mirenzen.scp_001.databinding.FragmentLoginBinding
+import com.mirenzen.scp_001.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment_register) {
     // dependency injections
     @Inject
     lateinit var authService: AuthService
@@ -35,33 +34,27 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {
         super.configureView(view, savedInstanceState)
-        binding.fragmentLoginButtonForgotPassword.setOnClickListener {
-            didTapButtonForgotPassword()
-        }
-        binding.fragmentLoginButtonRegister.setOnClickListener {
-            didTapButtonRegister()
-        }
-        binding.fragmentLoginButtonLogin.setOnClickListener {
+        binding.fragmentRegisterButtonLogin.setOnClickListener {
             didTapButtonLogin()
         }
-    }
-
-    private fun didTapButtonForgotPassword() {
-        navMan.pushFragment(PassUpdateFragment())
-    }
-
-    private fun didTapButtonRegister() {
-        navMan.pushFragment(RegisterFragment())
+        binding.fragmentRegisterButtonRegister.setOnClickListener {
+            didTapButtonRegister()
+        }
     }
 
     private fun didTapButtonLogin() {
-        val email = binding.fragmentLoginEditTextEmail.layoutEditTextEmail.text.toString()
-        val passw = binding.fragmentLoginEditTextPassword.layoutEditTextPassword.text.toString()
-        val dto = AuthCredentialsDto(null, email, passw)
+        navMan.popFragment()
+    }
+
+    private fun didTapButtonRegister() {
+        val usern = binding.fragmentRegisterEditTextUsername.layoutEditTextUsername.text.toString()
+        val email = binding.fragmentRegisterEditTextEmail.layoutEditTextEmail.text.toString()
+        val passw = binding.fragmentRegisterEditTextPassword.layoutEditTextPassword.text.toString()
+        val dto = AuthCredentialsDto(usern, email, passw)
 
         (activity as? MainActivity)?.lockUI(true)
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            val result = authService.login(dto)
+            val result = authService.register(dto)
             (activity as? MainActivity)?.lockUI(false)
 
             if (result.isFailure) {

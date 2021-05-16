@@ -1,5 +1,8 @@
 package com.mirenzen.scp_001.auth.jwt
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class JwtPayload (
     val id: String,
     val username: String,

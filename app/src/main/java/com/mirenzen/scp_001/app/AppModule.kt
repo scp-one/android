@@ -3,6 +3,7 @@ package com.mirenzen.scp_001.app
 import android.content.Context
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.mirenzen.scp_001.app.config.Constants
+import com.mirenzen.scp_001.app.util.ApiErrorHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,6 +27,11 @@ object AppModule {
         return Json {
             ignoreUnknownKeys = true
         }
+    }
+
+    @Provides
+    fun provideApiErrorHandler(json: Json): ApiErrorHandler {
+        return ApiErrorHandler(json)
     }
 
     @Provides

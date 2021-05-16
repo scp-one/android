@@ -1,11 +1,11 @@
 package com.mirenzen.scp_001.auth
 
-import com.mirenzen.scp_001.auth.classes.AuthAccessInfo
+import com.mirenzen.scp_001.auth.objects.AuthAccessInfo
 import com.mirenzen.scp_001.auth.dtos.AuthCredentialsDto
 import retrofit2.Call
 import retrofit2.http.*
 
-interface AuthServiceInterface {
+interface AuthServiceApi {
     @POST("auth/register")
     fun register(
         @Body authCredentialsDto: AuthCredentialsDto
@@ -28,7 +28,7 @@ interface AuthServiceInterface {
     ): Call<AuthAccessInfo?>
 
     @GET("auth/verify")
-    fun getEmailVerificationMail(
+    fun getVerifyEmailMail(
         @Query("email") email: String
     ): Call<Void?>
 

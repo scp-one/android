@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/fragment_pagination_refresh_layout"
+        android:id="@+id/fragment_page_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/themeColorPrimary">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_pagination_recycler_view"
+            android:id="@+id/fragment_page_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/spacingRegular"

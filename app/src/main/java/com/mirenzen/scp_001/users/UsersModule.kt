@@ -1,4 +1,4 @@
-package com.mirenzen.scp_001.auth
+package com.mirenzen.scp_001.users
 
 import dagger.Module
 import dagger.Provides
@@ -8,9 +8,9 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AuthModule {
+class UsersModule {
     @Provides
-    fun provideAuthServiceApi(retrofit: Retrofit): AuthServiceApi {
-        return retrofit.create(AuthServiceApi::class.java)
+    fun provideUsersServiceApi(retrofit: Retrofit): UsersServiceApi {
+        return retrofit.create(UsersServiceApi::class.java)
     }
 }

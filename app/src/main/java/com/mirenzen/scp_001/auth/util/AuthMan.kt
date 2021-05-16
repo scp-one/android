@@ -3,7 +3,7 @@ package com.mirenzen.scp_001.auth.util
 import android.content.Context
 import android.content.SharedPreferences
 import com.mirenzen.scp_001.R
-import com.mirenzen.scp_001.auth.classes.AuthAccessInfo
+import com.mirenzen.scp_001.auth.objects.AuthAccessInfo
 import com.mirenzen.scp_001.auth.jwt.JwtPayload
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
