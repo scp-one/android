@@ -14,6 +14,7 @@ import com.mirenzen.scp_001.app.util.Stash
 import com.mirenzen.scp_001.auth.fragments.LoginFragment
 import com.mirenzen.scp_001.auth.util.AuthMan
 import com.mirenzen.scp_001.databinding.ActivityMainBinding
+import com.mirenzen.scp_001.users.fragments.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -94,12 +95,12 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     override fun getRootFragmentOf(tab: NavMan.NavTabs): Fragment? {
         return when (tab) {
             NavMan.NavTabs.TAB1 -> when (authMan.isLoggedIn) {
-                true -> LoginFragment()
+                true -> ProfileFragment()
                 else -> LoginFragment()
             }
-            NavMan.NavTabs.TAB2 -> LoginFragment()
-            NavMan.NavTabs.TAB3 -> LoginFragment()
-            NavMan.NavTabs.TAB4 -> LoginFragment()
+            NavMan.NavTabs.TAB2 -> ProfileFragment()
+            NavMan.NavTabs.TAB3 -> ProfileFragment()
+            NavMan.NavTabs.TAB4 -> ProfileFragment()
         }
     }
 

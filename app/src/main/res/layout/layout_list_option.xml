@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/layout_list_option_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacingRegular"
+        android:drawablePadding="@dimen/spacingRegular"
+        app:drawableTint="?attr/themeColorFontDim"
+        android:textSize="?attr/themeFontSizeBody"
+        android:fontFamily="?attr/themeFontFamilyRegular"
+        android:textColor="?attr/themeColorFontNormal"
+        android:lines="1"
+        android:ellipsize="end"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/ripple_button_borderless"/>
+</layout>

@@ -8,5 +8,5 @@ abstract class BaseViewModel<T> : ViewModel() {
     var state = PageState.Idle
         protected set
 
-    abstract suspend fun paginate(refresh: Boolean): Result<T>
+    abstract suspend fun paginate(refresh: Boolean): Result<Nothing?>
 }
