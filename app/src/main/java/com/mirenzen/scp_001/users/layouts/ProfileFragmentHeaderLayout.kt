@@ -14,12 +14,12 @@ class ProfileFragmentHeaderLayout(
     private val listener: Listener?,
     private val kairos: Kairos
 ) : RecyclerView.ViewHolder(binding.root), BindableView<User?> {
-    enum class EventTypes {
+    enum class EventType {
         ContainerTap
     }
 
     interface Listener {
-        fun handleLayoutEvent(event: EventTypes, index: Int, view: View?)
+        fun handleLayoutEvent(event: EventType, index: Int, view: View?)
     }
 
     companion object {
@@ -30,7 +30,7 @@ class ProfileFragmentHeaderLayout(
 
     init {
         binding.root.setOnClickListener {
-            listener?.handleLayoutEvent(EventTypes.ContainerTap, adapterPosition, it)
+            listener?.handleLayoutEvent(EventType.ContainerTap, adapterPosition, it)
         }
     }
 

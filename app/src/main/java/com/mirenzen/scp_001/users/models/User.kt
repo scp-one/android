@@ -9,7 +9,7 @@ data class User(
     val username: String,
     val nickname: String,
     val avatarUrl: String?,
-//    val accessLevel: UserAccessLevel,
+    val accessLevel: UserAccessLevel,
     val updatedAt: String,
     val createdAt: String
 )

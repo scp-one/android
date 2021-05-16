@@ -26,9 +26,9 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     @Inject
     lateinit var navMan: NavMan
     @Inject
-    lateinit var stash: Stash
-    @Inject
     lateinit var kairos: Kairos
+    @Inject
+    lateinit var stash: Stash
 
     // view properties
     private lateinit var binding: ActivityMainBinding

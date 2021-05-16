@@ -7,10 +7,10 @@ import com.mirenzen.scp_001.app.interfaces.BindableView
 abstract class PageAdapter<T>(
     private val items: List<T>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    open val hasHeader = false
+    open val headerOffset = 0
 
     override fun getItemCount(): Int {
-        return items.size + if (hasHeader) 1 else 0
+        return items.size + headerOffset
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -13,8 +13,12 @@ class ListOptionSectionLayout(
     val binding: LayoutListOptionSectionBinding,
     private val listener: Listener?
 ) : RecyclerView.ViewHolder(binding.root), BindableView<ListOptionSection> {
+    enum class EventType {
+        ContainerTap
+    }
+
     interface Listener {
-        fun handleListOptionTap(sectionIndex: Int, optionIndex: Int)
+        fun handleLayoutEvent(event: EventType, sectionIndex: Int, optionIndex: Int)
     }
 
     companion object {
@@ -25,16 +29,16 @@ class ListOptionSectionLayout(
 
     init {
         binding.option0.layoutListOptionTextView.setOnClickListener {
-            listener?.handleListOptionTap(adapterPosition, 0)
+            listener?.handleLayoutEvent(EventType.ContainerTap, adapterPosition, 0)
         }
         binding.option1.layoutListOptionTextView.setOnClickListener {
-            listener?.handleListOptionTap(adapterPosition, 1)
+            listener?.handleLayoutEvent(EventType.ContainerTap, adapterPosition, 1)
         }
         binding.option2.layoutListOptionTextView.setOnClickListener {
-            listener?.handleListOptionTap(adapterPosition, 2)
+            listener?.handleLayoutEvent(EventType.ContainerTap, adapterPosition, 2)
         }
         binding.option3.layoutListOptionTextView.setOnClickListener {
-            listener?.handleListOptionTap(adapterPosition, 3)
+            listener?.handleLayoutEvent(EventType.ContainerTap, adapterPosition, 3)
         }
     }
 

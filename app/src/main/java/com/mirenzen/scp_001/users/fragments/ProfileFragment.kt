@@ -25,6 +25,7 @@ import com.mirenzen.scp_001.app.objects.ListOptionSection
 import com.mirenzen.scp_001.app.util.Kairos
 import com.mirenzen.scp_001.app.util.NavMan
 import com.mirenzen.scp_001.app.util.Stash
+import com.mirenzen.scp_001.auth.AuthService
 import com.mirenzen.scp_001.auth.util.AuthMan
 import com.mirenzen.scp_001.databinding.LayoutHeaderFragmentProfileBinding
 import com.mirenzen.scp_001.databinding.LayoutListOptionSectionBinding
@@ -46,6 +47,8 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
     // dependency injection
     @Inject
     lateinit var usersService: UsersService
+    @Inject
+    lateinit var authService: AuthService
     @Inject
     lateinit var authMan: AuthMan
     @Inject
@@ -71,7 +74,7 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
                 ListOption("Clear Cache", R.drawable.ic_storage) {
                     activity?.askConfirmation {
                         kairos.trimMemory(MemTrimLevel.FULLY)
-                        runBlocking {
+                        viewLifecycleOwner.lifecycle.coroutineScope.launch {
                             val result = stash.empty()
                             val error = result.exceptionOrNull()
                             activity?.makeToast( error?.message ?: "Done")
@@ -123,7 +126,11 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
     }
 
     private fun didTapMenuMoreLogout() {
-        // TODO: make auth service call to logout
+        viewLifecycleOwner.lifecycle.coroutineScope.launch {
+            authMan.accessInfo?.let {
+                authService.logout(it)
+            }
+        }
         authMan.didLogout()
         navMan.reset()
         startActivity(Intent(context, MainActivity::class.java))
@@ -137,7 +144,7 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
 
     override fun adapterForView(): PageAdapter<ListOptionSection> {
         return object : PageAdapter<ListOptionSection>(viewModel.items) {
-            override val hasHeader = true
+            override val headerOffset = 1
 
             override fun getItemLayoutId(position: Int): Int {
                 return when (position) {
@@ -147,7 +154,6 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
             }
 
             override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-                val headerOffset = if (hasHeader) 1 else 0
                 when (position) {
                     0 -> (holder as BindableView<User?>).bind(viewModel.user)
                     else -> (holder as BindableView<ListOptionSection>).bind(viewModel.items[position - headerOffset])
@@ -184,15 +190,21 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
         }
     }
 
+    // layout event listener
     override fun handleLayoutEvent(
-        event: ProfileFragmentHeaderLayout.EventTypes,
+        event: ProfileFragmentHeaderLayout.EventType,
         index: Int,
         view: View?
     ) {
         Timber.d("handling profile header layout event")
     }
 
-    override fun handleListOptionTap(sectionIndex: Int, optionIndex: Int) {
-        Timber.d("handling list option tap")
+    override fun handleLayoutEvent(
+        event: ListOptionSectionLayout.EventType,
+        sectionIndex: Int,
+        optionIndex: Int
+    ) {
+        viewModel.items.getOrNull(sectionIndex - adapter.headerOffset)
+            ?.options?.getOrNull(optionIndex)?.onTapAction?.invoke()
     }
 }
