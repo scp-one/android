@@ -42,7 +42,7 @@ class ListOptionSectionLayout(
         }
     }
 
-    override fun bind(item: ListOptionSection) {
+    override suspend fun bind(item: ListOptionSection) {
         binding.listOptionSectionTitle.setTextAsync(item.title)
 
         val drawableIdEnd = R.drawable.ic_chevron_right

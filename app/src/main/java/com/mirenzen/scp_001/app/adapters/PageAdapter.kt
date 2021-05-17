@@ -3,6 +3,7 @@ package com.mirenzen.scp_001.app.adapters
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mirenzen.scp_001.app.interfaces.BindableView
+import kotlinx.coroutines.runBlocking
 
 abstract class PageAdapter<T>(
     private val items: List<T>
@@ -26,6 +27,8 @@ abstract class PageAdapter<T>(
     abstract fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? BindableView<T>)?.bind(items[position])
+        runBlocking {
+            (holder as? BindableView<T>)?.bind(items[position])
+        }
     }
 }

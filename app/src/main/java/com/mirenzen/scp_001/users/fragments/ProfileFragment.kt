@@ -154,9 +154,11 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
             }
 
             override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-                when (position) {
-                    0 -> (holder as BindableView<User?>).bind(viewModel.user)
-                    else -> (holder as BindableView<ListOptionSection>).bind(viewModel.items[position - headerOffset])
+                viewLifecycleOwner.lifecycle.coroutineScope.launch {
+                    when (position) {
+                        0 -> (holder as BindableView<User?>).bind(viewModel.user)
+                        else -> (holder as BindableView<ListOptionSection>).bind(viewModel.items[position - headerOffset])
+                    }
                 }
             }
 
@@ -182,6 +184,7 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             val result = viewModel.paginate(refresh)
             (activity as? MainActivity)?.showProgressBar(false)
+
             stopRefreshing()
             when (result.isFailure) {
                 true -> activity?.makeToast(result.exceptionOrNull()?.message)

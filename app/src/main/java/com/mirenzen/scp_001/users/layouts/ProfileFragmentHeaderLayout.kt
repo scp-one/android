@@ -34,14 +34,14 @@ class ProfileFragmentHeaderLayout(
         }
     }
 
-    override fun bind(item: User?) {
+    override suspend fun bind(item: User?) {
         if (item == null) return
 
-//        kairos.load(item.avatarUrl)
-//            .scale(480, 480)
-//            .default(R.drawable.ic_header_viking)
-//            .into(binding.layoutHeaderFragmentProfileImageAvatar)
         binding.layoutHeaderFragmentProfileTextViewNickname.setTextAsync(item.nickname)
         binding.layoutHeaderFragmentProfileTextViewUsername.setTextAsync("@${item.username}")
+        kairos.load(item.avatarUrl)
+            .scale(480, 480)
+            .default(R.drawable.ic_header_viking)
+            .into(binding.layoutHeaderFragmentProfileImageAvatar)
     }
 }

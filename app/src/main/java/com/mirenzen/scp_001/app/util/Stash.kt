@@ -24,7 +24,7 @@ class Stash @Inject constructor(
         }
     }
 
-    suspend fun get(dataId: String): Result<File?> = withContext(Dispatchers.IO) {
+    suspend fun get(dataId: String): Result<File> = withContext(Dispatchers.IO) {
         try {
             val file = File(stashDir, formatDataId(dataId))
             Result.success(file)
@@ -34,7 +34,7 @@ class Stash @Inject constructor(
         }
     }
 
-    suspend fun open(dataId: String): Result<ByteArray?> = withContext(Dispatchers.IO) {
+    suspend fun open(dataId: String): Result<ByteArray> = withContext(Dispatchers.IO) {
         try {
             val file = File(stashDir, formatDataId(dataId))
             val data = file.readBytes()

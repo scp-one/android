@@ -1,6 +1,8 @@
 package com.mirenzen.scp_001.app.util
 
 import com.mirenzen.scp_001.app.objects.ApiErrorBody
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
@@ -10,24 +12,26 @@ import javax.inject.Inject
 class ApiErrorHandler @Inject constructor(
     private val json: Json
 ) {
-    fun <T>handleError(e: Throwable): Result<T> {
-        return when (val body = getApiErrorBody(e)) {
-            null -> Result.failure(e)
-            else -> Result.failure(Throwable(body.message.toString()))
+    suspend fun <T>handleError(e: Throwable): Result<T> = withContext(Dispatchers.Default) {
+        val result = getApiErrorBody(e)
+        when (result.isFailure) {
+            true -> Result.failure(e)
+            else -> Result.failure(Throwable(result.getOrNull()?.message.toString()))
         }
     }
 
-    fun getApiErrorBody(e: Throwable): ApiErrorBody? {
-        return if (e is HttpException) {
-            try {
-                val bodyString = e.response()?.errorBody()?.string() ?: ""
-                json.decodeFromString<ApiErrorBody>(bodyString)
-            } catch (e: Throwable) {
-                Timber.e(e)
-                null
+    private suspend fun getApiErrorBody(e: Throwable): Result<ApiErrorBody> = withContext(Dispatchers.Default) {
+        when (e) {
+            is HttpException -> {
+                try {
+                    val bodyString = e.response()?.errorBody()?.byteStream()?.readBytes()?.decodeToString() ?: ""
+                    Result.success(json.decodeFromString(bodyString))
+                } catch(e: Throwable) {
+                    Timber.e(e)
+                    Result.failure(e)
+                }
             }
-        } else {
-            null
+            else -> Result.failure(e)
         }
     }
 }

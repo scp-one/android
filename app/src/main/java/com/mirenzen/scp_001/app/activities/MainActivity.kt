@@ -94,13 +94,13 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
 
     override fun getRootFragmentOf(tab: NavMan.NavTabs): Fragment? {
         return when (tab) {
-            NavMan.NavTabs.TAB1 -> when (authMan.isLoggedIn) {
-                true -> ProfileFragment()
-                else -> LoginFragment()
+            NavMan.NavTabs.TAB1 -> when (!authMan.isLoggedIn) {
+                true -> LoginFragment()
+                else -> ProfileFragment()
             }
-            NavMan.NavTabs.TAB2 -> ProfileFragment()
-            NavMan.NavTabs.TAB3 -> ProfileFragment()
-            NavMan.NavTabs.TAB4 -> ProfileFragment()
+            NavMan.NavTabs.TAB2 -> throw NotImplementedError()
+            NavMan.NavTabs.TAB3 -> throw NotImplementedError()
+            NavMan.NavTabs.TAB4 -> throw NotImplementedError()
         }
     }
 
