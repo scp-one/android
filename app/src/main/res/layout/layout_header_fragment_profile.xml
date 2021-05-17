@@ -19,8 +19,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/layout_header_fragment_profile_image_avatar"
-                android:layout_width="@dimen/defaultAvatarSize"
-                android:layout_height="@dimen/defaultAvatarSize"
+                android:layout_width="@dimen/sizeAvatarRegular"
+                android:layout_height="@dimen/sizeAvatarRegular"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/spacingRegular"
