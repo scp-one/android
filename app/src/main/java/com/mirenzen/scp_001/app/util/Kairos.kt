@@ -157,7 +157,7 @@ class Kairos @Inject constructor(
         }
     }
 
-    private suspend inline fun decodeBitmapFromByteArray(data: ByteArray, request: KairosRequestBuilder): Result<Bitmap> = withContext(Dispatchers.IO) {
+    private suspend inline fun decodeBitmapFromByteArray(data: ByteArray, request: KairosRequestBuilder): Result<Bitmap> = withContext(Dispatchers.Default) {
         val bitmap = BitmapFactory.Options().run {
             inJustDecodeBounds = true
             BitmapFactory.decodeByteArray(data, 0, data.size, this)
@@ -169,7 +169,7 @@ class Kairos @Inject constructor(
         Result.success(bitmap)
     }
 
-    private inline fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
         // Raw height and width of image
         val (height: Int, width: Int) = options.run { outHeight to outWidth }
         var inSampleSize = 1
