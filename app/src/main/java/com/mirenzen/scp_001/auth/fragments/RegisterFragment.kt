@@ -50,9 +50,15 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
         val usern = binding.fragmentRegisterEditTextUsername.layoutEditTextUsername.text.toString()
         val email = binding.fragmentRegisterEditTextEmail.layoutEditTextEmail.text.toString()
         val passw = binding.fragmentRegisterEditTextPassword.layoutEditTextPassword.text.toString()
-        val dto = AuthCredentialsDto(usern, email, passw)
+
+        if (usern.isEmpty() || email.isEmpty() || passw.isEmpty()) {
+            activity?.makeToast("Invalid input.")
+            return
+        }
 
         (activity as? MainActivity)?.lockUI(true)
+        val dto = AuthCredentialsDto(usern, email, passw)
+
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             val result = authService.register(dto)
             (activity as? MainActivity)?.lockUI(false)

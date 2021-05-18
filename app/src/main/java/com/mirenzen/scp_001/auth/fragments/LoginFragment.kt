@@ -57,9 +57,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun didTapButtonLogin() {
         val email = binding.fragmentLoginEditTextEmail.layoutEditTextEmail.text.toString()
         val passw = binding.fragmentLoginEditTextPassword.layoutEditTextPassword.text.toString()
-        val dto = AuthCredentialsDto(null, email, passw)
+
+        if (email.isEmpty() || passw.isEmpty()) {
+            activity?.makeToast("Invalid input.")
+            return
+        }
 
         (activity as? MainActivity)?.lockUI(true)
+        val dto = AuthCredentialsDto(null, email, passw)
+
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             val result = authService.login(dto)
             (activity as? MainActivity)?.lockUI(false)

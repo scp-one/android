@@ -37,7 +37,13 @@ class PassUpdateFragment : BaseFragment<FragmentPassUpdateBinding>(R.layout.frag
     private fun didTapButtonRequest() {
         val email = binding.fragmentPassUpdateEditTextEmail.layoutEditTextEmail.text.toString()
 
+        if (email.isEmpty()) {
+            activity?.makeToast("Invalid input.")
+            return
+        }
+
         (activity as? MainActivity)?.lockUI(true)
+
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
             val result = authService.getPasswordUpdateMail(email)
             (activity as? MainActivity)?.lockUI(false)
