@@ -13,10 +13,7 @@ import com.mirenzen.scp_001.R
 import com.mirenzen.scp_001.app.activities.MainActivity
 import com.mirenzen.scp_001.app.adapters.PageAdapter
 import com.mirenzen.scp_001.app.enums.MemTrimLevel
-import com.mirenzen.scp_001.app.extensions.askConfirmation
-import com.mirenzen.scp_001.app.extensions.getView
-import com.mirenzen.scp_001.app.extensions.makePopupMenu
-import com.mirenzen.scp_001.app.extensions.makeToast
+import com.mirenzen.scp_001.app.extensions.*
 import com.mirenzen.scp_001.app.fragments.PageFragment
 import com.mirenzen.scp_001.app.interfaces.BindableView
 import com.mirenzen.scp_001.app.layouts.ListOptionSectionLayout
@@ -94,7 +91,11 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
             listOf(
                 ListOption("Rate Our App", R.drawable.ic_rate) {},
                 ListOption("Send Feedback", R.drawable.ic_feedback) {},
-                ListOption("Privacy Policy", R.drawable.ic_policy) {},
+                ListOption("Privacy Policy", R.drawable.ic_policy) {
+                    // TODO: replace with a global constant
+                    val url = "https://scp-one.web.app/privacy-policy"
+                    activity?.pushWebView(url)
+                },
                 ListOption("Licenses", R.drawable.ic_receipt) {}
             )
         )

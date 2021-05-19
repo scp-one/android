@@ -39,8 +39,9 @@ class AuthMan @Inject constructor(
         setAccessInfo(accessInfo)
     }
 
-    fun didRefresh(accessInfo: AuthAccessInfo) {
-        setAccessInfo(accessInfo)
+    fun didRefresh(newAccessInfo: AuthAccessInfo) {
+        val refreshToken = newAccessInfo.refreshToken ?: this.accessInfo?.refreshToken
+        this.accessInfo = AuthAccessInfo(newAccessInfo.accessToken, refreshToken)
     }
 
     fun didLogout() {

@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AuthCredentialsDto(
-    val username: String?,
-    val email: String?,
+    val username: String? = null,
+    val email: String? = null,
     val password: String
 )

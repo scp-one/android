@@ -50,7 +50,7 @@ class AuthService @Inject constructor(
         }
     }
 
-    suspend fun refresh(authAccessInfo: AuthAccessInfo): Result<AuthAccessInfo> = withContext(Dispatchers.IO) {
+    private suspend inline fun refresh(authAccessInfo: AuthAccessInfo): Result<AuthAccessInfo> = withContext(Dispatchers.IO) {
         try {
             when (val newAccessInfo = authServiceApi.refresh(authAccessInfo).await()) {
                 null -> Result.failure(Throwable("An error occurred during auth refresh."))
@@ -94,18 +94,13 @@ class AuthService @Inject constructor(
             return@withContext Result.success("Bearer ${accessInfo.accessToken}")
         }
 
-        try {
-            val result = refresh(accessInfo)
-            val newAccessInfo = when (result.isFailure) {
-                true -> throw result.exceptionOrNull()!!
-                else -> result.getOrNull()!!
-            }
-
-            authMan.didRefresh(newAccessInfo)
-            Result.success(newAccessInfo.accessToken)
-        } catch (e: Throwable) {
-            Timber.e(e)
-            apiErrorHandler.handleError(e)
+        val result = refresh(accessInfo)
+        val newAccessInfo = when (result.isFailure) {
+            true -> throw result.exceptionOrNull()!!
+            else -> result.getOrNull()!!
         }
+
+        authMan.didRefresh(newAccessInfo)
+        Result.success("Bearer ${newAccessInfo.accessToken}")
     }
 }
