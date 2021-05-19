@@ -40,11 +40,14 @@ class UsersService @Inject constructor(
 
     suspend fun getUserByUsername(username: String): Result<User> = withContext(Dispatchers.IO) {
         try {
+            Timber.e("getting access token for username request")
             val result = authService.getAccessTokenAsBearer()
+            Timber.e("done getting refresh token")
             val accessToken = when (result.isFailure) {
                 true -> throw result.exceptionOrNull()!!
                 else -> result.getOrNull()!!
             }
+            Timber.e("got here")
 
             when (val user = usersServiceApi.getUserByUsername(accessToken, username).await()) {
                 null -> Result.failure(Throwable("An error occurred while getting user."))

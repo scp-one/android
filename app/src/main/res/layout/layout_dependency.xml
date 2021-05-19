@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layout_dependency_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/layout_dependency_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Test"
+            android:fontFamily="?attr/themeFontFamilyRegular"
+            android:textSize="?attr/themeFontSizeBody"
+            android:textColor="?attr/themeColorFontNormal"
+            android:lines="1"
+            android:ellipsize="end"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/layout_dependency_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="https://test.com"
+            android:fontFamily="?attr/themeFontFamilyRegular"
+            android:textSize="?attr/themeFontSizeSub"
+            android:textColor="?attr/themeColorFontBright"
+            android:lines="1"
+            android:ellipsize="end"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/spacingRegular"
+            android:background="?attr/themeColorPrimaryLight"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

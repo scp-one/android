@@ -1,5 +1,6 @@
 package com.mirenzen.scp_001.users.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +10,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.mirenzen.scp_001.R
 import com.mirenzen.scp_001.app.activities.MainActivity
 import com.mirenzen.scp_001.app.adapters.PageAdapter
 import com.mirenzen.scp_001.app.enums.MemTrimLevel
 import com.mirenzen.scp_001.app.extensions.*
+import com.mirenzen.scp_001.app.fragments.DependenciesFragment
 import com.mirenzen.scp_001.app.fragments.PageFragment
 import com.mirenzen.scp_001.app.interfaces.BindableView
 import com.mirenzen.scp_001.app.layouts.ListOptionSectionLayout
@@ -89,14 +92,34 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
         ListOptionSection(
             "MORE",
             listOf(
-                ListOption("Rate Our App", R.drawable.ic_rate) {},
-                ListOption("Send Feedback", R.drawable.ic_feedback) {},
+                ListOption("Rate Our App", R.drawable.ic_rate) {
+                    val reviewManager = activity?.let { ReviewManagerFactory.create(it) }
+                    val request = reviewManager?.requestReviewFlow()
+                    request?.addOnCompleteListener { task ->
+                        if (task.isSuccessful && activity != null) {
+                            val reviewInfo = task.result
+                            try {
+                                reviewManager.launchReviewFlow(requireActivity(), reviewInfo)
+                            } catch (e: Throwable) {
+                                Timber.e(e)
+                            }
+                        } else {
+                            activity?.makeToast("Unable to review.")
+                            Timber.e(task.exception)
+                        }
+                    }
+                },
+                ListOption("Send Feedback", R.drawable.ic_feedback) {
+
+                },
                 ListOption("Privacy Policy", R.drawable.ic_policy) {
                     // TODO: replace with a global constant
                     val url = "https://scp-one.web.app/privacy-policy"
                     activity?.pushWebView(url)
                 },
-                ListOption("Licenses", R.drawable.ic_receipt) {}
+                ListOption("Licenses", R.drawable.ic_receipt) {
+                    navMan.pushFragment(DependenciesFragment())
+                }
             )
         )
     )

@@ -94,13 +94,20 @@ class AuthService @Inject constructor(
             return@withContext Result.success("Bearer ${accessInfo.accessToken}")
         }
 
-        val result = refresh(accessInfo)
-        val newAccessInfo = when (result.isFailure) {
-            true -> throw result.exceptionOrNull()!!
-            else -> result.getOrNull()!!
-        }
+        Timber.e("refreshing with $accessInfo")
+        try {
+            val result = refresh(accessInfo)
+            val newAccessInfo = when (result.isFailure) {
+                true -> throw result.exceptionOrNull()!!
+                else -> result.getOrNull()!!
+            }
 
-        authMan.didRefresh(newAccessInfo)
-        Result.success("Bearer ${newAccessInfo.accessToken}")
+            Timber.e("did refresh $newAccessInfo")
+            authMan.didRefresh(newAccessInfo)
+            Result.success("Bearer ${newAccessInfo.accessToken}")
+        } catch (e: Throwable) {
+            Timber.e(e)
+            Result.failure(e)
+        }
     }
 }
