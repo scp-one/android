@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="72dp"
+        android:fillViewport="true"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false" >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacingRegular"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/fragment_edit_profile_avatar_image_view"
+                            android:layout_width="@dimen/sizeAvatarHeader"
+                            android:layout_height="@dimen/sizeAvatarHeader"
+                            tools:src="@drawable/ic_header_astronaut"/>
+
+                    </LinearLayout>
+
+                    <include android:id="@+id/fragment_edit_profile_edit_text_nickname"
+                        layout="@layout/layout_edit_text_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular" />
+
+                    <include android:id="@+id/fragment_edit_profile_edit_text_username"
+                        layout="@layout/layout_edit_text_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/layout_edit_profile_edit_email_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular"
+                        android:padding="@dimen/spacingSmallPlus"
+                        android:drawablePadding="@dimen/spacingSmallPlus"
+                        app:drawableTint="?attr/themeColorFontTextFieldText"
+                        android:drawableStart="@drawable/ic_email"
+                        android:drawableEnd="@drawable/ic_chevron_right"
+                        android:text="@string/layout_edit_text_email_hint"
+                        android:textSize="?attr/themeFontSizeBody"
+                        android:fontFamily="?attr/themeFontFamilyRegular"
+                        android:textColor="?attr/themeColorFontTextFieldHint"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="@drawable/ripple_edit_text"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/layout_edit_profile_edit_password_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular"
+                        android:padding="@dimen/spacingSmallPlus"
+                        android:drawablePadding="@dimen/spacingSmallPlus"
+                        app:drawableTint="?attr/themeColorFontTextFieldText"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawableEnd="@drawable/ic_chevron_right"
+                        android:text="@string/layout_edit_text_password_hint"
+                        android:textSize="?attr/themeFontSizeBody"
+                        android:fontFamily="?attr/themeFontFamilyRegular"
+                        android:textColor="?attr/themeColorFontTextFieldHint"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="@drawable/ripple_edit_text"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

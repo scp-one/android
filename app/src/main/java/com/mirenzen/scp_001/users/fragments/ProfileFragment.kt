@@ -110,7 +110,9 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
                     }
                 },
                 ListOption("Send Feedback", R.drawable.ic_feedback) {
-
+                    // TODO: replace with a global constant
+                    val url = "https://scp-one.web.app/feedback"
+                    activity?.pushWebView(url)
                 },
                 ListOption("Privacy Policy", R.drawable.ic_policy) {
                     // TODO: replace with a global constant
@@ -223,7 +225,11 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
         index: Int,
         view: View?
     ) {
-        Timber.d("handling profile header layout event")
+        when (event) {
+            ProfileFragmentHeaderLayout.EventType.ContainerTap -> {
+                viewModel.user?.let { navMan.pushFragment(EditProfileFragment(it)) }
+            }
+        }
     }
 
     override fun handleLayoutEvent(

@@ -5,7 +5,8 @@
     <string name="key_auth_access_token">auth-access-token</string>
     <string name="key_auth_refresh_token">auth-refresh-token</string>
 
-    <string name="layout_edit_text_name_hint">name</string>
+    <string name="layout_edit_text_edit_hint">name</string>
+    <string name="layout_edit_text_nickname_hint">name</string>
     <string name="layout_edit_text_username_hint">username</string>
     <string name="layout_edit_text_email_hint">email</string>
     <string name="layout_edit_text_password_hint">password</string>
