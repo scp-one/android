@@ -72,6 +72,22 @@ class AuthService @Inject constructor(
         }
     }
 
+    suspend fun getEmailUpdateMail(email: String): Result<Nothing?> = withContext(Dispatchers.IO) {
+        try {
+            val result = getAccessTokenAsBearer()
+            val accessToken = when (result.isFailure) {
+                true -> throw result.exceptionOrNull()!!
+                else -> result.getOrNull()!!
+            }
+
+            authServiceApi.getEmailUpdateMail(accessToken, email).await()
+            Result.success(null)
+        } catch (e: Throwable) {
+            Timber.e(e)
+            apiErrorHandler.handleError(e)
+        }
+    }
+
     suspend fun getPasswordUpdateMail(email: String): Result<Nothing?> = withContext(Dispatchers.IO) {
         try {
             authServiceApi.getPasswordUpdateMail(email).await()

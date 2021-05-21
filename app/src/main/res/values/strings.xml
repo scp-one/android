@@ -23,12 +23,17 @@
     <string name="fragment_register_button_login_text">Swipe</string>
     <string name="fragment_register_button_register_text">Register</string>
 
+    <string name="fragment_email_update_text_view_request_hint">Enter your new email and instructions will be sent</string>
+    <string name="fragment_email_update_button_request_text">Request</string>
+
     <string name="fragment_pass_update_text_view_request_hint">Enter your email and a new access card will be sent</string>
     <string name="fragment_pass_update_button_request_text">Request</string>
 
     <string name="menu_fragment_scps_more_title">More</string>
     <string name="menu_fragment_profile_more_title">More</string>
+    <string name="menu_fragment_edit_profile_save_title">Save</string>
     <string name="menu_fragment_user_editor_send_title">Save Changes</string>
 
+    <string name="alert_email_update_sent">Please check your new email to complete the update.</string>
     <string name="alert_pass_update_sent">Your new card has been sent to your email address.</string>
 </resources>

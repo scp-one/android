@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/spacingFormHeaderImage"
+                android:paddingEnd="@dimen/spacingFormHeaderImage"
+                android:src="@drawable/ic_header_mail_box"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:contentDescription="todo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:text="@string/fragment_email_update_text_view_request_hint"
+                android:textSize="?attr/themeFontSizeHeadline"
+                android:fontFamily="?attr/themeFontFamilyMedium"
+                android:textColor="?attr/themeColorFontNormal" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacingRegular"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/layout_form_input_flair" />
+
+                    <include android:id="@+id/fragment_email_update_edit_text_email"
+                        layout="@layout/layout_edit_text_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_email_update_button_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:paddingTop="@dimen/spacingRegularPlus"
+                android:paddingBottom="@dimen/spacingRegularPlus"
+                android:text="@string/fragment_email_update_button_request_text"
+                android:textSize="?attr/themeFontSizeBody"
+                android:fontFamily="?attr/themeFontFamilyMedium"
+                android:textColor="?attr/themeColorFontNormal"
+                android:textAllCaps="false"
+                android:background="@drawable/ripple_button" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

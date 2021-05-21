@@ -34,7 +34,7 @@ class ProfileFragmentHeaderLayout(
         }
     }
 
-    override suspend fun bind(item: User?) {
+    override fun bind(item: User?) {
         if (item == null) return
 
         binding.layoutHeaderFragmentProfileTextViewNickname.setTextAsync(item.nickname)

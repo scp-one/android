@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_fragment_edit_profile_save"
+        android:icon="@drawable/ic_save"
+        app:iconTint="?attr/themeColorFontDim"
+        android:title="@string/menu_fragment_edit_profile_save_title"
+        app:showAsAction="always" />
+
+</menu>

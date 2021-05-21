@@ -31,7 +31,7 @@ class DependencyLayout(
         }
     }
 
-    override suspend fun bind(item: Dependency) {
+    override fun bind(item: Dependency) {
         binding.layoutDependencyName.setTextAsync(item.name)
         binding.layoutDependencyUrl.setTextAsync(item.url)
     }

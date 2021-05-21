@@ -32,6 +32,12 @@ interface AuthServiceApi {
         @Query("email") email: String
     ): Call<Void?>
 
+    @GET("auth/email")
+    fun getEmailUpdateMail(
+        @Header("Authorization") accessToken: String,
+        @Query("email") email: String
+    ): Call<Void?>
+
     @GET("auth/password")
     fun getPasswordUpdateMail(
         @Query("email") email: String

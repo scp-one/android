@@ -227,7 +227,9 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
     ) {
         when (event) {
             ProfileFragmentHeaderLayout.EventType.ContainerTap -> {
-                viewModel.user?.let { navMan.pushFragment(EditProfileFragment(it)) }
+                viewModel.user?.let {
+                    navMan.pushFragment(EditProfileFragment(it), hideNavBar = true)
+                }
             }
         }
     }

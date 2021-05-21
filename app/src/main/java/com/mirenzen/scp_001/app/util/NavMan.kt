@@ -1,5 +1,6 @@
 package com.mirenzen.scp_001.app.util
 
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -32,6 +33,7 @@ class NavMan @Inject constructor() {
         NavTabs.TAB3 to mutableListOf(),
         NavTabs.TAB4 to mutableListOf()
     )
+    private val presentedTags = mutableSetOf<String>()
 
     var isLocked = false
     private var activeTab: NavTabs = NavTabs.TAB1
@@ -62,7 +64,7 @@ class NavMan @Inject constructor() {
         navBar.selectedItemId = navBar.menu.getItem(0).itemId
     }
 
-    fun pushFragment(fragment: Fragment, animate: Boolean = true) {
+    fun pushFragment(fragment: Fragment, hideNavBar: Boolean = false, animate: Boolean = true) {
         if (isLocked) { return }
         val activeStack = stacks[activeTab] ?: return
 
@@ -78,6 +80,12 @@ class NavMan @Inject constructor() {
 
         activeStack.add(tag)
         configureActionBar()
+        if (hideNavBar) {
+            navBar.visibility = View.GONE
+            presentedTags.add(tag)
+        } else {
+            navBar.visibility = View.VISIBLE
+        }
     }
 
     fun popFragment() {
@@ -103,6 +111,11 @@ class NavMan @Inject constructor() {
         t.commit()
 
         configureActionBar()
+        presentedTags.remove(poppedFragmentTag)
+        navBar.visibility = when (presentedTags.contains(previousFragment.tag)) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
     }
 
     fun switchTo(newTab: NavTabs) {
@@ -134,6 +147,10 @@ class NavMan @Inject constructor() {
 
         activeTab = newTab
         configureActionBar()
+        navBar.visibility = when (presentedTags.contains(activeFragmentTag)) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
     }
 
     private fun popAllFragments() {
@@ -149,6 +166,7 @@ class NavMan @Inject constructor() {
         for (tag in poppedFragmentTags) {
             val fragment = fragMan.findFragmentByTag(tag) ?: continue
             t.remove(fragment)
+            presentedTags.remove(tag)
         }
         t.commit()
 
@@ -160,6 +178,10 @@ class NavMan @Inject constructor() {
             .commit()
 
         configureActionBar()
+        navBar.visibility = when (presentedTags.contains(activeFragmentTag)) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
     }
 
     private fun configureActionBar() {

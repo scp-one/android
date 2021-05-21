@@ -6,11 +6,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="72dp"
         android:fillViewport="true"
+        android:overScrollMode="never"
         android:background="?attr/themeColorPrimary">
 
         <LinearLayout
+            android:id="@+id/fragment_edit_profile_view_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -20,7 +21,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacingRegular"
                 app:cardElevation="@dimen/defaultCardElevation"
                 app:cardCornerRadius="@dimen/defaultCornerRadius"
                 app:cardBackgroundColor="?attr/themeColorPrimaryLight">
@@ -50,52 +50,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular" />
-
-                    <include android:id="@+id/fragment_edit_profile_edit_text_username"
-                        layout="@layout/layout_edit_text_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacingRegular" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/layout_edit_profile_edit_email_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacingRegular"
-                        android:padding="@dimen/spacingSmallPlus"
-                        android:drawablePadding="@dimen/spacingSmallPlus"
-                        app:drawableTint="?attr/themeColorFontTextFieldText"
-                        android:drawableStart="@drawable/ic_email"
-                        android:drawableEnd="@drawable/ic_chevron_right"
-                        android:text="@string/layout_edit_text_email_hint"
-                        android:textSize="?attr/themeFontSizeBody"
-                        android:fontFamily="?attr/themeFontFamilyRegular"
-                        android:textColor="?attr/themeColorFontTextFieldHint"
-                        android:lines="1"
-                        android:ellipsize="end"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="@drawable/ripple_edit_text"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/layout_edit_profile_edit_password_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacingRegular"
-                        android:padding="@dimen/spacingSmallPlus"
-                        android:drawablePadding="@dimen/spacingSmallPlus"
-                        app:drawableTint="?attr/themeColorFontTextFieldText"
-                        android:drawableStart="@drawable/ic_lock"
-                        android:drawableEnd="@drawable/ic_chevron_right"
-                        android:text="@string/layout_edit_text_password_hint"
-                        android:textSize="?attr/themeFontSizeBody"
-                        android:fontFamily="?attr/themeFontFamilyRegular"
-                        android:textColor="?attr/themeColorFontTextFieldHint"
-                        android:lines="1"
-                        android:ellipsize="end"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="@drawable/ripple_edit_text"/>
 
                 </LinearLayout>
 
