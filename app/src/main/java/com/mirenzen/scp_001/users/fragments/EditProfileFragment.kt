@@ -1,33 +1,26 @@
 package com.mirenzen.scp_001.users.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
 import androidx.lifecycle.coroutineScope
 import com.mirenzen.scp_001.R
 import com.mirenzen.scp_001.app.activities.MainActivity
-import com.mirenzen.scp_001.app.extensions.getView
 import com.mirenzen.scp_001.app.extensions.makeToast
 import com.mirenzen.scp_001.app.fragments.BaseFragment
-import com.mirenzen.scp_001.app.interfaces.BindableView
 import com.mirenzen.scp_001.app.layouts.ListOptionSectionLayout
 import com.mirenzen.scp_001.app.objects.ListOption
 import com.mirenzen.scp_001.app.objects.ListOptionSection
 import com.mirenzen.scp_001.app.util.Kairos
 import com.mirenzen.scp_001.app.util.NavMan
-import com.mirenzen.scp_001.auth.dtos.AuthCredentialsDto
 import com.mirenzen.scp_001.auth.fragments.EmailUpdateFragment
 import com.mirenzen.scp_001.auth.fragments.PassUpdateFragment
 import com.mirenzen.scp_001.auth.util.AuthMan
 import com.mirenzen.scp_001.databinding.FragmentEditProfileBinding
-import com.mirenzen.scp_001.databinding.LayoutHeaderFragmentProfileBinding
 import com.mirenzen.scp_001.databinding.LayoutListOptionSectionBinding
 import com.mirenzen.scp_001.users.UsersService
 import com.mirenzen.scp_001.users.dtos.EditUserDto
-import com.mirenzen.scp_001.users.layouts.ProfileFragmentHeaderLayout
 import com.mirenzen.scp_001.users.models.User
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -77,6 +70,9 @@ class EditProfileFragment(private val user: User) : BaseFragment<FragmentEditPro
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {
         super.configureView(view, savedInstanceState)
+        binding.fragmentEditProfileAvatarImageView.setOnClickListener {
+            didTapImageAvatar()
+        }
         binding.fragmentEditProfileEditTextNickname.layoutEditTextNickname.setText(user.nickname)
 
         val container = binding.fragmentEditProfileViewContainer
@@ -90,6 +86,10 @@ class EditProfileFragment(private val user: User) : BaseFragment<FragmentEditPro
             .default(R.drawable.ic_header_scientist)
             .scale(480, 480)
             .into(binding.fragmentEditProfileAvatarImageView)
+    }
+
+    private fun didTapImageAvatar() {
+        Timber.d("tapped avatar image")
     }
 
     private fun didTapMenuSave() {
