@@ -90,7 +90,7 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
             )
         ),
         ListOptionSection(
-            "MORE",
+            "SUPPORT",
             listOf(
                 ListOption("Rate Our App", R.drawable.ic_rate) {
                     val reviewManager = activity?.let { ReviewManagerFactory.create(it) }
@@ -113,10 +113,20 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
                     // TODO: replace with a global constant
                     val url = "https://scp-one.web.app/feedback"
                     activity?.pushWebView(url)
-                },
+                }
+            )
+        ),
+        ListOptionSection(
+            "MORE",
+            listOf(
                 ListOption("Privacy Policy", R.drawable.ic_policy) {
                     // TODO: replace with a global constant
                     val url = "https://scp-one.web.app/privacy-policy"
+                    activity?.pushWebView(url)
+                },
+                ListOption("Terms of Service", R.drawable.ic_profile) {
+                    // TODO: replace with a global constant
+                    val url = "https://scp-one.web.app/terms-of-service"
                     activity?.pushWebView(url)
                 },
                 ListOption("Licenses", R.drawable.ic_receipt) {

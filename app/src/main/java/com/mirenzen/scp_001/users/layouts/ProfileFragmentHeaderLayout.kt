@@ -41,7 +41,7 @@ class ProfileFragmentHeaderLayout(
         binding.layoutHeaderFragmentProfileTextViewUsername.setTextAsync("@${item.username}")
         kairos.load(item.avatarUrl)
             .scale(480, 480)
-            .default(R.drawable.ic_header_viking)
+            .default(R.drawable.ic_header_scientist)
             .into(binding.layoutHeaderFragmentProfileImageAvatar)
     }
 }
