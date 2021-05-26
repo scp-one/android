@@ -51,4 +51,30 @@
     <color name="lightThemeColorTextField">#DCD3BA</color>
     <color name="lightThemeColorTextFieldHighlighted">#1A1C23</color>
     <color name="lightThemeColorNavBar">#FDF6E3</color>
+
+    <!-- NESSIE THEME -->
+    <!-- primaries -->
+    <color name="nessieThemeColorPrimaryLight">#222532</color>
+    <color name="nessieThemeColorPrimary">#1B1D28</color>
+    <color name="nessieThemeColorPrimaryDark">#15171E</color>
+
+    <!-- buttons -->
+    <color name="nessieThemeColorBtnHighlightedBorderless">#25FFFFFF</color>
+    <color name="nessieThemeColorBtnHighlighted">#3597fb</color>
+    <color name="nessieThemeColorBtnNormal">#688CCA</color>
+    <color name="nessieThemeColorBtnCancel">#e24f48</color>
+    <color name="nessieThemeColorBtnNavBarActive">#688CCA</color>
+    <color name="nessieThemeColorBtnNavBarInactive">#66686E</color>
+
+    <!-- fonts -->
+    <color name="nessieThemeColorFontBright">#2c94ff</color>
+    <color name="nessieThemeColorFontNormal">#E5E3D2</color>
+    <color name="nessieThemeColorFontDim">#C6C5B7</color>
+    <color name="nessieThemeColorFontTextFieldText">#424242</color>
+    <color name="nessieThemeColorFontTextFieldHint">#767676</color>
+
+    <!-- interface elements -->
+    <color name="nessieThemeColorTextField">#C6C7C1</color>
+    <color name="nessieThemeColorTextFieldHighlighted">#767676</color>
+    <color name="nessieThemeColorNavBar">#1B1D28</color>
 </resources>

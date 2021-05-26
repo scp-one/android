@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- NESSIE THEME -->
+    <style name="Theme.Nessie" parent="Theme.Base">
+        <!-- colors - primaries -->
+        <item name="themeColorPrimaryLight">@color/nessieThemeColorPrimaryLight</item>
+        <item name="themeColorPrimary">@color/nessieThemeColorPrimary</item>
+        <item name="themeColorPrimaryDark">@color/nessieThemeColorPrimary</item>
+        <!-- colors - buttons -->
+        <item name="themeColorBtnHighlightedBorderless">@color/nessieThemeColorBtnHighlightedBorderless</item>
+        <item name="themeColorBtnHighlighted">@color/nessieThemeColorBtnHighlighted</item>
+        <item name="themeColorBtnNormal">@color/nessieThemeColorBtnNormal</item>
+        <item name="themeColorBtnCancel">@color/nessieThemeColorBtnCancel</item>
+        <item name="themeColorBtnNavBarActive">@color/nessieThemeColorBtnNavBarActive</item>
+        <item name="themeColorBtnNavBarInactive">@color/nessieThemeColorBtnNavBarInactive</item>
+        <!-- colors - fonts -->
+        <item name="themeColorFontBright">@color/nessieThemeColorFontBright</item>
+        <item name="themeColorFontNormal">@color/nessieThemeColorFontNormal</item>
+        <item name="themeColorFontDim">@color/nessieThemeColorFontDim</item>
+        <item name="themeColorFontTextFieldText">@color/nessieThemeColorFontTextFieldText</item>
+        <item name="themeColorFontTextFieldHint">@color/nessieThemeColorFontTextFieldHint</item>
+        <!-- colors - interface elements -->
+        <item name="themeColorTextField">@color/nessieThemeColorTextField</item>
+        <item name="themeColorTextFieldHighlighted">@color/nessieThemeColorTextFieldHighlighted</item>
+        <item name="themeColorNavBar">@color/nessieThemeColorNavBar</item>
+
+        <!-- android elements -->
+        <item name="android:statusBarColor">@color/nessieThemeColorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/nessieThemeColorNavBar</item>
+    </style>
+
+    <!-- FONT SIZES -->
+    <style name="Theme.Nessie.FontSmall" parent="Theme.Nessie">
+        <item name="themeFontSizeSub">@dimen/fontSizeSmallSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeSmallBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeSmallHeadline</item>
+    </style>
+
+    <style name="Theme.Nessie.FontRegular" parent="Theme.Nessie">
+        <item name="themeFontSizeSub">@dimen/fontSizeRegularSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeRegularBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeRegularHeadline</item>
+    </style>
+
+    <style name="Theme.Nessie.FontLarge" parent="Theme.Nessie">
+        <item name="themeFontSizeSub">@dimen/fontSizeLargeSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeLargeBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeLargeHeadline</item>
+    </style>
+</resources>

@@ -8,9 +8,7 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.mirenzen.scp_001.R
 import com.mirenzen.scp_001.app.enums.MemTrimLevel
-import com.mirenzen.scp_001.app.util.Kairos
-import com.mirenzen.scp_001.app.util.NavMan
-import com.mirenzen.scp_001.app.util.Stash
+import com.mirenzen.scp_001.app.util.*
 import com.mirenzen.scp_001.auth.fragments.LoginFragment
 import com.mirenzen.scp_001.auth.util.AuthMan
 import com.mirenzen.scp_001.databinding.ActivityMainBinding
@@ -29,6 +27,8 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     lateinit var kairos: Kairos
     @Inject
     lateinit var stash: Stash
+    @Inject
+    lateinit var preferences: Preferences
 
     // view properties
     private lateinit var binding: ActivityMainBinding
@@ -51,7 +51,8 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     }
 
     private fun configureTheme() {
-        setTheme(R.style.Theme_Dark_FontRegular)
+//        setTheme(R.style.Theme_Dark_FontRegular)
+        setTheme(preferences.theme.resId(preferences.fontSize))
     }
 
     private fun configureNavMan() {
