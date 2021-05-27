@@ -1,5 +1,6 @@
 package com.mirenzen.scp_001.app.layouts
 
+import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.mirenzen.scp_001.R
@@ -7,6 +8,7 @@ import com.mirenzen.scp_001.app.extensions.setTextAsync
 import com.mirenzen.scp_001.app.interfaces.BindableView
 import com.mirenzen.scp_001.app.objects.ListOption
 import com.mirenzen.scp_001.app.objects.ListOptionSection
+import com.mirenzen.scp_001.databinding.LayoutListOptionBinding
 import com.mirenzen.scp_001.databinding.LayoutListOptionSectionBinding
 
 class ListOptionSectionLayout(
@@ -27,18 +29,20 @@ class ListOptionSectionLayout(
         }
     }
 
+    var sectionIndex: Int? = null
+
     init {
         binding.option0.layoutListOptionTextView.setOnClickListener {
-            listener?.handleLayoutEvent(EventType.ContainerTap, adapterPosition, 0)
+            listener?.handleLayoutEvent(EventType.ContainerTap, sectionIndex ?: adapterPosition, 0)
         }
         binding.option1.layoutListOptionTextView.setOnClickListener {
-            listener?.handleLayoutEvent(EventType.ContainerTap, adapterPosition, 1)
+            listener?.handleLayoutEvent(EventType.ContainerTap, sectionIndex ?: adapterPosition, 1)
         }
         binding.option2.layoutListOptionTextView.setOnClickListener {
-            listener?.handleLayoutEvent(EventType.ContainerTap, adapterPosition, 2)
+            listener?.handleLayoutEvent(EventType.ContainerTap, sectionIndex ?: adapterPosition, 2)
         }
         binding.option3.layoutListOptionTextView.setOnClickListener {
-            listener?.handleLayoutEvent(EventType.ContainerTap, adapterPosition, 3)
+            listener?.handleLayoutEvent(EventType.ContainerTap, sectionIndex ?: adapterPosition, 3)
         }
     }
 

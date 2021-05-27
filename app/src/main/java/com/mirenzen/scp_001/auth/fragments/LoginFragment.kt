@@ -47,11 +47,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     private fun didTapButtonForgotPassword() {
-        navMan.pushFragment(PassUpdateFragment())
+        navMan.pushFragment(PassUpdateFragment(), true)
     }
 
     private fun didTapButtonRegister() {
-        navMan.pushFragment(RegisterFragment())
+        navMan.pushFragment(RegisterFragment(), true)
     }
 
     private fun didTapButtonLogin() {

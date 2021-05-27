@@ -43,20 +43,15 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     private fun configureView() {
         configureTheme()
         binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.navBar.visibility = when (authMan.isLoggedIn) {
-            true -> View.VISIBLE
-            else -> View.GONE
-        }
         setContentView(binding.root)
     }
 
     private fun configureTheme() {
-//        setTheme(R.style.Theme_Dark_FontRegular)
         setTheme(preferences.theme.resId(preferences.fontSize))
     }
 
     private fun configureNavMan() {
-        navMan.configure(this, binding.navBar, R.id.main_container)
+        navMan.configure(this, binding.navBar, R.id.main_container, !authMan.isLoggedIn)
         binding.navBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_bar_tab_1 -> navMan.switchTo(NavMan.NavTabs.TAB1)

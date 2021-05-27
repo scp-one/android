@@ -17,7 +17,8 @@ import com.mirenzen.scp_001.app.util.NavMan
 import com.mirenzen.scp_001.auth.fragments.EmailUpdateFragment
 import com.mirenzen.scp_001.auth.fragments.PassUpdateFragment
 import com.mirenzen.scp_001.auth.util.AuthMan
-import com.mirenzen.scp_001.databinding.FragmentEditProfileBinding
+import com.mirenzen.scp_001.databinding.FragmentScrollviewBinding
+import com.mirenzen.scp_001.databinding.LayoutHeaderFragmentEditProfileBinding
 import com.mirenzen.scp_001.databinding.LayoutListOptionSectionBinding
 import com.mirenzen.scp_001.users.UsersService
 import com.mirenzen.scp_001.users.dtos.EditUserDto
@@ -28,7 +29,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class EditProfileFragment(private val user: User) : BaseFragment<FragmentEditProfileBinding>(R.layout.fragment_edit_profile), ListOptionSectionLayout.Listener {
+class EditProfileFragment(private val user: User) : BaseFragment<FragmentScrollviewBinding>(R.layout.fragment_scrollview), ListOptionSectionLayout.Listener {
     // dependency injection
     @Inject
     lateinit var usersService: UsersService
@@ -40,6 +41,7 @@ class EditProfileFragment(private val user: User) : BaseFragment<FragmentEditPro
     lateinit var kairos: Kairos
 
     // view properties
+    lateinit var headerFragmentEditProfileBinding: LayoutHeaderFragmentEditProfileBinding
     val section = ListOptionSection(
         "ACCOUNT SETTINGS",
         listOf(
@@ -70,22 +72,29 @@ class EditProfileFragment(private val user: User) : BaseFragment<FragmentEditPro
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {
         super.configureView(view, savedInstanceState)
-        binding.fragmentEditProfileAvatarImageView.setOnClickListener {
-            didTapImageAvatar()
-        }
-        binding.fragmentEditProfileEditTextNickname.layoutEditTextNickname.setText(user.nickname)
 
-        val container = binding.fragmentEditProfileViewContainer
+        val container = binding.fragmentScrollviewContainer
+        val inflater = LayoutInflater.from(binding.root.context)
+
+        val headerFragmentEditProfileBinding = LayoutHeaderFragmentEditProfileBinding
+            .inflate(inflater, null, false)
+        headerFragmentEditProfileBinding.layoutHeaderEditProfileAvatarImageView
+            .setOnClickListener { didTapImageAvatar() }
+        headerFragmentEditProfileBinding.layoutHeaderEditProfileEditTextNickname
+            .layoutEditTextNickname.setText(user.nickname)
+        container.addView(headerFragmentEditProfileBinding.root)
+
         val sectionBinding = LayoutListOptionSectionBinding
-            .inflate(LayoutInflater.from(binding.root.context), null, false)
-        val sectionLayout = ListOptionSectionLayout(sectionBinding, this)
+            .inflate(inflater, null, false)
+        val sectionLayout = ListOptionSectionLayout(sectionBinding, this@EditProfileFragment)
+        sectionLayout.sectionIndex = 0
         container.addView(sectionLayout.itemView)
         sectionLayout.bind(section)
 
         kairos.load(user.avatarUrl)
             .default(R.drawable.ic_header_scientist)
             .scale(480, 480)
-            .into(binding.fragmentEditProfileAvatarImageView)
+            .into(headerFragmentEditProfileBinding.layoutHeaderEditProfileAvatarImageView)
     }
 
     private fun didTapImageAvatar() {
@@ -93,7 +102,8 @@ class EditProfileFragment(private val user: User) : BaseFragment<FragmentEditPro
     }
 
     private fun didTapMenuSave() {
-        val nickname = binding.fragmentEditProfileEditTextNickname.layoutEditTextNickname.text.toString()
+        val nickname = headerFragmentEditProfileBinding
+            .layoutHeaderEditProfileEditTextNickname.layoutEditTextNickname.text.toString()
 
         if (nickname.isEmpty()) {
             activity?.makeToast("Invalid input.")
