@@ -16,6 +16,8 @@ import com.mirenzen.scp_001.app.activities.MainActivity
 import com.mirenzen.scp_001.app.adapters.PageAdapter
 import com.mirenzen.scp_001.app.enums.MemTrimLevel
 import com.mirenzen.scp_001.app.extensions.*
+import com.mirenzen.scp_001.app.fragments.AppearanceFragment
+import com.mirenzen.scp_001.app.fragments.BehaviorFragment
 import com.mirenzen.scp_001.app.fragments.DependenciesFragment
 import com.mirenzen.scp_001.app.fragments.PageFragment
 import com.mirenzen.scp_001.app.interfaces.BindableView
@@ -64,8 +66,12 @@ class ProfileFragment : PageFragment<ListOptionSection, ProfileFragmentViewModel
         ListOptionSection(
             "APP SETTINGS",
             listOf(
-                ListOption("Appearance", R.drawable.ic_palette) {},
-                ListOption("Behavior", R.drawable.ic_settings) {}
+                ListOption("Appearance", R.drawable.ic_palette) {
+                    navMan.pushFragment(AppearanceFragment())
+                },
+                ListOption("Behavior", R.drawable.ic_settings) {
+                    navMan.pushFragment(BehaviorFragment())
+                }
             )
         ),
         ListOptionSection(

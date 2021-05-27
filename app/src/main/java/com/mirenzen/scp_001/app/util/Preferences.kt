@@ -78,23 +78,46 @@ class Preferences @Inject constructor(
 ) {
     private val sharedPrefs = context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
 
-    var theme: Themes = Themes.find(readString(PrefKey.Theme, Themes.Dark.value))!!
-        set(value) {
-            field = value
-            writeString(PrefKey.Theme, value.value)
-        }
+    var theme: Themes
+        private set
+    var fontSize: FontSizes
+        private set
 
-    var fontSize: FontSizes = FontSizes.find(readString(PrefKey.FontSize, FontSizes.Regular.value))!!
-        set(value) {
-            field = value
-            writeString(PrefKey.FontSize, value.value)
-        }
+    var hideBarOnScroll: Boolean = false
+        private set
 
-    var hideBarOnScroll: Boolean = readBoolean(PrefKey.HideBarOnScroll, false)
-        set(value) {
-            field = value
-            writeBoolean(PrefKey.HideBarOnScroll, value)
+    init {
+        val themeValue = readString(PrefKey.Theme, Themes.Dark.value)
+        theme = Themes.find(themeValue)!!
+
+        val fontSizeValue = readString(PrefKey.FontSize, FontSizes.Regular.value)
+        fontSize = FontSizes.find(fontSizeValue)!!
+
+        hideBarOnScroll = readBoolean(PrefKey.HideBarOnScroll, false)
+    }
+
+    fun set(key: PrefKey, value: Any) {
+        when (key) {
+            PrefKey.Theme -> {
+                if (value is String) {
+                    writeString(key, value)
+                    theme = Themes.find(value) ?: theme
+                }
+            }
+            PrefKey.FontSize -> {
+                if (value is String) {
+                    writeString(key, value)
+                    fontSize = FontSizes.find(value) ?: fontSize
+                }
+            }
+            PrefKey.HideBarOnScroll -> {
+                if (value is Boolean) {
+                    writeBoolean(key, value)
+                    hideBarOnScroll = value
+                }
+            }
         }
+    }
 
     private fun writeString(prefKey: PrefKey, value: String) {
         with (sharedPrefs.edit()) {
@@ -110,11 +133,11 @@ class Preferences @Inject constructor(
         }
     }
 
-    private fun readString(prefKey: PrefKey, default: String): String {
+    fun readString(prefKey: PrefKey, default: String): String {
         return sharedPrefs.getString(prefKey.value, default)!!
     }
 
-    private fun readBoolean(prefKey: PrefKey, default: Boolean): Boolean {
+    fun readBoolean(prefKey: PrefKey, default: Boolean): Boolean {
         return sharedPrefs.getBoolean(prefKey.value, default)
     }
 }

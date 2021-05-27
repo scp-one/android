@@ -6,7 +6,6 @@ import android.view.View
 import com.mirenzen.scp_001.R
 import com.mirenzen.scp_001.app.extensions.makePopupMenu
 import com.mirenzen.scp_001.app.extensions.setTextAsync
-import com.mirenzen.scp_001.app.layouts.ListOptionSectionLayout
 import com.mirenzen.scp_001.app.util.PrefKey
 import com.mirenzen.scp_001.app.util.Preferences
 import com.mirenzen.scp_001.databinding.FragmentScrollviewBinding
@@ -14,24 +13,22 @@ import com.mirenzen.scp_001.databinding.LayoutPreferenceMultiBinding
 import com.mirenzen.scp_001.databinding.LayoutPreferenceToggleBinding
 import com.mirenzen.scp_001.databinding.LayoutTitledSectionCardBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AppearanceFragment : BaseFragment<FragmentScrollviewBinding>(R.layout.fragment_scrollview) {
+class BehaviorFragment : BaseFragment<FragmentScrollviewBinding>(R.layout.fragment_scrollview) {
     // dependency injections
     @Inject
     lateinit var preferences: Preferences
 
     // view properties
     private val prefKeys = listOf(
-        PrefKey.Theme,
-        PrefKey.FontSize
+        PrefKey.HideBarOnScroll
     )
 
     // local functions
     override fun activityTitle(): String {
-        return "Appearance"
+        return "Behavior"
     }
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +38,7 @@ class AppearanceFragment : BaseFragment<FragmentScrollviewBinding>(R.layout.frag
         val inflater = LayoutInflater.from(binding.root.context)
 
         val titledSectionCardBinding = LayoutTitledSectionCardBinding.inflate(inflater, null, false)
-        titledSectionCardBinding.layoutTitledSectionCardTextViewTitle.setTextAsync("USER INTERFACE")
+        titledSectionCardBinding.layoutTitledSectionCardTextViewTitle.setTextAsync("APP BEHAVIOR")
 
         for (prefKey in prefKeys) {
             val listedValues = prefKey.listedValues()
