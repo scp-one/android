@@ -41,8 +41,7 @@ class AuthService @Inject constructor(
 
     suspend fun logout(authAccessInfo: AuthAccessInfo): Result<Nothing?> = withContext(Dispatchers.IO) {
         try {
-            val accessToken = "Bearer ${authAccessInfo.accessToken}"
-            authServiceApi.logout(accessToken, authAccessInfo).await()
+            authServiceApi.logout(authAccessInfo).await()
             Result.success(null)
         } catch (e: Throwable) {
             Timber.e(e)

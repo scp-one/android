@@ -18,7 +18,6 @@ interface AuthServiceApi {
 
     @POST("auth/logout")
     fun logout(
-        @Header("Authorization") accessToken: String,
         @Body authAccessInfo: AuthAccessInfo
     ): Call<Void?>
 
