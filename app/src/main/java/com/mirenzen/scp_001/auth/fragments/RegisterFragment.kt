@@ -60,17 +60,16 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
         val dto = AuthCredentialsDto(usern, email, passw)
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            val result = authService.register(dto)
-            (activity as? MainActivity)?.lockUI(false)
-
-            if (result.isFailure) {
-                activity?.makeToast(result.exceptionOrNull()!!.message)
-            } else {
-                val accessInfo = result.getOrNull()!!
+            try {
+                val accessInfo = authService.register(dto)
+                (activity as? MainActivity)?.lockUI(false)
                 authMan.didLogin(accessInfo)
                 navMan.reset()
                 startActivity(Intent(context, MainActivity::class.java))
                 activity?.finish()
+            } catch (e: Throwable) {
+                (activity as? MainActivity)?.lockUI(false)
+                activity?.makeToast(e.message)
             }
         }
     }

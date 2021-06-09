@@ -19,64 +19,40 @@ class UsersService @Inject constructor(
     private val json: Json,
     private val apiErrorHandler: ApiErrorHandler
 ) {
-    suspend fun getUsers(filterDto: GetUsersFilterDto): Result<List<User>> = withContext(Dispatchers.IO) {
+    @Throws
+    suspend fun getUsers(filterDto: GetUsersFilterDto): List<User> = withContext(Dispatchers.IO) {
         try {
-            val result = authService.getAccessTokenAsBearer()
-            val accessToken = when (result.isFailure) {
-                true -> throw result.exceptionOrNull()!!
-                else -> result.getOrNull()!!
-            }
-
+            val accessToken = authService.getAccessTokenAsBearer()
             val queries = json.decodeFromString<Map<String, String>>(filterDto.toString())
-            when (val users = usersServiceApi.getUsers(accessToken, queries).await()) {
-                null -> Result.failure(Throwable("An error occurred while getting users."))
-                else -> Result.success(users)
-            }
+            val users = usersServiceApi.getUsers(accessToken, queries).await()
+            users
         } catch (e: Throwable) {
             Timber.e(e)
-            apiErrorHandler.handleError(e)
+            apiErrorHandler.throwApiError(e)
         }
     }
 
-    suspend fun getUserByUsername(username: String): Result<User> = withContext(Dispatchers.IO) {
+    @Throws
+    suspend fun getUserByUsername(username: String): User = withContext(Dispatchers.IO) {
         try {
-            Timber.e("getting access token for username request")
-            val result = authService.getAccessTokenAsBearer()
-            Timber.e("done getting refresh token")
-            val accessToken = when (result.isFailure) {
-                true -> throw result.exceptionOrNull()!!
-                else -> result.getOrNull()!!
-            }
-            Timber.e("got here")
-
-            when (val user = usersServiceApi.getUserByUsername(accessToken, username).await()) {
-                null -> Result.failure(Throwable("An error occurred while getting user."))
-                else -> Result.success(user)
-            }
+            val accessToken = authService.getAccessTokenAsBearer()
+            val user = usersServiceApi.getUserByUsername(accessToken, username).await()
+            user
         } catch (e: Throwable) {
             Timber.e(e)
-            apiErrorHandler.handleError(e)
+            apiErrorHandler.throwApiError(e)
         }
     }
 
-    suspend fun editUser(
-        username: String,
-        editUserDto: EditUserDto
-    ): Result<User> = withContext(Dispatchers.IO) {
+    @Throws
+    suspend fun editUser(username: String, editUserDto: EditUserDto): User = withContext(Dispatchers.IO) {
         try {
-            val result = authService.getAccessTokenAsBearer()
-            val accessToken = when (result.isFailure) {
-                true -> throw result.exceptionOrNull()!!
-                else -> result.getOrNull()!!
-            }
-
-            when (val user = usersServiceApi.editUser(accessToken, username, editUserDto).await()) {
-                null -> Result.failure(Throwable("An error occurred while editing user."))
-                else -> Result.success(user)
-            }
+            val accessToken = authService.getAccessTokenAsBearer()
+            val user = usersServiceApi.editUser(accessToken, username, editUserDto).await()
+            user
         } catch (e: Throwable) {
             Timber.e(e)
-            apiErrorHandler.handleError(e)
+            apiErrorHandler.throwApiError(e)
         }
     }
 }

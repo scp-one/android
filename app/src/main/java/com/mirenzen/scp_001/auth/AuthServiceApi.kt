@@ -9,12 +9,12 @@ interface AuthServiceApi {
     @POST("auth/register")
     fun register(
         @Body authCredentialsDto: AuthCredentialsDto
-    ): Call<AuthAccessInfo?>
+    ): Call<AuthAccessInfo>
 
     @POST("auth/login")
     fun login(
         @Body authCredentialsDto: AuthCredentialsDto
-    ): Call<AuthAccessInfo?>
+    ): Call<AuthAccessInfo>
 
     @POST("auth/logout")
     fun logout(
@@ -24,7 +24,7 @@ interface AuthServiceApi {
     @POST("auth/refresh")
     fun refresh(
         @Body authAccessInfo: AuthAccessInfo
-    ): Call<AuthAccessInfo?>
+    ): Call<AuthAccessInfo>
 
     @GET("auth/verify")
     fun getVerifyEmailMail(

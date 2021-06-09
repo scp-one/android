@@ -114,13 +114,13 @@ class EditProfileFragment(private val user: User) : BaseFragment<FragmentScrollv
         val dto = EditUserDto(nickname, null, null)
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            val result = usersService.editUser(user.username, dto)
-            (activity as? MainActivity)?.lockUI(false)
-
-            if (result.isFailure) {
-                activity?.makeToast(result.exceptionOrNull()!!.message)
-            } else {
+            try {
+                val updatedUser = usersService.editUser(user.username, dto)
+                (activity as? MainActivity)?.lockUI(false)
                 activity?.makeToast("Updated.")
+            } catch (e: Throwable) {
+                (activity as? MainActivity)?.lockUI(false)
+                activity?.makeToast(e.message)
             }
         }
     }

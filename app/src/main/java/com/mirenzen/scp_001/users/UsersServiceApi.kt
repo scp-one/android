@@ -11,18 +11,18 @@ interface UsersServiceApi {
     fun getUsers(
         @Header("Authorization") accessToken: String,
         @QueryMap filterDto: Map<String, String>
-    ): Call<List<User>?>
+    ): Call<List<User>>
 
     @GET("users/{username}")
     fun getUserByUsername(
         @Header("Authorization") accessToken: String,
         @Path("username") username: String
-    ): Call<User?>
+    ): Call<User>
 
     @PATCH("users/{username}")
     fun editUser(
         @Header("Authorization") accessToken: String,
         @Path("username") username: String,
         @Body editUserDto: EditUserDto
-    ): Call<User?>
+    ): Call<User>
 }

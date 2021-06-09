@@ -20,16 +20,19 @@ class ProfileFragmentViewModel @Inject constructor(
         private set
 
     override suspend fun paginate(refresh: Boolean): Result<Nothing?> = withContext(Dispatchers.IO) {
+        var result: Result<Nothing?>
         state = PageState.Fetching
-        val result = usersService.getUserByUsername(authMan.payload?.username ?: "")
-        state = PageState.Bottom
 
-        when (result.isFailure) {
-            true -> Result.failure(result.exceptionOrNull()!!)
-            else -> {
-                user = result.getOrNull()
-                Result.success(null)
-            }
+        try {
+            val username = authMan.payload?.username ?: ""
+            val _user = usersService.getUserByUsername(username)
+            user = _user
+            result = Result.success(null)
+        } catch (e: Throwable) {
+            result = Result.failure(e)
         }
+
+        state = PageState.Bottom
+        result
     }
 }

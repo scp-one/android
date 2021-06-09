@@ -67,17 +67,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         val dto = AuthCredentialsDto(null, email, passw)
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            val result = authService.login(dto)
-            (activity as? MainActivity)?.lockUI(false)
-
-            if (result.isFailure) {
-                activity?.makeToast(result.exceptionOrNull()!!.message)
-            } else {
-                val accessInfo = result.getOrNull()!!
+            try {
+                val accessInfo = authService.login(dto)
+                (activity as? MainActivity)?.lockUI(false)
                 authMan.didLogin(accessInfo)
                 navMan.reset()
                 startActivity(Intent(context, MainActivity::class.java))
                 activity?.finish()
+            } catch (e: Throwable) {
+                (activity as? MainActivity)?.lockUI(false)
+                activity?.makeToast(e.message)
             }
         }
     }

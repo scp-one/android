@@ -45,14 +45,14 @@ class PassUpdateFragment : BaseFragment<FragmentPassUpdateBinding>(R.layout.frag
         (activity as? MainActivity)?.lockUI(true)
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            val result = authService.getPasswordUpdateMail(email)
-            (activity as? MainActivity)?.lockUI(false)
-
-            if (result.isFailure) {
-                activity?.makeToast(result.exceptionOrNull()!!.message)
-            } else {
+            try {
+                authService.getPasswordUpdateMail(email)
+                (activity as? MainActivity)?.lockUI(false)
                 activity?.makeToast(getString(R.string.alert_pass_update_sent))
                 navMan.popFragment()
+            } catch (e: Throwable) {
+                (activity as? MainActivity)?.lockUI(false)
+                activity?.makeToast(e.message)
             }
         }
     }

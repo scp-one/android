@@ -12,11 +12,12 @@ import javax.inject.Inject
 class ApiErrorHandler @Inject constructor(
     private val json: Json
 ) {
-    suspend fun <T>handleError(e: Throwable): Result<T> = withContext(Dispatchers.Default) {
+    @Throws
+    suspend fun throwApiError(e: Throwable): Nothing = withContext(Dispatchers.Default) {
         val result = getApiErrorBody(e)
         when (result.isFailure) {
-            true -> Result.failure(e)
-            else -> Result.failure(Throwable(result.getOrNull()?.message.toString()))
+            true -> throw e
+            else -> throw Throwable(result.getOrNull()?.message.toString())
         }
     }
 

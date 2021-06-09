@@ -45,14 +45,14 @@ class EmailUpdateFragment : BaseFragment<FragmentEmailUpdateBinding>(R.layout.fr
         (activity as? MainActivity)?.lockUI(true)
 
         viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            val result = authService.getEmailUpdateMail(email)
-            (activity as? MainActivity)?.lockUI(false)
-
-            if (result.isFailure) {
-                activity?.makeToast(result.exceptionOrNull()!!.message)
-            } else {
+            try {
+                authService.getEmailUpdateMail(email)
+                (activity as? MainActivity)?.lockUI(false)
                 activity?.makeToast(getString(R.string.alert_email_update_sent))
                 navMan.popFragment()
+            } catch (e: Throwable) {
+                (activity as? MainActivity)?.lockUI(false)
+                activity?.makeToast(e.message)
             }
         }
     }
