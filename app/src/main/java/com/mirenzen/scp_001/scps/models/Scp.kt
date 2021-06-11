@@ -15,7 +15,7 @@ data class Scp(
     val classType: ScpClassType,
     val procedures: String? = null,
     val description: String? = null,
-    val addendums: List<Addendum>? = null,
+    val addendums: String? = null,
     val visibility: ScpVisibility,
     val status: ScpStatus,
     val updatedAt: String,
