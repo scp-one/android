@@ -1,0 +1,15 @@
+package com.greenknightlabs.scp_001.users.models
+
+import com.greenknightlabs.scp_001.users.enums.UserAccessLevel
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class User(
+    val id: String,
+    val username: String,
+    val nickname: String,
+    val avatarUrl: String? = null,
+    val accessLevel: UserAccessLevel,
+    val updatedAt: String,
+    val createdAt: String
+)
