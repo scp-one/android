@@ -1,27 +1,36 @@
 package com.greenknightlabs.scp_001.app.fragments
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
 import androidx.annotation.LayoutRes
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import com.greenknightlabs.scp_001.R
 
-open class BaseFragment<T: ViewDataBinding>(@LayoutRes layoutId: Int) : Fragment(layoutId) {
+open class BaseFragment<T: ViewDataBinding>(
+    @LayoutRes layoutId: Int
+) : Fragment(layoutId), MenuProvider {
     // properties
     protected lateinit var binding: T
 
-    private var activityMenu: Menu? = null
+    // functions
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        configureActivityTitleAndMenu()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
-    // local functions
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    private fun configureActivityTitleAndMenu() {
         activity?.title = activityTitle()
-        activityMenu = menu
-        menu.clear()
-        menuId()?.let { inflater.inflate(it, menu) }
-        super.onCreateOptionsMenu(menu, inflater)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,18 +38,7 @@ open class BaseFragment<T: ViewDataBinding>(@LayoutRes layoutId: Int) : Fragment
         configureView(view, savedInstanceState)
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (hidden) { return }
-        activityMenu?.let { menu ->
-            activity?.menuInflater?.let { inflater ->
-                onCreateOptionsMenu(menu, inflater)
-            }
-        }
-    }
-
     protected open fun configureView(view: View, savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
         binding = DataBindingUtil.bind(view)!!
     }
 
@@ -50,5 +48,15 @@ open class BaseFragment<T: ViewDataBinding>(@LayoutRes layoutId: Int) : Fragment
 
     protected open fun menuId(): Int? {
         return null
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuId()?.let {
+            menuInflater.inflate(it, menu)
+        }
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return false
     }
 }

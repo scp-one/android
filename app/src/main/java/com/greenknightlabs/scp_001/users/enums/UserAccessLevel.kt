@@ -9,8 +9,8 @@ import kotlinx.serialization.encoding.Encoder
 
 @Serializable
 enum class UserAccessLevel(val value: Int) {
-    UnverifiedUser(0),
-    VerifiedUser(1),
+    UnverifiedUser(1),
+    VerifiedUser(2),
     Moderator(50),
     Admin(99);
 

@@ -10,29 +10,27 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-
-@HiltViewModel
-class ProfileFragmentViewModel @Inject constructor(
-    private val usersService: UsersService,
-    private val authMan: AuthMan
-) : BaseViewModel<ListOptionSection>() {
-    var user: User? = null
-        private set
-
-    override suspend fun paginate(refresh: Boolean): Result<Nothing?> = withContext(Dispatchers.IO) {
-        var result: Result<Nothing?>
-        state = PageState.Fetching
-
-        try {
-            val username = authMan.payload?.username ?: ""
-            val _user = usersService.getUserByUsername(username)
-            user = _user
-            result = Result.success(null)
-        } catch (e: Throwable) {
-            result = Result.failure(e)
-        }
-
-        state = PageState.Bottom
-        result
-    }
-}
+//
+//@HiltViewModel
+//class ProfileFragmentViewModel @Inject constructor(
+//    private val usersService: UsersService,
+//) : BaseViewModel<ListOptionSection>() {
+//    var user: User? = null
+//        private set
+//
+//    override suspend fun paginate(refresh: Boolean): Result<Nothing?> = withContext(Dispatchers.IO) {
+//        var result: Result<Nothing?>
+//        state = PageState.Fetching
+//
+//        try {
+//            val _user = usersService.getUserFromRequest()
+//            user = _user
+//            result = Result.success(null)
+//        } catch (e: Throwable) {
+//            result = Result.failure(e)
+//        }
+//
+//        state = PageState.Bottom
+//        result
+//    }
+//}

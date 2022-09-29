@@ -8,33 +8,33 @@ import retrofit2.http.*
 
 interface ScpsServiceApi {
     @POST("scps")
-    fun createScp(
+    suspend fun createScp(
         @Header("Authorization") accessToken: String,
         @Body createScpDto: CreateScpDto
-    ): Call<Scp?>
+    ): Scp
 
     @GET("scps")
-    fun getScps(
+    suspend fun getScps(
         @Header("Authorization") accessToken: String,
         @QueryMap filterDto: Map<String, String>
-    ): Call<List<Scp>?>
+    ): List<Scp>
 
     @GET("scps/{id}")
-    fun getScpById(
+    suspend fun getScpById(
         @Header("Authorization") accessToken: String,
         @Path("id") id: String
-    ): Call<Scp?>
+    ): Scp
 
     @PATCH("scps/{id}")
-    fun editScp(
+    suspend fun editScp(
         @Header("Authorization") accessToken: String,
         @Path("id") id: String,
         @Body editScpDto: EditScpDto
-    ): Call<Scp?>
+    ): Scp
 
     @DELETE("scps/{id}")
-    fun deleteScp(
+    suspend fun deleteScp(
         @Header("Authorization") accessToken: String,
         @Path("id") id: String,
-    ): Call<Void?>
+    )
 }

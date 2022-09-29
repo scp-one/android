@@ -7,21 +7,26 @@ import retrofit2.http.*
 
 interface UsersServiceApi {
     @GET("users")
-    fun getUsers(
+    suspend fun getUsers(
         @Header("Authorization") accessToken: String,
         @QueryMap filterDto: Map<String, String>
-    ): Call<List<User>>
+    ): List<User>
 
-    @GET("users/{username}")
-    fun getUserByUsername(
+    @GET("users/me")
+    suspend fun getUserFromRequest(
         @Header("Authorization") accessToken: String,
-        @Path("username") username: String
-    ): Call<User>
+    ): User
 
-    @PATCH("users/{username}")
-    fun editUser(
+    @GET("users/{id}")
+    suspend fun getUserById(
         @Header("Authorization") accessToken: String,
-        @Path("username") username: String,
+        @Path("id") id: String,
+    ): User
+
+    @PATCH("users/{id}")
+    suspend fun editUserById(
+        @Header("Authorization") accessToken: String,
+        @Path("id") id: String,
         @Body editUserDto: EditUserDto
-    ): Call<User>
+    ): User
 }

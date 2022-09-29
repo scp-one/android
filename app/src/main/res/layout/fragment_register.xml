@@ -2,6 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable name="vm" type="com.greenknightlabs.scp_001.auth.fragments.register_fragment.RegisterFragmentViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,19 +58,22 @@
                         layout="@layout/layout_edit_text_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacingRegular" />
+                        android:layout_marginTop="@dimen/spacingRegular"
+                        app:username="@={vm.usern}" />
 
                     <include android:id="@+id/fragment_register_edit_text_email"
                         layout="@layout/layout_edit_text_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacingRegular" />
+                        android:layout_marginTop="@dimen/spacingRegular"
+                        app:email="@={vm.email}" />
 
                     <include android:id="@+id/fragment_register_edit_text_password"
                         layout="@layout/layout_edit_text_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacingRegular" />
+                        android:layout_marginTop="@dimen/spacingRegular"
+                        app:password="@={vm.passw}" />
 
                 </LinearLayout>
 
@@ -84,28 +91,29 @@
                 android:layout_marginTop="@dimen/spacingRegular"
                 android:layout_gravity="center">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fragment_register_text_view_login_hint"
-                    android:textSize="?attr/themeFontSizeBody"
-                    android:fontFamily="?attr/themeFontFamilyRegular"
-                    android:textColor="?attr/themeColorFontDim" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/fragment_register_text_view_login_hint"-->
+<!--                    android:textSize="?attr/themeFontSizeBody"-->
+<!--                    android:fontFamily="?attr/themeFontFamilyRegular"-->
+<!--                    android:textColor="?attr/themeColorFontDim" />-->
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fragment_register_button_login"
+                    android:id="@+id/fragment_register_button_terms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacingSmall"
                     android:padding="@dimen/spacingSmallest"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    android:text="@string/fragment_register_button_login_text"
+                    android:text="@string/fragment_register_button_terms_text"
                     android:textSize="?attr/themeFontSizeBody"
                     android:fontFamily="?attr/themeFontFamilyMedium"
                     android:textColor="?attr/themeColorFontBright"
                     android:textAllCaps="false"
-                    android:background="@drawable/ripple_button_borderless" />
+                    android:background="@drawable/ripple_button_borderless"
+                    android:onClick="@{() -> vm.didTapButtonTermsAndConditions()}" />
 
             </LinearLayout>
 
@@ -121,7 +129,8 @@
                 android:fontFamily="?attr/themeFontFamilyMedium"
                 android:textColor="?attr/themeColorFontNormal"
                 android:textAllCaps="false"
-                android:background="@drawable/ripple_button" />
+                android:background="@drawable/ripple_button"
+                android:onClick="@{() -> vm.didTapButtonRegister()}" />
 
         </LinearLayout>
 

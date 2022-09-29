@@ -19,11 +19,11 @@ class ScpsService @Inject constructor(
     private val apiErrorHandler: ApiErrorHandler
 ) {
     @Throws
-    suspend fun getScps(filterDto: GetUsersFilterDto): List<Scp>? = withContext(Dispatchers.IO) {
+    suspend fun getScps(filterDto: GetUsersFilterDto): List<Scp> = withContext(Dispatchers.IO) {
         try {
             val accessToken = authService.getAccessTokenAsBearer()
             val queries = json.decodeFromString<Map<String, String>>(filterDto.toString())
-            val scps = scpsServiceApi.getScps(accessToken, queries).await()
+            val scps = scpsServiceApi.getScps(accessToken, queries)
             scps
         } catch (e: Throwable) {
             Timber.e(e)

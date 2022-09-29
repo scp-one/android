@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        <import type="kotlin.jvm.functions.Function0"/>
+        <import type="kotlin.Unit"/>
+
+        <variable name="iconId" type="android.graphics.drawable.Drawable" />
+        <variable name="title" type="String" />
+        <variable name="onTapAction" type="Function0&lt;Unit>" />
+    </data>
+    
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/layout_list_option_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/spacingRegular"
@@ -15,5 +24,9 @@
         android:ellipsize="end"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/ripple_button_borderless"/>
+        android:background="@drawable/ripple_button_borderless"
+        android:drawableEnd="@drawable/ic_chevron_right"
+        android:drawableStart="@{iconId}"
+        android:text="@{title}"
+        android:onClick="@{_ -> onTapAction.invoke()}" />
 </layout>

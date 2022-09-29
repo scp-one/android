@@ -3,42 +3,43 @@ package com.greenknightlabs.scp_001.auth
 import com.greenknightlabs.scp_001.auth.objects.AuthAccessInfo
 import com.greenknightlabs.scp_001.auth.dtos.AuthCredentialsDto
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface AuthServiceApi {
     @POST("auth/register")
-    fun register(
+    suspend fun register(
         @Body authCredentialsDto: AuthCredentialsDto
-    ): Call<AuthAccessInfo>
+    ): AuthAccessInfo
 
     @POST("auth/login")
-    fun login(
+    suspend fun login(
         @Body authCredentialsDto: AuthCredentialsDto
-    ): Call<AuthAccessInfo>
+    ): AuthAccessInfo
 
     @POST("auth/logout")
-    fun logout(
+    suspend fun logout(
         @Body authAccessInfo: AuthAccessInfo
-    ): Call<Void?>
+    )
 
     @POST("auth/refresh")
-    fun refresh(
+    suspend fun refresh(
         @Body authAccessInfo: AuthAccessInfo
-    ): Call<AuthAccessInfo>
+    ): AuthAccessInfo
 
     @GET("auth/verify")
-    fun getVerifyEmailMail(
+    suspend fun getVerifyEmailMail(
         @Query("email") email: String
-    ): Call<Void?>
+    )
 
     @GET("auth/email")
-    fun getEmailUpdateMail(
+    suspend fun getEmailUpdateMail(
         @Header("Authorization") accessToken: String,
         @Query("email") email: String
-    ): Call<Void?>
+    )
 
     @GET("auth/password")
-    fun getPasswordUpdateMail(
+    suspend fun getPasswordUpdateMail(
         @Query("email") email: String
-    ): Call<Void?>
+    )
 }

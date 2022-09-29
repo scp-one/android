@@ -24,7 +24,7 @@ class UsersService @Inject constructor(
         try {
             val accessToken = authService.getAccessTokenAsBearer()
             val queries = json.decodeFromString<Map<String, String>>(filterDto.toString())
-            val users = usersServiceApi.getUsers(accessToken, queries).await()
+            val users = usersServiceApi.getUsers(accessToken, queries)
             users
         } catch (e: Throwable) {
             Timber.e(e)
@@ -33,10 +33,10 @@ class UsersService @Inject constructor(
     }
 
     @Throws
-    suspend fun getUserByUsername(username: String): User = withContext(Dispatchers.IO) {
+    suspend fun getUserFromRequest(): User = withContext(Dispatchers.IO) {
         try {
             val accessToken = authService.getAccessTokenAsBearer()
-            val user = usersServiceApi.getUserByUsername(accessToken, username).await()
+            val user = usersServiceApi.getUserFromRequest(accessToken)
             user
         } catch (e: Throwable) {
             Timber.e(e)
@@ -45,10 +45,22 @@ class UsersService @Inject constructor(
     }
 
     @Throws
-    suspend fun editUser(username: String, editUserDto: EditUserDto): User = withContext(Dispatchers.IO) {
+    suspend fun getUserById(id: String): User = withContext(Dispatchers.IO) {
         try {
             val accessToken = authService.getAccessTokenAsBearer()
-            val user = usersServiceApi.editUser(accessToken, username, editUserDto).await()
+            val user = usersServiceApi.getUserById(accessToken, id)
+            user
+        } catch (e: Throwable) {
+            Timber.e(e)
+            apiErrorHandler.throwApiError(e)
+        }
+    }
+
+    @Throws
+    suspend fun editUserById(id: String, editUserDto: EditUserDto): User = withContext(Dispatchers.IO) {
+        try {
+            val accessToken = authService.getAccessTokenAsBearer()
+            val user = usersServiceApi.editUserById(accessToken, id, editUserDto)
             user
         } catch (e: Throwable) {
             Timber.e(e)

@@ -27,8 +27,9 @@ abstract class PageAdapter<T>(
     abstract fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        runBlocking {
-            (holder as? BindableView<T>)?.bind(items[position])
-        }
+        (holder as? BindableView<T>)?.bind(items[position])
+//        runBlocking {
+//            (holder as? BindableView<T>)?.bind(items[position])
+//        }
     }
 }

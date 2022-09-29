@@ -44,7 +44,7 @@ class NavMan @Inject constructor() {
 
     // functions
     fun configure(listener: Listener, navBar: BottomNavigationView, containerId: Int, hideNavBar: Boolean) {
-        this.presentedTags.clear()
+//        this.presentedTags.clear()
         this.listener = listener
         this.navBar = navBar
         this.fragMan = listener.get().supportFragmentManager
@@ -53,8 +53,11 @@ class NavMan @Inject constructor() {
         if (stacks[activeTab]?.size ?: 0 == 0) {
             val initialFragment = listener.getRootFragmentOf(activeTab) ?: return
             pushFragment(initialFragment, hideNavBar)
+        } else {
+            navBar.visibility = if (hideNavBar) View.GONE else View.VISIBLE
         }
         isLocked = false
+        configureActionBar()
     }
 
     fun reset() {

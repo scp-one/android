@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="username" type="String" />
+    </data>
+
     <EditText
         android:id="@+id/layout_edit_text_username"
         android:layout_width="match_parent"
@@ -17,5 +22,6 @@
         android:textColorHint="?attr/themeColorFontTextFieldHint"
         android:textColorHighlight="?attr/themeColorTextFieldHighlighted"
         android:textCursorDrawable="@null"
-        android:background="@drawable/ripple_edit_text" />
+        android:background="@drawable/ripple_edit_text"
+        android:text="@={username}" />
 </layout>

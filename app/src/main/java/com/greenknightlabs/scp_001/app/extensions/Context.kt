@@ -15,8 +15,10 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 
 fun Context.makeToast(message: String?, gravity: Int = Gravity.TOP) {
+    val message = message ?: return
+    if (message.isEmpty()) { return }
+
     val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
-//    toast.setGravity(gravity, 0, 0)
     toast.show()
 }
 

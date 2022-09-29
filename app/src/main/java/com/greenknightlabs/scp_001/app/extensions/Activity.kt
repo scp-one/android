@@ -12,6 +12,6 @@ fun Activity.getView(id: Int): View? {
 
 fun Activity.pushWebView(url: String) {
     val tab = CustomTabsIntent.Builder()
-    tab.setToolbarColor(getColorFromAttr(R.attr.themeColorPrimary))
+//    tab.setToolbarColor(getColorFromAttr(R.attr.themeColorPrimary))
     tab.build().launchUrl(this, Uri.parse(url))
 }

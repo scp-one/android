@@ -15,7 +15,7 @@
     <dimen name="sizeAvatarHeader">128dp</dimen>
 
     <dimen name="defaultCornerRadius">8dp</dimen>
-    <dimen name="defaultCardElevation">3dp</dimen>
+    <dimen name="defaultCardElevation">0dp</dimen>
 
     <!-- FONTS -->
     <!-- small font sizes -->

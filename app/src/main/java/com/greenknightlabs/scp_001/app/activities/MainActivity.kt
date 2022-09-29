@@ -3,37 +3,31 @@ package com.greenknightlabs.scp_001.app.activities
 import android.content.ComponentCallbacks2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.enums.MemTrimLevel
 import com.greenknightlabs.scp_001.app.util.*
-import com.greenknightlabs.scp_001.auth.fragments.LoginFragment
+import com.greenknightlabs.scp_001.auth.fragments.login_fragment.LoginFragment
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.databinding.ActivityMainBinding
-import com.greenknightlabs.scp_001.users.fragments.ProfileFragment
+import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
-    // dependency injections
-    @Inject
-    lateinit var authMan: AuthMan
-    @Inject
-    lateinit var navMan: NavMan
-    @Inject
-    lateinit var kairos: Kairos
-    @Inject
-    lateinit var stash: Stash
-    @Inject
-    lateinit var preferences: Preferences
+    // dependencies
+    @Inject lateinit var authMan: AuthMan
+    @Inject lateinit var navMan: NavMan
+    @Inject lateinit var kairos: Kairos
+    @Inject lateinit var stash: Stash
+    @Inject lateinit var preferences: Preferences
 
-    // view properties
+    // properties
     private lateinit var binding: ActivityMainBinding
 
-    // local functions
+    // functions
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         configureView()
@@ -52,7 +46,7 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
 
     private fun configureNavMan() {
         navMan.configure(this, binding.navBar, R.id.main_container, !authMan.isLoggedIn)
-        binding.navBar.setOnNavigationItemSelectedListener {
+        binding.navBar.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_bar_tab_1 -> navMan.switchTo(NavMan.NavTabs.TAB1)
                 R.id.nav_bar_tab_2 -> navMan.switchTo(NavMan.NavTabs.TAB2)
@@ -74,7 +68,6 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
 
     fun lockUI(lock: Boolean) {
         navMan.isLocked = lock
-        showProgressBar(lock)
         val flag = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
         if (lock) window.setFlags(flag, flag) else window.clearFlags(flag)
     }
