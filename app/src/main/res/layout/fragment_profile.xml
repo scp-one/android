@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            android:overScrollMode="never"
+            android:paddingBottom="?actionBarSize"
             android:background="?attr/themeColorPrimary">
 
             <LinearLayout
@@ -67,7 +67,7 @@
                                 app:onTapAction="@{vm::handleOnTapAppearance}" />
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_settings}"
+                                app:iconId="@{@drawable/ic_behavior}"
                                 app:title="@{`Behavior`}"
                                 app:onTapAction="@{vm::handleOnTapBehavior}" />
 
@@ -101,12 +101,12 @@
                             android:orientation="vertical">
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_items}"
+                                app:iconId="@{@drawable/ic_diamond}"
                                 app:title="@{`Pro Access`}"
                                 app:onTapAction="@{vm::handleOnTapProAccess}" />
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_policy}"
+                                app:iconId="@{@drawable/ic_cache}"
                                 app:title="@{`Clear Cache`}"
                                 app:onTapAction="@{vm::handleOnTapClearCache}" />
 
@@ -140,22 +140,22 @@
                             android:orientation="vertical">
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_items}"
+                                app:iconId="@{@drawable/ic_piggy_bank}"
                                 app:title="@{`Tip Jar`}"
                                 app:onTapAction="@{vm::handleOnTapTipJar}" />
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_policy}"
+                                app:iconId="@{@drawable/ic_rate_app}"
                                 app:title="@{`Rate This App`}"
                                 app:onTapAction="@{vm::handleOnTapRateThisApp}" />
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_items}"
+                                app:iconId="@{@drawable/ic_feedback}"
                                 app:title="@{`Send Feedback`}"
                                 app:onTapAction="@{vm::handleOnTapSendFeedback}" />
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_items}"
+                                app:iconId="@{@drawable/ic_share}"
                                 app:title="@{`Share This App`}"
                                 app:onTapAction="@{vm::handleOnTapShareThisApp}" />
 
@@ -189,7 +189,7 @@
                             android:orientation="vertical">
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_items}"
+                                app:iconId="@{@drawable/ic_scps}"
                                 app:title="@{`About The Foundation`}"
                                 app:onTapAction="@{vm::handleOnTapAboutTheFoundation}" />
 
@@ -199,12 +199,12 @@
                                 app:onTapAction="@{vm::handleOnTapPrivacyPolicy}" />
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_items}"
+                                app:iconId="@{@drawable/ic_terms_of_service}"
                                 app:title="@{`Terms of Service`}"
                                 app:onTapAction="@{vm::handleOnTapTermsOfService}" />
 
                             <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_items}"
+                                app:iconId="@{@drawable/ic_licenses}"
                                 app:title="@{`Licenses`}"
                                 app:onTapAction="@{vm::handleOnTapLicenses}" />
 

@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/spacingFormHeaderImage"
                 android:paddingEnd="@dimen/spacingFormHeaderImage"
-                android:src="@drawable/ic_header_door"
+                android:src="@drawable/header_login"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
                 android:contentDescription="todo" />

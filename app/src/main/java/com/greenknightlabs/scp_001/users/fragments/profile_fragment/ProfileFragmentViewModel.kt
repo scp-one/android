@@ -10,8 +10,6 @@ import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.MemTrimLevel
 import com.greenknightlabs.scp_001.app.enums.PageState
-import com.greenknightlabs.scp_001.app.fragments.AppearanceFragment
-import com.greenknightlabs.scp_001.app.fragments.BehaviorFragment
 import com.greenknightlabs.scp_001.app.objects.ListOption
 import com.greenknightlabs.scp_001.app.objects.ListOptionSection
 import com.greenknightlabs.scp_001.app.util.NavMan
@@ -117,16 +115,11 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapClearCache() {
-        toastMessage.value = "Not implemented"
-//        shouldShowConfirmAlertClearCache.value = true
-//        activity?.askConfirmation {
-//            kairos.trimMemory(MemTrimLevel.FULLY)
-//            viewLifecycleOwner.lifecycle.coroutineScope.launch {
-//                val result = stash.empty()
-//                val error = result.exceptionOrNull()
-//                activity?.makeToast(error?.message ?: "Done")
-//            }
-//        }
+        confirmAlertText.value = "Are you sure you want to do that?"
+        confirmAlertAction.value = {
+            toastMessage.value = "Not implemented"
+        }
+        shouldShowConfirmAlert.value = true
     }
 
     fun handleOnTapTipJar() {
@@ -150,12 +143,10 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapPrivacyPolicy() {
-        toastMessage.value = "Not implemented"
         shouldShowPrivacyPolicy.value = true
     }
 
     fun handleOnTapTermsOfService() {
-        toastMessage.value = "Not implemented"
         shouldShowTermsOfService.value = true
     }
 

@@ -16,7 +16,6 @@ import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.auth.fragments.email_update_fragment.EmailUpdateFragment
 import com.greenknightlabs.scp_001.auth.fragments.pass_update_fragment.PassUpdateFragment
 import com.greenknightlabs.scp_001.auth.util.AuthMan
-import com.greenknightlabs.scp_001.databinding.FragmentScrollviewBinding
 import com.greenknightlabs.scp_001.databinding.LayoutHeaderFragmentEditProfileBinding
 import com.greenknightlabs.scp_001.databinding.LayoutListOptionSectionBinding
 import com.greenknightlabs.scp_001.users.UsersService

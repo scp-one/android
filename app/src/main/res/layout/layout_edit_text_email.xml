@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
         <variable name="email" type="String" />
     </data>
-    
-    <EditText
-        android:id="@+id/layout_edit_text_email"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="@dimen/spacingSmallPlus"
-        android:drawableStart="@drawable/ic_email"
-        android:drawablePadding="@dimen/spacingSmallPlus"
-        android:drawableTint="?attr/themeColorFontTextFieldText"
-        android:hint="@string/layout_edit_text_email_hint"
-        android:autofillHints="email"
-        android:inputType="textEmailAddress"
-        android:fontFamily="?attr/themeFontFamilyRegular"
-        android:textSize="?attr/themeFontSizeBody"
-        android:textColor="?attr/themeColorFontTextFieldText"
-        android:textColorHint="?attr/themeColorFontTextFieldHint"
-        android:textColorHighlight="?attr/themeColorTextFieldHighlighted"
-        android:textCursorDrawable="@null"
-        android:background="@drawable/ripple_edit_text"
-        android:text="@={email}" />
+        android:background="@drawable/ripple_edit_text">
+
+        <include layout="@layout/component_icon_edit_text"
+            app:iconId="@{@drawable/ic_mail}" />
+
+        <EditText
+            android:id="@+id/layout_edit_text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/spacingSmallPlus"
+            android:hint="@string/layout_edit_text_email_hint"
+            android:autofillHints="email"
+            android:inputType="textEmailAddress"
+            android:fontFamily="?attr/themeFontFamilyRegular"
+            android:textSize="?attr/themeFontSizeBody"
+            android:textColor="?attr/themeColorFontTextFieldText"
+            android:textColorHint="?attr/themeColorFontTextFieldHint"
+            android:textColorHighlight="?attr/themeColorTextFieldHighlighted"
+            android:textCursorDrawable="@null"
+            android:background="@null"
+            android:text="@={email}" />
+
+    </LinearLayout>
+
 </layout>

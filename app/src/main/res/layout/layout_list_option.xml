@@ -10,23 +10,43 @@
         <variable name="title" type="String" />
         <variable name="onTapAction" type="Function0&lt;Unit>" />
     </data>
-    
-    <androidx.appcompat.widget.AppCompatTextView
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="@dimen/spacingRegular"
-        android:drawablePadding="@dimen/spacingRegular"
-        app:drawableTint="?attr/themeColorFontDim"
-        android:textSize="?attr/themeFontSizeBody"
-        android:fontFamily="?attr/themeFontFamilyRegular"
-        android:textColor="?attr/themeColorFontNormal"
-        android:lines="1"
-        android:ellipsize="end"
+        android:background="@drawable/ripple_button_borderless"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/ripple_button_borderless"
-        android:drawableEnd="@drawable/ic_chevron_right"
-        android:drawableStart="@{iconId}"
-        android:text="@{title}"
-        android:onClick="@{_ -> onTapAction.invoke()}" />
+        android:onClick="@{_ -> onTapAction.invoke()}">
+
+        <include layout="@layout/component_icon_list_option"
+            app:iconId="@{iconId}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/spacingRegular"
+            android:paddingEnd="@dimen/spacingRegular"
+            android:textSize="?attr/themeFontSizeBody"
+            android:fontFamily="?attr/themeFontFamilyRegular"
+            android:textColor="?attr/themeColorFontNormal"
+            android:layout_weight="1"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@{title}" />
+
+        <include layout="@layout/component_icon_list_option"
+            app:iconId="@{@drawable/ic_chevron_right}" />
+
+<!--        <ImageView-->
+<!--            android:layout_width="?attr/themeFontSizeHeadline"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:src="@drawable/ic_chevron_right" />-->
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </layout>

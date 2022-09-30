@@ -9,7 +9,7 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_header_astronaut" />
+            android:src="@drawable/ic_face" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"

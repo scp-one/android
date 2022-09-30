@@ -3,24 +3,24 @@
     <item
         android:id="@+id/nav_bar_tab_1"
         android:visible="true"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/ic_face"
         android:title="1" />
 
     <item
         android:id="@+id/nav_bar_tab_2"
         android:visible="false"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/ic_face"
         android:title="2" />
 
     <item
         android:id="@+id/nav_bar_tab_3"
         android:visible="false"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/ic_face"
         android:title="3" />
 
     <item
         android:id="@+id/nav_bar_tab_4"
         android:visible="false"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/ic_face"
         android:title="4" />
 </menu>
