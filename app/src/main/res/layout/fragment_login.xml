@@ -55,15 +55,15 @@
 
                     <include layout="@layout/layout_form_input_flair" />
 
-                    <include android:id="@+id/fragment_login_edit_text_email"
-                        layout="@layout/layout_edit_text_email"
+                    <include layout="@layout/layout_edit_text_email"
+                        android:id="@+id/fragment_login_edit_text_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular"
                         app:email="@={vm.email}" />
 
-                    <include android:id="@+id/fragment_login_edit_text_password"
-                        layout="@layout/layout_edit_text_password"
+                    <include layout="@layout/layout_edit_text_password"
+                        android:id="@+id/fragment_login_edit_text_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular"

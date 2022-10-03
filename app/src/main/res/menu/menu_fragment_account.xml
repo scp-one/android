@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_fragment_edit_profile_save"
+        android:id="@+id/menu_fragment_account_save"
         android:icon="@drawable/ic_save"
         app:iconTint="?attr/themeColorFontDim"
         android:title="@string/menu_fragment_edit_profile_save_title"

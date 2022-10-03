@@ -31,7 +31,7 @@
             android:paddingEnd="@dimen/spacingRegular"
             android:textSize="?attr/themeFontSizeBody"
             android:fontFamily="?attr/themeFontFamilyRegular"
-            android:textColor="?attr/themeColorFontNormal"
+            android:textColor="?attr/themeColorFontDim"
             android:layout_weight="1"
             android:lines="1"
             android:ellipsize="end"
@@ -39,13 +39,6 @@
 
         <include layout="@layout/component_icon_list_option"
             app:iconId="@{@drawable/ic_chevron_right}" />
-
-<!--        <ImageView-->
-<!--            android:layout_width="?attr/themeFontSizeHeadline"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            android:adjustViewBounds="true"-->
-<!--            android:src="@drawable/ic_chevron_right" />-->
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

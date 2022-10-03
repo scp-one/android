@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="vm" type="com.greenknightlabs.scp_001.users.fragments.account_fragment.AccountFragmentViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="?actionBarSize"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false"
+            android:clipChildren="false" >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacingRegular">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/fragment_account_avatar_image_view"
+                        android:layout_width="@dimen/sizeAvatarHeader"
+                        android:layout_height="@dimen/sizeAvatarHeader"
+                        android:layout_gravity="center"
+                        android:src="@{@drawable/default_avatar}"
+                        tools:src="@drawable/default_avatar" />
+
+                    <include layout="@layout/layout_edit_text_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular"
+                        app:nickname="@={vm.nickname}" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+            <include layout="@layout/component_list_option_section_title"
+                app:title='@{"PROFILE"}' />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingSmallPlus"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/layout_list_option"
+                        app:iconId="@{@drawable/ic_face}"
+                        app:title="@{`My Profile`}"
+                        app:onTapAction="@{vm::handleOnTapMyProfile}" />
+
+                    <include layout="@layout/layout_list_option"
+                        app:iconId="@{@drawable/ic_items}"
+                        app:title="@{`Liked Posts`}"
+                        app:onTapAction="@{vm::handleOnTapLikedPosts}" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <include layout="@layout/component_list_option_section_title"
+                app:title='@{"MEDIA"}' />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingSmallPlus"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/layout_list_option"
+                        app:iconId="@{@drawable/ic_media}"
+                        app:title="@{`Media Collection`}"
+                        app:onTapAction="@{vm::handleOnTapMediaCollection}" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <include layout="@layout/component_list_option_section_title"
+                app:title='@{"ACCOUNT SETTINGS"}' />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingSmallPlus"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/layout_list_option"
+                        app:iconId="@{@drawable/ic_mail}"
+                        app:title="@{`Change Email`}"
+                        app:onTapAction="@{vm::handleOnTapChangeEmail}" />
+
+                    <include layout="@layout/layout_list_option"
+                        app:iconId="@{@drawable/ic_lock}"
+                        app:title="@{`Change Password`}"
+                        app:onTapAction="@{vm::handleOnTapChangePassword}" />
+
+                    <include layout="@layout/layout_list_option"
+                        app:iconId="@{@drawable/ic_piggy_bank}"
+                        app:title="@{`Restore Purchases`}"
+                        app:onTapAction="@{vm::handleOnTapRestorePurchases}" />
+
+                    <include layout="@layout/layout_list_option"
+                        app:iconId="@{@drawable/ic_account}"
+                        app:title="@{`Advanced Settings`}"
+                        app:onTapAction="@{vm::handleOnTapAdvancedSettings}" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

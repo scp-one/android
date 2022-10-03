@@ -6,12 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.greenknightlabs.scp_001.BuildConfig
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.MemTrimLevel
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.objects.ListOption
 import com.greenknightlabs.scp_001.app.objects.ListOptionSection
+import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Stash
 import com.greenknightlabs.scp_001.app.view_models.BaseViewModel
@@ -19,6 +21,7 @@ import com.greenknightlabs.scp_001.app.view_models.PageViewModel
 import com.greenknightlabs.scp_001.auth.AuthService
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.users.UsersService
+import com.greenknightlabs.scp_001.users.fragments.account_fragment.AccountFragment
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +35,7 @@ class ProfileFragmentViewModel @Inject constructor(
     private val usersService: UsersService,
     private val authService: AuthService,
     private val stash: Stash,
-    private val navMan: NavMan
+    private val navMan: NavMan,
 ) : BaseViewModel() {
     // properties
     val user = MutableLiveData<User?>(null)
@@ -99,7 +102,7 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapProfileHeader() {
-        toastMessage.value = "header"
+        navMan.pushFragment(AccountFragment(user), true)
     }
 
     fun handleOnTapAppearance() {
@@ -153,5 +156,17 @@ class ProfileFragmentViewModel @Inject constructor(
     fun handleOnTapLicenses() {
         toastMessage.value = "Not implemented"
 //        navMan.pushFragment(DependenciesFragment())
+    }
+
+    fun hasEntitlementSupporter(): Boolean {
+        return false
+    }
+
+    fun hasEntitlementProAccess(): Boolean {
+        return false
+    }
+
+    fun getAppVersionNumber(): String {
+        return BuildConfig.VERSION_NAME
     }
 }

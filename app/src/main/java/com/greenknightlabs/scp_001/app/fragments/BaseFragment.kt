@@ -30,6 +30,7 @@ open class BaseFragment<T: ViewDataBinding>(
     private fun configureActivityTitleAndMenu() {
         activity?.title = activityTitle()
         val menuHost: MenuHost = requireActivity()
+        menuHost.invalidateMenu()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
@@ -51,6 +52,7 @@ open class BaseFragment<T: ViewDataBinding>(
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menu.clear()
         menuId()?.let {
             menuInflater.inflate(it, menu)
         }
