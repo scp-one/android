@@ -52,24 +52,24 @@
                     android:layout_margin="@dimen/spacingRegular"
                     android:orientation="vertical">
 
-                    <include layout="@layout/layout_form_input_flair" />
+                    <include layout="@layout/component_form_input_flair" />
 
                     <include android:id="@+id/fragment_register_edit_text_username"
-                        layout="@layout/layout_edit_text_username"
+                        layout="@layout/component_edit_text_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular"
                         app:username="@={vm.usern}" />
 
                     <include android:id="@+id/fragment_register_edit_text_email"
-                        layout="@layout/layout_edit_text_email"
+                        layout="@layout/component_edit_text_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular"
                         app:email="@={vm.email}" />
 
                     <include android:id="@+id/fragment_register_edit_text_password"
-                        layout="@layout/layout_edit_text_password"
+                        layout="@layout/component_edit_text_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular"
@@ -90,14 +90,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/spacingRegular"
                 android:layout_gravity="center">
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/fragment_register_text_view_login_hint"-->
-<!--                    android:textSize="?attr/themeFontSizeBody"-->
-<!--                    android:fontFamily="?attr/themeFontFamilyRegular"-->
-<!--                    android:textColor="?attr/themeColorFontDim" />-->
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/fragment_register_button_terms"

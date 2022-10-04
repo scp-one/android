@@ -3,8 +3,8 @@ package com.greenknightlabs.scp_001.users.fragments.account_fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
@@ -13,18 +13,15 @@ import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentAccountBinding
-import com.greenknightlabs.scp_001.users.models.User
+import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.internal.Contexts.getApplication
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AccountFragment(
-    val user: MutableLiveData<User?>,
-) : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {
+class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {
     @Inject lateinit var kairos: Kairos
 
+    private val pvm: ProfileFragmentViewModel by activityViewModels()
     private val vm: AccountFragmentViewModel by viewModels()
 
     // functions
@@ -38,18 +35,19 @@ class AccountFragment(
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.menu_fragment_account_save -> vm.save(user)
+            R.id.menu_fragment_account_save -> vm.save(pvm.user)
         }
         return super.onMenuItemSelected(menuItem)
     }
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {
         super.configureView(view, savedInstanceState)
-        vm.nickname.value = user.value?.nickname ?: ""
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = vm
 
+        vm.isLocked.observe(viewLifecycleOwner) {
+            (activity as? MainActivity)?.lockUI(it)
+        }
         vm.state.observe(viewLifecycleOwner) {
             (activity as? MainActivity)?.showProgressBar(it == PageState.Fetching)
         }
@@ -61,8 +59,11 @@ class AccountFragment(
                 activity?.askConfirmation { vm.confirmAlertAction.value?.invoke() }
             }
         }
-        user.observe(viewLifecycleOwner) {
-            kairos.load(it?.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
+        pvm.user.observe(viewLifecycleOwner) {
+            if (it != null) {
+                vm.nickname.value = pvm.user.value?.nickname
+                kairos.load(it.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
+            }
         }
     }
 }

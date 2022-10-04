@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.view_models.BaseViewModel
+import com.greenknightlabs.scp_001.auth.fragments.email_update_fragment.EmailUpdateFragment
+import com.greenknightlabs.scp_001.auth.fragments.pass_update_fragment.PassUpdateFragment
 import com.greenknightlabs.scp_001.users.UsersService
 import com.greenknightlabs.scp_001.users.dtos.EditUserDto
 import com.greenknightlabs.scp_001.users.models.User
@@ -24,9 +26,6 @@ class AccountFragmentViewModel @Inject constructor(
     val confirmAlertText = MutableLiveData("")
     val confirmAlertAction: MutableLiveData<() -> Unit> = MutableLiveData()
     val shouldShowConfirmAlert = MutableLiveData(false)
-
-    // init
-    init { }
 
     // functions
     fun save(user: MutableLiveData<User?>) {
@@ -69,11 +68,11 @@ class AccountFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapChangeEmail() {
-        toastMessage.value = "Not implemented"
+        navMan.pushFragment(EmailUpdateFragment(), true)
     }
 
     fun handleOnTapChangePassword() {
-        toastMessage.value = "Not implemented"
+        navMan.pushFragment(PassUpdateFragment(), true)
     }
 
     fun handleOnTapRestorePurchases() {

@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:paddingBottom="?actionBarSize"
         android:background="?attr/themeColorPrimary">
 
         <LinearLayout
@@ -40,10 +39,10 @@
                         android:layout_width="@dimen/sizeAvatarHeader"
                         android:layout_height="@dimen/sizeAvatarHeader"
                         android:layout_gravity="center"
-                        android:src="@{@drawable/default_avatar}"
+                        android:src="?attr/themeColorPrimaryDark"
                         tools:src="@drawable/default_avatar" />
 
-                    <include layout="@layout/layout_edit_text_nickname"
+                    <include layout="@layout/component_edit_text_nickname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular"
@@ -69,12 +68,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include layout="@layout/layout_list_option"
+                    <include layout="@layout/component_list_option"
                         app:iconId="@{@drawable/ic_face}"
                         app:title="@{`My Profile`}"
                         app:onTapAction="@{vm::handleOnTapMyProfile}" />
 
-                    <include layout="@layout/layout_list_option"
+                    <include layout="@layout/component_list_option"
                         app:iconId="@{@drawable/ic_items}"
                         app:title="@{`Liked Posts`}"
                         app:onTapAction="@{vm::handleOnTapLikedPosts}" />
@@ -99,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include layout="@layout/layout_list_option"
+                    <include layout="@layout/component_list_option"
                         app:iconId="@{@drawable/ic_media}"
                         app:title="@{`Media Collection`}"
                         app:onTapAction="@{vm::handleOnTapMediaCollection}" />
@@ -125,22 +124,22 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include layout="@layout/layout_list_option"
+                    <include layout="@layout/component_list_option"
                         app:iconId="@{@drawable/ic_mail}"
                         app:title="@{`Change Email`}"
                         app:onTapAction="@{vm::handleOnTapChangeEmail}" />
 
-                    <include layout="@layout/layout_list_option"
+                    <include layout="@layout/component_list_option"
                         app:iconId="@{@drawable/ic_lock}"
                         app:title="@{`Change Password`}"
                         app:onTapAction="@{vm::handleOnTapChangePassword}" />
 
-                    <include layout="@layout/layout_list_option"
+                    <include layout="@layout/component_list_option"
                         app:iconId="@{@drawable/ic_piggy_bank}"
                         app:title="@{`Restore Purchases`}"
                         app:onTapAction="@{vm::handleOnTapRestorePurchases}" />
 
-                    <include layout="@layout/layout_list_option"
+                    <include layout="@layout/component_list_option"
                         app:iconId="@{@drawable/ic_account}"
                         app:title="@{`Advanced Settings`}"
                         app:onTapAction="@{vm::handleOnTapAdvancedSettings}" />

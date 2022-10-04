@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="kotlin.jvm.functions.Function1" />
+        <import type="kotlin.Unit" />
+
+        <variable name="title" type="String" />
+        <variable name="url" type="String" />
+        <variable name="onTapAction" type="Function1&lt;String, Unit>" />
+    </data>
+
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/layout_dependency_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/spacingRegular"
+        android:onClick="@{_ -> onTapAction.invoke(url)}">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/layout_dependency_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Test"
-            android:fontFamily="?attr/themeFontFamilyRegular"
             android:textSize="?attr/themeFontSizeBody"
+            android:fontFamily="?attr/themeFontFamilyRegular"
             android:textColor="?attr/themeColorFontNormal"
             android:lines="1"
-            android:ellipsize="end"/>
+            android:ellipsize="end"
+            android:text="@{title}" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/layout_dependency_url"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="https://test.com"
-            android:fontFamily="?attr/themeFontFamilyRegular"
             android:textSize="?attr/themeFontSizeSub"
+            android:fontFamily="?attr/themeFontFamilyRegular"
             android:textColor="?attr/themeColorFontBright"
             android:lines="1"
-            android:ellipsize="end"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/spacingRegular"
-            android:background="?attr/themeColorPrimaryLight"/>
+            android:ellipsize="end"
+            android:text="@{url}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 </layout>

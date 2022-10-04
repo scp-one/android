@@ -3,28 +3,22 @@ package com.greenknightlabs.scp_001.users.fragments.profile_fragment
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.play.core.review.ReviewManagerFactory
 import com.greenknightlabs.scp_001.BuildConfig
-import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
-import com.greenknightlabs.scp_001.app.enums.MemTrimLevel
+import com.greenknightlabs.scp_001.app.config.Constants
 import com.greenknightlabs.scp_001.app.enums.PageState
-import com.greenknightlabs.scp_001.app.objects.ListOption
-import com.greenknightlabs.scp_001.app.objects.ListOptionSection
-import com.greenknightlabs.scp_001.app.util.Kairos
+import com.greenknightlabs.scp_001.app.fragments.appearance_fragment.AppearanceFragment
+import com.greenknightlabs.scp_001.app.fragments.dependencies_fragment.DependenciesFragment
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Stash
 import com.greenknightlabs.scp_001.app.view_models.BaseViewModel
-import com.greenknightlabs.scp_001.app.view_models.PageViewModel
 import com.greenknightlabs.scp_001.auth.AuthService
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.users.UsersService
 import com.greenknightlabs.scp_001.users.fragments.account_fragment.AccountFragment
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -44,9 +38,9 @@ class ProfileFragmentViewModel @Inject constructor(
     val confirmAlertAction: MutableLiveData<() -> Unit> = MutableLiveData()
     val shouldShowConfirmAlert = MutableLiveData(false)
     val shouldShowRateApp = MutableLiveData(false)
-    val shouldShowFeedback = MutableLiveData(false)
-    val shouldShowPrivacyPolicy = MutableLiveData(false)
-    val shouldShowTermsOfService = MutableLiveData(false)
+    val shouldShowShareApp = MutableLiveData(false)
+    val webViewUrl = MutableLiveData("")
+    val shouldShowWebView = MutableLiveData(false)
 
     // init
     init {
@@ -102,15 +96,17 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapProfileHeader() {
-        navMan.pushFragment(AccountFragment(user), true)
+        if (user.value == null) return
+
+        navMan.pushFragment(AccountFragment(), true)
     }
 
     fun handleOnTapAppearance() {
-        toastMessage.value = "appearance"
+        navMan.pushFragment(AppearanceFragment())
     }
 
     fun handleOnTapBehavior() {
-        toastMessage.value = "behavior"
+        toastMessage.value = "Not implemented"
     }
 
     fun handleOnTapProAccess() {
@@ -130,15 +126,16 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapRateThisApp() {
-        toastMessage.value = "Not implemented"
+        shouldShowRateApp.value = true
     }
 
     fun handleOnTapSendFeedback() {
-        toastMessage.value = "Not implemented"
+        webViewUrl.value = Constants.URL_FEEDBACK
+        shouldShowWebView.value = true
     }
 
     fun handleOnTapShareThisApp() {
-        toastMessage.value = "Not implemented"
+        shouldShowShareApp.value = true
     }
 
     fun handleOnTapAboutTheFoundation() {
@@ -146,16 +143,17 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapPrivacyPolicy() {
-        shouldShowPrivacyPolicy.value = true
+        webViewUrl.value = Constants.URL_PRIVACY_POLICY
+        shouldShowWebView.value = true
     }
 
     fun handleOnTapTermsOfService() {
-        shouldShowTermsOfService.value = true
+        webViewUrl.value = Constants.URL_TERMS_OF_SERVICE
+        shouldShowWebView.value = true
     }
 
     fun handleOnTapLicenses() {
-        toastMessage.value = "Not implemented"
-//        navMan.pushFragment(DependenciesFragment())
+        navMan.pushFragment(DependenciesFragment())
     }
 
     fun hasEntitlementSupporter(): Boolean {

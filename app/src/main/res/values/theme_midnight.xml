@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- NESSIE THEME -->
+    <style name="Theme.Midnight" parent="Theme.Base">
+        <!-- colors - primaries -->
+        <item name="themeColorPrimaryLight">@color/midnightThemeColorPrimaryLight</item>
+        <item name="themeColorPrimary">@color/midnightThemeColorPrimary</item>
+        <item name="themeColorPrimaryDark">@color/midnightThemeColorPrimary</item>
+        <!-- colors - buttons -->
+        <item name="themeColorBtnHighlightedBorderless">@color/midnightThemeColorBtnHighlightedBorderless</item>
+        <item name="themeColorBtnHighlighted">@color/midnightThemeColorBtnHighlighted</item>
+        <item name="themeColorBtnNormal">@color/midnightThemeColorBtnNormal</item>
+        <item name="themeColorBtnCancel">@color/midnightThemeColorBtnCancel</item>
+        <item name="themeColorBtnNavBarActive">@color/midnightThemeColorBtnNavBarActive</item>
+        <item name="themeColorBtnNavBarInactive">@color/midnightThemeColorBtnNavBarInactive</item>
+        <!-- colors - fonts -->
+        <item name="themeColorFontBright">@color/midnightThemeColorFontBright</item>
+        <item name="themeColorFontNormal">@color/midnightThemeColorFontNormal</item>
+        <item name="themeColorFontDim">@color/midnightThemeColorFontDim</item>
+        <item name="themeColorFontTextFieldText">@color/midnightThemeColorFontTextFieldText</item>
+        <item name="themeColorFontTextFieldHint">@color/midnightThemeColorFontTextFieldHint</item>
+        <!-- colors - interface elements -->
+        <item name="themeColorTextField">@color/midnightThemeColorTextField</item>
+        <item name="themeColorTextFieldHighlighted">@color/midnightThemeColorTextFieldHighlighted</item>
+        <item name="themeColorNavBar">@color/midnightThemeColorNavBar</item>
+
+        <!-- android elements -->
+        <item name="android:statusBarColor">@color/midnightThemeColorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/midnightThemeColorNavBar</item>
+    </style>
+
+    <!-- FONT SIZES -->
+    <style name="Theme.Midnight.FontSmall" parent="Theme.Midnight">
+        <item name="themeFontSizeSub">@dimen/fontSizeSmallSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeSmallBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeSmallHeadline</item>
+    </style>
+
+    <style name="Theme.Midnight.FontRegular" parent="Theme.Midnight">
+        <item name="themeFontSizeSub">@dimen/fontSizeRegularSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeRegularBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeRegularHeadline</item>
+    </style>
+
+    <style name="Theme.Midnight.FontLarge" parent="Theme.Midnight">
+        <item name="themeFontSizeSub">@dimen/fontSizeLargeSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeLargeBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeLargeHeadline</item>
+    </style>
+</resources>

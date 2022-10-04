@@ -37,7 +37,7 @@
                     android:id="@+id/layout_header_fragment_profile_avatar"
                     android:layout_width="@dimen/sizeAvatarRegular"
                     android:layout_height="@dimen/sizeAvatarRegular"
-                    android:src="@{@drawable/default_avatar}"
+                    android:src="?attr/themeColorPrimaryDark"
                     tools:src="@drawable/default_avatar" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat

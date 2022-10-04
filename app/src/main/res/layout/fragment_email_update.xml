@@ -52,10 +52,10 @@
                     android:layout_margin="@dimen/spacingRegular"
                     android:orientation="vertical">
 
-                    <include layout="@layout/layout_form_input_flair" />
+                    <include layout="@layout/component_form_input_flair" />
 
                     <include android:id="@+id/fragment_email_update_edit_text_email"
-                        layout="@layout/layout_edit_text_email"
+                        layout="@layout/component_edit_text_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular"

@@ -1,9 +1,13 @@
 package com.greenknightlabs.scp_001.users.fragments.profile_fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.review.model.ReviewErrorCode
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.config.Constants
@@ -59,23 +63,62 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         }
         vm.shouldShowConfirmAlert.observe(viewLifecycleOwner) {
             if (it == true) {
+                vm.shouldShowConfirmAlert.value = false
                 activity?.askConfirmation { vm.confirmAlertAction.value?.invoke() }
             }
         }
-        vm.shouldShowPrivacyPolicy.observe(viewLifecycleOwner) {
+        vm.shouldShowRateApp.observe(viewLifecycleOwner) {
             if (it == true) {
-                activity?.pushWebView(Constants.URL_PRIVACY_POLICY)
-                vm.shouldShowPrivacyPolicy.value = false
+                vm.shouldShowRateApp.value = false
+                showInAppReview()
             }
         }
-        vm.shouldShowTermsOfService.observe(viewLifecycleOwner) {
+        vm.shouldShowShareApp.observe(viewLifecycleOwner) {
             if (it == true) {
-                activity?.pushWebView(Constants.URL_TERMS_OF_SERVICE)
-                vm.shouldShowTermsOfService.value = false
+                vm.shouldShowShareApp.value = false
+                showShareSheet()
+            }
+        }
+        vm.shouldShowWebView.observe(viewLifecycleOwner) {
+            if (it == true) {
+                vm.shouldShowWebView.value = false
+                vm.webViewUrl.value?.let { url -> activity?.pushWebView(url) }
             }
         }
         vm.user.observe(viewLifecycleOwner) {
             kairos.load(it?.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.layoutHeaderFragmentProfile.layoutHeaderFragmentProfileAvatar)
         }
+    }
+
+    private fun showInAppReview() {
+        val context = context ?: return
+        val activity = activity ?: return
+
+        val reviewManager = ReviewManagerFactory.create(context)
+        val requestReviewFlow = reviewManager.requestReviewFlow()
+
+        requestReviewFlow.addOnCompleteListener { request ->
+            if (request.isSuccessful) {
+                val reviewInfo = request.result
+                val flow = reviewManager.launchReviewFlow(activity, reviewInfo)
+                flow.addOnCompleteListener {
+                    // do something if needed
+                }
+            } else {
+                Log.d("Error: ", request.exception.toString())
+                vm.toastMessage.value = "Could not request a review at this time"
+            }
+        }
+    }
+
+    private fun showShareSheet() {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "https://scp-one.web.app")
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 }

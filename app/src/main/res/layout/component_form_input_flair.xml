@@ -6,10 +6,10 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_face" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/sizeAvatarSmall"
+            android:layout_height="@dimen/sizeAvatarSmall"
+            android:src="@drawable/default_avatar" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"

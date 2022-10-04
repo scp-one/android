@@ -29,7 +29,7 @@
                 android:clipToPadding="false"
                 android:clipChildren="false" >
 
-                <include layout="@layout/layout_header_fragment_profile"
+                <include layout="@layout/component_header_fragment_profile"
                     android:id="@+id/layout_header_fragment_profile"
                     app:vm="@{vm}"
                     app:onTapAction="@{vm::handleOnTapProfileHeader}" />
@@ -57,12 +57,12 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_palette}"
                                 app:title="@{`Appearance`}"
                                 app:onTapAction="@{vm::handleOnTapAppearance}" />
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_behavior}"
                                 app:title="@{`Behavior`}"
                                 app:onTapAction="@{vm::handleOnTapBehavior}" />
@@ -88,12 +88,12 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_diamond}"
                                 app:title="@{`Pro Access`}"
                                 app:onTapAction="@{vm::handleOnTapProAccess}" />
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_cache}"
                                 app:title="@{`Clear Cache`}"
                                 app:onTapAction="@{vm::handleOnTapClearCache}" />
@@ -119,22 +119,22 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_piggy_bank}"
                                 app:title="@{`Tip Jar`}"
                                 app:onTapAction="@{vm::handleOnTapTipJar}" />
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_rate_app}"
                                 app:title="@{`Rate This App`}"
                                 app:onTapAction="@{vm::handleOnTapRateThisApp}" />
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_feedback}"
                                 app:title="@{`Send Feedback`}"
                                 app:onTapAction="@{vm::handleOnTapSendFeedback}" />
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_share}"
                                 app:title="@{`Share This App`}"
                                 app:onTapAction="@{vm::handleOnTapShareThisApp}" />
@@ -160,22 +160,22 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <include layout="@layout/layout_list_option"
-                                app:iconId="@{@drawable/ic_scps}"
+                            <include layout="@layout/component_list_option"
+                                app:iconId="@{@drawable/ic_items}"
                                 app:title="@{`About The Foundation`}"
                                 app:onTapAction="@{vm::handleOnTapAboutTheFoundation}" />
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_policy}"
                                 app:title="@{`Privacy Policy`}"
                                 app:onTapAction="@{vm::handleOnTapPrivacyPolicy}" />
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_terms_of_service}"
                                 app:title="@{`Terms of Service`}"
                                 app:onTapAction="@{vm::handleOnTapTermsOfService}" />
 
-                            <include layout="@layout/layout_list_option"
+                            <include layout="@layout/component_list_option"
                                 app:iconId="@{@drawable/ic_licenses}"
                                 app:title="@{`Licenses`}"
                                 app:onTapAction="@{vm::handleOnTapLicenses}" />

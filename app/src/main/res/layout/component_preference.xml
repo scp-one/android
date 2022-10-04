@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="kotlin.jvm.functions.Function2" />
+        <import type="kotlin.Unit" />
+        <import type="com.greenknightlabs.scp_001.app.util.preferences.enums.PrefKey" />
+
+        <variable name="preferences" type="com.greenknightlabs.scp_001.app.util.Preferences" />
+        <variable name="prefKey" type="com.greenknightlabs.scp_001.app.util.preferences.enums.PrefKey" />
+        <variable name="onTapAction" type="Function2&lt;PrefKey, View, Unit>" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacingRegular">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="?attr/themeFontSizeBody"
+            android:fontFamily="?attr/themeFontFamilyRegular"
+            android:textColor="?attr/themeColorFontDim"
+            android:layout_weight="1"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@{prefKey.displayName()}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/component_preference_value"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/spacingRegular"
+            android:textSize="?attr/themeFontSizeBody"
+            android:fontFamily="?attr/themeFontFamilyRegular"
+            android:textColor="?attr/themeColorFontBright"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@{preferences.currentDisplayName(prefKey)}"
+            android:onClick="@{_ -> onTapAction.invoke(prefKey, componentPreferenceValue)}" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

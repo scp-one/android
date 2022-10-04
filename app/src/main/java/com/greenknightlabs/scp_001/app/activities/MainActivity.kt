@@ -7,6 +7,8 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.enums.MemTrimLevel
+import com.greenknightlabs.scp_001.app.resources.fonts.FontSizes
+import com.greenknightlabs.scp_001.app.resources.themes.Themes
 import com.greenknightlabs.scp_001.app.util.*
 import com.greenknightlabs.scp_001.auth.fragments.login_fragment.LoginFragment
 import com.greenknightlabs.scp_001.auth.util.AuthMan
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
 
     // properties
     private lateinit var binding: ActivityMainBinding
+    private lateinit var currentTheme: Themes
+    private lateinit var currentAppFontSize: FontSizes
 
     // functions
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,13 +39,18 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     }
 
     private fun configureView() {
-        configureTheme()
+        currentTheme = preferences.theme.value!!
+        currentAppFontSize = preferences.appFontSize.value!!
+        setTheme(preferences.theme.value!!.resId(preferences.appFontSize.value!!))
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-    }
 
-    private fun configureTheme() {
-        setTheme(preferences.theme.resId(preferences.fontSize))
+        preferences.theme.observe(this) {
+            if (currentTheme != it) { recreate() }
+        }
+        preferences.appFontSize.observe(this) {
+            if (currentAppFontSize != it) { recreate() }
+        }
     }
 
     private fun configureNavMan() {

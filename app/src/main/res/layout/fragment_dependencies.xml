@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="vm" type="com.greenknightlabs.scp_001.app.fragments.dependencies_fragment.DependenciesFragmentViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="?actionBarSize"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false"
+            android:clipChildren="false" >
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Test`}"
+                app:url="@{`https://scp-one.web.app`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Test`}"
+                app:url="@{`https://scp-one.web.app`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

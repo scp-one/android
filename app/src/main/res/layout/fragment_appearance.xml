@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.greenknightlabs.scp_001.app.util.preferences.enums.PrefKey" />
+        <variable name="vm" type="com.greenknightlabs.scp_001.app.fragments.appearance_fragment.AppearanceFragmentViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="?actionBarSize"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false"
+            android:clipChildren="false">
+
+            <include layout="@layout/component_list_option_section_title"
+                app:title='@{"USER INTERFACE"}' />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingSmallPlus"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/component_preference"
+                        app:preferences="@{vm.preferences}"
+                        app:prefKey="@{PrefKey.Theme}"
+                        app:onTapAction="@{vm::handleOnTapPreferenceComponent}" />
+
+                    <include layout="@layout/component_preference"
+                        app:preferences="@{vm.preferences}"
+                        app:prefKey="@{PrefKey.AppFontSize}"
+                        app:onTapAction="@{vm::handleOnTapPreferenceComponent}" />
+
+                    <include layout="@layout/component_preference"
+                        app:preferences="@{vm.preferences}"
+                        app:prefKey="@{PrefKey.ScpFontSize}"
+                        app:onTapAction="@{vm::handleOnTapPreferenceComponent}" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>
