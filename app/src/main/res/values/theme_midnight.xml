@@ -5,7 +5,7 @@
         <!-- colors - primaries -->
         <item name="themeColorPrimaryLight">@color/midnightThemeColorPrimaryLight</item>
         <item name="themeColorPrimary">@color/midnightThemeColorPrimary</item>
-        <item name="themeColorPrimaryDark">@color/midnightThemeColorPrimary</item>
+        <item name="themeColorPrimaryDark">@color/midnightThemeColorPrimaryDark</item>
         <!-- colors - buttons -->
         <item name="themeColorBtnHighlightedBorderless">@color/midnightThemeColorBtnHighlightedBorderless</item>
         <item name="themeColorBtnHighlighted">@color/midnightThemeColorBtnHighlighted</item>

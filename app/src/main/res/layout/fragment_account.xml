@@ -40,7 +40,8 @@
                         android:layout_height="@dimen/sizeAvatarHeader"
                         android:layout_gravity="center"
                         android:src="?attr/themeColorPrimaryDark"
-                        tools:src="@drawable/default_avatar" />
+                        tools:src="@drawable/default_avatar"
+                        android:onClick="@{() -> vm.handleOnTapAvatar()}" />
 
                     <include layout="@layout/component_edit_text_nickname"
                         android:layout_width="match_parent"

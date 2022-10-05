@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SLATE THEME -->
+    <style name="Theme.Slate" parent="Theme.Base">
+        <!-- colors - primaries -->
+        <item name="themeColorPrimaryLight">@color/slateThemeColorPrimaryLight</item>
+        <item name="themeColorPrimary">@color/slateThemeColorPrimary</item>
+        <item name="themeColorPrimaryDark">@color/slateThemeColorPrimaryDark</item>
+        <!-- colors - buttons -->
+        <item name="themeColorBtnHighlightedBorderless">@color/slateThemeColorBtnHighlightedBorderless</item>
+        <item name="themeColorBtnHighlighted">@color/slateThemeColorBtnHighlighted</item>
+        <item name="themeColorBtnNormal">@color/slateThemeColorBtnNormal</item>
+        <item name="themeColorBtnCancel">@color/slateThemeColorBtnCancel</item>
+        <item name="themeColorBtnNavBarActive">@color/slateThemeColorBtnNavBarActive</item>
+        <item name="themeColorBtnNavBarInactive">@color/slateThemeColorBtnNavBarInactive</item>
+        <!-- colors - fonts -->
+        <item name="themeColorFontBright">@color/slateThemeColorFontBright</item>
+        <item name="themeColorFontNormal">@color/slateThemeColorFontNormal</item>
+        <item name="themeColorFontDim">@color/slateThemeColorFontDim</item>
+        <item name="themeColorFontTextFieldText">@color/slateThemeColorFontTextFieldText</item>
+        <item name="themeColorFontTextFieldHint">@color/slateThemeColorFontTextFieldHint</item>
+        <!-- colors - interface elements -->
+        <item name="themeColorTextField">@color/slateThemeColorTextField</item>
+        <item name="themeColorTextFieldHighlighted">@color/slateThemeColorTextFieldHighlighted</item>
+        <item name="themeColorNavBar">@color/slateThemeColorNavBar</item>
+
+        <!-- android elements -->
+        <item name="android:statusBarColor">@color/slateThemeColorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/slateThemeColorNavBar</item>
+    </style>
+
+    <!-- FONT SIZES -->
+    <style name="Theme.Slate.FontSmall" parent="Theme.Slate">
+        <item name="themeFontSizeSub">@dimen/fontSizeSmallSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeSmallBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeSmallHeadline</item>
+    </style>
+
+    <style name="Theme.Slate.FontRegular" parent="Theme.Slate">
+        <item name="themeFontSizeSub">@dimen/fontSizeRegularSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeRegularBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeRegularHeadline</item>
+    </style>
+
+    <style name="Theme.Slate.FontLarge" parent="Theme.Slate">
+        <item name="themeFontSizeSub">@dimen/fontSizeLargeSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeLargeBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeLargeHeadline</item>
+    </style>
+</resources>

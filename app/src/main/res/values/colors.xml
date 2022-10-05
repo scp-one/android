@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- SLATE THEME -->
+    <!-- primaries -->
+    <color name="slateThemeColorPrimaryLight">#3b4252</color>
+    <color name="slateThemeColorPrimary">#2e3440</color>
+    <color name="slateThemeColorPrimaryDark">#252933</color>
+
+    <!-- buttons -->
+    <color name="slateThemeColorBtnHighlightedBorderless">#25FFFFFF</color>
+    <color name="slateThemeColorBtnHighlighted">#3597fb</color>
+    <color name="slateThemeColorBtnNormal">#688CCA</color>
+    <color name="slateThemeColorBtnCancel">#E24F48</color>
+    <color name="slateThemeColorBtnNavBarActive">#688CCA</color>
+    <color name="slateThemeColorBtnNavBarInactive">#A6A7B1</color>
+
+    <!-- fonts -->
+    <color name="slateThemeColorFontBright">#5C9DDD</color>
+    <color name="slateThemeColorFontNormal">#FFFFFF</color>
+    <color name="slateThemeColorFontDim">#A6A7B1</color>
+    <color name="slateThemeColorFontTextFieldText">#2E303E</color>
+    <color name="slateThemeColorFontTextFieldHint">#575967</color>
+
+    <!-- interface elements -->
+    <color name="slateThemeColorTextField">#FFFFFF</color>
+    <color name="slateThemeColorTextFieldHighlighted">#767676</color>
+    <color name="slateThemeColorNavBar">#2e3440</color>
+
     <!-- DARK THEME -->
     <!-- primaries -->
     <color name="darkThemeColorPrimaryLight">#222532</color>
@@ -28,9 +54,9 @@
 
     <!-- LIGHT THEME -->
     <!-- primaries -->
-    <color name="lightThemeColorPrimaryLight">#FFF8E7</color>
-    <color name="lightThemeColorPrimary">#FDF6E3</color>
-    <color name="lightThemeColorPrimaryDark">#AEA899</color>
+    <color name="lightThemeColorPrimaryLight">#FFFFFF</color>
+    <color name="lightThemeColorPrimary">#F2F2F7</color>
+    <color name="lightThemeColorPrimaryDark">#E3E3E6</color>
 
     <!-- buttons -->
     <color name="lightThemeColorBtnHighlightedBorderless">#25000000</color>
@@ -48,33 +74,33 @@
     <color name="lightThemeColorFontTextFieldHint">#1A1C23</color>
 
     <!-- interface elements -->
-    <color name="lightThemeColorTextField">#DCD3BA</color>
+    <color name="lightThemeColorTextField">#DFDFE3</color>
     <color name="lightThemeColorTextFieldHighlighted">#1A1C23</color>
-    <color name="lightThemeColorNavBar">#FDF6E3</color>
+    <color name="lightThemeColorNavBar">#F2F2F7</color>
 
     <!-- MIDNIGHT THEME -->
     <!-- primaries -->
-    <color name="midnightThemeColorPrimaryLight">#222532</color>
-    <color name="midnightThemeColorPrimary">#1B1D28</color>
-    <color name="midnightThemeColorPrimaryDark">#15171E</color>
+    <color name="midnightThemeColorPrimaryLight">#252B40</color>
+    <color name="midnightThemeColorPrimary">#1b2030</color>
+    <color name="midnightThemeColorPrimaryDark">#151927</color>
 
     <!-- buttons -->
     <color name="midnightThemeColorBtnHighlightedBorderless">#25FFFFFF</color>
     <color name="midnightThemeColorBtnHighlighted">#3597fb</color>
     <color name="midnightThemeColorBtnNormal">#688CCA</color>
-    <color name="midnightThemeColorBtnCancel">#e24f48</color>
+    <color name="midnightThemeColorBtnCancel">#E24F48</color>
     <color name="midnightThemeColorBtnNavBarActive">#688CCA</color>
-    <color name="midnightThemeColorBtnNavBarInactive">#66686E</color>
+    <color name="midnightThemeColorBtnNavBarInactive">#9A9EBB</color>
 
     <!-- fonts -->
-    <color name="midnightThemeColorFontBright">#2c94ff</color>
-    <color name="midnightThemeColorFontNormal">#E5E3D2</color>
-    <color name="midnightThemeColorFontDim">#C6C5B7</color>
-    <color name="midnightThemeColorFontTextFieldText">#424242</color>
-    <color name="midnightThemeColorFontTextFieldHint">#767676</color>
+    <color name="midnightThemeColorFontBright">#5C9DDD</color>
+    <color name="midnightThemeColorFontNormal">#FFFFFF</color>
+    <color name="midnightThemeColorFontDim">#9A9EBB</color>
+    <color name="midnightThemeColorFontTextFieldText">#2E303E</color>
+    <color name="midnightThemeColorFontTextFieldHint">#575967</color>
 
     <!-- interface elements -->
-    <color name="midnightThemeColorTextField">#C6C7C1</color>
+    <color name="midnightThemeColorTextField">#FFFFFF</color>
     <color name="midnightThemeColorTextFieldHighlighted">#767676</color>
-    <color name="midnightThemeColorNavBar">#1B1D28</color>
+    <color name="midnightThemeColorNavBar">#1b2030</color>
 </resources>

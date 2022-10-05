@@ -1,0 +1,116 @@
+package com.greenknightlabs.scp_001.media.fragments.media_collection_fragment
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.util.NavMan
+import com.greenknightlabs.scp_001.app.view_models.BaseViewModel
+import com.greenknightlabs.scp_001.app.view_models.PageViewModel
+import com.greenknightlabs.scp_001.auth.util.AuthMan
+import com.greenknightlabs.scp_001.media.MediaService
+import com.greenknightlabs.scp_001.media.config.Constants
+import com.greenknightlabs.scp_001.media.dtos.GetMediaFilterDto
+import com.greenknightlabs.scp_001.media.enums.MediaSortField
+import com.greenknightlabs.scp_001.media.enums.MediaSortOrder
+import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.adapters.MediaCollectionFragmentAdapter
+import com.greenknightlabs.scp_001.media.models.Media
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.encodeToJsonElement
+import kotlinx.serialization.json.jsonObject
+import timber.log.Timber
+import java.util.Timer
+import javax.inject.Inject
+
+@HiltViewModel
+class MediaCollectionFragmentViewModel @Inject constructor(
+    private val mediaService: MediaService,
+    private val authMan: AuthMan,
+    private val navMan: NavMan,
+    private val json: Json
+) : PageViewModel<Media>() {
+    // properties
+    val sortField = MutableLiveData(MediaSortField.CreatedAt)
+    val sortOrder = MutableLiveData(MediaSortOrder.Descending)
+    val selectedMedia = MutableLiveData<Media?>(null)
+    var selectedMediaPosition = -1
+    val didInsert = MutableLiveData(false)
+    val didRefresh = MutableLiveData(false)
+
+    // init
+    init {
+        paginate(true)
+    }
+
+    // functions
+    override fun paginate(refresh: Boolean) {
+        Timber.d("Paginating")
+        state.value = PageState.Fetching
+
+        viewModelScope.launch {
+            val dto = provideFilterDto(refresh)
+
+            try {
+                val media = mediaService.getMedia(dto)
+
+                if (refresh) {
+                    items.value?.clear()
+                    didRefresh.value = true
+                } else if (media.isNotEmpty()) {
+                    didInsert.value = true
+                }
+
+                items.value?.addAll(media)
+
+                state.value = when (media.size < (dto.limit ?: Constants.MEDIA_PAGE_SIZE)) {
+                    true -> PageState.Bottom
+                    else -> PageState.Idle
+                }
+                failedToLoad.value = false
+            } catch (e: Throwable) {
+                Timber.e(e)
+                failedToLoad.value = true
+                state.value = PageState.Bottom
+                toastMessage.value = e.message
+            }
+        }
+    }
+
+    private fun provideFilterDto(refresh: Boolean): GetMediaFilterDto {
+        var cursor: String? = null
+        items.value?.lastOrNull()?.let { lastMedia ->
+            try {
+                val map = json.encodeToJsonElement(lastMedia).jsonObject.toMap()
+                map[sortField.value?.rawValue]?.let { fieldValue ->
+                    cursor = fieldValue.toString().replace("\"", "")
+                }
+            } catch (e: Throwable) {
+                Timber.e(e)
+            }
+        }
+
+        val sort = "${sortField.value?.rawValue},${sortOrder.value?.rawValue}"
+
+        return GetMediaFilterDto(
+            null,
+            authMan.payload?.id,
+            sort,
+            if (refresh) null else cursor,
+            Constants.MEDIA_PAGE_SIZE
+        )
+    }
+
+    fun handleOnTapMedia(position: Int) {
+        val media = items.value!![position]
+
+        if (selectedMedia.value != null && selectedMedia.value!!.id == media.id) {
+            selectedMediaPosition = -1
+            selectedMedia.value = null
+        } else {
+            selectedMediaPosition = position
+            selectedMedia.value = media
+        }
+    }
+}

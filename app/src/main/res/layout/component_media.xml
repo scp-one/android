@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <data>
+        <variable name="vm" type="com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragmentViewModel" />
+        <variable name="media" type="com.greenknightlabs.scp_001.media.models.Media" />
+    </data>
+    
+    <com.greenknightlabs.scp_001.app.views.SquareImageView
+        android:id="@+id/component_media_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:foreground="@{(vm.selectedMedia.id == media.id) ? @android:color/white : @android:color/transparent}"
+        android:background="?attr/themeColorPrimaryDark"
+        android:src="@null" />
+    
+</layout>

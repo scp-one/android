@@ -13,7 +13,9 @@ import com.greenknightlabs.scp_001.app.util.*
 import com.greenknightlabs.scp_001.auth.fragments.login_fragment.LoginFragment
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.databinding.ActivityMainBinding
+import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragment
+import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

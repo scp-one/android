@@ -9,17 +9,23 @@ enum class Themes(
     private val resIdFontRegular: Int,
     private val resIdFontLarge: Int,
 ) {
-    Dark(
-        "themeDark",
-        R.style.Theme_Dark_FontSmall,
-        R.style.Theme_Dark_FontRegular,
-        R.style.Theme_Dark_FontLarge
+    Slate(
+        "themeSlate",
+        R.style.Theme_Slate_FontSmall,
+        R.style.Theme_Slate_FontRegular,
+        R.style.Theme_Slate_FontLarge
     ),
     Light(
         "themeLight",
         R.style.Theme_Light_FontSmall,
         R.style.Theme_Light_FontRegular,
         R.style.Theme_Light_FontLarge
+    ),
+    Dark(
+        "themeDark",
+        R.style.Theme_Dark_FontSmall,
+        R.style.Theme_Dark_FontRegular,
+        R.style.Theme_Dark_FontLarge
     ),
     Midnight(
         "themeMidnight",
@@ -38,6 +44,7 @@ enum class Themes(
 
     fun displayName(): String {
         return when (this) {
+            Slate -> "Slate"
             Light -> "Light"
             Dark -> "Dark"
             Midnight -> "Midnight"

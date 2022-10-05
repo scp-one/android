@@ -5,7 +5,9 @@ import com.greenknightlabs.scp_001.app.enums.PageState
 
 abstract class PageViewModel<T> : BaseViewModel() {
     // properties
-    val items = MutableLiveData<MutableList<T>>()
+    val items = MutableLiveData<MutableList<T>>(mutableListOf())
+//    val items = mutableListOf<T>()
+    val failedToLoad = MutableLiveData(false)
 
     // functions
     abstract fun paginate(refresh: Boolean)
