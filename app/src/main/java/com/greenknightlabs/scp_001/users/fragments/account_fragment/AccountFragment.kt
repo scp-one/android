@@ -59,10 +59,17 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
                 activity?.askConfirmation { vm.confirmAlertAction.value?.invoke() }
             }
         }
+        vm.avatarUrl.observe(viewLifecycleOwner) {
+            it?.let {
+                kairos.load(it).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
+            }
+        }
         pvm.user.observe(viewLifecycleOwner) {
             if (it != null) {
                 vm.nickname.value = pvm.user.value?.nickname
-                kairos.load(it.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
+                if (vm.avatarUrl.value == null) {
+                    kairos.load(it.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
+                }
             }
         }
     }

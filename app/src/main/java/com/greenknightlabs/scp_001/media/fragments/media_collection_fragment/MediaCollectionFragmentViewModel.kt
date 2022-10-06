@@ -1,5 +1,6 @@
 package com.greenknightlabs.scp_001.media.fragments.media_collection_fragment
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.app.enums.PageState
@@ -21,6 +22,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.jsonObject
 import timber.log.Timber
+import java.io.File
 import java.util.Timer
 import javax.inject.Inject
 
@@ -34,10 +36,16 @@ class MediaCollectionFragmentViewModel @Inject constructor(
     // properties
     val sortField = MutableLiveData(MediaSortField.CreatedAt)
     val sortOrder = MutableLiveData(MediaSortOrder.Descending)
+
     val selectedMedia = MutableLiveData<Media?>(null)
     var selectedMediaPosition = -1
-    val didInsert = MutableLiveData(false)
+
     val didRefresh = MutableLiveData(false)
+    val didInsert = MutableLiveData(false)
+    val didAppend = MutableLiveData(false)
+    val didDelete = MutableLiveData(false)
+
+    var listener: MediaCollectionFragment.Listener? = null
 
     // init
     init {
@@ -46,7 +54,6 @@ class MediaCollectionFragmentViewModel @Inject constructor(
 
     // functions
     override fun paginate(refresh: Boolean) {
-        Timber.d("Paginating")
         state.value = PageState.Fetching
 
         viewModelScope.launch {
@@ -57,12 +64,12 @@ class MediaCollectionFragmentViewModel @Inject constructor(
 
                 if (refresh) {
                     items.value?.clear()
+                    items.value?.addAll(media)
                     didRefresh.value = true
                 } else if (media.isNotEmpty()) {
-                    didInsert.value = true
+                    items.value?.addAll(media)
+                    didAppend.value = true
                 }
-
-                items.value?.addAll(media)
 
                 state.value = when (media.size < (dto.limit ?: Constants.MEDIA_PAGE_SIZE)) {
                     true -> PageState.Bottom
@@ -102,15 +109,60 @@ class MediaCollectionFragmentViewModel @Inject constructor(
         )
     }
 
+    fun uploadImage(file: File) {
+        val originalState = state.value
+        state.value = PageState.Fetching
+
+        viewModelScope.launch {
+            try {
+                val media = mediaService.uploadMedia(file)
+
+                state.value = originalState
+                items.value?.add(0, media)
+
+                didInsert.value = true
+            } catch (e: Throwable) {
+                state.value = originalState
+                toastMessage.value = e.message
+            }
+        }
+    }
+
+    fun deleteMedia() {
+        val media = selectedMedia.value ?: return
+        val position = selectedMediaPosition
+
+        val originalState = state.value
+        state.value = PageState.Fetching
+
+        viewModelScope.launch {
+            try {
+                mediaService.deleteMedia(media.id)
+
+                items.value?.removeAt(position)
+
+                state.value = originalState
+                didDelete.value = true
+            } catch (e: Throwable) {
+                state.value = originalState
+                toastMessage.value = e.message
+            }
+        }
+    }
+
     fun handleOnTapMedia(position: Int) {
         val media = items.value!![position]
 
         if (selectedMedia.value != null && selectedMedia.value!!.id == media.id) {
-            selectedMediaPosition = -1
-            selectedMedia.value = null
+            clearMediaSelection()
         } else {
             selectedMediaPosition = position
             selectedMedia.value = media
         }
+    }
+
+    fun clearMediaSelection() {
+        selectedMediaPosition = -1
+        selectedMedia.value = null
     }
 }

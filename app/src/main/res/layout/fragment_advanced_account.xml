@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="vm" type="com.greenknightlabs.scp_001.users.fragments.advanced_account_fragment.AdvancedAccountFragmentViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false"
+            android:clipChildren="false" >
+
+            <include layout="@layout/component_list_option_section_title"
+                app:title='@{"DANGER ZONE"}' />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingSmallPlus"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/component_list_option"
+                        app:iconId="@{@drawable/ic_delete}"
+                        app:title="@{`Delete Account`}"
+                        app:onTapAction="@{vm::handleOnTapDeleteAccount}" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

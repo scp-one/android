@@ -3,10 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_fragment_media_collection_delete"
+        android:icon="@drawable/ic_delete"
+        app:iconTint="?attr/themeColorBtnCancel"
+        android:title="Delete Media"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/menu_fragment_media_collection_add"
         android:icon="@drawable/ic_add"
         app:iconTint="?attr/themeColorFontDim"
         android:title="Add Media"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_fragment_media_collection_select"
+        android:icon="@drawable/ic_send"
+        app:iconTint="?attr/themeColorFontBright"
+        android:title="Select Media"
         app:showAsAction="always" />
 
 </menu>

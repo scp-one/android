@@ -1,6 +1,8 @@
 package com.greenknightlabs.scp_001.media
 
+import android.net.Uri
 import android.util.Log
+import androidx.core.net.toFile
 import com.greenknightlabs.scp_001.app.util.ApiErrorHandler
 import com.greenknightlabs.scp_001.auth.AuthService
 import com.greenknightlabs.scp_001.media.dtos.GetMediaFilterDto
@@ -11,7 +13,9 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.jsonObject
+import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import timber.log.Timber
 import java.io.File
 import java.util.Timer
@@ -28,9 +32,9 @@ class MediaService @Inject constructor(
 //        val multipartImage =
 //            MultipartBody.Part.createFormData("image", file.getName(), requestFile)
 
-        val multiPartBody = MultipartBody.Part.createFormData("mediaFile", file.name)
-
         try {
+            val multiPartBody = MultipartBody.Part.createFormData("mediaFile", file.name, RequestBody.create(MediaType.parse("image/*"), file))
+
             val accessToken = authService.getAccessTokenAsBearer()
             val media = mediaServiceApi.uploadMedia(accessToken, multiPartBody)
             media

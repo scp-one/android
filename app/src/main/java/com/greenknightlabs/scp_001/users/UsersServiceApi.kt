@@ -1,5 +1,6 @@
 package com.greenknightlabs.scp_001.users
 
+import com.greenknightlabs.scp_001.users.dtos.DeleteUserDto
 import com.greenknightlabs.scp_001.users.dtos.EditUserDto
 import com.greenknightlabs.scp_001.users.models.User
 import retrofit2.Call
@@ -29,4 +30,11 @@ interface UsersServiceApi {
         @Path("id") id: String,
         @Body editUserDto: EditUserDto
     ): User
+
+    @POST("users/{id}/delete")
+    suspend fun deleteUser(
+        @Header("Authorization") accessToken: String,
+        @Path("id") id: String,
+        @Body deleteUserDto: DeleteUserDto
+    )
 }

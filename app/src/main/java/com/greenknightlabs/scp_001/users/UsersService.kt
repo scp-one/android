@@ -2,6 +2,7 @@ package com.greenknightlabs.scp_001.users
 
 import com.greenknightlabs.scp_001.app.util.ApiErrorHandler
 import com.greenknightlabs.scp_001.auth.AuthService
+import com.greenknightlabs.scp_001.users.dtos.DeleteUserDto
 import com.greenknightlabs.scp_001.users.dtos.EditUserDto
 import com.greenknightlabs.scp_001.users.dtos.GetUsersFilterDto
 import com.greenknightlabs.scp_001.users.models.User
@@ -61,6 +62,17 @@ class UsersService @Inject constructor(
             val accessToken = authService.getAccessTokenAsBearer()
             val user = usersServiceApi.editUserById(accessToken, id, editUserDto)
             user
+        } catch (e: Throwable) {
+            Timber.e(e)
+            apiErrorHandler.throwApiError(e)
+        }
+    }
+
+    @Throws
+    suspend fun deleteUser(id: String, deleteUserDto: DeleteUserDto) = withContext(Dispatchers.IO) {
+        try {
+            val accessToken = authService.getAccessTokenAsBearer()
+            usersServiceApi.deleteUser(accessToken, id, deleteUserDto)
         } catch (e: Throwable) {
             Timber.e(e)
             apiErrorHandler.throwApiError(e)
