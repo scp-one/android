@@ -101,15 +101,15 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
                 adapter.notifyDataSetChanged()
             }
         }
-        vm.didInsert.observe(viewLifecycleOwner) {
+        vm.didInsertBefore.observe(viewLifecycleOwner) {
             if (it == true) {
-                vm.didInsert.value = false
+                vm.didInsertBefore.value = false
                 adapter.notifyItemInserted(0)
             }
         }
-        vm.didAppend.observe(viewLifecycleOwner) {
+        vm.didInsertAfter.observe(viewLifecycleOwner) {
             if (it == true) {
-                vm.didAppend.value = false
+                vm.didInsertAfter.value = false
                 adapter.notifyItemInserted(vm.items.value!!.size)
             }
         }

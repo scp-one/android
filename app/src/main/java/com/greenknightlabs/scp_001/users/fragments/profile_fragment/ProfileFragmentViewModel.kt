@@ -8,6 +8,7 @@ import com.greenknightlabs.scp_001.BuildConfig
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.fragments.PageViewModel
 import com.greenknightlabs.scp_001.app.fragments.appearance_fragment.AppearanceFragment
 import com.greenknightlabs.scp_001.app.fragments.dependencies_fragment.DependenciesFragment
 import com.greenknightlabs.scp_001.app.util.NavMan
@@ -22,7 +23,9 @@ import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
+import kotlin.concurrent.schedule
 
 @HiltViewModel
 class ProfileFragmentViewModel @Inject constructor(
@@ -31,10 +34,9 @@ class ProfileFragmentViewModel @Inject constructor(
     private val authService: AuthService,
     private val stash: Stash,
     private val navMan: NavMan,
-) : BaseViewModel() {
+) : PageViewModel<Nothing>() {
     // properties
     val user = MutableLiveData<User?>(null)
-    val isRefreshing = MutableLiveData(false)
     val confirmAlertText = MutableLiveData("")
     val confirmAlertAction: MutableLiveData<() -> Unit> = MutableLiveData()
     val shouldShowConfirmAlert = MutableLiveData(false)
@@ -43,13 +45,32 @@ class ProfileFragmentViewModel @Inject constructor(
     val webViewUrl = MutableLiveData("")
     val shouldShowWebView = MutableLiveData(false)
 
+    val canRefresh = MutableLiveData(true)
+    val isRefreshing = MutableLiveData(false)
+
     // init
     init {
-        paginate(true)
+        onRefreshAction()
     }
 
     // functions
-    fun paginate(refresh: Boolean) {
+    fun onRefreshAction() {
+        if (state.value == PageState.Fetching || canRefresh.value == false) {
+            isRefreshing.value = false
+            return
+        }
+
+        canRefresh.value = false
+        isRefreshing.value = true
+        paginate(true)
+        Timer("refresh", false).schedule(5000) {
+            viewModelScope.launch {
+                canRefresh.value = true
+            }
+        }
+    }
+
+    override fun paginate(refresh: Boolean) {
         state.value = PageState.Fetching
 
         viewModelScope.launch {
@@ -63,16 +84,6 @@ class ProfileFragmentViewModel @Inject constructor(
                 isRefreshing.value = false
             }
         }
-    }
-
-    fun onRefreshAction() {
-        if (state.value == PageState.Fetching) {
-            isRefreshing.value = false
-            return
-        }
-
-        isRefreshing.value = true
-        paginate(true)
     }
 
     fun handleOnTapLogout(context: Context?, activity: MainActivity?) {

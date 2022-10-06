@@ -36,8 +36,8 @@ class MediaCollectionFragmentViewModel @Inject constructor(
     var selectedMediaPosition = -1
 
     val didRefresh = MutableLiveData(false)
-    val didInsert = MutableLiveData(false)
-    val didAppend = MutableLiveData(false)
+    val didInsertBefore = MutableLiveData(false)
+    val didInsertAfter = MutableLiveData(false)
     val didDelete = MutableLiveData(false)
 
     var listener: MediaCollectionFragment.Listener? = null
@@ -63,7 +63,7 @@ class MediaCollectionFragmentViewModel @Inject constructor(
                     didRefresh.value = true
                 } else if (media.isNotEmpty()) {
                     items.value?.addAll(media)
-                    didAppend.value = true
+                    didInsertAfter.value = true
                 }
 
                 state.value = when (media.size < (dto.limit ?: MediaConstants.MEDIA_PAGE_SIZE)) {
@@ -115,7 +115,7 @@ class MediaCollectionFragmentViewModel @Inject constructor(
                 state.value = originalState
                 items.value?.add(0, media)
 
-                didInsert.value = true
+                didInsertBefore.value = true
             } catch (e: Throwable) {
                 state.value = originalState
                 toastMessage.value = e.message

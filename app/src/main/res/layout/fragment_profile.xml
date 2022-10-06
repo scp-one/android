@@ -7,7 +7,7 @@
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/fragment_page_refresh_layout"
+        android:id="@+id/fragment_profile_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/themeColorPrimary"
@@ -27,7 +27,7 @@
                 android:orientation="vertical"
                 android:padding="@dimen/spacingRegular"
                 android:clipToPadding="false"
-                android:clipChildren="false" >
+                android:clipChildren="false">
 
                 <include layout="@layout/component_header_fragment_profile"
                     android:id="@+id/layout_header_fragment_profile"

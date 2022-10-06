@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="kotlin.jvm.functions.Function0" />
+        <import type="kotlin.Unit" />
+
+        <variable name="post" type="com.greenknightlabs.scp_001.posts.models.Post" />
+        <variable name="onTapAction" type="Function0&lt;Unit>" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacingSmallPlus"
+        app:cardElevation="@dimen/defaultCardElevation"
+        app:cardCornerRadius="@dimen/defaultCornerRadius"
+        app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="0dp"
+            android:background="@drawable/ripple_button_borderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{_ -> onTapAction.invoke()}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacingRegular"
+                android:text="@{post.title}"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

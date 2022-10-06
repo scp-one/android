@@ -6,7 +6,6 @@ import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 abstract class PageViewModel<T> : BaseViewModel() {
     // properties
     val items = MutableLiveData<MutableList<T>>(mutableListOf())
-//    val items = mutableListOf<T>()
     val failedToLoad = MutableLiveData(false)
 
     // functions

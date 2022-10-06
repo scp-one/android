@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="vm" type="com.greenknightlabs.scp_001.posts.fragments.posts_fragment.PostsFragmentViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/fragment_posts_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/themeColorPrimary"
+        app:onRefreshListener="@{() -> vm.onRefreshAction()}"
+        app:refreshing="@{vm.isRefreshing}">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_posts_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="?actionBarSize"
+            android:background="?attr/themeColorPrimary" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</layout>
