@@ -1,7 +1,7 @@
 package com.greenknightlabs.scp_001.app.fragments.dependencies_fragment
 
 import androidx.lifecycle.MutableLiveData
-import com.greenknightlabs.scp_001.app.view_models.BaseViewModel
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

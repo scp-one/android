@@ -8,7 +8,7 @@
 //import com.greenknightlabs.scp_001.R
 //import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 //import com.greenknightlabs.scp_001.app.enums.PageState
-//import com.greenknightlabs.scp_001.app.view_models.PageViewModel
+//import com.greenknightlabs.scp_001.app.fragments.PageViewModel
 //import com.greenknightlabs.scp_001.databinding.FragmentPageBinding
 //import java.util.*
 //

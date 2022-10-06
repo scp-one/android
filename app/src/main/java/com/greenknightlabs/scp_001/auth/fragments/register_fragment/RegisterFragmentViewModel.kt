@@ -1,13 +1,12 @@
 package com.greenknightlabs.scp_001.auth.fragments.register_fragment
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.util.NavMan
-import com.greenknightlabs.scp_001.app.view_models.BaseViewModel
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import com.greenknightlabs.scp_001.auth.AuthService
-import com.greenknightlabs.scp_001.auth.dtos.AuthCredentialsDto
+import com.greenknightlabs.scp_001.auth.dtos.RegisterDto
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -36,7 +35,7 @@ class RegisterFragmentViewModel @Inject constructor(
         val usern = usern.value ?: return
         val email = email.value ?: return
         val passw = passw.value ?: return
-        val dto = AuthCredentialsDto(usern, email, passw)
+        val dto = RegisterDto(usern, email, passw)
 
         isLocked.value = true
         state.value = PageState.Fetching

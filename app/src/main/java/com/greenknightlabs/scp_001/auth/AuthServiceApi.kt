@@ -1,20 +1,19 @@
 package com.greenknightlabs.scp_001.auth
 
 import com.greenknightlabs.scp_001.auth.objects.AuthAccessInfo
-import com.greenknightlabs.scp_001.auth.dtos.AuthCredentialsDto
-import retrofit2.Call
-import retrofit2.Response
+import com.greenknightlabs.scp_001.auth.dtos.LoginDto
+import com.greenknightlabs.scp_001.auth.dtos.RegisterDto
 import retrofit2.http.*
 
 interface AuthServiceApi {
     @POST("auth/register")
     suspend fun register(
-        @Body authCredentialsDto: AuthCredentialsDto
+        @Body registerDto: RegisterDto
     ): AuthAccessInfo
 
     @POST("auth/login")
     suspend fun login(
-        @Body authCredentialsDto: AuthCredentialsDto
+        @Body loginDto: LoginDto
     ): AuthAccessInfo
 
     @POST("auth/logout")

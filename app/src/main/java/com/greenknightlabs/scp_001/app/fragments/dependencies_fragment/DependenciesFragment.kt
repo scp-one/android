@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.extensions.pushWebView
-import com.greenknightlabs.scp_001.app.fragments.BaseFragment
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.databinding.FragmentDependenciesBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,29 +1,24 @@
 package com.greenknightlabs.scp_001.media.fragments.media_collection_fragment
 
-import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.util.NavMan
-import com.greenknightlabs.scp_001.app.view_models.BaseViewModel
-import com.greenknightlabs.scp_001.app.view_models.PageViewModel
+import com.greenknightlabs.scp_001.app.fragments.PageViewModel
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.media.MediaService
-import com.greenknightlabs.scp_001.media.config.Constants
+import com.greenknightlabs.scp_001.media.config.MediaConstants
 import com.greenknightlabs.scp_001.media.dtos.GetMediaFilterDto
 import com.greenknightlabs.scp_001.media.enums.MediaSortField
 import com.greenknightlabs.scp_001.media.enums.MediaSortOrder
-import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.adapters.MediaCollectionFragmentAdapter
 import com.greenknightlabs.scp_001.media.models.Media
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.jsonObject
 import timber.log.Timber
 import java.io.File
-import java.util.Timer
 import javax.inject.Inject
 
 @HiltViewModel
@@ -71,7 +66,7 @@ class MediaCollectionFragmentViewModel @Inject constructor(
                     didAppend.value = true
                 }
 
-                state.value = when (media.size < (dto.limit ?: Constants.MEDIA_PAGE_SIZE)) {
+                state.value = when (media.size < (dto.limit ?: MediaConstants.MEDIA_PAGE_SIZE)) {
                     true -> PageState.Bottom
                     else -> PageState.Idle
                 }
@@ -105,7 +100,7 @@ class MediaCollectionFragmentViewModel @Inject constructor(
             authMan.payload?.id,
             sort,
             if (refresh) null else cursor,
-            Constants.MEDIA_PAGE_SIZE
+            MediaConstants.MEDIA_PAGE_SIZE
         )
     }
 

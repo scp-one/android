@@ -32,4 +32,8 @@
     <dimen name="fontSizeLargeSub">16sp</dimen>
     <dimen name="fontSizeLargeBody">20sp</dimen>
     <dimen name="fontSizeLargeHeadline">28sp</dimen>
+
+    <!-- VIEW WIDTH -->
+    <dimen name="viewThreshold1">600dp</dimen>
+    <dimen name="viewThreshold2">800dp</dimen>
 </resources>

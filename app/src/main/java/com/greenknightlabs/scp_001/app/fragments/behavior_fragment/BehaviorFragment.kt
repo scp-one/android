@@ -1,4 +1,4 @@
-package com.greenknightlabs.scp_001.app.fragments.appearance_fragment
+package com.greenknightlabs.scp_001.app.fragments.behavior_fragment
 
 import android.os.Bundle
 import android.view.View
@@ -7,16 +7,16 @@ import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.databinding.FragmentAppearanceBinding
+import com.greenknightlabs.scp_001.databinding.FragmentBehaviorBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AppearanceFragment : BaseFragment<FragmentAppearanceBinding>(R.layout.fragment_appearance) {
-    private val vm: AppearanceFragmentViewModel by viewModels()
+class BehaviorFragment : BaseFragment<FragmentBehaviorBinding>(R.layout.fragment_behavior) {
+    private val vm: BehaviorFragmentViewModel by viewModels()
 
     // functions
     override fun activityTitle(): String {
-        return "Appearance"
+        return "Behavior"
     }
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {

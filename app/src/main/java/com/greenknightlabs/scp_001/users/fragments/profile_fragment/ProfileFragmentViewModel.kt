@@ -6,13 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.BuildConfig
 import com.greenknightlabs.scp_001.app.activities.MainActivity
-import com.greenknightlabs.scp_001.app.config.Constants
+import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.fragments.appearance_fragment.AppearanceFragment
 import com.greenknightlabs.scp_001.app.fragments.dependencies_fragment.DependenciesFragment
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Stash
-import com.greenknightlabs.scp_001.app.view_models.BaseViewModel
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
+import com.greenknightlabs.scp_001.app.fragments.behavior_fragment.BehaviorFragment
 import com.greenknightlabs.scp_001.auth.AuthService
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.users.UsersService
@@ -106,7 +107,7 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapBehavior() {
-        toastMessage.value = "Not implemented"
+        navMan.pushFragment(BehaviorFragment())
     }
 
     fun handleOnTapProAccess() {
@@ -116,7 +117,10 @@ class ProfileFragmentViewModel @Inject constructor(
     fun handleOnTapClearCache() {
         confirmAlertText.value = "Are you sure you want to do that?"
         confirmAlertAction.value = {
-            toastMessage.value = "Not implemented"
+            viewModelScope.launch {
+                stash.empty()
+                toastMessage.value = "Cleared."
+            }
         }
         shouldShowConfirmAlert.value = true
     }
@@ -130,7 +134,7 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapSendFeedback() {
-        webViewUrl.value = Constants.URL_FEEDBACK
+        webViewUrl.value = AppConstants.URL_FEEDBACK
         shouldShowWebView.value = true
     }
 
@@ -143,12 +147,12 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapPrivacyPolicy() {
-        webViewUrl.value = Constants.URL_PRIVACY_POLICY
+        webViewUrl.value = AppConstants.URL_PRIVACY_POLICY
         shouldShowWebView.value = true
     }
 
     fun handleOnTapTermsOfService() {
-        webViewUrl.value = Constants.URL_TERMS_OF_SERVICE
+        webViewUrl.value = AppConstants.URL_TERMS_OF_SERVICE
         shouldShowWebView.value = true
     }
 

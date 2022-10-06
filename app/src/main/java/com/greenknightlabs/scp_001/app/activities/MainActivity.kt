@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     private fun configureView() {
         currentTheme = preferences.theme.value!!
         currentAppFontSize = preferences.appFontSize.value!!
+
         setTheme(preferences.theme.value!!.resId(preferences.appFontSize.value!!))
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

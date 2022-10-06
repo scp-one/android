@@ -1,7 +1,7 @@
-package com.greenknightlabs.scp_001.app.view_models
+package com.greenknightlabs.scp_001.app.fragments
 
 import androidx.lifecycle.MutableLiveData
-import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 
 abstract class PageViewModel<T> : BaseViewModel() {
     // properties

@@ -13,8 +13,6 @@ import retrofit2.http.QueryMap
 import javax.inject.Inject
 
 interface MediaServiceApi {
-//    https://davidamunga.medium.com/working-with-multipart-form-data-using-retrofit-for-android-280307f23258
-
     @Multipart
     @POST("media")
     suspend fun uploadMedia(

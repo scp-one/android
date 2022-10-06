@@ -8,9 +8,9 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 @Serializable
-enum class ScpVisibility(val value: Int) {
-    HIDDEN(0),
-    VISIBLE(1);
+enum class ScpVisibility(val rawValue: Int) {
+    HIDDEN(1),
+    VISIBLE(2);
 
     @Serializer(ScpVisibility::class)
     companion object : KSerializer<ScpVisibility> {
@@ -18,13 +18,13 @@ enum class ScpVisibility(val value: Int) {
             get() = TODO("Not yet implemented")
 
         override fun serialize(encoder: Encoder, value: ScpVisibility) {
-            encoder.encodeInt(value.value)
+            encoder.encodeInt(value.rawValue)
         }
 
         override fun deserialize(decoder: Decoder): ScpVisibility {
             val decoderValue = decoder.decodeInt()
             return values().first {
-                it.value == decoderValue
+                it.rawValue == decoderValue
             }
         }
     }

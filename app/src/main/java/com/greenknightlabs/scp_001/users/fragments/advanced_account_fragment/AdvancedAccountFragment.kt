@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.greenknightlabs.scp_001.R
-import com.greenknightlabs.scp_001.app.fragments.BaseFragment
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.databinding.FragmentAdvancedAccountBinding
 import dagger.hilt.android.AndroidEntryPoint
 

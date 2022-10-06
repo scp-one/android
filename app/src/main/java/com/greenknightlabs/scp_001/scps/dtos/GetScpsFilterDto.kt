@@ -11,9 +11,11 @@ data class GetScpsFilterDto(
     val uid: String? = null,
     val name: String? = null,
     val number: Int? = null,
+    val series: Int? = null,
     val classType: ScpClassType? = null,
     val visibility: ScpVisibility? = null,
     val status: ScpStatus? = null,
     val sort: String? = null,
-    val cursor: String? = null
+    val cursor: String? = null,
+    val limit: Int? = null,
 )

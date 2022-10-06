@@ -9,7 +9,7 @@ import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.makeToast
-import com.greenknightlabs.scp_001.app.fragments.BaseFragment
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.databinding.FragmentDeleteAccountBinding
 import dagger.hilt.android.AndroidEntryPoint
 

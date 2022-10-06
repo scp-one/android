@@ -2,9 +2,9 @@ package com.greenknightlabs.scp_001.auth
 
 import com.greenknightlabs.scp_001.app.util.ApiErrorHandler
 import com.greenknightlabs.scp_001.auth.objects.AuthAccessInfo
-import com.greenknightlabs.scp_001.auth.dtos.AuthCredentialsDto
+import com.greenknightlabs.scp_001.auth.dtos.LoginDto
+import com.greenknightlabs.scp_001.auth.dtos.RegisterDto
 import com.greenknightlabs.scp_001.auth.util.AuthMan
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -16,9 +16,9 @@ class AuthService @Inject constructor(
     private val apiErrorHandler: ApiErrorHandler
 ) {
     @Throws
-    suspend fun register(authCredentialsDto: AuthCredentialsDto): AuthAccessInfo = withContext(Dispatchers.IO) {
+    suspend fun register(registerDto: RegisterDto): AuthAccessInfo = withContext(Dispatchers.IO) {
         try {
-            val accessInfo = authServiceApi.register(authCredentialsDto)
+            val accessInfo = authServiceApi.register(registerDto)
             accessInfo
         } catch (e: Throwable) {
             Timber.e(e)
@@ -27,9 +27,9 @@ class AuthService @Inject constructor(
     }
 
     @Throws
-    suspend fun login(authCredentialsDto: AuthCredentialsDto): AuthAccessInfo = withContext(Dispatchers.IO) {
+    suspend fun login(loginDto: LoginDto): AuthAccessInfo = withContext(Dispatchers.IO) {
         try {
-            val accessInfo = authServiceApi.login(authCredentialsDto)
+            val accessInfo = authServiceApi.login(loginDto)
             accessInfo
         } catch (e: Throwable) {
             Timber.e(e)

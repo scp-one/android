@@ -1,4 +1,4 @@
-package com.greenknightlabs.scp_001.app.view_models
+package com.greenknightlabs.scp_001.app.fragments.base_fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

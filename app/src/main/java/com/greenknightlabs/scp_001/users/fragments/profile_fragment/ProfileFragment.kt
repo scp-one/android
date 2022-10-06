@@ -7,13 +7,11 @@ import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.play.core.review.model.ReviewErrorCode
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
-import com.greenknightlabs.scp_001.app.config.Constants
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.*
-import com.greenknightlabs.scp_001.app.fragments.*
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint

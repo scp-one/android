@@ -1,4 +1,4 @@
-package com.greenknightlabs.scp_001.app.fragments
+package com.greenknightlabs.scp_001.app.fragments.base_fragment
 
 import android.os.Bundle
 import android.view.*
@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import com.greenknightlabs.scp_001.R
 
 open class BaseFragment<T: ViewDataBinding>(
     @LayoutRes layoutId: Int

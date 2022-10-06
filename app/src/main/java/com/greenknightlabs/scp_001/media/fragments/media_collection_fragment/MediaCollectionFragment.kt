@@ -19,7 +19,7 @@ import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makeToast
-import com.greenknightlabs.scp_001.app.fragments.BaseFragment
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.databinding.FragmentMediaCollectionBinding

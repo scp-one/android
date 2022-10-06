@@ -3,9 +3,8 @@ package com.greenknightlabs.scp_001.users.fragments.account_fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.app.enums.PageState
-import com.greenknightlabs.scp_001.app.fragments.dependencies_fragment.DependenciesFragment
 import com.greenknightlabs.scp_001.app.util.NavMan
-import com.greenknightlabs.scp_001.app.view_models.BaseViewModel
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import com.greenknightlabs.scp_001.auth.fragments.email_update_fragment.EmailUpdateFragment
 import com.greenknightlabs.scp_001.auth.fragments.pass_update_fragment.PassUpdateFragment
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment

@@ -9,5 +9,6 @@ data class GetUsersFilterDto(
     val name: String? = null,
     val accessLevel: UserAccessLevel? = null,
     val sort: String? = null,
-    val cursor: String? = null
+    val cursor: String? = null,
+    val limit: Int? = null
 )

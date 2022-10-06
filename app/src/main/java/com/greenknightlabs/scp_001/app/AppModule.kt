@@ -2,7 +2,7 @@ package com.greenknightlabs.scp_001.app
 
 import android.content.Context
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.greenknightlabs.scp_001.app.config.Constants
+import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.util.ApiErrorHandler
 import dagger.Module
 import dagger.Provides
@@ -36,7 +36,7 @@ object AppModule {
     fun provideRetrofit(json: Json): Retrofit {
         val contentType = MediaType.parse("application/json")!!
         return Retrofit.Builder()
-            .baseUrl(Constants.API_URL)
+            .baseUrl(AppConstants.API_URL)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
     }
