@@ -77,7 +77,7 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {
         super.configureView(view, savedInstanceState)
-
+        binding.lifecycleOwner = viewLifecycleOwner
         if (vm.listener == null) {
             vm.listener = listener
         }
@@ -85,7 +85,6 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
         val adapter = MediaCollectionFragmentAdapter(vm, kairos)
         val layoutManager = GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)
 
-        binding.lifecycleOwner = viewLifecycleOwner
         binding.fragmentMediaCollectionRecyclerView.adapter = adapter
         binding.fragmentMediaCollectionRecyclerView.layoutManager = layoutManager
 

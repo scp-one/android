@@ -41,9 +41,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
     private fun didTapMenuMore(view: View?) {
         val menuItems = listOf("Logout")
-        activity?.makePopupMenu(view, menuItems) { index ->
+        view?.makePopupMenu(menuItems) { index ->
             when (index) {
-                0 -> vm.handleOnTapLogout(context, activity as? MainActivity)
+                0 -> vm.handleOnTapLogout(activity as? MainActivity)
             }
         }
     }

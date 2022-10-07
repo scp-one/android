@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="post" type="com.greenknightlabs.scp_001.posts.models.Post" />
+        <variable name="listener" type="com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/spacingRegular"
+        android:paddingStart="@dimen/spacingRegular"
+        android:paddingEnd="@dimen/spacingRegular">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/component_post_author_image_view"
+            android:layout_width="@dimen/sizeAvatarSmallPlus"
+            android:layout_height="@dimen/sizeAvatarSmallPlus"
+            android:src="?attr/colorPrimaryDark" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/spacingRegular"
+            android:paddingEnd="@dimen/spacingRegular"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:onClick="@{() -> listener.handleOnTapPostAuthor(post)}">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="?attr/themeFontSizeBody"
+                android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textColor="?attr/themeColorFontNormal"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text='@{post.user.user.nickname}'
+                tools:text="testesttesttesttesttesttesttesttesttesttesttesttest" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="?attr/themeFontSizeSub"
+                android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textColor="?attr/themeColorFontDim"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text='@{"@" + post.user.user.username}'
+                tools:text="testesttesttesttesttesttesttesttesttesttesttesttest" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <ImageView
+            android:id="@+id/component_post_author_image_view_more"
+            android:layout_width="?attr/themeFontSizeHeadline"
+            android:layout_height="?attr/themeFontSizeHeadline"
+            android:src="@drawable/ic_more_vert"
+            android:onClick="@{() -> listener.handleOnTapPostAuthorMore(post, componentPostAuthorImageViewMore)}" />
+    
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

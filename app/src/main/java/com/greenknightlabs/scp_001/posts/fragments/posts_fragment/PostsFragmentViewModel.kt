@@ -1,8 +1,11 @@
 package com.greenknightlabs.scp_001.posts.fragments.posts_fragment
 
+import android.content.Context
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.fragments.PageViewModel
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Preferences
@@ -14,6 +17,7 @@ import com.greenknightlabs.scp_001.posts.enums.PostSortField
 import com.greenknightlabs.scp_001.posts.enums.PostSortOrder
 import com.greenknightlabs.scp_001.posts.enums.PostStatus
 import com.greenknightlabs.scp_001.posts.enums.PostVisibility
+import com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener
 import com.greenknightlabs.scp_001.posts.models.Post
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -31,8 +35,8 @@ class PostsFragmentViewModel @Inject constructor(
     private val authMan: AuthMan,
     private val preferences: Preferences,
     private val navMan: NavMan,
-    private val json: Json
-) : PageViewModel<Post>() {
+    private val json: Json,
+) : PageViewModel<Post>(), PostAuthorComponentListener {
     // properties
     val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
     val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
@@ -45,6 +49,8 @@ class PostsFragmentViewModel @Inject constructor(
 
     val canRefresh = MutableLiveData(true)
     val isRefreshing = MutableLiveData(false)
+
+    val shouldShowPostAuthorComponentMenuMore = MutableLiveData(false)
 
     // init
     init {
@@ -127,5 +133,22 @@ class PostsFragmentViewModel @Inject constructor(
             if (refresh) null else cursor,
             if (refresh) PostsConstants.POSTS_PAGE_SIZE_REFRESH else PostsConstants.POSTS_PAGE_SIZE
         )
+    }
+
+    fun handleOnTapPost(post: Post) {
+        Timber.d("handling on tap post")
+    }
+
+    override fun handleOnTapPostAuthor(post: Post) {
+        Timber.d("handling on tap post author")
+    }
+
+    override fun handleOnTapPostAuthorMore(post: Post, view: View) {
+        Timber.d("handling on tap post author more")
+        view.makePopupMenu(listOf("Visit User Profile")) { index ->
+            when (index) {
+                0 -> Timber.d("visiting user profile")
+            }
+        }
     }
 }

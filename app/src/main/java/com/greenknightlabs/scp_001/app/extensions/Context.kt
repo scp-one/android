@@ -22,19 +22,6 @@ fun Context.makeToast(message: String?, gravity: Int = Gravity.TOP) {
     toast.show()
 }
 
-fun Context.makePopupMenu(view: View?, items: List<String>, onTapAction: (index: Int) -> Unit) {
-    if (view == null) { return }
-    val popup = PopupMenu(this, view)
-    items.forEachIndexed { index, item ->
-        popup.menu.add(0, index, 0, item)
-    }
-    popup.setOnMenuItemClickListener { menuItem ->
-        onTapAction(menuItem.itemId)
-        true
-    }
-    popup.show()
-}
-
 fun Context.askConfirmation(onAccept: () -> Unit) {
     val builder = AlertDialog.Builder(this)
     builder.setMessage("Are you sure you want to do that?")

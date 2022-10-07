@@ -27,16 +27,5 @@ class BehaviorFragment : BaseFragment<FragmentBehaviorBinding>(R.layout.fragment
         vm.toastMessage.observe(viewLifecycleOwner) {
             activity?.makeToast(it)
         }
-        vm.shouldShowPopupMenu.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.popupMenuPrefKey.value?.displayNames()?.let { displayNames ->
-                    activity?.makePopupMenu(vm.popupMenuView.value, displayNames) { index ->
-                        vm.popupMenuPrefKey.value?.rawValues()?.getOrNull(index)?.let { rawValue ->
-                            vm.preferences.set(vm.popupMenuPrefKey.value!!, rawValue)
-                        }
-                    }
-                }
-            }
-        }
     }
 }

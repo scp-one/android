@@ -3,17 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="kotlin.jvm.functions.Function0" />
+        <import type="com.greenknightlabs.scp_001.posts.models.Post" />
+        <import type="kotlin.jvm.functions.Function1" />
         <import type="kotlin.Unit" />
+        <import type="android.view.View" />
 
         <variable name="post" type="com.greenknightlabs.scp_001.posts.models.Post" />
-        <variable name="onTapAction" type="Function0&lt;Unit>" />
+        <variable name="onTapAction" type="Function1&lt;Post, Unit>" />
+        <variable name="postAuthorComponentListener" type="com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacingSmallPlus"
+        android:layout_marginTop="@dimen/spacingRegular"
         app:cardElevation="@dimen/defaultCardElevation"
         app:cardCornerRadius="@dimen/defaultCornerRadius"
         app:cardBackgroundColor="?attr/themeColorPrimaryLight">
@@ -26,13 +29,52 @@
             android:background="@drawable/ripple_button_borderless"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{_ -> onTapAction.invoke()}">
+            android:onClick="@{_ -> onTapAction.invoke(post)}">
+
+            <include layout="@layout/component_post_author"
+                android:id="@+id/component_post_component_author"
+                app:post="@{post}"
+                app:listener="@{postAuthorComponentListener}" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacingRegular"
+                android:paddingTop="@dimen/spacingRegular"
+                android:paddingStart="@dimen/spacingRegular"
+                android:paddingEnd="@dimen/spacingRegular"
+                android:textSize="?attr/themeFontSizeBody"
+                android:fontFamily="?attr/themeFontFamilyBold"
+                android:textColor="?attr/themeColorFontNormal"
+                android:maxLines="3"
+                android:ellipsize="end"
                 android:text="@{post.title}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/spacingRegular"
+                android:paddingStart="@dimen/spacingRegular"
+                android:paddingEnd="@dimen/spacingRegular"
+                android:textSize="?attr/themeFontSizeBody"
+                android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textColor="?attr/themeColorFontNormal"
+                android:maxLines="8"
+                android:ellipsize="end"
+                android:text="@{post.content}"/>
+
+            <ImageView
+                android:id="@+id/component_post_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingTop="@dimen/spacingRegular"
+                android:scaleType="centerCrop"
+                android:cropToPadding="true"
+                android:visibility="@{(post.media != null) ? View.VISIBLE : View.GONE}" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacingRegular"
+                android:visibility="@{(post.media == null) ? View.VISIBLE : View.GONE}" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

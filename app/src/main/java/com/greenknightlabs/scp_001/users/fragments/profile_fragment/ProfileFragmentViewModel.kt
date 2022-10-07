@@ -86,7 +86,7 @@ class ProfileFragmentViewModel @Inject constructor(
         }
     }
 
-    fun handleOnTapLogout(context: Context?, activity: MainActivity?) {
+    fun handleOnTapLogout(activity: MainActivity?) {
         confirmAlertText.value = "Are you sure you want to logout?"
         confirmAlertAction.value = {
             authMan.accessInfo?.let { accessInfo ->
@@ -101,8 +101,7 @@ class ProfileFragmentViewModel @Inject constructor(
 
             authMan.didLogout()
             navMan.reset()
-            context?.startActivity(Intent(context, MainActivity::class.java))
-            activity?.finish()
+            activity?.recreate()
         }
         shouldShowConfirmAlert.value = true
     }

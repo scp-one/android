@@ -1,5 +1,6 @@
 package com.greenknightlabs.scp_001.posts.fragments.posts_fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -40,15 +41,22 @@ class PostsFragment : BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {
         super.configureView(view, savedInstanceState)
-
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.vm = vm
 
         val adapter = PostsFragmentAdapter(vm, kairos)
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.vm = vm
         binding.fragmentPostsRecyclerView.adapter = adapter
         binding.fragmentPostsRecyclerView.layoutManager = layoutManager
+        binding.fragmentPostsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (vm.state.value != PageState.Idle) return
+                if (layoutManager.findLastVisibleItemPosition() != vm.items.value?.size) return
+                vm.paginate(false)
+            }
+        })
 
         vm.state.observe(viewLifecycleOwner) {
             (activity as? MainActivity)?.showProgressBar(it == PageState.Fetching)

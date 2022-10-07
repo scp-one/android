@@ -10,6 +10,7 @@
     <dimen name="spacingFormHeaderImage">64dp</dimen>
 
     <dimen name="sizeAvatarSmall">32dp</dimen>
+    <dimen name="sizeAvatarSmallPlus">40dp</dimen>
     <dimen name="sizeAvatarRegular">48dp</dimen>
     <dimen name="sizeAvatarLarge">64dp</dimen>
     <dimen name="sizeAvatarHeader">128dp</dimen>
