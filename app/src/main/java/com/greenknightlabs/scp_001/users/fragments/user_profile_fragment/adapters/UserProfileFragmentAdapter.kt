@@ -1,23 +1,15 @@
-package com.greenknightlabs.scp_001.posts.fragments.posts_fragment.adapters
+package com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.greenknightlabs.scp_001.R
-import com.greenknightlabs.scp_001.app.fragments.PageViewModel
 import com.greenknightlabs.scp_001.app.util.Kairos
-import com.greenknightlabs.scp_001.databinding.ComponentMediaBinding
 import com.greenknightlabs.scp_001.databinding.ComponentPostBinding
-import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.adapters.MediaCollectionFragmentAdapter
-import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.PostsFragmentViewModel
-import com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener
-import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.posts.view_holders.PostComponentViewHolder
-import timber.log.Timber
+import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragmentViewModel
 
-class PostsFragmentAdapter(
-    private val vm: PostsFragmentViewModel,
+class UserProfileFragmentAdapter(
+    private val vm: UserProfileFragmentViewModel,
     private val kairos: Kairos,
 ) : RecyclerView.Adapter<PostComponentViewHolder>() {
     // properties

@@ -19,7 +19,7 @@
             android:id="@+id/component_post_author_image_view"
             android:layout_width="@dimen/sizeAvatarSmallPlus"
             android:layout_height="@dimen/sizeAvatarSmallPlus"
-            android:src="?attr/colorPrimaryDark" />
+            android:src="?attr/themeColorPrimaryDark" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"

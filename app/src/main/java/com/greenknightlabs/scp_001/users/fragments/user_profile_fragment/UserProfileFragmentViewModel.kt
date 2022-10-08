@@ -1,6 +1,5 @@
-package com.greenknightlabs.scp_001.posts.fragments.posts_fragment
+package com.greenknightlabs.scp_001.users.fragments.user_profile_fragment
 
-import android.content.Context
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,7 +7,6 @@ import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.fragments.PageViewModel
 import com.greenknightlabs.scp_001.app.util.NavMan
-import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.posts.PostsService
 import com.greenknightlabs.scp_001.posts.config.PostsConstants
@@ -18,11 +16,9 @@ import com.greenknightlabs.scp_001.posts.enums.PostSortOrder
 import com.greenknightlabs.scp_001.posts.enums.PostStatus
 import com.greenknightlabs.scp_001.posts.enums.PostVisibility
 import com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragment
-import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.adapters.PostsFragmentAdapter
 import com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener
 import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.posts.view_holders.PostComponentViewHolder
-import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragment
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,14 +31,14 @@ import javax.inject.Inject
 import kotlin.concurrent.schedule
 
 @HiltViewModel
-class PostsFragmentViewModel @Inject constructor(
+class UserProfileFragmentViewModel @Inject constructor(
     private val postsService: PostsService,
     private val authMan: AuthMan,
-    private val preferences: Preferences,
     private val navMan: NavMan,
-    private val json: Json,
+    private val json: Json
 ) : PageViewModel<Post>(), PostComponentViewHolder.Listener {
     // properties
+    val uid = MutableLiveData<String?>(null)
     val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
     val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
     val postStatus = MutableLiveData(PostStatus.APPROVED)
@@ -128,7 +124,7 @@ class PostsFragmentViewModel @Inject constructor(
 
         return GetPostsFilterDto(
             null,
-            null,
+            uid.value,
             PostVisibility.VISIBLE,
             postStatus.value,
             sort,
