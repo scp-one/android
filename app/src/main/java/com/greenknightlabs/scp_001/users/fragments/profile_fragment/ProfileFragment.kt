@@ -9,12 +9,14 @@ import androidx.fragment.app.viewModels
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
+import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.*
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,6 +43,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
     private fun didTapMenuMore(view: View?) {
         val menuItems = listOf("Logout")
+
         view?.makePopupMenu(menuItems) { index ->
             when (index) {
                 0 -> vm.handleOnTapLogout(activity as? MainActivity)
@@ -103,7 +106,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                     // do something if needed
                 }
             } else {
-                Log.d("Error: ", request.exception.toString())
+                Timber.d("Error: ${request.exception.toString()}")
                 vm.toastMessage.value = "Could not request a review at this time"
             }
         }
@@ -112,7 +115,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     private fun showShareSheet() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "https://scp-one.web.app")
+            putExtra(Intent.EXTRA_TEXT, AppConstants.APP_STORE_URL)
             type = "text/plain"
         }
 

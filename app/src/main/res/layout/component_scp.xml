@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.greenknightlabs.scp_001.scps.models.Scp" />
+        <import type="kotlin.jvm.functions.Function1" />
+        <import type="kotlin.Unit" />
+        <import type="android.view.View" />
+
+        <variable name="scp" type="com.greenknightlabs.scp_001.scps.models.Scp" />
+        <variable name="onTapAction" type="Function1&lt;Scp, Unit>" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacingRegular"
+        app:cardElevation="@dimen/defaultCardElevation"
+        app:cardCornerRadius="@dimen/defaultCornerRadius"
+        app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="0dp"
+            android:background="@drawable/ripple_button_borderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{_ -> onTapAction.invoke(scp)}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/spacingRegular"
+                android:paddingStart="@dimen/spacingRegular"
+                android:paddingEnd="@dimen/spacingRegular"
+                android:textSize="?attr/themeFontSizeBody"
+                android:fontFamily="?attr/themeFontFamilyMedium"
+                android:textColor="?attr/themeColorFontNormal"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="@{scp.name}"/>
+
+            <ImageView
+                android:id="@+id/component_scp_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingTop="@dimen/spacingRegular"
+                android:scaleType="centerCrop"
+                android:cropToPadding="true"
+                android:visibility="@{(scp.media != null) ? View.VISIBLE : View.GONE}" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacingRegular">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="?attr/themeFontSizeBody"
+                    android:fontFamily="?attr/themeFontFamilyRegular"
+                    android:textColor="?attr/themeColorFontNormal"
+                    android:lines="1"
+                    android:text="@{scp.length.rawValue}"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

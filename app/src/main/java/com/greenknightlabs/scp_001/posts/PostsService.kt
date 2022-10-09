@@ -35,7 +35,9 @@ class PostsService @Inject constructor(
     suspend fun getPosts(filterDto: GetPostsFilterDto) = withContext(Dispatchers.IO) {
         try {
             val accessToken = authService.getAccessTokenAsBearer()
-            val queries = json.encodeToJsonElement(filterDto).jsonObject.toMap().mapValues { it.value.toString().replace("\"", "") }.filter { it.value != "null" }
+            val queries = json.encodeToJsonElement(filterDto).jsonObject.toMap()
+                .mapValues { it.value.toString().replace("\"", "") }
+                .filter { it.value != "null" }
             val posts = postsServiceApi.getPosts(accessToken, queries)
             posts
         } catch (e: Throwable) {

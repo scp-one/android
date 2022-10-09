@@ -32,15 +32,15 @@ class PostComponentViewHolder(
                 .into(binding.componentPostComponentAuthor.componentPostAuthorImageView)
         }
 
-        post.media?.let {
-            kairos.load(it.url)
+        post.media?.let { postMedia ->
+            kairos.load(postMedia.url)
                 .scale(360, 360)
                 .default(R.drawable.ic_face)
                 .into(binding.componentPostImageView)
-        }
 
-        binding.componentPostImageView.doOnLayout {
-            it.layoutParams.height = post.media?.calculateHeight(it.measuredWidth) ?: 0
+            binding.componentPostImageView.doOnLayout { view ->
+                view.layoutParams.height = postMedia.calculateHeight(view.measuredWidth)
+            }
         }
     }
 }

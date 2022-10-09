@@ -17,7 +17,7 @@ enum class PostVisibility(val rawValue: Int) {
     @Serializer(PostVisibility::class)
     companion object : KSerializer<PostVisibility> {
         override val descriptor: SerialDescriptor
-            get() = PrimitiveSerialDescriptor("test", PrimitiveKind.INT)
+            get() = PrimitiveSerialDescriptor("PostVisibility", PrimitiveKind.INT)
 
         override fun serialize(encoder: Encoder, value: PostVisibility) {
             encoder.encodeInt(value.rawValue)

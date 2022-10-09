@@ -15,6 +15,7 @@ import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.databinding.ActivityMainBinding
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment
 import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.PostsFragment
+import com.greenknightlabs.scp_001.scps.fragments.scps_fragment.ScpsFragment
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragment
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -98,9 +99,9 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
         return when (tab) {
             NavMan.NavTabs.TAB1 -> when (!authMan.isLoggedIn) {
                 true -> LoginFragment()
-                else -> PostsFragment()
+                else -> ScpsFragment()
             }
-            NavMan.NavTabs.TAB2 -> throw NotImplementedError()
+            NavMan.NavTabs.TAB2 -> PostsFragment()
             NavMan.NavTabs.TAB3 -> throw NotImplementedError()
             NavMan.NavTabs.TAB4 -> ProfileFragment()
         }
