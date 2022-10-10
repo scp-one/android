@@ -34,7 +34,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             (activity as? MainActivity)?.showProgressBar(it == PageState.Fetching)
         }
         vm.toastMessage.observe(viewLifecycleOwner) {
-            activity?.makeToast(it)
+            if (it != null) {
+                activity?.makeToast(it)
+                vm.toastMessage.value = null
+            }
         }
         vm.shouldResetActivity.observe(viewLifecycleOwner) {
             if (it == true) {

@@ -7,5 +7,5 @@ import com.greenknightlabs.scp_001.app.enums.PageState
 abstract class BaseViewModel: ViewModel() {
     // properties
     val state = MutableLiveData(PageState.Idle)
-    val toastMessage = MutableLiveData("")
+    val toastMessage = MutableLiveData<String?>(null)
 }

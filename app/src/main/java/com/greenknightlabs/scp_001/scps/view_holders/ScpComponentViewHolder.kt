@@ -16,6 +16,9 @@ class ScpComponentViewHolder(
     // interfaces
     interface Listener {
         fun handleOnTapScp(scp: Scp)
+        fun handleOnTapRead(scp: Scp)
+        fun handleOnTapLike(scp: Scp)
+        fun handleOnTapSave(scp: Scp)
     }
 
     // properties

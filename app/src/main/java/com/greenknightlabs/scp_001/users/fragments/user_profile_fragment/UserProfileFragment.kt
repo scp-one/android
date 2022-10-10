@@ -29,7 +29,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
 
     // functions
     override fun activityTitle(): String {
-        return "@${user?.username ?: "someone"}"
+        return "@${vm.user?.username ?: "someone"}"
     }
 
     override fun menuId(): Int? {
@@ -45,20 +45,22 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = vm
 
-        if (vm.uid.value == null) {
-            vm.uid.value = user?.id
+        if (vm.adapter == null) {
+            vm.adapter = UserProfileFragmentAdapter(vm, kairos)
+        }
+        if (vm.user == null) {
+            vm.user = user
         }
 
-        val adapter = UserProfileFragmentAdapter(vm, kairos)
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        binding.fragmentUserProfileRecyclerView.adapter = adapter
+        binding.fragmentUserProfileRecyclerView.adapter = vm.adapter!!
         binding.fragmentUserProfileRecyclerView.layoutManager = layoutManager
         binding.fragmentUserProfileRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (vm.state.value != PageState.Idle) return
-                if (layoutManager.findLastVisibleItemPosition() != vm.items.value?.size) return
+                if (layoutManager.findLastVisibleItemPosition() != (vm.items.value?.size ?: 0) - 1) return
                 vm.paginate(false)
             }
         })
@@ -67,31 +69,9 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
             (activity as? MainActivity)?.showProgressBar(it == PageState.Fetching)
         }
         vm.toastMessage.observe(viewLifecycleOwner) {
-            activity?.makeToast(it)
-        }
-        vm.didRefresh.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didRefresh.value = false
-                adapter.notifyDataSetChanged()
-            }
-        }
-        vm.didInsertBefore.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didInsertBefore.value = false
-                adapter.notifyItemInserted(0)
-            }
-        }
-        vm.didInsertAfter.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didInsertAfter.value = false
-                adapter.notifyItemInserted(vm.items.value!!.size)
-            }
-        }
-        vm.didDelete.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didDelete.value = false
-//                adapter.notifyItemRemoved(vm.selectedMediaPosition)
-//                vm.clearMediaSelection()
+            if (it != null) {
+                activity?.makeToast(it)
+                vm.toastMessage.value = null
             }
         }
     }

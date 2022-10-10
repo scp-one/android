@@ -33,7 +33,10 @@ class EmailUpdateFragment : BaseFragment<FragmentEmailUpdateBinding>(R.layout.fr
             (activity as? MainActivity)?.showProgressBar(it == PageState.Fetching)
         }
         vm.toastMessage.observe(viewLifecycleOwner) {
-            activity?.makeToast(it)
+            if (it != null) {
+                activity?.makeToast(it)
+                vm.toastMessage.value = null
+            }
         }
     }
 }

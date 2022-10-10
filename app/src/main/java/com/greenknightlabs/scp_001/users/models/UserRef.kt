@@ -17,13 +17,13 @@ data class UserRef(
 @Serializer(forClass = UserRef::class)
 object UserRefSerializer : KSerializer<UserRef> {
     override fun deserialize(decoder: Decoder): UserRef {
-        val jsonString = (decoder as JsonDecoder).decodeJsonElement().toString()
+        val idOrObject = (decoder as JsonDecoder).decodeJsonElement().toString()
 
         return try {
-            val decodedUser = Json.decodeFromString<User>(jsonString)
+            val decodedUser = Json.decodeFromString<User>(idOrObject)
             UserRef(true, decodedUser.id, decodedUser)
         } catch (e: Throwable) {
-            UserRef(false, jsonString, null)
+            UserRef(false, idOrObject, null)
         }
     }
 }

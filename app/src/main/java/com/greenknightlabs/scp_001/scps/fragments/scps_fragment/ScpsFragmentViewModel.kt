@@ -136,4 +136,16 @@ class ScpsFragmentViewModel @Inject constructor(
     override fun handleOnTapScp(scp: Scp) {
 
     }
+
+    override fun handleOnTapRead(scp: Scp) {
+        TODO("Not yet implemented")
+    }
+
+    override fun handleOnTapLike(scp: Scp) {
+        TODO("Not yet implemented")
+    }
+
+    override fun handleOnTapSave(scp: Scp) {
+        TODO("Not yet implemented")
+    }
 }

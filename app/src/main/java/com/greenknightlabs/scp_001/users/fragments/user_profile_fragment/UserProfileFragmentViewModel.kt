@@ -19,6 +19,7 @@ import com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragment
 import com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener
 import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.posts.view_holders.PostComponentViewHolder
+import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentAdapter
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -38,21 +39,20 @@ class UserProfileFragmentViewModel @Inject constructor(
     private val json: Json
 ) : PageViewModel<Post>(), PostComponentViewHolder.Listener {
     // properties
+    var adapter: UserProfileFragmentAdapter? = null
+    var user: User? = null
+
     val uid = MutableLiveData<String?>(null)
     val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
     val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
     val postStatus = MutableLiveData(PostStatus.APPROVED)
-
-    val didRefresh = MutableLiveData(false)
-    val didInsertBefore = MutableLiveData(false)
-    val didInsertAfter = MutableLiveData(false)
-    val didDelete = MutableLiveData(false)
 
     val canRefresh = MutableLiveData(true)
     val isRefreshing = MutableLiveData(false)
 
     // init
     init {
+        user?.let { uid.value = it.id}
         onRefreshAction()
     }
 
@@ -85,10 +85,10 @@ class UserProfileFragmentViewModel @Inject constructor(
                 if (refresh) {
                     items.value?.clear()
                     items.value?.addAll(posts)
-                    didRefresh.value = true
+                    adapter?.notifyDataSetChanged()
                 } else if (posts.isNotEmpty()) {
                     items.value?.addAll(posts)
-                    didInsertAfter.value = true
+                    adapter?.notifyItemInserted(items.value!!.size)
                 }
 
                 state.value = when (posts.size < (dto.limit ?: PostsConstants.POSTS_PAGE_SIZE)) {

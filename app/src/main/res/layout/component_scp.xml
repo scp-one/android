@@ -79,21 +79,24 @@
                     android:layout_width="?attr/themeFontSizeHeadline"
                     android:layout_height="?attr/themeFontSizeHeadline"
                     app:tint="?attr/themeColorFontDim"
-                    android:src="@{scp.read ? @drawable/ic_read_filled : @drawable/ic_read_unfilled}" />
+                    android:src="@{scp.read ? @drawable/ic_read_filled : @drawable/ic_read_unfilled}"
+                    android:onClick="@{_ -> listener.handleOnTapRead(scp)}" />
 
                 <ImageView
                     android:layout_width="?attr/themeFontSizeHeadline"
                     android:layout_height="?attr/themeFontSizeHeadline"
                     android:layout_marginStart="@dimen/spacingRegular"
                     app:tint="?attr/themeColorFontDim"
-                    android:src="@{scp.liked ? @drawable/ic_heart_filled : @drawable/ic_heart_unfilled}" />
+                    android:src="@{scp.liked ? @drawable/ic_heart_filled : @drawable/ic_heart_unfilled}"
+                    android:onClick="@{_ -> listener.handleOnTapLike(scp)}" />
 
                 <ImageView
                     android:layout_width="?attr/themeFontSizeHeadline"
                     android:layout_height="?attr/themeFontSizeHeadline"
                     android:layout_marginStart="@dimen/spacingRegular"
                     app:tint="?attr/themeColorFontDim"
-                    android:src="@{scp.saved ? @drawable/ic_bookmark_filled : @drawable/ic_bookmark_unfilled}" />
+                    android:src="@{scp.saved ? @drawable/ic_bookmark_filled : @drawable/ic_bookmark_unfilled}"
+                    android:onClick="@{_ -> listener.handleOnTapSave(scp)}" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
