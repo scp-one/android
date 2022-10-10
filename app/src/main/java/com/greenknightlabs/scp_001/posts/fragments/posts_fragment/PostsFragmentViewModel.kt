@@ -43,14 +43,11 @@ class PostsFragmentViewModel @Inject constructor(
     private val json: Json,
 ) : PageViewModel<Post>(), PostComponentViewHolder.Listener {
     // properties
+    var adapter: PostsFragmentAdapter? = null
+
     val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
     val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
     val postStatus = MutableLiveData(PostStatus.APPROVED)
-
-    val didRefresh = MutableLiveData(false)
-    val didInsertBefore = MutableLiveData(false)
-    val didInsertAfter = MutableLiveData(false)
-    val didDelete = MutableLiveData(false)
 
     val canRefresh = MutableLiveData(true)
     val isRefreshing = MutableLiveData(false)
@@ -89,10 +86,10 @@ class PostsFragmentViewModel @Inject constructor(
                 if (refresh) {
                     items.value?.clear()
                     items.value?.addAll(posts)
-                    didRefresh.value = true
+                    adapter?.notifyDataSetChanged()
                 } else if (posts.isNotEmpty()) {
                     items.value?.addAll(posts)
-                    didInsertAfter.value = true
+                    adapter?.notifyItemInserted(items.value!!.size)
                 }
 
                 state.value = when (posts.size < (dto.limit ?: PostsConstants.POSTS_PAGE_SIZE)) {

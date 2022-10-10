@@ -26,6 +26,6 @@ class ScpsFragmentAdapter(
     }
 
     override fun onBindViewHolder(holder: ScpComponentViewHolder, position: Int) {
-        holder.bind(position, vm, kairos)
+        holder.bind(position, vm, vm, kairos)
     }
 }

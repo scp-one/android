@@ -6,29 +6,42 @@ import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.fragments.PageViewModel
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.ComponentScpBinding
+import com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener
+import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.scps.models.Scp
 
 class ScpComponentViewHolder(
     private val binding: ComponentScpBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     // interfaces
+    interface Listener {
+        fun handleOnTapScp(scp: Scp)
+    }
+
+    // properties
+    private var viewWidth: Int? = null
 
     // functions
-    fun bind(position: Int, vm: PageViewModel<Scp>, kairos: Kairos) {
+    fun bind(position: Int, vm: PageViewModel<Scp>, listener: Listener, kairos: Kairos) {
         val scp = vm.items.value!![position]
 
         binding.scp = scp
-//        binding.onTapAction =
+        binding.listener = listener
 
         scp.media?.let { scpMedia ->
+            if (viewWidth == null) {
+                binding.componentScpImageView.doOnLayout { view ->
+                    viewWidth = view.measuredWidth
+                    view.layoutParams.height = scpMedia.calculateHeight(viewWidth!!)
+                }
+            } else {
+                binding.componentScpImageView.layoutParams.height = scpMedia.calculateHeight(viewWidth!!)
+            }
+
             kairos.load(scpMedia.url)
                 .scale(360, 360)
                 .default(R.drawable.ic_face)
                 .into(binding.componentScpImageView)
-
-            binding.componentScpImageView.doOnLayout { view ->
-                view.layoutParams.height = scpMedia.calculateHeight(view.measuredWidth)
-            }
         }
     }
 }

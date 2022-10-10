@@ -44,16 +44,18 @@ class PostsFragment : BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = vm
 
-        val adapter = PostsFragmentAdapter(vm, kairos)
+        if (vm.adapter == null) {
+            vm.adapter = PostsFragmentAdapter(vm, kairos)
+        }
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        binding.fragmentPostsRecyclerView.adapter = adapter
+        binding.fragmentPostsRecyclerView.adapter = vm.adapter!!
         binding.fragmentPostsRecyclerView.layoutManager = layoutManager
         binding.fragmentPostsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (vm.state.value != PageState.Idle) return
-                if (layoutManager.findLastVisibleItemPosition() != vm.items.value?.size) return
+                if (layoutManager.findLastVisibleItemPosition() != (vm.items.value?.size ?: 0) - 1) return
                 vm.paginate(false)
             }
         })
@@ -63,31 +65,6 @@ class PostsFragment : BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts
         }
         vm.toastMessage.observe(viewLifecycleOwner) {
             activity?.makeToast(it)
-        }
-        vm.didRefresh.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didRefresh.value = false
-                adapter.notifyDataSetChanged()
-            }
-        }
-        vm.didInsertBefore.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didInsertBefore.value = false
-                adapter.notifyItemInserted(0)
-            }
-        }
-        vm.didInsertAfter.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didInsertAfter.value = false
-                adapter.notifyItemInserted(vm.items.value!!.size)
-            }
-        }
-        vm.didDelete.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didDelete.value = false
-//                adapter.notifyItemRemoved(vm.selectedMediaPosition)
-//                vm.clearMediaSelection()
-            }
         }
     }
 }

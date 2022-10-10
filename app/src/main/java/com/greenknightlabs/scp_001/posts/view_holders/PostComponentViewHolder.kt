@@ -17,13 +17,15 @@ class PostComponentViewHolder(
         fun handleOnTapPost(post: Post)
     }
 
+    // properties
+    private var viewWidth: Int? = null
+
     // functions
     fun bind(position: Int, vm: PageViewModel<Post>, listener: Listener, kairos: Kairos) {
         val post = vm.items.value!![position]
 
         binding.post = post
-        binding.onTapAction = listener::handleOnTapPost
-        binding.postAuthorComponentListener = listener
+        binding.listener = listener
 
         post.user.user?.avatarUrl?.let {
             kairos.load(it)
@@ -33,14 +35,19 @@ class PostComponentViewHolder(
         }
 
         post.media?.let { postMedia ->
+            if (viewWidth == null) {
+                binding.componentPostImageView.doOnLayout { view ->
+                    viewWidth = view.measuredWidth
+                    view.layoutParams.height = postMedia.calculateHeight(viewWidth!!)
+                }
+            } else {
+                binding.componentPostImageView.layoutParams.height = postMedia.calculateHeight(viewWidth!!)
+            }
+
             kairos.load(postMedia.url)
                 .scale(360, 360)
                 .default(R.drawable.ic_face)
                 .into(binding.componentPostImageView)
-
-            binding.componentPostImageView.doOnLayout { view ->
-                view.layoutParams.height = postMedia.calculateHeight(view.measuredWidth)
-            }
         }
     }
 }

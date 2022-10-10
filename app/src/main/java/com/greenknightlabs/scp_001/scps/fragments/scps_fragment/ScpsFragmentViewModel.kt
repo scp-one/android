@@ -16,7 +16,9 @@ import com.greenknightlabs.scp_001.scps.dtos.GetScpsFilterDto
 import com.greenknightlabs.scp_001.scps.enums.ScpSortField
 import com.greenknightlabs.scp_001.scps.enums.ScpStatus
 import com.greenknightlabs.scp_001.scps.enums.ScpVisibility
+import com.greenknightlabs.scp_001.scps.fragments.scps_fragment.adapters.ScpsFragmentAdapter
 import com.greenknightlabs.scp_001.scps.models.Scp
+import com.greenknightlabs.scp_001.scps.view_holders.ScpComponentViewHolder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -34,16 +36,13 @@ class ScpsFragmentViewModel @Inject constructor(
     private val preferences: Preferences,
     private val navMan: NavMan,
     private val json: Json
-) : PageViewModel<Scp>() {
+) : PageViewModel<Scp>(), ScpComponentViewHolder.Listener {
     // properties
+    var adapter: ScpsFragmentAdapter? = null
+
     val sortField = preferences.defaultScpSortField
     val sortOrder = preferences.defaultScpSortOrder
     val series = MutableLiveData<Int?>(null)
-
-    val didRefresh = MutableLiveData(false)
-    val didInsertBefore = MutableLiveData(false)
-    val didInsertAfter = MutableLiveData(false)
-    val didDelete = MutableLiveData(false)
 
     val canRefresh = MutableLiveData(true)
     val isRefreshing = MutableLiveData(false)
@@ -82,10 +81,10 @@ class ScpsFragmentViewModel @Inject constructor(
                 if (refresh) {
                     items.value?.clear()
                     items.value?.addAll(scps)
-                    didRefresh.value = true
+                    adapter?.notifyDataSetChanged()
                 } else if (scps.isNotEmpty()) {
                     items.value?.addAll(scps)
-                    didInsertAfter.value = true
+                    adapter?.notifyItemInserted(items.value!!.size)
                 }
 
                 state.value = when (scps.size < (dto.limit ?: ScpsConstants.SCPS_PAGE_SIZE)) {
@@ -132,5 +131,9 @@ class ScpsFragmentViewModel @Inject constructor(
             if (refresh) null else cursor,
             if (refresh) ScpsConstants.SCPS_PAGE_SIZE_REFRESH else ScpsConstants.SCPS_PAGE_SIZE
         )
+    }
+
+    override fun handleOnTapScp(scp: Scp) {
+
     }
 }

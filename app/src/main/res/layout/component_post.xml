@@ -9,8 +9,7 @@
         <import type="android.view.View" />
 
         <variable name="post" type="com.greenknightlabs.scp_001.posts.models.Post" />
-        <variable name="onTapAction" type="Function1&lt;Post, Unit>" />
-        <variable name="postAuthorComponentListener" type="com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener" />
+        <variable name="listener" type="com.greenknightlabs.scp_001.posts.view_holders.PostComponentViewHolder.Listener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -29,19 +28,19 @@
             android:background="@drawable/ripple_button_borderless"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{_ -> onTapAction.invoke(post)}">
+            android:onClick="@{_ -> listener.handleOnTapPost(post)}">
 
             <include layout="@layout/component_post_author"
                 android:id="@+id/component_post_component_author"
                 app:post="@{post}"
-                app:listener="@{postAuthorComponentListener}" />
+                app:listener="@{listener}" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/spacingRegular"
-                android:paddingStart="@dimen/spacingRegular"
-                android:paddingEnd="@dimen/spacingRegular"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:layout_marginStart="@dimen/spacingRegular"
+                android:layout_marginEnd="@dimen/spacingRegular"
                 android:textSize="?attr/themeFontSizeBody"
                 android:fontFamily="?attr/themeFontFamilyBold"
                 android:textColor="?attr/themeColorFontNormal"
@@ -52,9 +51,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/spacingRegular"
-                android:paddingStart="@dimen/spacingRegular"
-                android:paddingEnd="@dimen/spacingRegular"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:layout_marginStart="@dimen/spacingRegular"
+                android:layout_marginEnd="@dimen/spacingRegular"
                 android:textSize="?attr/themeFontSizeBody"
                 android:fontFamily="?attr/themeFontFamilyRegular"
                 android:textColor="?attr/themeColorFontNormal"
@@ -66,9 +65,8 @@
                 android:id="@+id/component_post_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:paddingTop="@dimen/spacingRegular"
+                android:layout_marginTop="@dimen/spacingRegular"
                 android:scaleType="centerCrop"
-                android:cropToPadding="true"
                 android:visibility="@{(post.media != null) ? View.VISIBLE : View.GONE}" />
 
             <Space
