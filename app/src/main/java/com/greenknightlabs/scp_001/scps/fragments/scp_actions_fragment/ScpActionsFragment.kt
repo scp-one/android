@@ -1,7 +1,6 @@
-package com.greenknightlabs.scp_001.scps.fragments.scps_fragment
+package com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,30 +11,22 @@ import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
-import com.greenknightlabs.scp_001.databinding.FragmentScpsBinding
+import com.greenknightlabs.scp_001.databinding.FragmentScpActionsBinding
 import com.greenknightlabs.scp_001.scps.adapters.ScpsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
+class ScpActionsFragment : BaseFragment<FragmentScpActionsBinding>(R.layout.fragment_scp_actions) {
     // dependencies
     @Inject lateinit var kairos: Kairos
 
     // properties
-    private val vm: ScpsFragmentViewModel by viewModels()
+    private val vm: ScpActionsFragmentViewModel by viewModels()
 
     // functions
     override fun activityTitle(): String {
-        return "Archives"
-    }
-
-    override fun menuId(): Int? {
-        return null
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return super.onMenuItemSelected(menuItem)
+        return "TODO"
     }
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {
@@ -48,9 +39,9 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
         }
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        binding.fragmentScpsRecyclerView.adapter = vm.adapter!!
-        binding.fragmentScpsRecyclerView.layoutManager = layoutManager
-        binding.fragmentScpsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.fragmentScpActionsRecyclerView.adapter = vm.adapter!!
+        binding.fragmentScpActionsRecyclerView.layoutManager = layoutManager
+        binding.fragmentScpActionsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (vm.state.value != PageState.Idle) return

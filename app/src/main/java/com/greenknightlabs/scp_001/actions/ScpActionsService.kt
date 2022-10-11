@@ -19,10 +19,10 @@ class ScpActionsService @Inject constructor(
     private val apiErrorHandler: ApiErrorHandler
 ) {
     @Throws
-    suspend fun createScpAction(createScpActionsDto: CreateScpActionsDto) = withContext(Dispatchers.IO) {
+    suspend fun createScpAction(id: String, createScpActionsDto: CreateScpActionsDto) = withContext(Dispatchers.IO) {
         try {
             val accessToken = authService.getAccessTokenAsBearer()
-            scpActionsServiceApi.createScpAction(accessToken, createScpActionsDto)
+            scpActionsServiceApi.createScpAction(accessToken, id, createScpActionsDto)
         } catch (e: Throwable) {
             Timber.e(e)
             apiErrorHandler.throwApiError(e)

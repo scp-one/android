@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable name="vm" type="com.greenknightlabs.scp_001.scps.fragments.scp_fragment.ScpFragmentViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="?actionBarSize"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false"
+            android:clipChildren="false">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="?attr/themeFontSizeBody"
+                android:fontFamily="?attr/themeFontFamilyBold"
+                android:textColor="?attr/themeColorFontNormal"
+                android:text="@{vm.scp.name}" />
+
+            <ImageView
+                android:id="@+id/fragment_scp_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:src="@null"
+                android:visibility="@{(vm.scp.media != null) ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:textSize="?attr/themeFontSizeSub"
+                android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textColor="?attr/themeColorFontDim"
+                android:text="@{vm.scp.media.caption}"
+                android:visibility="@{(vm.scp.media != null) ? View.VISIBLE : View.GONE}" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/fragment_scp_linear_layout_content_blocks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:orientation="vertical">
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/spacingRegular"
+                    android:textSize="?attr/themeFontSizeBody"
+                    android:fontFamily="?attr/themeFontFamilyRegular"
+                    android:textColor="?attr/themeColorFontNormal"
+                    android:visibility="@{(vm.scp.license != null) ? View.VISIBLE : View.GONE}"
+                    android:text="@{vm.scp.license}" />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

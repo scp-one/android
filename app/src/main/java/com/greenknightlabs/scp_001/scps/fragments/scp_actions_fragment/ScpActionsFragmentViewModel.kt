@@ -1,19 +1,17 @@
-package com.greenknightlabs.scp_001.scps.fragments.scps_fragment
+package com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.actions.ScpActionsService
-import com.greenknightlabs.scp_001.actions.dtos.CreateScpActionsDto
+import com.greenknightlabs.scp_001.actions.config.ActionsConstants
+import com.greenknightlabs.scp_001.actions.dtos.GetScpActionsFilterDto
+import com.greenknightlabs.scp_001.actions.enums.ScpActionsSortField
 import com.greenknightlabs.scp_001.actions.enums.ScpActionsType
+import com.greenknightlabs.scp_001.actions.models.ScpActions
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.util.NavMan
-import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.auth.util.AuthMan
-import com.greenknightlabs.scp_001.scps.ScpsService
-import com.greenknightlabs.scp_001.scps.config.ScpsConstants
-import com.greenknightlabs.scp_001.scps.dtos.GetScpsFilterDto
-import com.greenknightlabs.scp_001.scps.enums.ScpStatus
-import com.greenknightlabs.scp_001.scps.enums.ScpVisibility
+import com.greenknightlabs.scp_001.scps.enums.ScpSortOrder
 import com.greenknightlabs.scp_001.scps.adapters.ScpsAdapter
 import com.greenknightlabs.scp_001.scps.fragments.scp_fragment.ScpFragment
 import com.greenknightlabs.scp_001.scps.models.Scp
@@ -29,23 +27,22 @@ import javax.inject.Inject
 import kotlin.concurrent.schedule
 
 @HiltViewModel
-class ScpsFragmentViewModel @Inject constructor(
-    private val scpsService: ScpsService,
+class ScpActionsFragmentViewModel @Inject constructor(
     private val scpActionsService: ScpActionsService,
     private val authMan: AuthMan,
-    private val preferences: Preferences,
     private val navMan: NavMan,
     private val json: Json
 ) : ScpsViewModel() {
     // properties
     var adapter: ScpsAdapter? = null
 
-    val sortField = preferences.defaultScpSortField
-    val sortOrder = preferences.defaultScpSortOrder
+    val actionType = MutableLiveData(ScpActionsType.LIKED)
+    val sortOrder = MutableLiveData(ScpSortOrder.DESCENDING)
     val series = MutableLiveData<Int?>(null)
 
     val canRefresh = MutableLiveData(true)
     val isRefreshing = MutableLiveData(false)
+    private val actionsList = MutableLiveData<MutableList<ScpActions>>(mutableListOf())
 
     // init
     init {
@@ -76,25 +73,28 @@ class ScpsFragmentViewModel @Inject constructor(
             val dto = provideFilterDto(refresh)
 
             try {
-                val scps = scpsService.getScps(dto)
+                val actions = scpActionsService.getScpActions(dto)
+                val scps = actions.filter { it.scp.isLoaded }.map { it.scp.scp!! }
 
                 if (refresh) {
+                    actionsList.value?.clear()
                     items.value?.clear()
                     items.value?.addAll(scps)
                     adapter?.notifyDataSetChanged()
-                } else if (scps.isNotEmpty()) {
+                } else if (actions.isNotEmpty()) {
                     items.value?.addAll(scps)
                     adapter?.notifyItemInserted(items.value!!.size)
                 }
 
-                state.value = when (scps.size < (dto.limit ?: ScpsConstants.SCPS_PAGE_SIZE)) {
+                actionsList.value?.addAll(actions)
+
+                state.value = when (actions.size < (dto.limit ?: ActionsConstants.ACTIONS_PAGE_SIZE)) {
                     true -> PageState.Bottom
                     else -> PageState.Idle
                 }
                 failedToLoad.value = false
                 isRefreshing.value = false
             } catch (e: Throwable) {
-                Timber.e(e)
                 failedToLoad.value = true
                 state.value = PageState.Bottom
                 toastMessage.value = e.message
@@ -103,12 +103,18 @@ class ScpsFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun provideFilterDto(refresh: Boolean): GetScpsFilterDto {
+    private fun provideFilterDto(refresh: Boolean): GetScpActionsFilterDto {
+        val sortField = when (actionType.value!!) {
+            ScpActionsType.READ -> ScpActionsSortField.READ_AT
+            ScpActionsType.LIKED -> ScpActionsSortField.LIKED_AT
+            ScpActionsType.SAVED -> ScpActionsSortField.SAVED_AT
+        }
+
         var cursor: String? = null
-        items.value?.lastOrNull()?.let { lastScp ->
+        actionsList.value?.lastOrNull()?.let { lastAction ->
             try {
-                val map = json.encodeToJsonElement(lastScp).jsonObject.toMap()
-                map[sortField.value?.rawValue]?.let { fieldValue ->
+                val map = json.encodeToJsonElement(lastAction).jsonObject.toMap()
+                map[sortField.rawValue]?.let { fieldValue ->
                     cursor = fieldValue.toString().replace("\"", "")
                 }
             } catch (e: Throwable) {
@@ -116,20 +122,16 @@ class ScpsFragmentViewModel @Inject constructor(
             }
         }
 
-        val sort = "${sortField.value?.rawValue},${sortOrder.value?.rawValue}"
+        val sort = "${sortField.rawValue},${sortOrder.value?.rawValue}"
 
-        return GetScpsFilterDto(
+        return GetScpActionsFilterDto(
             null,
+            authMan.payload?.id,
             null,
-            null,
-            null,
-            series.value,
-            null,
-            ScpVisibility.VISIBLE,
-            ScpStatus.APPROVED,
+            actionType.value!!,
             sort,
             if (refresh) null else cursor,
-            if (refresh) ScpsConstants.SCPS_PAGE_SIZE_REFRESH else ScpsConstants.SCPS_PAGE_SIZE
+            if (refresh) ActionsConstants.ACTIONS_PAGE_SIZE_REFRESH else ActionsConstants.ACTIONS_PAGE_SIZE
         )
     }
 
@@ -141,35 +143,14 @@ class ScpsFragmentViewModel @Inject constructor(
     }
 
     override fun handleOnTapRead(scp: Scp) {
-        val dto = CreateScpActionsDto(ScpActionsType.READ, !scp.read)
-        viewModelScope.launch {
-            try {
-                scpActionsService.createScpAction(scp.id, dto)
-            } catch (e: Throwable) {
-                toastMessage.value = e.message
-            }
-        }
+        TODO("Not yet implemented")
     }
 
     override fun handleOnTapLike(scp: Scp) {
-        val dto = CreateScpActionsDto(ScpActionsType.LIKED, !scp.liked)
-        viewModelScope.launch {
-            try {
-                scpActionsService.createScpAction(scp.id, dto)
-            } catch (e: Throwable) {
-                toastMessage.value = e.message
-            }
-        }
+        TODO("Not yet implemented")
     }
 
     override fun handleOnTapSave(scp: Scp) {
-        val dto = CreateScpActionsDto(ScpActionsType.SAVED, !scp.saved)
-        viewModelScope.launch {
-            try {
-                scpActionsService.createScpAction(scp.id, dto)
-            } catch (e: Throwable) {
-                toastMessage.value = e.message
-            }
-        }
+        TODO("Not yet implemented")
     }
 }

@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/nav_bar_tab_3"
-        android:visible="false"
+        android:visible="true"
         android:icon="@drawable/ic_items"
         android:title="3" />
 

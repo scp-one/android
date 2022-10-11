@@ -15,6 +15,8 @@ import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.databinding.ActivityMainBinding
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment
 import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.PostsFragment
+import com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment.ScpActionsFragment
+import com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment.ScpActionsFragmentViewModel
 import com.greenknightlabs.scp_001.scps.fragments.scps_fragment.ScpsFragment
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragment
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragmentViewModel
@@ -102,7 +104,7 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
                 else -> ScpsFragment()
             }
             NavMan.NavTabs.TAB2 -> PostsFragment()
-            NavMan.NavTabs.TAB3 -> throw NotImplementedError()
+            NavMan.NavTabs.TAB3 -> ScpActionsFragment()
             NavMan.NavTabs.TAB4 -> ProfileFragment()
         }
     }

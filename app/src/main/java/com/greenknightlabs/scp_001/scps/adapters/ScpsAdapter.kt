@@ -1,15 +1,15 @@
-package com.greenknightlabs.scp_001.scps.fragments.scps_fragment.adapters
+package com.greenknightlabs.scp_001.scps.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.ComponentScpBinding
-import com.greenknightlabs.scp_001.scps.fragments.scps_fragment.ScpsFragmentViewModel
 import com.greenknightlabs.scp_001.scps.view_holders.ScpComponentViewHolder
+import com.greenknightlabs.scp_001.scps.view_models.ScpsViewModel
 
-class ScpsFragmentAdapter(
-    private val vm: ScpsFragmentViewModel,
+class ScpsAdapter(
+    private val vm: ScpsViewModel,
     private val kairos: Kairos,
 ) : RecyclerView.Adapter<ScpComponentViewHolder>() {
     // properties
@@ -26,6 +26,6 @@ class ScpsFragmentAdapter(
     }
 
     override fun onBindViewHolder(holder: ScpComponentViewHolder, position: Int) {
-        holder.bind(position, vm, vm, kairos)
+        holder.bind(position, vm, kairos)
     }
 }

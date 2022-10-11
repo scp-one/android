@@ -19,10 +19,10 @@ class PostActionsService @Inject constructor(
     private val apiErrorHandler: ApiErrorHandler
 ) {
     @Throws
-    suspend fun createPostAction(createPostActionsDto: CreatePostActionsDto) = withContext(Dispatchers.IO) {
+    suspend fun createPostAction(id: String, createPostActionsDto: CreatePostActionsDto) = withContext(Dispatchers.IO) {
         try {
             val accessToken = authService.getAccessTokenAsBearer()
-            postActionsServiceApi.createPostAction(accessToken, createPostActionsDto)
+            postActionsServiceApi.createPostAction(accessToken, id, createPostActionsDto)
         } catch (e: Throwable) {
             Timber.e(e)
             apiErrorHandler.throwApiError(e)

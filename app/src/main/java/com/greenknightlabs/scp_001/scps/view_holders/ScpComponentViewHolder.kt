@@ -9,6 +9,7 @@ import com.greenknightlabs.scp_001.databinding.ComponentScpBinding
 import com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener
 import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.scps.models.Scp
+import com.greenknightlabs.scp_001.scps.view_models.ScpsViewModel
 
 class ScpComponentViewHolder(
     private val binding: ComponentScpBinding
@@ -25,11 +26,11 @@ class ScpComponentViewHolder(
     private var viewWidth: Int? = null
 
     // functions
-    fun bind(position: Int, vm: PageViewModel<Scp>, listener: Listener, kairos: Kairos) {
+    fun bind(position: Int, vm: ScpsViewModel, kairos: Kairos) {
         val scp = vm.items.value!![position]
 
         binding.scp = scp
-        binding.listener = listener
+        binding.listener = vm
 
         scp.media?.let { scpMedia ->
             if (viewWidth == null) {
