@@ -1,20 +1,24 @@
 package com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.actions.ScpActionsService
 import com.greenknightlabs.scp_001.actions.config.ActionsConstants
+import com.greenknightlabs.scp_001.actions.dtos.CreateScpActionsDto
 import com.greenknightlabs.scp_001.actions.dtos.GetScpActionsFilterDto
 import com.greenknightlabs.scp_001.actions.enums.ScpActionsSortField
 import com.greenknightlabs.scp_001.actions.enums.ScpActionsType
 import com.greenknightlabs.scp_001.actions.models.ScpActions
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.scps.enums.ScpSortOrder
 import com.greenknightlabs.scp_001.scps.adapters.ScpsAdapter
 import com.greenknightlabs.scp_001.scps.fragments.scp_fragment.ScpFragment
 import com.greenknightlabs.scp_001.scps.models.Scp
+import com.greenknightlabs.scp_001.scps.util.ScpSignaler
 import com.greenknightlabs.scp_001.scps.view_models.ScpsViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -31,14 +35,14 @@ class ScpActionsFragmentViewModel @Inject constructor(
     private val scpActionsService: ScpActionsService,
     private val authMan: AuthMan,
     private val navMan: NavMan,
-    private val json: Json
-) : ScpsViewModel() {
+    private val json: Json,
+    private val scpSignaler: ScpSignaler
+) : ScpsViewModel(), ScpSignaler.Listener {
     // properties
     var adapter: ScpsAdapter? = null
 
-    val actionType = MutableLiveData(ScpActionsType.LIKED)
+    val actionType = MutableLiveData(ScpActionsType.SAVED)
     val sortOrder = MutableLiveData(ScpSortOrder.DESCENDING)
-    val series = MutableLiveData<Int?>(null)
 
     val canRefresh = MutableLiveData(true)
     val isRefreshing = MutableLiveData(false)
@@ -46,7 +50,13 @@ class ScpActionsFragmentViewModel @Inject constructor(
 
     // init
     init {
+        scpSignaler.add(this)
         onRefreshAction()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        scpSignaler.remove(this)
     }
 
     // functions
@@ -135,6 +145,37 @@ class ScpActionsFragmentViewModel @Inject constructor(
         )
     }
 
+    fun handleOnTapMenuSort(view: View?) {
+        val options = mutableListOf<Pair<String, () -> Unit>>()
+
+        ScpActionsType.allCases().forEach {
+            val name = if (it == actionType.value) { "${it.displayName()}*" } else { it.displayName() }
+            options.add(Pair(name) {
+                actionType.value = it
+                didChangeSort()
+            })
+        }
+
+        options.add(Pair("") {})
+
+        ScpSortOrder.allCases().forEach {
+            val name = if (it == sortOrder.value) { "${it.displayName()}*" } else { it.displayName() }
+            options.add(Pair(name) {
+                sortOrder.value = it
+                didChangeSort()
+            })
+        }
+
+        view?.makePopupMenu(options.map { it.first }) {
+            options[it].second.invoke()
+        }
+    }
+
+    private fun didChangeSort() {
+        if (state.value == PageState.Fetching) return
+        paginate(true)
+    }
+
     override fun handleOnTapScp(scp: Scp) {
         val scpFragment = ScpFragment()
         scpFragment.scp = scp
@@ -143,14 +184,44 @@ class ScpActionsFragmentViewModel @Inject constructor(
     }
 
     override fun handleOnTapRead(scp: Scp) {
-        TODO("Not yet implemented")
+        scp.read = !scp.read
+        didChangeScpAction(scp, ScpActionsType.READ, scp.read)
     }
 
     override fun handleOnTapLike(scp: Scp) {
-        TODO("Not yet implemented")
+        scp.liked = !scp.liked
+        didChangeScpAction(scp, ScpActionsType.LIKED, scp.liked)
     }
 
     override fun handleOnTapSave(scp: Scp) {
-        TODO("Not yet implemented")
+        scp.saved = !scp.saved
+        didChangeScpAction(scp, ScpActionsType.SAVED, scp.saved)
+    }
+
+    private fun didChangeScpAction(scp: Scp, actionType: ScpActionsType, newState: Boolean) {
+        scpSignaler.send(ScpSignaler.ScpSignal.ScpDidChange(scp))
+
+        viewModelScope.launch {
+            val dto = CreateScpActionsDto(actionType, newState)
+
+            try {
+                scpActionsService.createScpAction(scp.id, dto)
+            } catch (e: Throwable) {
+                toastMessage.value = e.message
+            }
+        }
+    }
+
+    override fun handleSignal(signal: ScpSignaler.ScpSignal) {
+        when (signal) {
+            is ScpSignaler.ScpSignal.ScpDidChange -> {
+                items.value?.forEachIndexed { index, scp ->
+                    if (scp.id == signal.scp.id) {
+                        items.value?.set(index, signal.scp)
+                        adapter?.notifyItemChanged(index)
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
@@ -26,7 +28,19 @@ class ScpActionsFragment : BaseFragment<FragmentScpActionsBinding>(R.layout.frag
 
     // functions
     override fun activityTitle(): String {
-        return "TODO"
+        return vm.actionType.value?.displayName() ?: ""
+    }
+
+    override fun menuId(): Int? {
+        return R.menu.menu_fragment_scp_actions
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        val view = activity?.getView(menuItem.itemId)
+        when (menuItem.itemId) {
+            R.id.menu_fragment_scp_actions_sort -> vm.handleOnTapMenuSort(view)
+        }
+        return false
     }
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {

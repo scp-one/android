@@ -17,6 +17,7 @@ import com.greenknightlabs.scp_001.scps.enums.ScpVisibility
 import com.greenknightlabs.scp_001.scps.adapters.ScpsAdapter
 import com.greenknightlabs.scp_001.scps.fragments.scp_fragment.ScpFragment
 import com.greenknightlabs.scp_001.scps.models.Scp
+import com.greenknightlabs.scp_001.scps.util.ScpSignaler
 import com.greenknightlabs.scp_001.scps.view_models.ScpsViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,8 +36,9 @@ class ScpsFragmentViewModel @Inject constructor(
     private val authMan: AuthMan,
     private val preferences: Preferences,
     private val navMan: NavMan,
-    private val json: Json
-) : ScpsViewModel() {
+    private val json: Json,
+    private val scpSignaler: ScpSignaler
+) : ScpsViewModel(), ScpSignaler.Listener {
     // properties
     var adapter: ScpsAdapter? = null
 
@@ -49,7 +51,13 @@ class ScpsFragmentViewModel @Inject constructor(
 
     // init
     init {
+        scpSignaler.add(this)
         onRefreshAction()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        scpSignaler.remove(this)
     }
 
     // functions
@@ -141,8 +149,12 @@ class ScpsFragmentViewModel @Inject constructor(
     }
 
     override fun handleOnTapRead(scp: Scp) {
-        val dto = CreateScpActionsDto(ScpActionsType.READ, !scp.read)
+        scp.read = !scp.read
+        scpSignaler.send(ScpSignaler.ScpSignal.ScpDidChange(scp))
+
         viewModelScope.launch {
+            val dto = CreateScpActionsDto(ScpActionsType.READ, scp.read)
+
             try {
                 scpActionsService.createScpAction(scp.id, dto)
             } catch (e: Throwable) {
@@ -152,8 +164,12 @@ class ScpsFragmentViewModel @Inject constructor(
     }
 
     override fun handleOnTapLike(scp: Scp) {
-        val dto = CreateScpActionsDto(ScpActionsType.LIKED, !scp.liked)
+        scp.liked = !scp.liked
+        scpSignaler.send(ScpSignaler.ScpSignal.ScpDidChange(scp))
+
         viewModelScope.launch {
+            val dto = CreateScpActionsDto(ScpActionsType.LIKED, scp.liked)
+
             try {
                 scpActionsService.createScpAction(scp.id, dto)
             } catch (e: Throwable) {
@@ -163,12 +179,29 @@ class ScpsFragmentViewModel @Inject constructor(
     }
 
     override fun handleOnTapSave(scp: Scp) {
-        val dto = CreateScpActionsDto(ScpActionsType.SAVED, !scp.saved)
+        scp.saved = !scp.saved
+        scpSignaler.send(ScpSignaler.ScpSignal.ScpDidChange(scp))
+
         viewModelScope.launch {
+            val dto = CreateScpActionsDto(ScpActionsType.SAVED, scp.saved)
+
             try {
                 scpActionsService.createScpAction(scp.id, dto)
             } catch (e: Throwable) {
                 toastMessage.value = e.message
+            }
+        }
+    }
+
+    override fun handleSignal(signal: ScpSignaler.ScpSignal) {
+        when (signal) {
+            is ScpSignaler.ScpSignal.ScpDidChange -> {
+                items.value?.forEachIndexed { index, scp ->
+                    if (scp.id == signal.scp.id) {
+                        items.value?.set(index, signal.scp)
+                        adapter?.notifyItemChanged(index)
+                    }
+                }
             }
         }
     }

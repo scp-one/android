@@ -42,7 +42,7 @@ class ProfileFragmentViewModel @Inject constructor(
     val shouldShowConfirmAlert = MutableLiveData(false)
     val shouldShowRateApp = MutableLiveData(false)
     val shouldShowShareApp = MutableLiveData(false)
-    val webViewUrl = MutableLiveData("")
+    val webViewUrl = MutableLiveData<String?>(null)
     val shouldShowWebView = MutableLiveData(false)
 
     val canRefresh = MutableLiveData(true)
@@ -109,7 +109,10 @@ class ProfileFragmentViewModel @Inject constructor(
     fun handleOnTapProfileHeader() {
         if (user.value == null) return
 
-        navMan.pushFragment(AccountFragment(), true)
+        val accountFragment = AccountFragment()
+        accountFragment.user = user.value
+
+        navMan.pushFragment(accountFragment, true)
     }
 
     fun handleOnTapAppearance() {

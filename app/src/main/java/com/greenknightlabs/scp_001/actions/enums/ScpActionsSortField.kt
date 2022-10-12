@@ -1,5 +1,7 @@
 package com.greenknightlabs.scp_001.actions.enums
 
+import com.greenknightlabs.scp_001.scps.enums.ScpSortField
+
 enum class ScpActionsSortField(val rawValue: String) {
     SAVED_AT("savedAt"),
     LIKED_AT("likedAt"),

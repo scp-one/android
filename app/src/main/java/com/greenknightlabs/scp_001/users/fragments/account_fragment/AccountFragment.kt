@@ -14,6 +14,7 @@ import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentAccountBinding
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragmentViewModel
+import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -21,8 +22,8 @@ import javax.inject.Inject
 class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {
     @Inject lateinit var kairos: Kairos
 
-    private val pvm: ProfileFragmentViewModel by activityViewModels()
     private val vm: AccountFragmentViewModel by viewModels()
+    var user: User? = null
 
     // functions
     override fun activityTitle(): String {
@@ -35,7 +36,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.menu_fragment_account_save -> vm.save(pvm.user)
+            R.id.menu_fragment_account_save -> vm.save(vm.user)
         }
         return super.onMenuItemSelected(menuItem)
     }
@@ -44,6 +45,9 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
         super.configureView(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = vm
+        if (vm.user.value == null) {
+            vm.user.value = user
+        }
 
         vm.isLocked.observe(viewLifecycleOwner) {
             (activity as? MainActivity)?.lockUI(it)
@@ -67,9 +71,9 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
                 kairos.load(it).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
             }
         }
-        pvm.user.observe(viewLifecycleOwner) {
+        vm.user.observe(viewLifecycleOwner) {
             if (it != null) {
-                vm.nickname.value = pvm.user.value?.nickname
+                vm.nickname.value = it.nickname
                 if (vm.avatarUrl.value == null) {
                     kairos.load(it.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
                 }

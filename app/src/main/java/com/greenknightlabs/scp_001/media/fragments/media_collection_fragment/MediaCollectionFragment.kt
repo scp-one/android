@@ -31,6 +31,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.layout.fragment_media_collection) {
+    // interfaces
     interface Listener {
         fun handleMediaSelected(media: Media)
     }
@@ -81,11 +82,13 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
         if (vm.listener == null) {
             vm.listener = listener
         }
+        if (vm.adapter == null) {
+            vm.adapter = MediaCollectionFragmentAdapter(vm, kairos)
+        }
 
-        val adapter = MediaCollectionFragmentAdapter(vm, kairos)
         val layoutManager = GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)
 
-        binding.fragmentMediaCollectionRecyclerView.adapter = adapter
+        binding.fragmentMediaCollectionRecyclerView.adapter = vm.adapter!!
         binding.fragmentMediaCollectionRecyclerView.layoutManager = layoutManager
 
         vm.state.observe(viewLifecycleOwner) {
@@ -97,33 +100,8 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
                 vm.toastMessage.value = null
             }
         }
-        vm.didRefresh.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didRefresh.value = false
-                adapter.notifyDataSetChanged()
-            }
-        }
-        vm.didInsertBefore.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didInsertBefore.value = false
-                adapter.notifyItemInserted(0)
-            }
-        }
-        vm.didInsertAfter.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didInsertAfter.value = false
-                adapter.notifyItemInserted(vm.items.value!!.size)
-            }
-        }
-        vm.didDelete.observe(viewLifecycleOwner) {
-            if (it == true) {
-                vm.didDelete.value = false
-                adapter.notifyItemRemoved(vm.selectedMediaPosition)
-                vm.clearMediaSelection()
-            }
-        }
         vm.selectedMedia.observe(viewLifecycleOwner) {
-            adapter.handleSelectedMediaChanged(vm.selectedMediaPosition)
+            vm.adapter?.handleSelectedMediaChanged(vm.selectedMediaPosition)
             setMenuItemsVisibility()
         }
     }

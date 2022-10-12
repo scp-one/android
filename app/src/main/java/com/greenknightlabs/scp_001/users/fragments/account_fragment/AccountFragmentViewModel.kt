@@ -12,6 +12,7 @@ import com.greenknightlabs.scp_001.media.models.Media
 import com.greenknightlabs.scp_001.users.UsersService
 import com.greenknightlabs.scp_001.users.dtos.EditUserDto
 import com.greenknightlabs.scp_001.users.fragments.advanced_account_fragment.AdvancedAccountFragment
+import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragment
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,6 +25,7 @@ class AccountFragmentViewModel @Inject constructor(
     private val navMan: NavMan
 ) : BaseViewModel(), MediaCollectionFragment.Listener {
     // properties
+    val user = MutableLiveData<User?>(null)
     val nickname = MutableLiveData("")
     val avatarUrl = MutableLiveData<String?>(null)
     val isLocked = MutableLiveData(false)
@@ -66,7 +68,12 @@ class AccountFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapMyProfile() {
-        toastMessage.value = "Not implemented"
+        if (user.value == null) return
+
+        val userProfileFragment = UserProfileFragment()
+        userProfileFragment.user = user.value
+
+        navMan.pushFragment(userProfileFragment, true)
     }
 
     fun handleOnTapLikedPosts() {
@@ -101,7 +108,6 @@ class AccountFragmentViewModel @Inject constructor(
 
     // MediaCollectionFragment.Listener
     override fun handleMediaSelected(media: Media) {
-        Timber.d("Got media $media")
         avatarUrl.value = media.url
     }
 }

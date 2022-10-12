@@ -1,5 +1,6 @@
 package com.greenknightlabs.scp_001.scps
 
+import com.greenknightlabs.scp_001.scps.util.ScpSignaler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

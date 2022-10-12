@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="url" type="String" />
+        <variable name="boombox" type="com.greenknightlabs.scp_001.app.util.BoomBox" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/defaultCardElevation"
+        app:cardCornerRadius="@dimen/defaultCornerRadius"
+        app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacingRegular"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="?attr/themeFontSizeHeadline"
+                android:layout_height="?attr/themeFontSizeHeadline"
+                android:src="@drawable/ic_play"
+                android:onClick="@{_ -> boombox.play(url)}"/>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

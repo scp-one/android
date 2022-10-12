@@ -11,6 +11,7 @@ import com.greenknightlabs.scp_001.media.config.MediaConstants
 import com.greenknightlabs.scp_001.media.dtos.GetMediaFilterDto
 import com.greenknightlabs.scp_001.media.enums.MediaSortField
 import com.greenknightlabs.scp_001.media.enums.MediaSortOrder
+import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.adapters.MediaCollectionFragmentAdapter
 import com.greenknightlabs.scp_001.media.models.Media
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -29,16 +30,13 @@ class MediaCollectionFragmentViewModel @Inject constructor(
     private val json: Json
 ) : PageViewModel<Media>() {
     // properties
+    var adapter: MediaCollectionFragmentAdapter? = null
+
     val sortField = MutableLiveData(MediaSortField.CreatedAt)
     val sortOrder = MutableLiveData(MediaSortOrder.Descending)
 
     val selectedMedia = MutableLiveData<Media?>(null)
     var selectedMediaPosition = -1
-
-    val didRefresh = MutableLiveData(false)
-    val didInsertBefore = MutableLiveData(false)
-    val didInsertAfter = MutableLiveData(false)
-    val didDelete = MutableLiveData(false)
 
     var listener: MediaCollectionFragment.Listener? = null
 
@@ -60,10 +58,10 @@ class MediaCollectionFragmentViewModel @Inject constructor(
                 if (refresh) {
                     items.value?.clear()
                     items.value?.addAll(media)
-                    didRefresh.value = true
+                    adapter?.notifyDataSetChanged()
                 } else if (media.isNotEmpty()) {
                     items.value?.addAll(media)
-                    didInsertAfter.value = true
+                    adapter?.notifyItemInserted(items.value!!.size)
                 }
 
                 state.value = when (media.size < (dto.limit ?: MediaConstants.MEDIA_PAGE_SIZE)) {
@@ -115,7 +113,7 @@ class MediaCollectionFragmentViewModel @Inject constructor(
                 state.value = originalState
                 items.value?.add(0, media)
 
-                didInsertBefore.value = true
+                adapter?.notifyItemInserted(0)
             } catch (e: Throwable) {
                 state.value = originalState
                 toastMessage.value = e.message
@@ -137,7 +135,8 @@ class MediaCollectionFragmentViewModel @Inject constructor(
                 items.value?.removeAt(position)
 
                 state.value = originalState
-                didDelete.value = true
+                adapter?.notifyItemRemoved(position)
+                clearMediaSelection()
             } catch (e: Throwable) {
                 state.value = originalState
                 toastMessage.value = e.message
