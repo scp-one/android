@@ -46,7 +46,9 @@ class ScpFragmentViewModel @Inject constructor(
             shouldShowWebView.value = true
         })
 
-        val read = if (scp.value?.read == false) "Mark as read" else "Unread"
+        options.add(Pair("") {})
+
+        val read = if (scp.value?.read == false) "Mark as read" else "Mark as unread"
         options.add(Pair(read) {
             scp.value?.let {
                 it.read = !it.read

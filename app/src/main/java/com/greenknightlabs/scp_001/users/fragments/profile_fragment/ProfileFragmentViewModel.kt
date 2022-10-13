@@ -110,7 +110,7 @@ class ProfileFragmentViewModel @Inject constructor(
         if (user.value == null) return
 
         val accountFragment = AccountFragment()
-        accountFragment.user = user.value
+        accountFragment.user = user
 
         navMan.pushFragment(accountFragment, true)
     }

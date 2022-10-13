@@ -25,7 +25,8 @@ class AccountFragmentViewModel @Inject constructor(
     private val navMan: NavMan
 ) : BaseViewModel(), MediaCollectionFragment.Listener {
     // properties
-    val user = MutableLiveData<User?>(null)
+    var user: MutableLiveData<User?>? = null
+
     val nickname = MutableLiveData("")
     val avatarUrl = MutableLiveData<String?>(null)
     val isLocked = MutableLiveData(false)
@@ -68,10 +69,10 @@ class AccountFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapMyProfile() {
-        if (user.value == null) return
+        if (user?.value == null) return
 
         val userProfileFragment = UserProfileFragment()
-        userProfileFragment.user = user.value
+        userProfileFragment.user = user?.value
 
         navMan.pushFragment(userProfileFragment, true)
     }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
@@ -32,11 +33,17 @@ class PostsFragment : BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts
     }
 
     override fun menuId(): Int? {
-        return null
+        return R.menu.menu_fragment_posts
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return super.onMenuItemSelected(menuItem)
+        val view = activity?.getView(menuItem.itemId)
+        when (menuItem.itemId) {
+            R.id.menu_fragment_posts_sort -> vm.handleOnTapMenuSort(view)
+            R.id.menu_fragment_posts_post -> vm.handleOnTapMenuPost()
+        }
+
+        return false
     }
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {

@@ -1,14 +1,19 @@
 package com.greenknightlabs.scp_001.scps.fragments.scps_fragment
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.getView
+import com.greenknightlabs.scp_001.app.extensions.hideKeyboard
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
@@ -31,11 +36,35 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
     }
 
     override fun menuId(): Int? {
-        return null
+        return R.menu.menu_fragment_scps
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
+
+        (menu.findItem(R.id.menu_fragment_scps_search).actionView as SearchView).apply {
+            this.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    activity?.hideKeyboard()
+                    vm.handleOnSubmitQuery(query)
+                    return true
+                }
+
+                override fun onQueryTextChange(query: String?): Boolean {
+                    vm.query.value = if (query == null || query.isEmpty()) null else query
+                    return false
+                }
+            })
+        }
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return super.onMenuItemSelected(menuItem)
+        val view = activity?.getView(menuItem.itemId)
+        when (menuItem.itemId) {
+            R.id.menu_fragment_scps_sort -> vm.handleOnTapMenuSort(view)
+        }
+
+        return false
     }
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {

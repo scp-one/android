@@ -134,6 +134,47 @@ class PostsFragmentViewModel @Inject constructor(
         )
     }
 
+    fun handleOnTapMenuSort(view: View?) {
+        val options = mutableListOf<Pair<String, () -> Unit>>()
+
+        PostSortField.allCases().forEach {
+            val name = if (it == sortField.value) "${it.displayName()}*" else it.displayName()
+            options.add(Pair(name) {
+                handleOnTapMenuSortField(view, it)
+            })
+        }
+
+        view?.makePopupMenu(options.map { it.first }) {
+            options[it].second.invoke()
+        }
+    }
+
+    private fun handleOnTapMenuSortField(view: View?, field: PostSortField) {
+        val options = mutableListOf<Pair<String, () -> Unit>>()
+
+        PostSortOrder.allCases().forEach {
+            val name = if (field == sortField.value && it == sortOrder.value) "${it.displayName(field)}*" else it.displayName(field)
+            options.add(Pair(name) {
+                sortField.value = field
+                sortOrder.value = it
+                didChangeSort()
+            })
+        }
+
+        view?.makePopupMenu(options.map { it.first }) {
+            options[it].second.invoke()
+        }
+    }
+
+    private fun didChangeSort() {
+        if (state.value == PageState.Fetching) return
+        paginate(true)
+    }
+
+    fun handleOnTapMenuPost() {
+        toastMessage.value = "Not implemented"
+    }
+
     override fun handleOnTapPost(post: Post) {
         val postFragment = PostFragment()
         postFragment.post = post

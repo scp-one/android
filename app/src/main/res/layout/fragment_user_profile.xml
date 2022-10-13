@@ -10,7 +10,6 @@
         android:id="@+id/fragment_user_profile_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="?actionBarSize"
         android:background="?attr/themeColorPrimary"
         app:onRefreshListener="@{() -> vm.onRefreshAction()}"
         app:refreshing="@{vm.isRefreshing}">
@@ -19,7 +18,10 @@
             android:id="@+id/fragment_user_profile_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/spacingRegular"
+            android:paddingTop="@dimen/spacingRegular"
+            android:paddingStart="@dimen/spacingRegular"
+            android:paddingEnd="@dimen/spacingRegular"
+            android:paddingBottom="?actionBarSize"
             android:clipToPadding="false" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

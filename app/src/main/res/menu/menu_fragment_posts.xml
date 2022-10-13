@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_fragment_posts_sort"
+        android:icon="@drawable/ic_sort"
+        app:iconTint="?attr/themeColorFontDim"
+        android:title="Sort"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_fragment_posts_post"
+        android:icon="@drawable/ic_add"
+        app:iconTint="?attr/themeColorFontDim"
+        android:title="Post"
+        app:showAsAction="always" />
+
+</menu>

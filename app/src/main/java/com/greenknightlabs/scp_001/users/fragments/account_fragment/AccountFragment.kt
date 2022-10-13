@@ -5,6 +5,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
@@ -23,7 +24,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
     @Inject lateinit var kairos: Kairos
 
     private val vm: AccountFragmentViewModel by viewModels()
-    var user: User? = null
+    var user: MutableLiveData<User?>? = null
 
     // functions
     override fun activityTitle(): String {
@@ -36,7 +37,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.menu_fragment_account_save -> vm.save(vm.user)
+            R.id.menu_fragment_account_save -> vm.user?.let { vm.save(it) }
         }
         return super.onMenuItemSelected(menuItem)
     }
@@ -45,8 +46,8 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
         super.configureView(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = vm
-        if (vm.user.value == null) {
-            vm.user.value = user
+        if (vm.user == null) {
+            vm.user = user
         }
 
         vm.isLocked.observe(viewLifecycleOwner) {
@@ -71,7 +72,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
                 kairos.load(it).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
             }
         }
-        vm.user.observe(viewLifecycleOwner) {
+        vm.user?.observe(viewLifecycleOwner) {
             if (it != null) {
                 vm.nickname.value = it.nickname
                 if (vm.avatarUrl.value == null) {
