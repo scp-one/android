@@ -17,6 +17,7 @@ import com.greenknightlabs.scp_001.posts.enums.PostSortField
 import com.greenknightlabs.scp_001.posts.enums.PostSortOrder
 import com.greenknightlabs.scp_001.posts.enums.PostStatus
 import com.greenknightlabs.scp_001.posts.enums.PostVisibility
+import com.greenknightlabs.scp_001.posts.fragments.create_post_fragment.CreatePostFragment
 import com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragment
 import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.adapters.PostsFragmentAdapter
 import com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener
@@ -172,7 +173,7 @@ class PostsFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapMenuPost() {
-        toastMessage.value = "Not implemented"
+        navMan.pushFragment(CreatePostFragment(), true)
     }
 
     override fun handleOnTapPost(post: Post) {

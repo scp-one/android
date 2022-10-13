@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        
+        <variable name="media" type="com.greenknightlabs.scp_001.media.models.Media" />
+        <variable name="listener" type="com.greenknightlabs.scp_001.posts.fragments.create_post_fragment.interfaces.AttachMediaComponentListener" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="?attr/themeFontSizeBody"
+            android:fontFamily="?attr/themeFontFamilyRegular"
+            android:textColor="?attr/themeColorFontBright"
+            android:text="Attach media"
+            android:visibility="@{(media == null) ? View.VISIBLE : View.GONE}"
+            android:onClick="@{_ -> listener.handleOnTapAttachMedia()}"/>
+
+        <ImageView
+            android:id="@+id/component_attach_media_image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@null"
+            android:visibility="@{(media != null) ? View.VISIBLE : View.GONE}" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
+            app:tint="?attr/themeColorBtnCancel"
+            android:background="?attr/themeColorPrimaryLight"
+            android:src="@drawable/ic_cancel"
+            android:visibility="@{(media != null) ? View.VISIBLE : View.GONE}"
+            android:onClick="@{_ -> listener.handleOnTapRemoveMedia()}" />
+        
+    </FrameLayout>
+
+</layout>
