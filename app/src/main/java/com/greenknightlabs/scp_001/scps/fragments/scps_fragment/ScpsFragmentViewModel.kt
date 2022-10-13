@@ -47,8 +47,8 @@ class ScpsFragmentViewModel @Inject constructor(
     // properties
     var adapter: ScpsAdapter? = null
 
-    val sortField = preferences.defaultScpSortField
-    val sortOrder = preferences.defaultScpSortOrder
+    val sortField = MutableLiveData(preferences.defaultScpSortField.value)
+    val sortOrder = MutableLiveData(preferences.defaultScpSortOrder.value)
     val query = MutableLiveData<String?>(null)
     val randomNumber = MutableLiveData<Int?>(null)
     val series = MutableLiveData<Int?>(null)

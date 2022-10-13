@@ -90,7 +90,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             }
         }
         vm.user.observe(viewLifecycleOwner) {
-            kairos.load(it?.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.layoutHeaderFragmentProfile.layoutHeaderFragmentProfileAvatar)
+            if (it != null) {
+                kairos.load(it.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.layoutHeaderFragmentProfile.layoutHeaderFragmentProfileAvatar)
+            }
         }
     }
 

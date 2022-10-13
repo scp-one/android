@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.greenknightlabs.scp_001.R
+import com.greenknightlabs.scp_001.app.enums.DefaultAppLaunchTab
 import com.greenknightlabs.scp_001.app.enums.MemTrimLevel
 import com.greenknightlabs.scp_001.app.resources.fonts.FontSizes
 import com.greenknightlabs.scp_001.app.resources.themes.Themes
@@ -34,8 +35,6 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
 
     // properties
     private lateinit var binding: ActivityMainBinding
-    private lateinit var currentTheme: Themes
-    private lateinit var currentAppFontSize: FontSizes
 
     // functions
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,23 +44,21 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     }
 
     private fun configureView() {
-        currentTheme = preferences.theme.value!!
-        currentAppFontSize = preferences.appFontSize.value!!
-
         setTheme(preferences.theme.value!!.resId(preferences.appFontSize.value!!))
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        preferences.theme.observe(this) {
-            if (currentTheme != it) { recreate() }
-        }
-        preferences.appFontSize.observe(this) {
-            if (currentAppFontSize != it) { recreate() }
-        }
     }
 
     private fun configureNavMan() {
-        navMan.configure(this, binding.navBar, R.id.main_container, !authMan.isLoggedIn)
+        val defaultTab: NavMan.NavTabs = when (preferences.defaultLaunchTab.value) {
+            DefaultAppLaunchTab.ARCHIVES -> NavMan.NavTabs.TAB1
+            DefaultAppLaunchTab.POSTS -> NavMan.NavTabs.TAB2
+            DefaultAppLaunchTab.BOOKMARKS -> NavMan.NavTabs.TAB3
+            DefaultAppLaunchTab.PROFILE -> NavMan.NavTabs.TAB4
+            else -> NavMan.NavTabs.TAB1
+        }
+
+        navMan.configure(this, binding.navBar, R.id.main_container, !authMan.isLoggedIn, defaultTab)
         binding.navBar.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_bar_tab_1 -> navMan.switchTo(NavMan.NavTabs.TAB1)
@@ -98,15 +95,25 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     }
 
     override fun getRootFragmentOf(tab: NavMan.NavTabs): Fragment? {
-        return when (tab) {
-            NavMan.NavTabs.TAB1 -> when (!authMan.isLoggedIn) {
-                true -> LoginFragment()
-                else -> ScpsFragment()
+        return when (authMan.isLoggedIn) {
+            true -> when (tab) {
+                NavMan.NavTabs.TAB1 -> ScpsFragment()
+                NavMan.NavTabs.TAB2 -> PostsFragment()
+                NavMan.NavTabs.TAB3 -> ScpActionsFragment()
+                NavMan.NavTabs.TAB4 -> ProfileFragment()
             }
-            NavMan.NavTabs.TAB2 -> PostsFragment()
-            NavMan.NavTabs.TAB3 -> ScpActionsFragment()
-            NavMan.NavTabs.TAB4 -> ProfileFragment()
+            else -> LoginFragment()
         }
+
+//        return when (tab) {
+//            NavMan.NavTabs.TAB1 -> when (!authMan.isLoggedIn) {
+//                true -> LoginFragment()
+//                else -> ScpsFragment()
+//            }
+//            NavMan.NavTabs.TAB2 -> PostsFragment()
+//            NavMan.NavTabs.TAB3 -> ScpActionsFragment()
+//            NavMan.NavTabs.TAB4 -> ProfileFragment()
+//        }
     }
 
     // component callbacks

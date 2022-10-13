@@ -27,14 +27,14 @@ object ScpRefSerializer : KSerializer<ScpRef> {
             val id = decoder.decodeString()
             return ScpRef(false, id, null)
         } catch (e: Throwable) {
-            Timber.e(e)
+            // failed to decode
         }
 
         try {
             val scp = json.decodeFromString<Scp>((decoder as JsonDecoder).decodeJsonElement().toString())
             return ScpRef(true, scp.id, scp)
         } catch (e: Throwable) {
-            Timber.e(e)
+            // failed to decode
         }
 
         throw Error("Unable to decode ScpRef")

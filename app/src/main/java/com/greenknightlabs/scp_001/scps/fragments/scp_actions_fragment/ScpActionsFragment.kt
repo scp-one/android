@@ -13,6 +13,7 @@ import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
+import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.databinding.FragmentScpActionsBinding
 import com.greenknightlabs.scp_001.scps.adapters.ScpsAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class ScpActionsFragment : BaseFragment<FragmentScpActionsBinding>(R.layout.fragment_scp_actions) {
     // dependencies
     @Inject lateinit var kairos: Kairos
+    @Inject lateinit var preferences: Preferences
 
     // properties
     private val vm: ScpActionsFragmentViewModel by viewModels()
@@ -49,7 +51,7 @@ class ScpActionsFragment : BaseFragment<FragmentScpActionsBinding>(R.layout.frag
         binding.vm = vm
 
         if (vm.adapter == null) {
-            vm.adapter = ScpsAdapter(vm, kairos)
+            vm.adapter = ScpsAdapter(vm, kairos, preferences)
         }
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 

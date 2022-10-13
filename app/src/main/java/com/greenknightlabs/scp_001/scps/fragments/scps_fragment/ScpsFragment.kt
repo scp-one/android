@@ -17,6 +17,7 @@ import com.greenknightlabs.scp_001.app.extensions.hideKeyboard
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
+import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.databinding.FragmentScpsBinding
 import com.greenknightlabs.scp_001.scps.adapters.ScpsAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +27,7 @@ import javax.inject.Inject
 class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
     // dependencies
     @Inject lateinit var kairos: Kairos
+    @Inject lateinit var preferences: Preferences
 
     // properties
     private val vm: ScpsFragmentViewModel by viewModels()
@@ -73,7 +75,7 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
         binding.vm = vm
 
         if (vm.adapter == null) {
-            vm.adapter = ScpsAdapter(vm, kairos)
+            vm.adapter = ScpsAdapter(vm, kairos, preferences)
         }
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 

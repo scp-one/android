@@ -65,6 +65,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
         vm.shouldShowConfirmAlert.observe(viewLifecycleOwner) {
             if (it == true) {
                 activity?.askConfirmation { vm.confirmAlertAction.value?.invoke() }
+                vm.shouldShowConfirmAlert.value = false
             }
         }
         vm.avatarUrl.observe(viewLifecycleOwner) {
