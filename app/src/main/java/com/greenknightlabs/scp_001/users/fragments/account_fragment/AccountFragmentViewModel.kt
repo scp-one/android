@@ -9,6 +9,7 @@ import com.greenknightlabs.scp_001.auth.fragments.email_update_fragment.EmailUpd
 import com.greenknightlabs.scp_001.auth.fragments.pass_update_fragment.PassUpdateFragment
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment
 import com.greenknightlabs.scp_001.media.models.Media
+import com.greenknightlabs.scp_001.posts.fragments.post_actions_fragment.PostActionsFragment
 import com.greenknightlabs.scp_001.users.UsersService
 import com.greenknightlabs.scp_001.users.dtos.EditUserDto
 import com.greenknightlabs.scp_001.users.fragments.advanced_account_fragment.AdvancedAccountFragment
@@ -78,7 +79,7 @@ class AccountFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapLikedPosts() {
-        toastMessage.value = "Not implemented"
+        navMan.pushFragment(PostActionsFragment(), true)
     }
 
     fun handleOnTapMediaCollection() {

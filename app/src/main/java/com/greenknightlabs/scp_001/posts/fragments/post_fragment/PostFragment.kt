@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.viewModels
 import com.greenknightlabs.scp_001.R
+import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentPostBinding
@@ -43,6 +44,12 @@ class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post) {
             binding.fragmentPostImageView.doOnLayout {
                 val viewWidth = binding.fragmentPostImageView.measuredWidth
                 binding.fragmentPostImageView.layoutParams.height = media.calculateHeight(viewWidth, false)
+            }
+        }
+        vm.shouldShowConfirmAlert.observe(viewLifecycleOwner) {
+            if (it == true) {
+                vm.shouldShowConfirmAlert.value = false
+                activity?.askConfirmation { vm.confirmAlertAction.value?.invoke() }
             }
         }
     }

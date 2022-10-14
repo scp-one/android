@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="vm" type="com.greenknightlabs.scp_001.posts.fragments.create_post_fragment.CreatePostFragmentViewModel" />
+        <variable name="vm" type="com.greenknightlabs.scp_001.posts.fragments.edit_post_fragment.EditPostFragmentViewModel" />
     </data>
 
     <ScrollView
@@ -64,7 +64,7 @@
                         android:layout_weight="1" />
 
                     <include layout="@layout/component_attach_media"
-                        android:id="@+id/fragment_create_post_component_attach_media"
+                        android:id="@+id/fragment_edit_post_component_attach_media"
                         app:media="@{vm.media}"
                         app:listener="@{vm}" />
 

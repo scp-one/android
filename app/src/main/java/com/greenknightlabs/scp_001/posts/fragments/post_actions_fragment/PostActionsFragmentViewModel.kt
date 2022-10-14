@@ -1,28 +1,26 @@
-package com.greenknightlabs.scp_001.posts.fragments.posts_fragment
+package com.greenknightlabs.scp_001.posts.fragments.post_actions_fragment
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.actions.PostActionsService
+import com.greenknightlabs.scp_001.actions.config.ActionsConstants
 import com.greenknightlabs.scp_001.actions.dtos.CreatePostActionsDto
+import com.greenknightlabs.scp_001.actions.dtos.GetPostActionsFilterDto
+import com.greenknightlabs.scp_001.actions.enums.PostActionsSortField
 import com.greenknightlabs.scp_001.actions.enums.PostActionsType
+import com.greenknightlabs.scp_001.actions.models.PostActions
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
+import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import com.greenknightlabs.scp_001.app.util.NavMan
-import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.posts.PostsService
 import com.greenknightlabs.scp_001.posts.PostsViewModel
-import com.greenknightlabs.scp_001.posts.config.PostsConstants
-import com.greenknightlabs.scp_001.posts.dtos.GetPostsFilterDto
-import com.greenknightlabs.scp_001.posts.enums.PostSortField
+import com.greenknightlabs.scp_001.posts.adapters.PostsAdapter
 import com.greenknightlabs.scp_001.posts.enums.PostSortOrder
-import com.greenknightlabs.scp_001.posts.enums.PostStatus
-import com.greenknightlabs.scp_001.posts.enums.PostVisibility
-import com.greenknightlabs.scp_001.posts.fragments.create_post_fragment.CreatePostFragment
 import com.greenknightlabs.scp_001.posts.fragments.edit_post_fragment.EditPostFragment
 import com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragment
-import com.greenknightlabs.scp_001.posts.adapters.PostsAdapter
 import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.posts.util.PostSignaler
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragment
@@ -38,24 +36,23 @@ import javax.inject.Inject
 import kotlin.concurrent.schedule
 
 @HiltViewModel
-class PostsFragmentViewModel @Inject constructor(
-    private val postsService: PostsService,
+class PostActionsFragmentViewModel @Inject constructor(
     private val postActionsService: PostActionsService,
+    private val postsService: PostsService,
     private val authMan: AuthMan,
-    private val preferences: Preferences,
     private val navMan: NavMan,
     private val json: Json,
-    private val postSignaler: PostSignaler,
+    private val postSignaler: PostSignaler
 ) : PostsViewModel(), PostSignaler.Listener {
     // properties
     var adapter: PostsAdapter? = null
 
-    val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
+    val actionType = MutableLiveData(PostActionsType.LIKED)
     val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
-    val postStatus = MutableLiveData(PostStatus.APPROVED)
 
     val canRefresh = MutableLiveData(true)
     val isRefreshing = MutableLiveData(false)
+    private val actionsList = MutableLiveData<MutableList<PostActions>>(mutableListOf())
 
     val confirmAlertText = MutableLiveData("")
     val confirmAlertAction: MutableLiveData<() -> Unit> = MutableLiveData()
@@ -96,25 +93,28 @@ class PostsFragmentViewModel @Inject constructor(
             val dto = provideFilterDto(refresh)
 
             try {
-                val posts = postsService.getPosts(dto)
+                val actions = postActionsService.getPostActions(dto)
+                val posts = actions.filter { it.post.isLoaded }.map { it.post.post!! }
 
                 if (refresh) {
+                    actionsList.value?.clear()
                     items.value?.clear()
                     items.value?.addAll(posts)
                     adapter?.notifyDataSetChanged()
-                } else if (posts.isNotEmpty()) {
+                } else if (actions.isNotEmpty()) {
                     items.value?.addAll(posts)
                     adapter?.notifyItemInserted(items.value!!.size)
                 }
 
-                state.value = when (posts.size < (dto.limit ?: PostsConstants.POSTS_PAGE_SIZE)) {
+                actionsList.value?.addAll(actions)
+
+                state.value = when (actions.size < (dto.limit ?: ActionsConstants.ACTIONS_PAGE_SIZE)) {
                     true -> PageState.Bottom
                     else -> PageState.Idle
                 }
                 failedToLoad.value = false
                 isRefreshing.value = false
             } catch (e: Throwable) {
-                Timber.e(e)
                 failedToLoad.value = true
                 state.value = PageState.Bottom
                 toastMessage.value = e.message
@@ -123,12 +123,16 @@ class PostsFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun provideFilterDto(refresh: Boolean): GetPostsFilterDto {
+    private fun provideFilterDto(refresh: Boolean): GetPostActionsFilterDto {
+        val sortField = when (actionType.value!!) {
+            PostActionsType.LIKED -> PostActionsSortField.LIKED_AT
+        }
+
         var cursor: String? = null
-        items.value?.lastOrNull()?.let { lastPost ->
+        actionsList.value?.lastOrNull()?.let { lastAction ->
             try {
-                val map = json.encodeToJsonElement(lastPost).jsonObject.toMap()
-                map[sortField.value?.rawValue]?.let { fieldValue ->
+                val map = json.encodeToJsonElement(lastAction).jsonObject.toMap()
+                map[sortField.rawValue]?.let { fieldValue ->
                     cursor = fieldValue.toString().replace("\"", "")
                 }
             } catch (e: Throwable) {
@@ -136,41 +140,35 @@ class PostsFragmentViewModel @Inject constructor(
             }
         }
 
-        val sort = "${sortField.value?.rawValue},${sortOrder.value?.rawValue}"
+        val sort = "${sortField.rawValue},${sortOrder.value?.rawValue}"
 
-        return GetPostsFilterDto(
+        return GetPostActionsFilterDto(
             null,
+            authMan.payload?.id,
             null,
-            PostVisibility.VISIBLE,
-            postStatus.value,
+            actionType.value!!,
             sort,
             if (refresh) null else cursor,
-            if (refresh) PostsConstants.POSTS_PAGE_SIZE_REFRESH else PostsConstants.POSTS_PAGE_SIZE
+            if (refresh) ActionsConstants.ACTIONS_PAGE_SIZE_REFRESH else ActionsConstants.ACTIONS_PAGE_SIZE
         )
     }
 
     fun handleOnTapMenuSort(view: View?) {
         val options = mutableListOf<Pair<String, () -> Unit>>()
 
-        PostSortField.allCases().forEach {
-            val name = if (it == sortField.value) "${it.displayName()}*" else it.displayName()
+        PostActionsType.allCases().forEach {
+            val name = if (it == actionType.value) "${it.displayName()}*" else it.displayName()
             options.add(Pair(name) {
-                handleOnTapMenuSortField(view, it)
+                actionType.value = it
+                didChangeSort()
             })
         }
 
-        view?.makePopupMenu(options.map { it.first }) {
-            options[it].second.invoke()
-        }
-    }
-
-    private fun handleOnTapMenuSortField(view: View?, field: PostSortField) {
-        val options = mutableListOf<Pair<String, () -> Unit>>()
+        options.add(Pair("") {})
 
         PostSortOrder.allCases().forEach {
-            val name = if (field == sortField.value && it == sortOrder.value) "${it.displayName(field)}*" else it.displayName(field)
+            val name = if (it == sortOrder.value) "${it.displayName()}*" else it.displayName()
             options.add(Pair(name) {
-                sortField.value = field
                 sortOrder.value = it
                 didChangeSort()
             })
@@ -184,10 +182,6 @@ class PostsFragmentViewModel @Inject constructor(
     private fun didChangeSort() {
         if (state.value == PageState.Fetching) return
         paginate(true)
-    }
-
-    fun handleOnTapMenuPost() {
-        navMan.pushFragment(CreatePostFragment(), true)
     }
 
     override fun handleOnTapPost(post: Post) {

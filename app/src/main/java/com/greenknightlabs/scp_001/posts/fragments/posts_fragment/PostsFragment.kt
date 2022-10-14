@@ -1,6 +1,5 @@
 package com.greenknightlabs.scp_001.posts.fragments.posts_fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -10,12 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentPostsBinding
-import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.adapters.PostsFragmentAdapter
+import com.greenknightlabs.scp_001.posts.adapters.PostsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -52,7 +52,7 @@ class PostsFragment : BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts
         binding.vm = vm
 
         if (vm.adapter == null) {
-            vm.adapter = PostsFragmentAdapter(vm, kairos)
+            vm.adapter = PostsAdapter(vm, kairos)
         }
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
@@ -74,6 +74,12 @@ class PostsFragment : BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts
             if (it != null) {
                 activity?.makeToast(it)
                 vm.toastMessage.value = null
+            }
+        }
+        vm.shouldShowConfirmAlert.observe(viewLifecycleOwner) {
+            if (it == true) {
+                vm.shouldShowConfirmAlert.value = false
+                activity?.askConfirmation { vm.confirmAlertAction.value?.invoke() }
             }
         }
     }

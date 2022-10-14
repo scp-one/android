@@ -1,4 +1,4 @@
-package com.greenknightlabs.scp_001.users.fragments.user_profile_fragment
+package com.greenknightlabs.scp_001.posts.fragments.post_actions_fragment
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -13,34 +13,32 @@ import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
-import com.greenknightlabs.scp_001.databinding.FragmentUserProfileBinding
-import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentAdapter
-import com.greenknightlabs.scp_001.users.models.User
+import com.greenknightlabs.scp_001.databinding.FragmentPostActionsBinding
+import com.greenknightlabs.scp_001.posts.adapters.PostsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fragment_user_profile) {
+class PostActionsFragment : BaseFragment<FragmentPostActionsBinding>(R.layout.fragment_post_actions) {
     // dependencies
     @Inject lateinit var kairos: Kairos
 
     // properties
-    private val vm: UserProfileFragmentViewModel by viewModels()
-    var user: User? = null
+    private val vm: PostActionsFragmentViewModel by viewModels()
 
     // functions
     override fun activityTitle(): String {
-        return "@${vm.user?.username ?: "someone"}"
+        return vm.actionType.value?.displayName() ?: ""
     }
 
     override fun menuId(): Int? {
-        return R.menu.menu_fragment_user_profile
+        return R.menu.menu_fragment_post_actions
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         val view = activity?.getView(menuItem.itemId)
         when (menuItem.itemId) {
-            R.id.menu_fragment_user_profile_sort -> vm.handleOnTapMenuSort(view)
+            R.id.menu_fragment_post_actions_sort -> vm.handleOnTapMenuSort(view)
         }
 
         return false
@@ -52,17 +50,13 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
         binding.vm = vm
 
         if (vm.adapter == null) {
-            vm.adapter = UserProfileFragmentAdapter(vm, kairos)
+            vm.adapter = PostsAdapter(vm, kairos)
         }
-        if (vm.user == null) {
-            vm.user = user
-        }
-
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        binding.fragmentUserProfileRecyclerView.adapter = vm.adapter!!
-        binding.fragmentUserProfileRecyclerView.layoutManager = layoutManager
-        binding.fragmentUserProfileRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.fragmentPostActionsRecyclerView.adapter = vm.adapter!!
+        binding.fragmentPostActionsRecyclerView.layoutManager = layoutManager
+        binding.fragmentPostActionsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (vm.state.value != PageState.Idle) return
