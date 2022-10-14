@@ -6,6 +6,7 @@ import androidx.core.view.doOnLayout
 import androidx.fragment.app.viewModels
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.extensions.askConfirmation
+import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentPostBinding
@@ -44,6 +45,13 @@ class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post) {
             binding.fragmentPostImageView.doOnLayout {
                 val viewWidth = binding.fragmentPostImageView.measuredWidth
                 binding.fragmentPostImageView.layoutParams.height = media.calculateHeight(viewWidth, false)
+            }
+        }
+
+        vm.toastMessage.observe(viewLifecycleOwner) {
+            if (it != null) {
+                activity?.makeToast(it)
+                vm.toastMessage.value = null
             }
         }
         vm.shouldShowConfirmAlert.observe(viewLifecycleOwner) {

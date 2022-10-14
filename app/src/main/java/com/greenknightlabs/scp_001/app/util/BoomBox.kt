@@ -11,6 +11,9 @@ import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.greenknightlabs.scp_001.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -58,9 +61,11 @@ class BoomBox @Inject constructor(
             when (playingStatus.value) {
                 PlayingStatus.Playing -> {
                     pause()
+                    this.imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
                 }
                 PlayingStatus.Paused -> {
                     resume(this.progressBar, url)
+                    this.imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
                 }
                 PlayingStatus.Buffering -> {
                     // do nothing
@@ -68,7 +73,7 @@ class BoomBox @Inject constructor(
                 PlayingStatus.Ended -> {
                     mediaPlayer.seekTo(0)
                     resume(this.progressBar, url)
-//                    resetAndPlay(progressBar, url)
+                    this.imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
                 }
                 PlayingStatus.Error -> {
                     // TODO: something?
@@ -78,22 +83,32 @@ class BoomBox @Inject constructor(
                 }
             }
         }
-
-        this.imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
     }
 
     private fun resetAndPlay(progressBar: WeakReference<ProgressBar>?, url: String) {
         _url.value = url
 
-        try {
-            mediaPlayer.reset()
-            mediaPlayer.setDataSource(url)
-            mediaPlayer.prepare()
-            mediaPlayer.start()
-            startTimer(progressBar)
-        } catch (e: Throwable) {
-            Timber.e(e)
-            playingStatus.value = PlayingStatus.Error
+        mediaPlayer.reset()
+        playingStatus.value = PlayingStatus.Buffering
+        imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                mediaPlayer.setDataSource(url)
+                mediaPlayer.prepare()
+                mediaPlayer.start()
+
+                this.launch(Dispatchers.Main) {
+                    startTimer(progressBar)
+                    imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
+                }
+            } catch (e: Throwable) {
+                this.launch(Dispatchers.Main) {
+                    Timber.e(e)
+                    playingStatus.value = PlayingStatus.Error
+                    imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
+                }
+            }
         }
     }
 

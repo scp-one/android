@@ -25,6 +25,7 @@ import com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragment
 import com.greenknightlabs.scp_001.posts.adapters.PostsAdapter
 import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.posts.util.PostSignaler
+import com.greenknightlabs.scp_001.reports.PostReportsService
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragment
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,6 +42,7 @@ import kotlin.concurrent.schedule
 class PostsFragmentViewModel @Inject constructor(
     private val postsService: PostsService,
     private val postActionsService: PostActionsService,
+    private val postReportsService: PostReportsService,
     private val authMan: AuthMan,
     private val preferences: Preferences,
     private val navMan: NavMan,
@@ -218,7 +220,7 @@ class PostsFragmentViewModel @Inject constructor(
             didChangePostActions(PostActionsType.LIKED, post)
         })
         options.add(Pair("Report Post") {
-            toastMessage.value = "Not implemented"
+            reportPost(post)
         })
 
         if (authMan.payload?.id == post.user.id) {
@@ -280,6 +282,16 @@ class PostsFragmentViewModel @Inject constructor(
             }
         }
         shouldShowConfirmAlert.value = true
+    }
+
+    private fun reportPost(post: Post) {
+        viewModelScope.launch {
+            try {
+                postReportsService.createPostReport(post.id)
+            } catch (e: Throwable) {
+                toastMessage.value = e.message
+            }
+        }
     }
 
     // PostSignaler.Listener

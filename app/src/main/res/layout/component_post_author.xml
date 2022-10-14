@@ -33,7 +33,7 @@
             android:onClick="@{() -> listener.handleOnTapPostAuthor(post)}">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="?attr/themeFontSizeBody"
                 android:fontFamily="?attr/themeFontFamilyRegular"
@@ -41,10 +41,10 @@
                 android:lines="1"
                 android:ellipsize="end"
                 android:text='@{post.user.user.nickname}'
-                tools:text="testesttesttesttesttesttesttesttesttesttesttesttest" />
+                tools:text="testesttesttesttesttesttesttesttesttesttesttesttesttestestestestesteststestest" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="?attr/themeFontSizeSub"
                 android:fontFamily="?attr/themeFontFamilyRegular"
@@ -52,7 +52,7 @@
                 android:lines="1"
                 android:ellipsize="end"
                 android:text='@{"@" + post.user.user.username}'
-                tools:text="testesttesttesttesttesttesttesttesttesttesttesttest" />
+                tools:text="testesttesttesttesttesttesttesttesttesttesttesttesttestestestestestsetes" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

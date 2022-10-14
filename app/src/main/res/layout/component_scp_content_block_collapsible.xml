@@ -27,8 +27,16 @@
 
         </androidx.cardview.widget.CardView>
 
-        <include layout="@layout/component_scp_content_block"
-            android:id="@+id/component_scp_content_block_collapsible_component_scp_content_block" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/component_scp_content_block_collapsible_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacingRegular"
+            android:orientation="vertical"
+            android:padding="4dp"
+            android:background="@drawable/shape_collapsed_border">
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

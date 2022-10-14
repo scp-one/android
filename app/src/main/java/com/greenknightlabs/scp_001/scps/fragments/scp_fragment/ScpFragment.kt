@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.Markwon
 import io.noties.markwon.image.ImagesPlugin
 import io.noties.markwon.image.network.NetworkSchemeHandler
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -70,6 +71,7 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
                 vm.webViewUrl.value?.let { url -> activity?.pushWebView(url) }
             }
         }
+
         vm.scp.value?.media?.let { media ->
             kairos.load(media.url).scale(360, 360).default(R.drawable.ic_face).into(binding.fragmentScpImageView)
             binding.fragmentScpImageView.doOnLayout {
@@ -77,7 +79,6 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
                 binding.fragmentScpImageView.layoutParams.height = media.calculateHeight(viewWidth, false)
             }
         }
-
         vm.scp.value?.contentBlocks?.let { contentBlocks ->
             val markwon = Markwon.builder(requireContext())
                 .usePlugin(ImagesPlugin.create {
@@ -93,7 +94,7 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
             when (block.collapsible) {
                 true -> {
                     val binding: ComponentScpContentBlockCollapsibleBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block_collapsible, container, false)
-                    val collapsibleContainer = binding.componentScpContentBlockCollapsibleComponentScpContentBlock.componentScpContentBlockContainer
+                    val collapsibleContainer = binding.componentScpContentBlockCollapsibleContainer
 
                     binding.componentScpContentBlockCollapsibleTextView.text = block.title ?: "Collapsible block"
                     binding.componentScpContentBlockCollapsibleCardView.setOnClickListener {
@@ -120,6 +121,7 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
 
     private fun addComponentsToContainer(markwon: Markwon, container: LinearLayoutCompat, block: ScpContentBlock) {
         block.mdContent?.let { mdContent ->
+            Timber.d("Setting md content: ${mdContent}")
             val binding: ComponentScpContentBlockMdContentBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block_md_content, container, false)
             markwon.setMarkdown(binding.componentScpContentBlockMdContentTextView, mdContent)
             container.addView(binding.root)
@@ -139,8 +141,7 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
         }
 
         block.contentBlocks?.let { subBlocks ->
-            val subContainer: ComponentScpContentBlockBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block, container, false)
-            renderContentBlocks(markwon, subContainer.componentScpContentBlockContainer, subBlocks)
+            renderContentBlocks(markwon, container, subBlocks)
         }
     }
 }
