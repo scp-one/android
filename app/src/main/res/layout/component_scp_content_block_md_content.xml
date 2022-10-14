@@ -5,6 +5,7 @@
         android:id="@+id/component_scp_content_block_md_content_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacingRegular"
         android:textSize="?attr/themeFontSizeBody"
         android:fontFamily="?attr/themeFontFamilyRegular"
         android:textColor="?attr/themeColorFontNormal" />

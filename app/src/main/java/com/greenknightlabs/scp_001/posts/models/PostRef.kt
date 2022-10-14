@@ -31,14 +31,14 @@ object PostRefSerializer : KSerializer<PostRef> {
             val id = decoder.decodeString()
             return PostRef(false, id, null)
         } catch (e: Throwable) {
-            Timber.e(e)
+            // failed to decode
         }
 
         try {
             val post = json.decodeFromString<Post>((decoder as JsonDecoder).decodeJsonElement().toString())
             return PostRef(true, post.id, post)
         } catch (e: Throwable) {
-            Timber.e(e)
+            // failed to decode
         }
 
         throw Error("Unable to decode PostRef")

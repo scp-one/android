@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.doOnLayout
+import androidx.core.view.marginTop
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.greenknightlabs.scp_001.R
@@ -16,6 +17,7 @@ import com.greenknightlabs.scp_001.app.util.BoomBox
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.ComponentAudioBinding
 import com.greenknightlabs.scp_001.databinding.ComponentScpContentBlockBinding
+import com.greenknightlabs.scp_001.databinding.ComponentScpContentBlockCollapsibleBinding
 import com.greenknightlabs.scp_001.databinding.ComponentScpContentBlockMdContentBinding
 import com.greenknightlabs.scp_001.databinding.FragmentScpBinding
 import com.greenknightlabs.scp_001.scps.models.Scp
@@ -87,30 +89,58 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
     }
 
     private fun renderContentBlocks(markwon: Markwon, container: LinearLayoutCompat, blocks: List<ScpContentBlock>) {
-        blocks.forEach { block ->
-            block.mdContent?.let { mdContent ->
-                val binding: ComponentScpContentBlockMdContentBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block_md_content, container, false)
-                markwon.setMarkdown(binding.componentScpContentBlockMdContentTextView, mdContent)
-                container.addView(binding.root)
-            }
+        for (block in blocks) {
+            when (block.collapsible) {
+                true -> {
+                    val binding: ComponentScpContentBlockCollapsibleBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block_collapsible, container, false)
+                    val collapsibleContainer = binding.componentScpContentBlockCollapsibleComponentScpContentBlock.componentScpContentBlockContainer
 
-            block.table?.let { table ->
-                val textView = TextView(context)
-                textView.text = "TODO: display table"
-                container.addView(textView)
-            }
+                    binding.componentScpContentBlockCollapsibleTextView.text = block.title ?: "Collapsible block"
+                    binding.componentScpContentBlockCollapsibleCardView.setOnClickListener {
+                        collapsibleContainer.visibility = when (collapsibleContainer.visibility) {
+                            View.GONE -> View.VISIBLE
+                            else -> View.GONE
+                        }
+                    }
+                    collapsibleContainer.visibility = View.GONE
 
-            block.audioUrl?.let { audioUrl ->
-                val audioComponent: ComponentAudioBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_audio, container, false)
-                audioComponent.url = audioUrl
-                audioComponent.boombox = boombox
-                container.addView(audioComponent.root)
-            }
+                    addComponentsToContainer(markwon, collapsibleContainer, block)
+                    block.contentBlocks?.let {
+                        renderContentBlocks(markwon, collapsibleContainer, it)
+                    }
 
-            block.contentBlocks?.let { subBlocks ->
-                val subContainer: ComponentScpContentBlockBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block, container, false)
-                renderContentBlocks(markwon, subContainer.componentScpContentBlockContainer, subBlocks)
+                    container.addView(binding.root)
+                }
+                else -> {
+                    addComponentsToContainer(markwon, container, block)
+                }
             }
+        }
+    }
+
+    private fun addComponentsToContainer(markwon: Markwon, container: LinearLayoutCompat, block: ScpContentBlock) {
+        block.mdContent?.let { mdContent ->
+            val binding: ComponentScpContentBlockMdContentBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block_md_content, container, false)
+            markwon.setMarkdown(binding.componentScpContentBlockMdContentTextView, mdContent)
+            container.addView(binding.root)
+        }
+
+        block.table?.let { table ->
+            val textView = TextView(context)
+            textView.text = "TODO: display table"
+            container.addView(textView)
+        }
+
+        block.audioUrl?.let { audioUrl ->
+            val audioComponent: ComponentAudioBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_audio, container, false)
+            audioComponent.url = audioUrl
+            audioComponent.boombox = boombox
+            container.addView(audioComponent.root)
+        }
+
+        block.contentBlocks?.let { subBlocks ->
+            val subContainer: ComponentScpContentBlockBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block, container, false)
+            renderContentBlocks(markwon, subContainer.componentScpContentBlockContainer, subBlocks)
         }
     }
 }

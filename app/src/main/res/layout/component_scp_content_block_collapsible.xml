@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacingRegular"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/component_scp_content_block_collapsible_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/defaultCardElevation"
+            app:cardCornerRadius="@dimen/defaultCornerRadius"
+            app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+            <TextView
+                android:id="@+id/component_scp_content_block_collapsible_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacingRegular"
+                tools:text="test" />
+
+        </androidx.cardview.widget.CardView>
+
+        <include layout="@layout/component_scp_content_block"
+            android:id="@+id/component_scp_content_block_collapsible_component_scp_content_block" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>
