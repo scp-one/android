@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- RETROLIGHT THEME -->
+    <style name="Theme.Retrolight" parent="Theme.Base">
+        <!-- colors - primaries -->
+        <item name="themeColorPrimaryLight">@color/retrolightThemeColorPrimaryLight</item>
+        <item name="themeColorPrimary">@color/retrolightThemeColorPrimary</item>
+        <item name="themeColorPrimaryDark">@color/retrolightThemeColorPrimaryDark</item>
+        <!-- colors - buttons -->
+        <item name="themeColorBtnHighlightedBorderless">@color/retrolightThemeColorBtnHighlightedBorderless</item>
+        <item name="themeColorBtnHighlighted">@color/retrolightThemeColorBtnHighlighted</item>
+        <item name="themeColorBtnNormal">@color/retrolightThemeColorBtnNormal</item>
+        <item name="themeColorBtnCancel">@color/retrolightThemeColorBtnCancel</item>
+        <item name="themeColorBtnNavBarActive">@color/retrolightThemeColorBtnNavBarActive</item>
+        <item name="themeColorBtnNavBarInactive">@color/retrolightThemeColorBtnNavBarInactive</item>
+        <!-- colors - fonts -->
+        <item name="themeColorFontBright">@color/retrolightThemeColorFontBright</item>
+        <item name="themeColorFontNormal">@color/retrolightThemeColorFontNormal</item>
+        <item name="themeColorFontDim">@color/retrolightThemeColorFontDim</item>
+        <item name="themeColorFontTextFieldText">@color/retrolightThemeColorFontTextFieldText</item>
+        <item name="themeColorFontTextFieldHint">@color/retrolightThemeColorFontTextFieldHint</item>
+        <!-- colors - interface elements -->
+        <item name="themeColorTextField">@color/retrolightThemeColorTextField</item>
+        <item name="themeColorTextFieldHighlighted">@color/retrolightThemeColorTextFieldHighlighted</item>
+        <item name="themeColorNavBar">@color/retrolightThemeColorNavBar</item>
+
+        <!-- colors - android elements -->
+        <item name="android:statusBarColor">@color/retrolightThemeColorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/retrolightThemeColorNavBar</item>
+    </style>
+
+    <!-- FONT SIZES -->
+    <style name="Theme.Retrolight.FontSmall" parent="Theme.Retrolight">
+        <item name="themeFontSizeSub">@dimen/fontSizeSmallSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeSmallBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeSmallHeadline</item>
+    </style>
+
+    <style name="Theme.Retrolight.FontRegular" parent="Theme.Retrolight">
+        <item name="themeFontSizeSub">@dimen/fontSizeRegularSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeRegularBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeRegularHeadline</item>
+    </style>
+
+    <style name="Theme.Retrolight.FontLarge" parent="Theme.Retrolight">
+        <item name="themeFontSizeSub">@dimen/fontSizeLargeSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeLargeBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeLargeHeadline</item>
+    </style>
+</resources>

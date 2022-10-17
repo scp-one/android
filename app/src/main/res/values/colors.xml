@@ -105,4 +105,56 @@
     <color name="midnightThemeColorTextField">#FFFFFF</color>
     <color name="midnightThemeColorTextFieldHighlighted">#767676</color>
     <color name="midnightThemeColorNavBar">#1b2030</color>
+
+    <!-- RETROLIGHT THEME -->
+    <!-- primaries -->
+    <color name="retrolightThemeColorPrimaryLight">#F7F2DF</color>
+    <color name="retrolightThemeColorPrimary">#e4e0cc</color>
+    <color name="retrolightThemeColorPrimaryDark">#CEC7B5</color>
+
+    <!-- buttons -->
+    <color name="retrolightThemeColorBtnHighlightedBorderless">#25FFFFFF</color>
+    <color name="retrolightThemeColorBtnHighlighted">#3597fb</color>
+    <color name="retrolightThemeColorBtnNormal">#B95A64</color>
+    <color name="retrolightThemeColorBtnCancel">#B95A64</color>
+    <color name="retrolightThemeColorBtnNavBarActive">#B95A64</color>
+    <color name="retrolightThemeColorBtnNavBarInactive">#1A1C23</color>
+
+    <!-- fonts -->
+    <color name="retrolightThemeColorFontBright">#B95A64</color>
+    <color name="retrolightThemeColorFontNormal">#1A1C23</color>
+    <color name="retrolightThemeColorFontDim">#2E303E</color>
+    <color name="retrolightThemeColorFontTextFieldText">#2E303E</color>
+    <color name="retrolightThemeColorFontTextFieldHint">#1A1C23</color>
+
+    <!-- interface elements -->
+    <color name="retrolightThemeColorTextField">#d9d2c2</color>
+    <color name="retrolightThemeColorTextFieldHighlighted">#767676</color>
+    <color name="retrolightThemeColorNavBar">#e4e0cc</color>
+
+    <!-- VOID THEME -->
+    <!-- primaries -->
+    <color name="voidThemeColorPrimaryLight">#000000</color>
+    <color name="voidThemeColorPrimary">#000000</color>
+    <color name="voidThemeColorPrimaryDark">#000000</color>
+
+    <!-- buttons -->
+    <color name="voidThemeColorBtnHighlightedBorderless">#25FFFFFF</color>
+    <color name="voidThemeColorBtnHighlighted">#3597fb</color>
+    <color name="voidThemeColorBtnNormal">#688CCA</color>
+    <color name="voidThemeColorBtnCancel">#E24F48</color>
+    <color name="voidThemeColorBtnNavBarActive">#688CCA</color>
+    <color name="voidThemeColorBtnNavBarInactive">#C6C5B7</color>
+
+    <!-- fonts -->
+    <color name="voidThemeColorFontBright">#2C94FF</color>
+    <color name="voidThemeColorFontNormal">#E5E3D2</color>
+    <color name="voidThemeColorFontDim">#C6C5B7</color>
+    <color name="voidThemeColorFontTextFieldText">#424242</color>
+    <color name="voidThemeColorFontTextFieldHint">#767676</color>
+
+    <!-- interface elements -->
+    <color name="voidThemeColorTextField">#C6C7C1</color>
+    <color name="voidThemeColorTextFieldHighlighted">#767676</color>
+    <color name="voidThemeColorNavBar">#000000</color>
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- DARK THEME -->
+    <style name="Theme.Void" parent="Theme.Base">
+        <!-- colors - primaries -->
+        <item name="themeColorPrimaryLight">@color/voidThemeColorPrimaryLight</item>
+        <item name="themeColorPrimary">@color/voidThemeColorPrimary</item>
+        <item name="themeColorPrimaryDark">@color/voidThemeColorPrimaryDark</item>
+        <!-- colors - buttons -->
+        <item name="themeColorBtnHighlightedBorderless">@color/voidThemeColorBtnHighlightedBorderless</item>
+        <item name="themeColorBtnHighlighted">@color/voidThemeColorBtnHighlighted</item>
+        <item name="themeColorBtnNormal">@color/voidThemeColorBtnNormal</item>
+        <item name="themeColorBtnCancel">@color/voidThemeColorBtnCancel</item>
+        <item name="themeColorBtnNavBarActive">@color/voidThemeColorBtnNavBarActive</item>
+        <item name="themeColorBtnNavBarInactive">@color/voidThemeColorBtnNavBarInactive</item>
+        <!-- colors - fonts -->
+        <item name="themeColorFontBright">@color/voidThemeColorFontBright</item>
+        <item name="themeColorFontNormal">@color/voidThemeColorFontNormal</item>
+        <item name="themeColorFontDim">@color/voidThemeColorFontDim</item>
+        <item name="themeColorFontTextFieldText">@color/voidThemeColorFontTextFieldText</item>
+        <item name="themeColorFontTextFieldHint">@color/voidThemeColorFontTextFieldHint</item>
+        <!-- colors - interface elements -->
+        <item name="themeColorTextField">@color/voidThemeColorTextField</item>
+        <item name="themeColorTextFieldHighlighted">@color/voidThemeColorTextFieldHighlighted</item>
+        <item name="themeColorNavBar">@color/voidThemeColorNavBar</item>
+
+        <!-- android elements -->
+        <item name="android:statusBarColor">@color/voidThemeColorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/voidThemeColorNavBar</item>
+    </style>
+
+    <!-- FONT SIZES -->
+    <style name="Theme.Void.FontSmall" parent="Theme.Void">
+        <item name="themeFontSizeSub">@dimen/fontSizeSmallSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeSmallBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeSmallHeadline</item>
+    </style>
+
+    <style name="Theme.Void.FontRegular" parent="Theme.Void">
+        <item name="themeFontSizeSub">@dimen/fontSizeRegularSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeRegularBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeRegularHeadline</item>
+    </style>
+
+    <style name="Theme.Void.FontLarge" parent="Theme.Void">
+        <item name="themeFontSizeSub">@dimen/fontSizeLargeSub</item>
+        <item name="themeFontSizeBody">@dimen/fontSizeLargeBody</item>
+        <item name="themeFontSizeHeadline">@dimen/fontSizeLargeHeadline</item>
+    </style>
+</resources>

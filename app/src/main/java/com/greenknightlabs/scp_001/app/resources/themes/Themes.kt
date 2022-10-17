@@ -21,6 +21,12 @@ enum class Themes(
         R.style.Theme_Light_FontRegular,
         R.style.Theme_Light_FontLarge
     ),
+    Retrolight(
+      "themeRetrolight",
+      R.style.Theme_Retrolight_FontSmall,
+      R.style.Theme_Retrolight_FontRegular,
+      R.style.Theme_Retrolight_FontLarge
+    ),
     Dark(
         "themeDark",
         R.style.Theme_Dark_FontSmall,
@@ -32,6 +38,12 @@ enum class Themes(
         R.style.Theme_Midnight_FontSmall,
         R.style.Theme_Midnight_FontRegular,
         R.style.Theme_Midnight_FontLarge
+    ),
+    Void(
+        "themeVoid",
+        R.style.Theme_Void_FontSmall,
+        R.style.Theme_Void_FontRegular,
+        R.style.Theme_Void_FontLarge
     );
 
     fun resId(fontSize: FontSizes): Int {
@@ -46,8 +58,10 @@ enum class Themes(
         return when (this) {
             Slate -> "Slate"
             Light -> "Light"
+            Retrolight -> "Retrolight"
             Dark -> "Dark"
             Midnight -> "Midnight"
+            Void -> "Void"
         }
     }
 

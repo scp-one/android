@@ -23,6 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacingRegular"
+                android:fontFamily="?attr/themeFontFamilyMedium"
+                android:textSize="?attr/themeFontSizeSub"
+                android:textColor="?attr/themeColorFontBright"
                 tools:text="test" />
 
         </androidx.cardview.widget.CardView>
