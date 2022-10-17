@@ -91,6 +91,11 @@ class ScpFragmentViewModel @Inject constructor(
         }
     }
 
+    fun handleOnTapLicense() {
+        webViewUrl.value = scp.value?.sourceUrl
+        shouldShowWebView.value = true
+    }
+
     override fun handleSignal(signal: ScpSignaler.ScpSignal) {
         when (signal) {
             is ScpSignaler.ScpSignal.ScpDidChange -> {

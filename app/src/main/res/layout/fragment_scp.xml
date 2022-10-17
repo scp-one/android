@@ -64,7 +64,9 @@
                 android:layout_marginTop="@dimen/spacingRegular"
                 app:cardElevation="@dimen/defaultCardElevation"
                 app:cardCornerRadius="@dimen/defaultCornerRadius"
-                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight"
+                android:visibility="@{(vm.scp.license != null) ? View.VISIBLE : View.GONE}"
+                android:onClick="@{_ -> vm.handleOnTapLicense()}">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -73,7 +75,6 @@
                     android:textSize="?attr/themeFontSizeBody"
                     android:fontFamily="?attr/themeFontFamilyRegular"
                     android:textColor="?attr/themeColorFontNormal"
-                    android:visibility="@{(vm.scp.license != null) ? View.VISIBLE : View.GONE}"
                     android:text="@{vm.scp.license}" />
 
             </androidx.cardview.widget.CardView>

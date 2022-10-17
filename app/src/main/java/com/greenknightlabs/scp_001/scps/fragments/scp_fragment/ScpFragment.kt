@@ -3,6 +3,8 @@ package com.greenknightlabs.scp_001.scps.fragments.scp_fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.doOnLayout
@@ -15,11 +17,7 @@ import com.greenknightlabs.scp_001.app.extensions.pushWebView
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.BoomBox
 import com.greenknightlabs.scp_001.app.util.Kairos
-import com.greenknightlabs.scp_001.databinding.ComponentAudioBinding
-import com.greenknightlabs.scp_001.databinding.ComponentScpContentBlockBinding
-import com.greenknightlabs.scp_001.databinding.ComponentScpContentBlockCollapsibleBinding
-import com.greenknightlabs.scp_001.databinding.ComponentScpContentBlockMdContentBinding
-import com.greenknightlabs.scp_001.databinding.FragmentScpBinding
+import com.greenknightlabs.scp_001.databinding.*
 import com.greenknightlabs.scp_001.scps.models.Scp
 import com.greenknightlabs.scp_001.scps.models.ScpContentBlock
 import dagger.hilt.android.AndroidEntryPoint
@@ -128,9 +126,35 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
         }
 
         block.table?.let { table ->
-            val textView = TextView(context)
-            textView.text = "TODO: display table"
-            container.addView(textView)
+            val tableLayout: ComponentTableBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table, container, false)
+
+            table.headers?.let { headers ->
+                val rowLayout: ComponentTableRowBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_row, tableLayout.componentTableLayout, false)
+
+                for (header in headers) {
+                    val headerLayout: ComponentTableHeaderBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_header, rowLayout.componentTableRow, false)
+                    headerLayout.componentTableHeaderText.text = header
+
+                    rowLayout.componentTableRow.addView(headerLayout.root)
+                }
+
+                tableLayout.componentTableLayout.addView(rowLayout.root)
+            }
+
+            for (row in table.rows) {
+                val rowLayout: ComponentTableRowBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_row, tableLayout.componentTableLayout, false)
+
+                for (column in row) {
+                    val columnLayout: ComponentTableColumnBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_column, rowLayout.componentTableRow, false)
+                    columnLayout.componentTableColumnText.text = column
+
+                    rowLayout.componentTableRow.addView(columnLayout.root)
+                }
+
+                tableLayout.componentTableLayout.addView(rowLayout.root)
+            }
+
+            container.addView(tableLayout.root)
         }
 
         block.audioUrl?.let { audioUrl ->
