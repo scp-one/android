@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable name="vm" type="com.greenknightlabs.scp_001.app.fragments.pro_access_fragment.ProAccessFragmentViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="?actionBarSize"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/spacingFormHeaderImage"
+                android:paddingEnd="@dimen/spacingFormHeaderImage"
+                android:src="@drawable/header_pro_access"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:contentDescription="todo" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacingRegular"
+                    android:orientation="vertical"
+                    android:visibility="@{(vm.hasUnlockedProAccess == true) ? View.VISIBLE : View.GONE}">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="?attr/themeFontFamilyMedium"
+                        android:textSize="?attr/themeFontSizeBody"
+                        android:textColor="?attr/themeColorFontNormal"
+                        android:text="You've unlocked Pro Access!\nThank you for your support ❤️" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacingRegular"
+                    android:orientation="vertical"
+                    android:visibility="@{(vm.hasUnlockedProAccess == true) ? View.GONE : View.VISIBLE}">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="?attr/themeFontFamilyBold"
+                        android:textSize="?attr/themeFontSizeHeadline"
+                        android:textColor="?attr/themeColorFontNormal"
+                        android:text="Pro Access" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingLarge"
+                        android:gravity="center"
+                        android:fontFamily="?attr/themeFontFamilyMedium"
+                        android:textSize="?attr/themeFontSizeBody"
+                        android:textColor="?attr/themeColorFontNormal"
+                        android:text="By unlocking Pro Access, you gain these features forever"/>
+
+                    <include layout="@layout/component_pro_access_feature"
+                        app:feature="@{`All Themes`}"
+                        app:subText="@{`Including future themes as they become available`}"/>
+
+                    <include layout="@layout/component_pro_access_feature"
+                        app:feature="@{`Upload community posts`}"
+                        app:subText="@{`Make your own stories about anomalies`}"/>
+
+                    <include layout="@layout/component_pro_access_feature"
+                        app:feature="@{`Upcoming Pro-only features`}"
+                        app:subText="@{`Any new features requiring Pro Access will be available to you`}"/>
+
+                    <include layout="@layout/component_pro_access_feature"
+                        app:feature="@{`Extra Goodies`}"
+                        app:subText="@{`Customize profile picture, Pro badge`}"/>
+
+                    <include layout="@layout/component_pro_access_feature"
+                        app:feature="@{`A place in our hearts`}"
+                        app:subText="@{`Your contribution to the development of this app is greatly appreciated`}"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:minHeight="@dimen/spacingRegular"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="@dimen/spacingSmallest"
+                android:text="Restore Pro Access"
+                android:textSize="?attr/themeFontSizeSub"
+                android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textColor="?attr/themeColorFontBright"
+                android:textAllCaps="false"
+                android:background="@drawable/ripple_button_borderless"
+                android:onClick="@{() -> vm.handleOnTapRestore()}" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                android:paddingTop="@dimen/spacingRegularPlus"
+                android:paddingBottom="@dimen/spacingRegularPlus"
+                android:text="@{vm.product.price}"
+                android:textSize="?attr/themeFontSizeBody"
+                android:fontFamily="?attr/themeFontFamilyMedium"
+                android:textColor="?attr/themeColorFontNormal"
+                android:textAllCaps="false"
+                android:background="@drawable/ripple_button"
+                android:onClick="@{() -> vm.handleOnTapBuy()}"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>
