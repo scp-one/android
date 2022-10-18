@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="200dp"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
         android:padding="@dimen/spacingSmallest"
         android:fontFamily="?attr/themeFontFamilyRegular"
         android:textSize="?attr/themeFontSizeBody"

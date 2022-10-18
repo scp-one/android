@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import com.greenknightlabs.scp_001.BuildConfig
+import com.revenuecat.purchases.Purchases
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 

@@ -3,6 +3,7 @@ package com.greenknightlabs.scp_001.auth.util
 import android.content.Context
 import android.content.SharedPreferences
 import com.greenknightlabs.scp_001.R
+import com.greenknightlabs.scp_001.app.util.shopkeep.Shopkeep
 import com.greenknightlabs.scp_001.auth.objects.AuthAccessInfo
 import com.greenknightlabs.scp_001.auth.jwt.JwtPayload
 import kotlinx.serialization.decodeFromString
@@ -17,6 +18,7 @@ class AuthMan @Inject constructor(
     private val context: Context,
     private val json: Json,
     private val jwtDecoder: JwtDecoder,
+    private val shopkeep: Shopkeep
 ) {
     var accessInfo: AuthAccessInfo? = null
         private set
@@ -27,6 +29,7 @@ class AuthMan @Inject constructor(
 
     init {
         setAccessInfo(getCachedAccessInfo())
+        shopkeep.configure(payload?.id)
     }
 
     fun isExpired(): Boolean? {
@@ -37,6 +40,9 @@ class AuthMan @Inject constructor(
 
     fun didLogin(accessInfo: AuthAccessInfo) {
         setAccessInfo(accessInfo)
+        payload?.id?.let {
+            shopkeep.login(it)
+        }
     }
 
     fun didRefresh(newAccessInfo: AuthAccessInfo) {
@@ -46,6 +52,7 @@ class AuthMan @Inject constructor(
 
     fun didLogout() {
         setAccessInfo(null)
+        shopkeep.logout()
     }
 
     private fun setAccessInfo(accessInfo: AuthAccessInfo?) {

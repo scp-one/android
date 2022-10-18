@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.greenknightlabs.scp_001.app.util.shopkeep.enums.TipJarOptions" />
+
+        <variable name="vm" type="com.greenknightlabs.scp_001.app.fragments.tip_jar_fragment.TipJarFragmentViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="?actionBarSize"
+        android:background="?attr/themeColorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular"
+            android:clipToPadding="false" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/spacingFormHeaderImage"
+                android:paddingEnd="@dimen/spacingFormHeaderImage"
+                android:src="@drawable/header_tip_jar"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:contentDescription="todo" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacingRegular"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacingRegular"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="?attr/themeFontFamilyBold"
+                        android:textSize="?attr/themeFontSizeHeadline"
+                        android:textColor="?attr/themeColorFontNormal"
+                        android:text="Tip Jar" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/spacingRegular"
+                        android:fontFamily="?attr/themeFontFamilyMedium"
+                        android:textSize="?attr/themeFontSizeBody"
+                        android:textColor="?attr/themeColorFontNormal"
+                        android:text="If you would like to support the development of this application, any tip is greatly appreciated. We also really like pizza." />
+
+                    <include layout="@layout/component_tip_jar_option"
+                        app:tipJarOption="@{TipJarOptions.Option1}"
+                        app:onTapAction="@{vm::handleOnTapBuy}" />
+
+                    <include layout="@layout/component_tip_jar_option"
+                        app:tipJarOption="@{TipJarOptions.Option2}"
+                        app:onTapAction="@{vm::handleOnTapBuy}" />
+
+                    <include layout="@layout/component_tip_jar_option"
+                        app:tipJarOption="@{TipJarOptions.Option3}"
+                        app:onTapAction="@{vm::handleOnTapBuy}" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

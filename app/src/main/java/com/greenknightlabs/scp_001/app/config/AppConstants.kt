@@ -8,6 +8,8 @@ class AppConstants {
         const val WIKI_URL = "https://scp-wiki.wikidot.com/"
         const val APP_STORE_URL = "https://scp-one.web.app" // TODO: change to play store
 
+        const val REVENUE_CAT_API_KEY = "goog_AlRIrkrRBSoFfigEElJyqelTdoS"
+
         const val URL_FEEDBACK = "https://scp-one.web.app/feedback"
         const val URL_PRIVACY_POLICY = "https://scp-one.web.app/privacy-policy"
         const val URL_TERMS_OF_SERVICE = "https://scp-one.web.app/terms-of-service"

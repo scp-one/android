@@ -15,6 +15,7 @@ import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Stash
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import com.greenknightlabs.scp_001.app.fragments.behavior_fragment.BehaviorFragment
+import com.greenknightlabs.scp_001.app.fragments.tip_jar_fragment.TipJarFragment
 import com.greenknightlabs.scp_001.auth.AuthService
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.users.UsersService
@@ -139,7 +140,7 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapTipJar() {
-        toastMessage.value = "Not implemented"
+        navMan.pushFragment(TipJarFragment())
     }
 
     fun handleOnTapRateThisApp() {
