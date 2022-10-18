@@ -88,6 +88,7 @@ dependencies {
     // markdown
     implementation "io.noties.markwon:core:4.6.2"
     implementation "io.noties.markwon:image:4.6.2"
+    implementation "io.noties.markwon:linkify:4.6.2"
     // revenuecat
     implementation 'com.revenuecat.purchases:purchases:5.4.0'
 }

@@ -12,6 +12,7 @@ import androidx.core.view.marginTop
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.greenknightlabs.scp_001.R
+import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.pushWebView
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
@@ -21,9 +22,12 @@ import com.greenknightlabs.scp_001.databinding.*
 import com.greenknightlabs.scp_001.scps.models.Scp
 import com.greenknightlabs.scp_001.scps.models.ScpContentBlock
 import dagger.hilt.android.AndroidEntryPoint
+import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonConfiguration
 import io.noties.markwon.image.ImagesPlugin
 import io.noties.markwon.image.network.NetworkSchemeHandler
+import io.noties.markwon.linkify.LinkifyPlugin
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -79,10 +83,21 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
         }
         vm.scp.value?.contentBlocks?.let { contentBlocks ->
             val markwon = Markwon.builder(requireContext())
+                .usePlugin(object : AbstractMarkwonPlugin() {
+                    override fun configureConfiguration(builder: MarkwonConfiguration.Builder) {
+                        builder.linkResolver { _, link ->
+                            vm.webViewUrl.value = "${AppConstants.WIKI_URL}$link"
+                            vm.shouldShowWebView.value = true
+                        }
+
+                        super.configureConfiguration(builder)
+                    }
+                })
                 .usePlugin(ImagesPlugin.create {
                     it.addSchemeHandler(NetworkSchemeHandler.create())
                 })
                 .build()
+
             renderContentBlocks(markwon, binding.fragmentScpLinearLayoutContentBlocks, contentBlocks)
         }
     }
