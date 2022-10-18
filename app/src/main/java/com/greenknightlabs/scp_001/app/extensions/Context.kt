@@ -14,12 +14,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 
+var toast: Toast? = null
+
 fun Context.makeToast(message: String?, gravity: Int = Gravity.TOP) {
     val message = message ?: return
     if (message.isEmpty()) { return }
 
-    val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
-    toast.show()
+    if (toast != null) {
+        toast?.cancel()
+    }
+
+    toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+    toast?.show()
 }
 
 fun Context.askConfirmation(onAccept: () -> Unit) {
