@@ -86,8 +86,13 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
                 .usePlugin(object : AbstractMarkwonPlugin() {
                     override fun configureConfiguration(builder: MarkwonConfiguration.Builder) {
                         builder.linkResolver { _, link ->
-                            vm.webViewUrl.value = "${AppConstants.WIKI_URL}$link"
-                            vm.shouldShowWebView.value = true
+                            if (link.startsWith("http")) {
+                                vm.webViewUrl.value = link
+                                vm.shouldShowWebView.value = true
+                            } else {
+                                vm.webViewUrl.value = "${AppConstants.WIKI_URL}$link"
+                                vm.shouldShowWebView.value = true
+                            }
                         }
 
                         super.configureConfiguration(builder)

@@ -11,6 +11,7 @@ import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Preferences
+import com.greenknightlabs.scp_001.app.util.Queuey
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.scps.ScpsService
 import com.greenknightlabs.scp_001.scps.config.ScpsConstants
@@ -38,11 +39,11 @@ import kotlin.concurrent.schedule
 class ScpsFragmentViewModel @Inject constructor(
     private val scpsService: ScpsService,
     private val scpActionsService: ScpActionsService,
-    private val authMan: AuthMan,
     private val preferences: Preferences,
     private val navMan: NavMan,
     private val json: Json,
-    private val scpSignaler: ScpSignaler
+    private val scpSignaler: ScpSignaler,
+    private val queuey: Queuey
 ) : ScpsViewModel(), ScpSignaler.Listener {
     // properties
     var adapter: ScpsAdapter? = null
@@ -250,47 +251,33 @@ class ScpsFragmentViewModel @Inject constructor(
 
     override fun handleOnTapRead(scp: Scp) {
         scp.read = !scp.read
-        scpSignaler.send(ScpSignaler.ScpSignal.ScpDidChange(scp))
-
-        viewModelScope.launch {
-            val dto = CreateScpActionsDto(ScpActionsType.READ, scp.read)
-
-            try {
-                scpActionsService.createScpAction(scp.id, dto)
-            } catch (e: Throwable) {
-                toastMessage.value = e.message
-            }
-        }
+        didChangeScpAction(scp, ScpActionsType.READ, scp.read)
     }
 
     override fun handleOnTapLike(scp: Scp) {
         scp.liked = !scp.liked
-        scpSignaler.send(ScpSignaler.ScpSignal.ScpDidChange(scp))
-
-        viewModelScope.launch {
-            val dto = CreateScpActionsDto(ScpActionsType.LIKED, scp.liked)
-
-            try {
-                scpActionsService.createScpAction(scp.id, dto)
-            } catch (e: Throwable) {
-                toastMessage.value = e.message
-            }
-        }
+        didChangeScpAction(scp, ScpActionsType.LIKED, scp.liked)
     }
 
     override fun handleOnTapSave(scp: Scp) {
         scp.saved = !scp.saved
+        didChangeScpAction(scp, ScpActionsType.SAVED, scp.saved)
+    }
+
+    private fun didChangeScpAction(scp: Scp, actionType: ScpActionsType, newState: Boolean) {
         scpSignaler.send(ScpSignaler.ScpSignal.ScpDidChange(scp))
 
-        viewModelScope.launch {
-            val dto = CreateScpActionsDto(ScpActionsType.SAVED, scp.saved)
+        queuey.queue({
+            viewModelScope.launch {
+                val dto = CreateScpActionsDto(actionType, newState)
 
-            try {
-                scpActionsService.createScpAction(scp.id, dto)
-            } catch (e: Throwable) {
-                toastMessage.value = e.message
+                try {
+                    scpActionsService.createScpAction(scp.id, dto)
+                } catch (e: Throwable) {
+                    toastMessage.value = e.message
+                }
             }
-        }
+        }, "${scp.id}${actionType.rawValue}")
     }
 
     override fun handleSignal(signal: ScpSignaler.ScpSignal) {

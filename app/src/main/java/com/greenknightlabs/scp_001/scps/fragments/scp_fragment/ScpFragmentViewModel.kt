@@ -10,6 +10,7 @@ import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import com.greenknightlabs.scp_001.app.util.NavMan
+import com.greenknightlabs.scp_001.app.util.Queuey
 import com.greenknightlabs.scp_001.scps.models.Scp
 import com.greenknightlabs.scp_001.scps.util.ScpSignaler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ScpFragmentViewModel @Inject constructor(
     private val scpActionsService: ScpActionsService,
-    private val navMan: NavMan,
-    private val scpSignaler: ScpSignaler
+    private val scpSignaler: ScpSignaler,
+    private val queuey: Queuey
 ) : BaseViewModel(), ScpSignaler.Listener {
     // properties
     val scp = MutableLiveData<Scp?>(null)
@@ -80,15 +81,17 @@ class ScpFragmentViewModel @Inject constructor(
     private fun didChangeScpAction(scp: Scp, actionType: ScpActionsType, newState: Boolean) {
         scpSignaler.send(ScpSignaler.ScpSignal.ScpDidChange(scp))
 
-        viewModelScope.launch {
-            val dto = CreateScpActionsDto(actionType, newState)
+        queuey.queue({
+            viewModelScope.launch {
+                val dto = CreateScpActionsDto(actionType, newState)
 
-            try {
-                scpActionsService.createScpAction(scp.id, dto)
-            } catch (e: Throwable) {
-                toastMessage.value = e.message
+                try {
+                    scpActionsService.createScpAction(scp.id, dto)
+                } catch (e: Throwable) {
+                    toastMessage.value = e.message
+                }
             }
-        }
+        }, "${scp.id}${actionType.rawValue}")
     }
 
     fun handleOnTapLicense() {

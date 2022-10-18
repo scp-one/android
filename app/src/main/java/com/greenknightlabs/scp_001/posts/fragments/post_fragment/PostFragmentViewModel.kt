@@ -9,6 +9,7 @@ import com.greenknightlabs.scp_001.actions.enums.PostActionsType
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import com.greenknightlabs.scp_001.app.util.NavMan
+import com.greenknightlabs.scp_001.app.util.Queuey
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.posts.PostsService
 import com.greenknightlabs.scp_001.posts.fragments.edit_post_fragment.EditPostFragment
@@ -30,7 +31,8 @@ class PostFragmentViewModel @Inject constructor(
     private val postReportsService: PostReportsService,
     private val authMan: AuthMan,
     private val navMan: NavMan,
-    private val postSignaler: PostSignaler
+    private val postSignaler: PostSignaler,
+    private val queuey: Queuey
 ) : BaseViewModel(), PostAuthorComponentListener, PostSignaler.Listener {
     // properties
     val post = MutableLiveData<Post?>(null)
@@ -109,15 +111,17 @@ class PostFragmentViewModel @Inject constructor(
 
         postSignaler.send(PostSignaler.PostSignal.PostDidChange(post))
 
-        viewModelScope.launch {
-            val dto = CreatePostActionsDto(type, state)
+        queuey.queue({
+            viewModelScope.launch {
+                val dto = CreatePostActionsDto(type, state)
 
-            try {
-                postActionsService.createPostAction(post.id, dto)
-            } catch (e: Throwable) {
-                toastMessage.value = e.message
+                try {
+                    postActionsService.createPostAction(post.id, dto)
+                } catch (e: Throwable) {
+                    toastMessage.value = e.message
+                }
             }
-        }
+        }, "${post.id}${type.rawValue}")
     }
 
     private fun pushEditPostFragment(post: Post) {

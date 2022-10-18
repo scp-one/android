@@ -13,6 +13,7 @@ import com.greenknightlabs.scp_001.actions.models.ScpActions
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.util.NavMan
+import com.greenknightlabs.scp_001.app.util.Queuey
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.scps.enums.ScpSortOrder
 import com.greenknightlabs.scp_001.scps.adapters.ScpsAdapter
@@ -36,7 +37,8 @@ class ScpActionsFragmentViewModel @Inject constructor(
     private val authMan: AuthMan,
     private val navMan: NavMan,
     private val json: Json,
-    private val scpSignaler: ScpSignaler
+    private val scpSignaler: ScpSignaler,
+    private val queuey: Queuey
 ) : ScpsViewModel(), ScpSignaler.Listener {
     // properties
     var adapter: ScpsAdapter? = null
@@ -201,15 +203,17 @@ class ScpActionsFragmentViewModel @Inject constructor(
     private fun didChangeScpAction(scp: Scp, actionType: ScpActionsType, newState: Boolean) {
         scpSignaler.send(ScpSignaler.ScpSignal.ScpDidChange(scp))
 
-        viewModelScope.launch {
-            val dto = CreateScpActionsDto(actionType, newState)
+        queuey.queue({
+            viewModelScope.launch {
+                val dto = CreateScpActionsDto(actionType, newState)
 
-            try {
-                scpActionsService.createScpAction(scp.id, dto)
-            } catch (e: Throwable) {
-                toastMessage.value = e.message
+                try {
+                    scpActionsService.createScpAction(scp.id, dto)
+                } catch (e: Throwable) {
+                    toastMessage.value = e.message
+                }
             }
-        }
+        }, "${scp.id}${actionType.rawValue}")
     }
 
     override fun handleSignal(signal: ScpSignaler.ScpSignal) {
