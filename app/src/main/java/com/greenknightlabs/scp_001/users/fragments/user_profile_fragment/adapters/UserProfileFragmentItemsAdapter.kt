@@ -8,7 +8,7 @@ import com.greenknightlabs.scp_001.databinding.ComponentPostBinding
 import com.greenknightlabs.scp_001.posts.view_holders.PostComponentViewHolder
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragmentViewModel
 
-class UserProfileFragmentAdapter(
+class UserProfileFragmentItemsAdapter(
     private val vm: UserProfileFragmentViewModel,
     private val kairos: Kairos,
 ) : RecyclerView.Adapter<PostComponentViewHolder>() {
@@ -17,7 +17,7 @@ class UserProfileFragmentAdapter(
 
     // functions
     override fun getItemCount(): Int {
-        return vm.items.value?.size ?: 0
+        return (vm.items.value?.size ?: 0)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostComponentViewHolder {

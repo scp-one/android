@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="vm" type="com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragmentViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacingRegular"
+        app:cardElevation="@dimen/defaultCardElevation"
+        app:cardCornerRadius="@dimen/defaultCornerRadius"
+        app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacingRegular"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/layout_header_fragment_user_profile_avatar"
+                    android:layout_width="@dimen/sizeAvatarRegular"
+                    android:layout_height="@dimen/sizeAvatarRegular"
+                    android:src="?attr/themeColorPrimaryDark"
+                    tools:src="@drawable/default_avatar" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="@dimen/spacingRegular"
+                    android:paddingEnd="@dimen/spacingRegular"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="?attr/themeFontSizeBody"
+                        android:fontFamily="?attr/themeFontFamilyRegular"
+                        android:textColor="?attr/themeColorFontNormal"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:text='@{vm.user != null ? vm.user.nickname : "Loading"}'
+                        tools:text="testesttesttesttesttesttesttesttesttesttesttesttest" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="?attr/themeFontSizeSub"
+                        android:fontFamily="?attr/themeFontFamilyRegular"
+                        android:textColor="?attr/themeColorFontDim"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:text='@{"@" + (vm.user != null ? vm.user.username : "Loading")}'
+                        tools:text="testesttesttesttesttesttesttesttesttesttesttesttest" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <ImageView
+                    android:layout_width="?attr/themeFontSizeBody"
+                    android:layout_height="?attr/themeFontSizeBody"
+                    android:src="@drawable/ic_account" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacingRegular"
+                android:background="?attr/themeColorPrimaryDark">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="?attr/themeFontSizeSub"
+                    android:fontFamily="?attr/themeFontFamilyMedium"
+                    android:textColor="?attr/themeColorFontDim"
+                    android:text='@{"SECURITY CARD V" + vm.appVersionNumber}' />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="?attr/themeFontSizeSub"
+                    android:fontFamily="?attr/themeFontFamilyMedium"
+                    android:textColor="?attr/themeColorFontDim"
+                    android:text="THE FOUNDATION" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

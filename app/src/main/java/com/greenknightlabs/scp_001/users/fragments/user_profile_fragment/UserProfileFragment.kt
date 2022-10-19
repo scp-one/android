@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentUserProfileBinding
-import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentAdapter
+import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentItemsAdapter
+import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentHeaderAdapter
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -52,7 +55,12 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
         binding.vm = vm
 
         if (vm.adapter == null) {
-            vm.adapter = UserProfileFragmentAdapter(vm, kairos)
+            val userProfileFragmentHeaderAdapter = UserProfileFragmentHeaderAdapter(vm, kairos)
+            val userProfileFragmentItemsAdapter = UserProfileFragmentItemsAdapter(vm, kairos)
+            val concat = ConcatAdapter(userProfileFragmentHeaderAdapter, userProfileFragmentItemsAdapter)
+            vm.headerAdapter = userProfileFragmentHeaderAdapter
+            vm.itemsAdapter = userProfileFragmentItemsAdapter
+            vm.adapter = concat
         }
         if (vm.user == null) {
             vm.user = user
@@ -66,7 +74,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (vm.state.value != PageState.Idle) return
-                if (layoutManager.findLastVisibleItemPosition() != (vm.items.value?.size ?: 0) - 1) return
+                if (layoutManager.findLastVisibleItemPosition() != (vm.items.value?.size ?: 0)) return
                 vm.paginate(false)
             }
         })
@@ -78,6 +86,12 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
             if (it != null) {
                 activity?.makeToast(it)
                 vm.toastMessage.value = null
+            }
+        }
+        vm.shouldShowConfirmAlert.observe(viewLifecycleOwner) {
+            if (it == true) {
+                vm.shouldShowConfirmAlert.value = false
+                activity?.askConfirmation { vm.confirmAlertAction.value?.invoke() }
             }
         }
     }

@@ -113,7 +113,21 @@ class AccountFragmentViewModel @Inject constructor(
     }
 
     private fun restorePurchases() {
-        toastMessage.value = "Not implemented"
+        isLocked.value = true
+        state.value = PageState.Fetching
+
+        viewModelScope.launch {
+            try {
+                shopkeep.restore()
+                isLocked.value = false
+                state.value = PageState.Idle
+                toastMessage.value = "Restored."
+            } catch (e: Throwable) {
+                isLocked.value = false
+                state.value = PageState.Idle
+                toastMessage.value = e.message
+            }
+        }
     }
 
     fun handleOnTapAdvancedSettings() {
