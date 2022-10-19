@@ -27,7 +27,7 @@ class ProAccessFragmentViewModel @Inject constructor(
     val product = ProAccess()
     var listener: WeakReference<Listener>? = null
     val isLocked = MutableLiveData(false)
-    val hasUnlockedProAccess = MutableLiveData(entitlementStatus())
+    val hasUnlockedProAccess = MutableLiveData(shopkeep.hasProAccess())
 
     // functions
     fun handleOnTapBuy() {
@@ -38,7 +38,7 @@ class ProAccessFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 shopkeep.purchase(activity, product.id)
-                hasUnlockedProAccess.value = entitlementStatus()
+                hasUnlockedProAccess.value = shopkeep.hasProAccess()
                 isLocked.value = false
                 state.value = PageState.Idle
             } catch (e: Throwable) {
@@ -56,7 +56,7 @@ class ProAccessFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 shopkeep.restore()
-                hasUnlockedProAccess.value = entitlementStatus()
+                hasUnlockedProAccess.value = shopkeep.hasProAccess()
                 isLocked.value = false
                 state.value = PageState.Idle
             } catch (e: Throwable) {
@@ -65,9 +65,5 @@ class ProAccessFragmentViewModel @Inject constructor(
                 toastMessage.value = e.message
             }
         }
-    }
-
-    private fun entitlementStatus(): Boolean {
-        return shopkeep.customer.value?.entitlements?.get(UserEntitlements.Pro.rawValue) != null
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.greenknightlabs.scp_001.app.config.AppConstants
+import com.greenknightlabs.scp_001.users.enums.UserEntitlements
 import com.revenuecat.purchases.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -98,5 +99,9 @@ class Shopkeep @Inject constructor(
                 cont.resume(null)
             }
         )
+    }
+
+    fun hasProAccess(): Boolean {
+        return customer.value?.entitlements?.get(UserEntitlements.Pro.rawValue) != null
     }
 }

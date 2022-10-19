@@ -8,9 +8,11 @@ import com.greenknightlabs.scp_001.actions.dtos.CreatePostActionsDto
 import com.greenknightlabs.scp_001.actions.enums.PostActionsType
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
+import com.greenknightlabs.scp_001.app.fragments.pro_access_fragment.ProAccessFragment
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.app.util.Queuey
+import com.greenknightlabs.scp_001.app.util.shopkeep.Shopkeep
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.posts.PostsService
 import com.greenknightlabs.scp_001.posts.PostsViewModel
@@ -49,7 +51,8 @@ class PostsFragmentViewModel @Inject constructor(
     private val navMan: NavMan,
     private val json: Json,
     private val postSignaler: PostSignaler,
-    private val queuey: Queuey
+    private val queuey: Queuey,
+    private val shopkeep: Shopkeep
 ) : PostsViewModel(), PostSignaler.Listener {
     // properties
     var adapter: PostsAdapter? = null
@@ -191,7 +194,11 @@ class PostsFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapMenuPost() {
-        navMan.pushFragment(CreatePostFragment(), true)
+        if (shopkeep.hasProAccess()) {
+            navMan.pushFragment(CreatePostFragment(), true)
+        } else {
+            navMan.pushFragment(ProAccessFragment(), true)
+        }
     }
 
     override fun handleOnTapPost(post: Post) {

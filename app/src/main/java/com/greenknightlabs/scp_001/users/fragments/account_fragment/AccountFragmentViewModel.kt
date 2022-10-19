@@ -5,6 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
+import com.greenknightlabs.scp_001.app.fragments.pro_access_fragment.ProAccessFragment
+import com.greenknightlabs.scp_001.app.util.shopkeep.Shopkeep
+import com.greenknightlabs.scp_001.app.util.shopkeep.standalone_products.ProAccess
 import com.greenknightlabs.scp_001.auth.fragments.email_update_fragment.EmailUpdateFragment
 import com.greenknightlabs.scp_001.auth.fragments.pass_update_fragment.PassUpdateFragment
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment
@@ -23,7 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AccountFragmentViewModel @Inject constructor(
     private val usersService: UsersService,
-    private val navMan: NavMan
+    private val navMan: NavMan,
+    private val shopkeep: Shopkeep
 ) : BaseViewModel(), MediaCollectionFragment.Listener {
     // properties
     var user: MutableLiveData<User?>? = null
@@ -64,9 +68,13 @@ class AccountFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapAvatar() {
-        val mediaCollectionFragment = MediaCollectionFragment()
-        mediaCollectionFragment.listener = this
-        navMan.pushFragment(mediaCollectionFragment, true)
+        if (shopkeep.hasProAccess()) {
+            val mediaCollectionFragment = MediaCollectionFragment()
+            mediaCollectionFragment.listener = this
+            navMan.pushFragment(mediaCollectionFragment, true)
+        } else {
+            navMan.pushFragment(ProAccessFragment(), true)
+        }
     }
 
     fun handleOnTapMyProfile() {
@@ -83,7 +91,11 @@ class AccountFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapMediaCollection() {
-        navMan.pushFragment(MediaCollectionFragment(), true)
+        if (shopkeep.hasProAccess()) {
+            navMan.pushFragment(MediaCollectionFragment(), true)
+        } else {
+            navMan.pushFragment(ProAccessFragment(), true)
+        }
     }
 
     fun handleOnTapChangeEmail() {
