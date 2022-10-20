@@ -12,9 +12,9 @@ class UserProfileFragmentHeaderComponentViewHolder(
     // functions
     fun bind(vm: UserProfileFragmentViewModel, kairos: Kairos) {
         binding.vm = vm
-
-        vm.user?.avatarUrl?.let {
-            kairos.load(it).scale(240, 240).default(R.drawable.default_avatar).into(binding.layoutHeaderFragmentUserProfileAvatar)
-        }
+        kairos.load(vm.user?.avatarUrl)
+            .scale(240, 240)
+            .default(R.drawable.default_avatar)
+            .into(binding.layoutHeaderFragmentUserProfileAvatar)
     }
 }

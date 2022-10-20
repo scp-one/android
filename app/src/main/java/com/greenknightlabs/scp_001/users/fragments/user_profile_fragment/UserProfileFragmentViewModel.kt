@@ -60,7 +60,6 @@ class UserProfileFragmentViewModel @Inject constructor(
     var adapter: ConcatAdapter? = null
     var user: User? = null
 
-    val uid = MutableLiveData<String?>(null)
     val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
     val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
     val postStatus = MutableLiveData(PostStatus.APPROVED)
@@ -75,7 +74,6 @@ class UserProfileFragmentViewModel @Inject constructor(
     // init
     init {
         postSignaler.add(this)
-        user?.let { uid.value = it.id}
         onRefreshAction()
     }
 
@@ -158,7 +156,7 @@ class UserProfileFragmentViewModel @Inject constructor(
 
         return GetPostsFilterDto(
             null,
-            uid.value,
+            user?.id,
             PostVisibility.VISIBLE,
             postStatus.value,
             sort,
