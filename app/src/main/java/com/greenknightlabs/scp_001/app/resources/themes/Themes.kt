@@ -80,19 +80,19 @@ enum class Themes(
                 "",
                 "$1.99",
                 UserEntitlements.Pro,
-                null,
+                R.layout.component_preview_theme_dark,
             )
             Midnight -> ProductProperties(
                 "",
                 "$1.99",
                 UserEntitlements.Pro,
-                null,
+                R.layout.component_preview_theme_midnight,
             )
             Void -> ProductProperties(
                 "",
                 "$1.99",
                 UserEntitlements.Pro,
-                null
+                R.layout.component_preview_theme_void
             )
             else -> null
         }

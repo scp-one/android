@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="colorPrimary" type="int" />
+        <variable name="colorPrimaryLight" type="int" />
+        <variable name="colorFontNormal" type="int" />
+        <variable name="colorFontDim" type="int" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/defaultCardElevation"
+        app:cardCornerRadius="@dimen/defaultCornerRadius"
+        app:cardBackgroundColor="@{colorPrimary}">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/spacingRegular"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacingLarge"
+                android:gravity="center"
+                android:fontFamily="?attr/themeFontFamilyBold"
+                android:textSize="?attr/themeFontSizeHeadline"
+                android:textColor="@{colorFontNormal}"
+                android:text="Theme Preview" />
+
+            <!--                PROFILE HEADER PREVIEW-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacingRegular"
+                android:layout_marginBottom="@dimen/spacingLarge"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="@{colorPrimaryLight}">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacingRegular"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="@dimen/sizeAvatarRegular"
+                        android:layout_height="@dimen/sizeAvatarRegular"
+                        android:src="@drawable/default_avatar" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingStart="@dimen/spacingRegular"
+                        android:paddingEnd="@dimen/spacingRegular"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="?attr/themeFontSizeBody"
+                            android:fontFamily="?attr/themeFontFamilyRegular"
+                            android:textColor="@{colorFontNormal}"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:text="The Foundation" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="?attr/themeFontSizeSub"
+                            android:fontFamily="?attr/themeFontFamilyRegular"
+                            android:textColor="@{colorFontDim}"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:text="\@foundation" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+            <!--                SCP-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacingLarge"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="@{colorPrimaryLight}">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular"
+                        android:layout_marginStart="@dimen/spacingRegular"
+                        android:layout_marginEnd="@dimen/spacingRegular"
+                        android:textSize="?attr/themeFontSizeBody"
+                        android:fontFamily="?attr/themeFontFamilyMedium"
+                        android:textColor="@{colorFontNormal}"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:text="SCP-002"/>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/spacingRegular"
+                        android:gravity="center_vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="?attr/themeFontSizeBody"
+                            android:layout_height="?attr/themeFontSizeBody"
+                            android:tint="@{colorFontDim}"
+                            android:src="@drawable/ic_scp_length" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacingRegular"
+                            android:textSize="?attr/themeFontSizeSub"
+                            android:fontFamily="?attr/themeFontFamilyBold"
+                            android:textColor="@{colorFontDim}"
+                            android:lines="1"
+                            android:text="Short"/>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="?attr/themeFontSizeHeadline"
+                            android:layout_height="?attr/themeFontSizeHeadline"
+                            android:tint="@{colorFontDim}"
+                            android:src="@drawable/ic_read_unfilled" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="?attr/themeFontSizeHeadline"
+                            android:layout_height="?attr/themeFontSizeHeadline"
+                            android:layout_marginStart="@dimen/spacingRegular"
+                            android:tint="@{colorFontDim}"
+                            android:src="@drawable/ic_heart_filled" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="?attr/themeFontSizeHeadline"
+                            android:layout_height="?attr/themeFontSizeHeadline"
+                            android:layout_marginStart="@dimen/spacingRegular"
+                            android:tint="@{colorFontDim}"
+                            android:src="@drawable/ic_bookmark_unfilled" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacingLarge"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="@dimen/defaultCornerRadius"
+                app:cardBackgroundColor="@{colorPrimaryLight}">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacingRegular"
+                        android:layout_marginStart="@dimen/spacingRegular"
+                        android:layout_marginEnd="@dimen/spacingRegular"
+                        android:textSize="?attr/themeFontSizeBody"
+                        android:fontFamily="?attr/themeFontFamilyMedium"
+                        android:textColor="@{colorFontNormal}"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:text="SCP-003"/>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/spacingRegular"
+                        android:gravity="center_vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="?attr/themeFontSizeBody"
+                            android:layout_height="?attr/themeFontSizeBody"
+                            android:tint="@{colorFontDim}"
+                            android:src="@drawable/ic_scp_length" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacingRegular"
+                            android:textSize="?attr/themeFontSizeSub"
+                            android:fontFamily="?attr/themeFontFamilyBold"
+                            android:textColor="@{colorFontDim}"
+                            android:lines="1"
+                            android:text="Long"/>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="?attr/themeFontSizeHeadline"
+                            android:layout_height="?attr/themeFontSizeHeadline"
+                            android:tint="@{colorFontDim}"
+                            android:src="@drawable/ic_read_filled" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="?attr/themeFontSizeHeadline"
+                            android:layout_height="?attr/themeFontSizeHeadline"
+                            android:layout_marginStart="@dimen/spacingRegular"
+                            android:tint="@{colorFontDim}"
+                            android:src="@drawable/ic_heart_unfilled" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="?attr/themeFontSizeHeadline"
+                            android:layout_height="?attr/themeFontSizeHeadline"
+                            android:layout_marginStart="@dimen/spacingRegular"
+                            android:tint="@{colorFontDim}"
+                            android:src="@drawable/ic_bookmark_filled" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+            <!--            PREVIEW CONTENT ABOVE THIS-->
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

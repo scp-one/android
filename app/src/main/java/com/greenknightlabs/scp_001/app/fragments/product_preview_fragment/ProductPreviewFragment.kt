@@ -55,7 +55,7 @@ class ProductPreviewFragment : BaseFragment<FragmentProductPreviewBinding>(R.lay
             container.addView(previewLayout.root)
         }
 
-        binding.fragmentProductPreviewButtonBuy.text = vm.productProperties?.price ?: "Error"
+        binding.fragmentProductPreviewButtonBuy.text = vm.productProperties?.price ?: "Error: Missing Product Properties"
 
         vm.isLocked.observe(viewLifecycleOwner) {
             (activity as? MainActivity)?.lockUI(it)

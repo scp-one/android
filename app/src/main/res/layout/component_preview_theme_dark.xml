@@ -8,10 +8,10 @@
         android:layout_height="wrap_content">
 
         <include layout="@layout/component_preview_theme"
-            app:colorPrimary="@{@color/retrolightThemeColorPrimary}"
-            app:colorPrimaryLight="@{@color/retrolightThemeColorPrimaryLight}"
-            app:colorFontNormal="@{@color/retrolightThemeColorFontNormal}"
-            app:colorFontDim="@{@color/retrolightThemeColorFontDim}" />
+            app:colorPrimary="@{@color/darkThemeColorPrimary}"
+            app:colorPrimaryLight="@{@color/darkThemeColorPrimaryLight}"
+            app:colorFontNormal="@{@color/darkThemeColorFontNormal}"
+            app:colorFontDim="@{@color/darkThemeColorFontDim}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
