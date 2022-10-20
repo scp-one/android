@@ -22,10 +22,6 @@ class AppearanceFragment : BaseFragment<FragmentAppearanceBinding>(R.layout.frag
     // properties
     private val vm: AppearanceFragmentViewModel by viewModels()
 
-    private lateinit var currentTheme: Themes
-    private lateinit var currentAppFontSize: FontSizes
-    private lateinit var currentScpFontSize: FontSizes
-
     // functions
     override fun activityTitle(): String {
         return "Appearance"
@@ -35,23 +31,5 @@ class AppearanceFragment : BaseFragment<FragmentAppearanceBinding>(R.layout.frag
         super.configureView(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = vm
-
-        currentTheme = preferences.theme.value!!
-        currentAppFontSize = preferences.appFontSize.value!!
-        currentScpFontSize = preferences.scpFontSize.value!!
-
-        vm.toastMessage.observe(viewLifecycleOwner) {
-            activity?.makeToast(it)
-        }
-
-        preferences.theme.observe(viewLifecycleOwner) {
-            if (currentTheme != it) { activity?.recreate() }
-        }
-        preferences.appFontSize.observe(viewLifecycleOwner) {
-            if (currentAppFontSize != it) { activity?.recreate() }
-        }
-        preferences.scpFontSize.observe(viewLifecycleOwner) {
-            if (currentScpFontSize != it) { activity?.recreate() }
-        }
     }
 }

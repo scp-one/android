@@ -2,6 +2,7 @@ package com.greenknightlabs.scp_001.posts.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.ComponentPostBinding

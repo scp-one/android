@@ -48,8 +48,8 @@ class PostFragmentViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        super.onCleared()
         postSignaler.remove(this)
+        super.onCleared()
     }
 
     // functions

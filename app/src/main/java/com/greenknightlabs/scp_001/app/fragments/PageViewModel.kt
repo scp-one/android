@@ -9,5 +9,7 @@ abstract class PageViewModel<T> : BaseViewModel() {
     val failedToLoad = MutableLiveData(false)
 
     // functions
+    abstract fun handleOnTapFailToLoad()
+
     abstract fun paginate(refresh: Boolean)
 }

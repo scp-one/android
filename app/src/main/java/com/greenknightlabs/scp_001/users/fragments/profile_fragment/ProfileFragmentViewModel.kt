@@ -72,6 +72,10 @@ class ProfileFragmentViewModel @Inject constructor(
         }
     }
 
+    override fun handleOnTapFailToLoad() {
+        return
+    }
+
     override fun paginate(refresh: Boolean) {
         state.value = PageState.Fetching
 

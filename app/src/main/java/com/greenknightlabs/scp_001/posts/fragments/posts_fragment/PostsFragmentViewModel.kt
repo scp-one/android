@@ -3,9 +3,11 @@ package com.greenknightlabs.scp_001.posts.fragments.posts_fragment
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.ConcatAdapter
 import com.greenknightlabs.scp_001.actions.PostActionsService
 import com.greenknightlabs.scp_001.actions.dtos.CreatePostActionsDto
 import com.greenknightlabs.scp_001.actions.enums.PostActionsType
+import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.fragments.pro_access_fragment.ProAccessFragment
@@ -55,7 +57,9 @@ class PostsFragmentViewModel @Inject constructor(
     private val shopkeep: Shopkeep
 ) : PostsViewModel(), PostSignaler.Listener {
     // properties
-    var adapter: PostsAdapter? = null
+    var itemsAdapter: PostsAdapter? = null
+    var pageAdapter: PageAdapter<Post>? = null
+    var adapter: ConcatAdapter? = null
 
     val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
     val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
@@ -75,8 +79,8 @@ class PostsFragmentViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        super.onCleared()
         postSignaler.remove(this)
+        super.onCleared()
     }
 
     // functions
@@ -96,6 +100,12 @@ class PostsFragmentViewModel @Inject constructor(
         }
     }
 
+    override fun handleOnTapFailToLoad() {
+        if (state.value != PageState.Fetching) {
+            paginate(false)
+        }
+    }
+
     override fun paginate(refresh: Boolean) {
         state.value = PageState.Fetching
 
@@ -108,10 +118,11 @@ class PostsFragmentViewModel @Inject constructor(
                 if (refresh) {
                     items.value?.clear()
                     items.value?.addAll(posts)
-                    adapter?.notifyDataSetChanged()
+                    itemsAdapter?.notifyDataSetChanged()
                 } else if (posts.isNotEmpty()) {
+                    val rangeStart = (items.value?.size ?: 0)
                     items.value?.addAll(posts)
-                    adapter?.notifyItemInserted(items.value!!.size)
+                    itemsAdapter?.notifyItemRangeInserted(rangeStart, posts.size)
                 }
 
                 state.value = when (posts.size < (dto.limit ?: PostsConstants.POSTS_PAGE_SIZE)) {
@@ -312,7 +323,7 @@ class PostsFragmentViewModel @Inject constructor(
                 items.value?.forEachIndexed { index, post ->
                     if (post.id == signal.post.id) {
                         items.value?.set(index, signal.post)
-                        adapter?.notifyItemChanged(index)
+                        itemsAdapter?.notifyItemChanged(index)
                     }
                 }
             }
@@ -320,7 +331,7 @@ class PostsFragmentViewModel @Inject constructor(
                 items.value?.reversed()?.forEachIndexed { index, post ->
                     if (post.id == signal.post.id) {
                         items.value?.removeAt(index)
-                        adapter?.notifyItemRemoved(index)
+                        itemsAdapter?.notifyItemRemoved(index)
                     }
                 }
             }

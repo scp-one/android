@@ -3,6 +3,7 @@ package com.greenknightlabs.scp_001.app.util.preferences.enums
 import com.greenknightlabs.scp_001.app.enums.DefaultAppLaunchTab
 import com.greenknightlabs.scp_001.app.resources.fonts.FontSizes
 import com.greenknightlabs.scp_001.app.resources.themes.Themes
+import com.greenknightlabs.scp_001.app.util.shopkeep.objects.ProductProperties
 import com.greenknightlabs.scp_001.scps.enums.ScpLoadImages
 import com.greenknightlabs.scp_001.scps.enums.ScpSortField
 import com.greenknightlabs.scp_001.scps.enums.ScpSortOrder
@@ -69,5 +70,12 @@ enum class PrefKey(val rawValue: String) {
         }
     }
 
-//    fun productProperties(rawValue: String) -> P
+    fun productProperties(rawValue: String): ProductProperties? {
+        return when (this) {
+            Theme -> {
+                Themes.find(rawValue)?.productProperties()
+            }
+            else -> null
+        }
+    }
 }

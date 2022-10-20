@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable name="vm" type="com.greenknightlabs.scp_001.app.fragments.PageViewModel" />
+    </data>
+
+    <TextView
+        android:id="@+id/component_fail_to_load_page_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacingLarge"
+        android:gravity="center"
+        android:fontFamily="?attr/themeFontFamilyMedium"
+        android:textSize="?attr/themeFontSizeBody"
+        android:textColor="?attr/themeColorFontBright"
+        android:text="Try loading again"
+        android:visibility="@{vm.failedToLoad ? View.VISIBLE : View.GONE}"
+        android:onClick="@{_ -> vm.handleOnTapFailToLoad()}" />
+
+</layout>

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.enums.DefaultAppLaunchTab
 import com.greenknightlabs.scp_001.app.enums.MemTrimLevel
+import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.resources.fonts.FontSizes
 import com.greenknightlabs.scp_001.app.resources.themes.Themes
 import com.greenknightlabs.scp_001.app.util.*
@@ -16,6 +17,9 @@ import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.databinding.ActivityMainBinding
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment
 import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.PostsFragment
+import com.greenknightlabs.scp_001.scps.enums.ScpLoadImages
+import com.greenknightlabs.scp_001.scps.enums.ScpSortField
+import com.greenknightlabs.scp_001.scps.enums.ScpSortOrder
 import com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment.ScpActionsFragment
 import com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment.ScpActionsFragmentViewModel
 import com.greenknightlabs.scp_001.scps.fragments.scps_fragment.ScpsFragment
@@ -36,6 +40,15 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     // properties
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var currentTheme: Themes
+    private lateinit var currentAppFontSize: FontSizes
+    private lateinit var currentScpFontSize: FontSizes
+
+    private lateinit var currentDefaultAppLaunchTab: DefaultAppLaunchTab
+    private lateinit var currentDefaultScpSortField: ScpSortField
+    private lateinit var currentDefaultScpSortOrder: ScpSortOrder
+    private lateinit var currentLoadScpImages: ScpLoadImages
+
     // functions
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +60,38 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
         setTheme(preferences.theme.value!!.resId(preferences.appFontSize.value!!))
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        currentTheme = preferences.theme.value!!
+        currentAppFontSize = preferences.appFontSize.value!!
+        currentScpFontSize = preferences.scpFontSize.value!!
+
+        currentDefaultAppLaunchTab = preferences.defaultLaunchTab.value!!
+        currentDefaultScpSortField = preferences.defaultScpSortField.value!!
+        currentDefaultScpSortOrder = preferences.defaultScpSortOrder.value!!
+        currentLoadScpImages = preferences.loadScpImages.value!!
+
+        preferences.theme.observe(this) {
+            if (currentTheme != it) { recreate() }
+        }
+        preferences.appFontSize.observe(this) {
+            if (currentAppFontSize != it) { recreate() }
+        }
+        preferences.scpFontSize.observe(this) {
+            if (currentScpFontSize != it) { recreate() }
+        }
+
+        preferences.defaultLaunchTab.observe(this) {
+            if (currentDefaultAppLaunchTab != it) { recreate() }
+        }
+        preferences.defaultScpSortField.observe(this) {
+            if (currentDefaultScpSortField != it) { recreate() }
+        }
+        preferences.defaultScpSortOrder.observe(this) {
+            if (currentDefaultScpSortOrder != it) { recreate() }
+        }
+        preferences.loadScpImages.observe(this) {
+            if (currentLoadScpImages != it) { recreate() }
+        }
     }
 
     private fun configureNavMan() {
@@ -104,16 +149,6 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
             }
             else -> LoginFragment()
         }
-
-//        return when (tab) {
-//            NavMan.NavTabs.TAB1 -> when (!authMan.isLoggedIn) {
-//                true -> LoginFragment()
-//                else -> ScpsFragment()
-//            }
-//            NavMan.NavTabs.TAB2 -> PostsFragment()
-//            NavMan.NavTabs.TAB3 -> ScpActionsFragment()
-//            NavMan.NavTabs.TAB4 -> ProfileFragment()
-//        }
     }
 
     // component callbacks

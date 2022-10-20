@@ -7,10 +7,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
+import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.hideKeyboard
@@ -75,8 +77,13 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
         binding.vm = vm
 
         if (vm.adapter == null) {
-            vm.adapter = ScpsAdapter(vm, kairos, preferences)
+            val itemsAdapter = ScpsAdapter(vm, kairos, preferences)
+            val pageAdapter = PageAdapter(vm)
+            vm.itemsAdapter = itemsAdapter
+            vm.pageAdapter = pageAdapter
+            vm.adapter = ConcatAdapter(itemsAdapter, pageAdapter)
         }
+
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         binding.fragmentScpsRecyclerView.adapter = vm.adapter!!
@@ -85,7 +92,7 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (vm.state.value != PageState.Idle) return
-                if (layoutManager.findLastVisibleItemPosition() != (vm.items.value?.size ?: 0) - 1) return
+                if (layoutManager.findLastVisibleItemPosition() != (vm.items.value?.size ?: 0)) return
                 vm.paginate(false)
             }
         })
@@ -98,6 +105,9 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
                 activity?.makeToast(it)
                 vm.toastMessage.value = null
             }
+        }
+        vm.failedToLoad.observe(viewLifecycleOwner) {
+            vm.pageAdapter!!.notifyItemChanged(0)
         }
     }
 }

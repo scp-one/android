@@ -4,10 +4,12 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.greenknightlabs.scp_001.BuildConfig
 import com.greenknightlabs.scp_001.actions.PostActionsService
 import com.greenknightlabs.scp_001.actions.dtos.CreatePostActionsDto
 import com.greenknightlabs.scp_001.actions.enums.PostActionsType
+import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.fragments.PageViewModel
@@ -54,6 +56,7 @@ class UserProfileFragmentViewModel @Inject constructor(
     // properties
     var headerAdapter: UserProfileFragmentHeaderAdapter? = null
     var itemsAdapter: UserProfileFragmentItemsAdapter? = null
+    var pageAdapter: PageAdapter<Post>? = null
     var adapter: ConcatAdapter? = null
     var user: User? = null
 
@@ -71,8 +74,14 @@ class UserProfileFragmentViewModel @Inject constructor(
 
     // init
     init {
+        postSignaler.add(this)
         user?.let { uid.value = it.id}
         onRefreshAction()
+    }
+
+    override fun onCleared() {
+        postSignaler.remove(this)
+        super.onCleared()
     }
 
     // functions
@@ -92,6 +101,12 @@ class UserProfileFragmentViewModel @Inject constructor(
         }
     }
 
+    override fun handleOnTapFailToLoad() {
+        if (state.value != PageState.Fetching) {
+            paginate(false)
+        }
+    }
+
     override fun paginate(refresh: Boolean) {
         state.value = PageState.Fetching
 
@@ -106,8 +121,9 @@ class UserProfileFragmentViewModel @Inject constructor(
                     items.value?.addAll(posts)
                     itemsAdapter?.notifyDataSetChanged()
                 } else if (posts.isNotEmpty()) {
+                    val rangeStart = (items.value?.size ?: 0)
                     items.value?.addAll(posts)
-                    itemsAdapter?.notifyItemInserted(items.value!!.size)
+                    itemsAdapter?.notifyItemRangeInserted(rangeStart, posts.size)
                 }
 
                 state.value = when (posts.size < (dto.limit ?: PostsConstants.POSTS_PAGE_SIZE)) {

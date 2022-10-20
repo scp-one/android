@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
+import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.getView
@@ -57,10 +58,11 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
         if (vm.adapter == null) {
             val userProfileFragmentHeaderAdapter = UserProfileFragmentHeaderAdapter(vm, kairos)
             val userProfileFragmentItemsAdapter = UserProfileFragmentItemsAdapter(vm, kairos)
-            val concat = ConcatAdapter(userProfileFragmentHeaderAdapter, userProfileFragmentItemsAdapter)
+            val pageAdapter = PageAdapter(vm)
             vm.headerAdapter = userProfileFragmentHeaderAdapter
             vm.itemsAdapter = userProfileFragmentItemsAdapter
-            vm.adapter = concat
+            vm.pageAdapter = pageAdapter
+            vm.adapter = ConcatAdapter(userProfileFragmentHeaderAdapter, userProfileFragmentItemsAdapter, pageAdapter)
         }
         if (vm.user == null) {
             vm.user = user
@@ -93,6 +95,9 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
                 vm.shouldShowConfirmAlert.value = false
                 activity?.askConfirmation { vm.confirmAlertAction.value?.invoke() }
             }
+        }
+        vm.failedToLoad.observe(viewLifecycleOwner) {
+            vm.pageAdapter!!.notifyItemChanged(0)
         }
     }
 }

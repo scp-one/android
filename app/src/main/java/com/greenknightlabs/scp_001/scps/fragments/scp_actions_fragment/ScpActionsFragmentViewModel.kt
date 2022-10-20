@@ -3,6 +3,7 @@ package com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.ConcatAdapter
 import com.greenknightlabs.scp_001.actions.ScpActionsService
 import com.greenknightlabs.scp_001.actions.config.ActionsConstants
 import com.greenknightlabs.scp_001.actions.dtos.CreateScpActionsDto
@@ -10,6 +11,7 @@ import com.greenknightlabs.scp_001.actions.dtos.GetScpActionsFilterDto
 import com.greenknightlabs.scp_001.actions.enums.ScpActionsSortField
 import com.greenknightlabs.scp_001.actions.enums.ScpActionsType
 import com.greenknightlabs.scp_001.actions.models.ScpActions
+import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.util.NavMan
@@ -41,7 +43,9 @@ class ScpActionsFragmentViewModel @Inject constructor(
     private val queuey: Queuey
 ) : ScpsViewModel(), ScpSignaler.Listener {
     // properties
-    var adapter: ScpsAdapter? = null
+    var itemsAdapter: ScpsAdapter? = null
+    var pageAdapter: PageAdapter<Scp>? = null
+    var adapter: ConcatAdapter? = null
 
     val actionType = MutableLiveData(ScpActionsType.SAVED)
     val sortOrder = MutableLiveData(ScpSortOrder.DESCENDING)
@@ -57,8 +61,8 @@ class ScpActionsFragmentViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        super.onCleared()
         scpSignaler.remove(this)
+        super.onCleared()
     }
 
     // functions
@@ -78,6 +82,12 @@ class ScpActionsFragmentViewModel @Inject constructor(
         }
     }
 
+    override fun handleOnTapFailToLoad() {
+        if (state.value != PageState.Fetching) {
+            paginate(false)
+        }
+    }
+
     override fun paginate(refresh: Boolean) {
         state.value = PageState.Fetching
 
@@ -92,10 +102,11 @@ class ScpActionsFragmentViewModel @Inject constructor(
                     actionsList.value?.clear()
                     items.value?.clear()
                     items.value?.addAll(scps)
-                    adapter?.notifyDataSetChanged()
+                    itemsAdapter?.notifyDataSetChanged()
                 } else if (actions.isNotEmpty()) {
+                    val rangeStart = (items.value?.size ?: 0)
                     items.value?.addAll(scps)
-                    adapter?.notifyItemInserted(items.value!!.size)
+                    itemsAdapter?.notifyItemRangeInserted(rangeStart, scps.size)
                 }
 
                 actionsList.value?.addAll(actions)
@@ -222,7 +233,7 @@ class ScpActionsFragmentViewModel @Inject constructor(
                 items.value?.forEachIndexed { index, scp ->
                     if (scp.id == signal.scp.id) {
                         items.value?.set(index, signal.scp)
-                        adapter?.notifyItemChanged(index)
+                        itemsAdapter?.notifyItemChanged(index)
                     }
                 }
             }

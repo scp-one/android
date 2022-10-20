@@ -30,7 +30,8 @@
             app:labelVisibilityMode="unlabeled"
             app:itemIconTint="@drawable/selector_nav_bar"
             app:backgroundTint="?attr/themeColorNavBar"
-            android:background="?android:attr/windowBackground" />
+            app:elevation="0dp"
+            android:background="@null" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

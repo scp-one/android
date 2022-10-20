@@ -34,8 +34,8 @@ class ScpFragmentViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        super.onCleared()
         scpSignaler.remove(this)
+        super.onCleared()
     }
 
     // functions

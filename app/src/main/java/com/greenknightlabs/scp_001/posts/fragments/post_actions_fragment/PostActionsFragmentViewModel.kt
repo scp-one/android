@@ -3,6 +3,7 @@ package com.greenknightlabs.scp_001.posts.fragments.post_actions_fragment
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.ConcatAdapter
 import com.greenknightlabs.scp_001.actions.PostActionsService
 import com.greenknightlabs.scp_001.actions.config.ActionsConstants
 import com.greenknightlabs.scp_001.actions.dtos.CreatePostActionsDto
@@ -10,6 +11,7 @@ import com.greenknightlabs.scp_001.actions.dtos.GetPostActionsFilterDto
 import com.greenknightlabs.scp_001.actions.enums.PostActionsSortField
 import com.greenknightlabs.scp_001.actions.enums.PostActionsType
 import com.greenknightlabs.scp_001.actions.models.PostActions
+import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
@@ -49,7 +51,9 @@ class PostActionsFragmentViewModel @Inject constructor(
     private val queuey: Queuey
 ) : PostsViewModel(), PostSignaler.Listener {
     // properties
-    var adapter: PostsAdapter? = null
+    var itemsAdapter: PostsAdapter? = null
+    var pageAdapter: PageAdapter<Post>? = null
+    var adapter: ConcatAdapter? = null
 
     val actionType = MutableLiveData(PostActionsType.LIKED)
     val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
@@ -69,8 +73,8 @@ class PostActionsFragmentViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        super.onCleared()
         postSignaler.remove(this)
+        super.onCleared()
     }
 
     // functions
@@ -90,6 +94,12 @@ class PostActionsFragmentViewModel @Inject constructor(
         }
     }
 
+    override fun handleOnTapFailToLoad() {
+        if (state.value != PageState.Fetching) {
+            paginate(false)
+        }
+    }
+
     override fun paginate(refresh: Boolean) {
         state.value = PageState.Fetching
 
@@ -104,10 +114,11 @@ class PostActionsFragmentViewModel @Inject constructor(
                     actionsList.value?.clear()
                     items.value?.clear()
                     items.value?.addAll(posts)
-                    adapter?.notifyDataSetChanged()
+                    itemsAdapter?.notifyDataSetChanged()
                 } else if (actions.isNotEmpty()) {
+                    val rangeStart = (items.value?.size ?: 0)
                     items.value?.addAll(posts)
-                    adapter?.notifyItemInserted(items.value!!.size)
+                    itemsAdapter?.notifyItemRangeInserted(rangeStart, posts.size)
                 }
 
                 actionsList.value?.addAll(actions)
@@ -299,7 +310,7 @@ class PostActionsFragmentViewModel @Inject constructor(
                 items.value?.forEachIndexed { index, post ->
                     if (post.id == signal.post.id) {
                         items.value?.set(index, signal.post)
-                        adapter?.notifyItemChanged(index)
+                        itemsAdapter?.notifyItemChanged(index)
                     }
                 }
             }
@@ -307,7 +318,7 @@ class PostActionsFragmentViewModel @Inject constructor(
                 items.value?.reversed()?.forEachIndexed { index, post ->
                     if (post.id == signal.post.id) {
                         items.value?.removeAt(index)
-                        adapter?.notifyItemRemoved(index)
+                        itemsAdapter?.notifyItemRemoved(index)
                     }
                 }
             }

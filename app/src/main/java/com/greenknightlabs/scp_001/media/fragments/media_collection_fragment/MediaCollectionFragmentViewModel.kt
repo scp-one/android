@@ -46,6 +46,12 @@ class MediaCollectionFragmentViewModel @Inject constructor(
     }
 
     // functions
+    override fun handleOnTapFailToLoad() {
+        if (state.value != PageState.Fetching) {
+            paginate(true)
+        }
+    }
+
     override fun paginate(refresh: Boolean) {
         state.value = PageState.Fetching
 

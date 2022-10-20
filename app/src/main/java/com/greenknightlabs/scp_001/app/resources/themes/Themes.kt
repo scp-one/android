@@ -2,6 +2,9 @@ package com.greenknightlabs.scp_001.app.resources.themes
 
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.resources.fonts.FontSizes
+import com.greenknightlabs.scp_001.app.util.shopkeep.config.ShopkeepConstants
+import com.greenknightlabs.scp_001.app.util.shopkeep.objects.ProductProperties
+import com.greenknightlabs.scp_001.users.enums.UserEntitlements
 
 enum class Themes(
     val rawValue: String,
@@ -58,10 +61,40 @@ enum class Themes(
         return when (this) {
             Slate -> "Slate"
             Light -> "Light"
-            Retrolight -> "Retrolight"
-            Dark -> "Dark"
-            Midnight -> "Midnight"
-            Void -> "Void"
+            Retrolight -> "Retrolight" + ShopkeepConstants.PREMIUM_INDICATOR
+            Dark -> "Dark" + ShopkeepConstants.PREMIUM_INDICATOR
+            Midnight -> "Midnight" + ShopkeepConstants.PREMIUM_INDICATOR
+            Void -> "Void" + ShopkeepConstants.PREMIUM_INDICATOR
+        }
+    }
+
+    fun productProperties(): ProductProperties? {
+        return when (this) {
+            Retrolight -> ProductProperties(
+                "",
+                "$1.99",
+                UserEntitlements.Pro,
+                R.layout.component_preview_theme_retrolight
+            )
+            Dark -> ProductProperties(
+                "",
+                "$1.99",
+                UserEntitlements.Pro,
+                null,
+            )
+            Midnight -> ProductProperties(
+                "",
+                "$1.99",
+                UserEntitlements.Pro,
+                null,
+            )
+            Void -> ProductProperties(
+                "",
+                "$1.99",
+                UserEntitlements.Pro,
+                null
+            )
+            else -> null
         }
     }
 
