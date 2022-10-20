@@ -26,28 +26,16 @@ object UserRefSerializer : KSerializer<UserRef> {
             val id = decoder.decodeString()
             return UserRef(false, id, null)
         } catch (e: Throwable) {
-            Timber.e(e)
+            // failed to decode
         }
 
         try {
             val user = json.decodeFromString<User>((decoder as JsonDecoder).decodeJsonElement().toString())
             return UserRef(true, user.id, user)
         } catch (e: Throwable) {
-            Timber.e(e)
+            // failed to decode
         }
 
         throw Error("Unable to decode UserRef")
     }
-
-
-//    override fun deserialize(decoder: Decoder): UserRef {
-//        val idOrObject = (decoder as JsonDecoder).decodeJsonElement().toString()
-//
-//        return try {
-//            val decodedUser = Json.decodeFromString<User>(idOrObject)
-//            UserRef(true, decodedUser.id, decodedUser)
-//        } catch (e: Throwable) {
-//            UserRef(false, idOrObject, null)
-//        }
-//    }
 }

@@ -105,9 +105,11 @@ class ScpsFragmentViewModel @Inject constructor(
                 val scps = scpsService.getScps(dto)
 
                 if (refresh) {
+                    val originalItemCount = items.value?.size ?: 0
+                    itemsAdapter?.notifyItemRangeRemoved(0, originalItemCount)
                     items.value?.clear()
                     items.value?.addAll(scps)
-                    itemsAdapter?.notifyDataSetChanged()
+                    itemsAdapter?.notifyItemRangeInserted(0, items.value?.size ?: 0)
                 } else if (scps.isNotEmpty()) {
                     val rangeStart = (items.value?.size ?: 0)
                     items.value?.addAll(scps)

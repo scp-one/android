@@ -1,7 +1,7 @@
 package com.greenknightlabs.scp_001.app.extensions
 
 import android.app.Activity
-import android.content.Context
+import android.content.res.Resources
 import android.net.Uri
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -24,4 +24,8 @@ fun Activity.hideKeyboard() {
         val imm = ContextCompat.getSystemService(this, InputMethodManager::class.java)
         imm?.hideSoftInputFromWindow(it.windowToken, 0)
     }
+}
+
+fun Activity.screenWidth(): Int {
+    return Resources.getSystem().displayMetrics.widthPixels
 }

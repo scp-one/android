@@ -4,7 +4,6 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.greenknightlabs.scp_001.BuildConfig
 import com.greenknightlabs.scp_001.actions.PostActionsService
 import com.greenknightlabs.scp_001.actions.dtos.CreatePostActionsDto
@@ -12,7 +11,7 @@ import com.greenknightlabs.scp_001.actions.enums.PostActionsType
 import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
-import com.greenknightlabs.scp_001.app.fragments.PageViewModel
+import com.greenknightlabs.scp_001.app.view_models.PageViewModel
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Queuey
 import com.greenknightlabs.scp_001.auth.util.AuthMan
@@ -74,7 +73,6 @@ class UserProfileFragmentViewModel @Inject constructor(
     // init
     init {
         postSignaler.add(this)
-        onRefreshAction()
     }
 
     override fun onCleared() {
@@ -111,13 +109,17 @@ class UserProfileFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             val dto = provideFilterDto(refresh)
 
+            Timber.d(dto.toString())
+
             try {
                 val posts = postsService.getPosts(dto)
 
                 if (refresh) {
+                    val originalItemCount = items.value?.size ?: 0
+                    itemsAdapter?.notifyItemRangeRemoved(0, originalItemCount)
                     items.value?.clear()
                     items.value?.addAll(posts)
-                    itemsAdapter?.notifyDataSetChanged()
+                    itemsAdapter?.notifyItemRangeInserted(0, items.value?.size ?: 0)
                 } else if (posts.isNotEmpty()) {
                     val rangeStart = (items.value?.size ?: 0)
                     items.value?.addAll(posts)

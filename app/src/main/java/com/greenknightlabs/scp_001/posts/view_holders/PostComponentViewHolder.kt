@@ -3,7 +3,7 @@ package com.greenknightlabs.scp_001.posts.view_holders
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
-import com.greenknightlabs.scp_001.app.fragments.PageViewModel
+import com.greenknightlabs.scp_001.app.view_models.PageViewModel
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.ComponentPostBinding
 import com.greenknightlabs.scp_001.posts.interfaces.PostAuthorComponentListener
@@ -17,11 +17,8 @@ class PostComponentViewHolder(
         fun handleOnTapPost(post: Post)
     }
 
-    // properties
-    private var viewWidth: Int? = null
-
     // functions
-    fun bind(position: Int, vm: PageViewModel<Post>, listener: Listener, kairos: Kairos) {
+    fun bind(position: Int, vm: PageViewModel<Post>, listener: Listener, screenWidth: Int, kairos: Kairos) {
         val post = vm.items.value!![position]
 
         binding.post = post
@@ -35,15 +32,7 @@ class PostComponentViewHolder(
         }
 
         post.media?.let { postMedia ->
-            if (viewWidth == null) {
-                binding.componentPostImageView.doOnLayout { view ->
-                    viewWidth = view.measuredWidth
-                    view.layoutParams.height = postMedia.calculateHeight(viewWidth!!)
-                }
-            } else {
-                binding.componentPostImageView.layoutParams.height = postMedia.calculateHeight(viewWidth!!)
-            }
-
+            binding.componentPostImageView.layoutParams.height = postMedia.calculateHeight(screenWidth)
             kairos.load(postMedia.url)
                 .scale(360, 360)
                 .default(R.drawable.ic_face)

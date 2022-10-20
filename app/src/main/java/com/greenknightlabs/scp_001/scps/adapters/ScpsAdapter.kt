@@ -16,6 +16,7 @@ class ScpsAdapter(
 ) : RecyclerView.Adapter<ScpComponentViewHolder>() {
     // properties
     private lateinit var binding: ComponentScpBinding
+    var screenWidth = 0
 
     // functions
     override fun getItemCount(): Int {
@@ -28,6 +29,6 @@ class ScpsAdapter(
     }
 
     override fun onBindViewHolder(holder: ScpComponentViewHolder, position: Int) {
-        holder.bind(position, vm, kairos, preferences)
+        holder.bind(position, vm, screenWidth, kairos, preferences)
     }
 }

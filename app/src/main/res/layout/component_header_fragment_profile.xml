@@ -101,13 +101,13 @@
                 <ImageView
                     android:layout_width="?attr/themeFontSizeBody"
                     android:layout_height="?attr/themeFontSizeBody"
-                    android:layout_marginEnd="@dimen/spacingRegular"
                     android:visibility="@{vm.hasEntitlementSupporter() ? View.VISIBLE : View.GONE}"
                     android:src="@drawable/badge_supporter" />
 
                 <ImageView
                     android:layout_width="?attr/themeFontSizeBody"
                     android:layout_height="?attr/themeFontSizeBody"
+                    android:layout_marginStart="@dimen/spacingRegular"
                     android:visibility="@{vm.hasEntitlementProAccess() ? View.VISIBLE : View.GONE}"
                     android:src="@drawable/badge_pro" />
 

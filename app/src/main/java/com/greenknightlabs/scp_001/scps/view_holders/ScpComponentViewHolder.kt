@@ -22,11 +22,8 @@ class ScpComponentViewHolder(
         fun handleOnTapSave(scp: Scp)
     }
 
-    // properties
-    private var viewWidth: Int? = null
-
     // functions
-    fun bind(position: Int, vm: ScpsViewModel, kairos: Kairos, preferences: Preferences) {
+    fun bind(position: Int, vm: ScpsViewModel, screenWidth: Int, kairos: Kairos, preferences: Preferences) {
         val scp = vm.items.value!![position]
 
         binding.scp = scp
@@ -38,15 +35,7 @@ class ScpComponentViewHolder(
             binding.componentScpImageView.visibility = if (scp.media != null) View.VISIBLE else View.GONE
 
             scp.media?.let { scpMedia ->
-                if (viewWidth == null) {
-                    binding.componentScpImageView.doOnLayout { view ->
-                        viewWidth = view.measuredWidth
-                        binding.componentScpImageView.layoutParams.height = scpMedia.calculateHeight(viewWidth!!)
-                    }
-                } else {
-                    binding.componentScpImageView.layoutParams.height = scpMedia.calculateHeight(viewWidth!!)
-                }
-
+                binding.componentScpImageView.layoutParams.height = scpMedia.calculateHeight(screenWidth)
                 kairos.load(scpMedia.url)
                     .scale(360, 360)
                     .default(R.drawable.ic_face)

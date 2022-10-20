@@ -13,6 +13,7 @@ import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
+import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentPostActionsBinding
@@ -58,6 +59,8 @@ class PostActionsFragment : BaseFragment<FragmentPostActionsBinding>(R.layout.fr
             vm.pageAdapter = pageAdapter
             vm.adapter = ConcatAdapter(itemsAdapter, pageAdapter)
         }
+
+        vm.itemsAdapter?.screenWidth = activity?.screenWidth() ?: 0
 
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 

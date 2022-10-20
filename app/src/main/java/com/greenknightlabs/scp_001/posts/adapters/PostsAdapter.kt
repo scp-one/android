@@ -16,6 +16,7 @@ class PostsAdapter(
 ) : RecyclerView.Adapter<PostComponentViewHolder>() {
     // properties
     private lateinit var binding: ComponentPostBinding
+    var screenWidth = 0
 
     // functions
     override fun getItemCount(): Int {
@@ -28,6 +29,6 @@ class PostsAdapter(
     }
 
     override fun onBindViewHolder(holder: PostComponentViewHolder, position: Int) {
-        holder.bind(position, vm, vm, kairos)
+        holder.bind(position, vm, vm, screenWidth, kairos)
     }
 }

@@ -25,7 +25,8 @@ class DependenciesFragment : BaseFragment<FragmentDependenciesBinding>(R.layout.
 
         vm.shouldShowWebView.observe(viewLifecycleOwner) {
             if (it == true) {
-                vm.webViewUrl.value?.let { url -> (activity as? MainActivity)?.pushWebView(url) }
+                vm.shouldShowWebView.value = false
+                vm.webViewUrl.value?.let { url -> activity?.pushWebView(url) }
             }
         }
     }

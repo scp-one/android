@@ -1,22 +1,20 @@
 package com.greenknightlabs.scp_001.users.fragments.profile_fragment
 
-import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.greenknightlabs.scp_001.BuildConfig
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.enums.PageState
-import com.greenknightlabs.scp_001.app.fragments.PageViewModel
+import com.greenknightlabs.scp_001.app.view_models.PageViewModel
 import com.greenknightlabs.scp_001.app.fragments.appearance_fragment.AppearanceFragment
 import com.greenknightlabs.scp_001.app.fragments.dependencies_fragment.DependenciesFragment
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Stash
-import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import com.greenknightlabs.scp_001.app.fragments.behavior_fragment.BehaviorFragment
 import com.greenknightlabs.scp_001.app.fragments.pro_access_fragment.ProAccessFragment
 import com.greenknightlabs.scp_001.app.fragments.tip_jar_fragment.TipJarFragment
+import com.greenknightlabs.scp_001.app.util.shopkeep.Shopkeep
 import com.greenknightlabs.scp_001.auth.AuthService
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.users.UsersService
@@ -36,6 +34,7 @@ class ProfileFragmentViewModel @Inject constructor(
     private val authService: AuthService,
     private val stash: Stash,
     private val navMan: NavMan,
+    private val shopkeep: Shopkeep,
 ) : PageViewModel<Nothing>() {
     // properties
     val user = MutableLiveData<User?>(null)
@@ -180,11 +179,11 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun hasEntitlementSupporter(): Boolean {
-        return false
+        return shopkeep.hasSupportAccess()
     }
 
     fun hasEntitlementProAccess(): Boolean {
-        return false
+        return shopkeep.hasProAccess()
     }
 
     fun getAppVersionNumber(): String {

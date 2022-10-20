@@ -14,6 +14,7 @@ import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.hideKeyboard
 import com.greenknightlabs.scp_001.app.extensions.makeToast
@@ -24,6 +25,7 @@ import com.greenknightlabs.scp_001.databinding.FragmentScpsBinding
 import com.greenknightlabs.scp_001.scps.adapters.ScpsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
@@ -83,6 +85,8 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
             vm.pageAdapter = pageAdapter
             vm.adapter = ConcatAdapter(itemsAdapter, pageAdapter)
         }
+
+        vm.itemsAdapter?.screenWidth = activity?.screenWidth() ?: 0
 
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 

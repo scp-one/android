@@ -28,9 +28,13 @@ import com.greenknightlabs.scp_001.posts.fragments.create_post_fragment.CreatePo
 import com.greenknightlabs.scp_001.posts.fragments.edit_post_fragment.EditPostFragment
 import com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragment
 import com.greenknightlabs.scp_001.posts.adapters.PostsAdapter
+import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.adapters.UserCollectionComponentAdapter
+import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.adapters.UserCollectionComponentUserAdapter
+import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.view_holders.UserCollectionComponentUserViewHolder
 import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.posts.util.PostSignaler
 import com.greenknightlabs.scp_001.reports.PostReportsService
+import com.greenknightlabs.scp_001.users.UsersService
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragment
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,18 +52,22 @@ class PostsFragmentViewModel @Inject constructor(
     private val postsService: PostsService,
     private val postActionsService: PostActionsService,
     private val postReportsService: PostReportsService,
+    private val usersService: UsersService,
     private val authMan: AuthMan,
-    private val preferences: Preferences,
     private val navMan: NavMan,
     private val json: Json,
     private val postSignaler: PostSignaler,
     private val queuey: Queuey,
     private val shopkeep: Shopkeep
-) : PostsViewModel(), PostSignaler.Listener {
+) : PostsViewModel(), PostSignaler.Listener, UserCollectionComponentUserViewHolder.Listener {
     // properties
+    var headerAdapter: UserCollectionComponentAdapter? = null
+    var headerSubAdapter: UserCollectionComponentUserAdapter? = null
     var itemsAdapter: PostsAdapter? = null
     var pageAdapter: PageAdapter<Post>? = null
     var adapter: ConcatAdapter? = null
+
+    val users = MutableLiveData<MutableList<User>>(mutableListOf())
 
     val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
     val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
@@ -76,6 +84,7 @@ class PostsFragmentViewModel @Inject constructor(
     init {
         postSignaler.add(this)
         onRefreshAction()
+        loadUsers()
     }
 
     override fun onCleared() {
@@ -84,6 +93,23 @@ class PostsFragmentViewModel @Inject constructor(
     }
 
     // functions
+    private fun loadUsers() {
+        if (!shopkeep.hasProAccess()) return
+
+        viewModelScope.launch {
+            try {
+                val user = usersService.getUserFromRequest()
+                val originalItemCount = users.value?.size ?: 0
+                headerSubAdapter?.notifyItemRangeRemoved(0, originalItemCount)
+                users.value?.clear()
+                users.value?.add(user)
+                headerSubAdapter?.notifyItemRangeInserted(0, users.value?.size ?: 0)
+            } catch (e: Throwable) {
+                toastMessage.value = e.message
+            }
+        }
+    }
+
     fun onRefreshAction() {
         if (state.value == PageState.Fetching || canRefresh.value == false) {
             isRefreshing.value = false
@@ -116,9 +142,11 @@ class PostsFragmentViewModel @Inject constructor(
                 val posts = postsService.getPosts(dto)
 
                 if (refresh) {
+                    val originalItemCount = items.value?.size ?: 0
+                    itemsAdapter?.notifyItemRangeRemoved(0, originalItemCount)
                     items.value?.clear()
                     items.value?.addAll(posts)
-                    itemsAdapter?.notifyDataSetChanged()
+                    itemsAdapter?.notifyItemRangeInserted(0, items.value?.size ?: 0)
                 } else if (posts.isNotEmpty()) {
                     val rangeStart = (items.value?.size ?: 0)
                     items.value?.addAll(posts)
@@ -336,5 +364,12 @@ class PostsFragmentViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    // UserCollectionComponentUserViewHolder.Listener
+    override fun handleOnTapUser(user: User) {
+        val userProfileFragment = UserProfileFragment()
+        userProfileFragment.user = user
+        navMan.pushFragment(userProfileFragment)
     }
 }

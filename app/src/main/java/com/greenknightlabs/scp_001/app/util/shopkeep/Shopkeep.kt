@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.greenknightlabs.scp_001.app.config.AppConstants
+import com.greenknightlabs.scp_001.users.enums.UserAccessLevel
 import com.greenknightlabs.scp_001.users.enums.UserEntitlements
 import com.revenuecat.purchases.*
 import timber.log.Timber
@@ -101,7 +102,15 @@ class Shopkeep @Inject constructor(
         )
     }
 
+    fun hasSupportAccess(): Boolean {
+        return hasEntitlement(UserEntitlements.Supporter)
+    }
+
     fun hasProAccess(): Boolean {
-        return customer.value?.entitlements?.get(UserEntitlements.Pro.rawValue) != null
+        return hasEntitlement(UserEntitlements.Pro)
+    }
+
+    private fun hasEntitlement(entitlement: UserEntitlements): Boolean {
+        return customer.value?.entitlements?.get(entitlement.rawValue) != null
     }
 }

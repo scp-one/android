@@ -3,16 +3,12 @@ package com.greenknightlabs.scp_001.scps.fragments.scp_fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.view.doOnLayout
-import androidx.core.view.marginTop
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.config.AppConstants
+import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.pushWebView
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
@@ -27,7 +23,6 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonConfiguration
 import io.noties.markwon.image.ImagesPlugin
 import io.noties.markwon.image.network.NetworkSchemeHandler
-import io.noties.markwon.linkify.LinkifyPlugin
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -75,11 +70,9 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
         }
 
         vm.scp.value?.media?.let { media ->
+            val screenWidth = activity?.screenWidth() ?: 0
+            binding.fragmentScpImageView.layoutParams.height = media.calculateHeight(screenWidth, false)
             kairos.load(media.url).scale(360, 360).default(R.drawable.ic_face).into(binding.fragmentScpImageView)
-            binding.fragmentScpImageView.doOnLayout {
-                val viewWidth = binding.fragmentScpImageView.measuredWidth
-                binding.fragmentScpImageView.layoutParams.height = media.calculateHeight(viewWidth, false)
-            }
         }
         vm.scp.value?.contentBlocks?.let { contentBlocks ->
             val markwon = Markwon.builder(requireContext())
@@ -139,9 +132,9 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
 
     private fun addComponentsToContainer(markwon: Markwon, container: LinearLayoutCompat, block: ScpContentBlock) {
         block.mdContent?.let { mdContent ->
-            Timber.d("Setting md content: ${mdContent}")
             val binding: ComponentScpContentBlockMdContentBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block_md_content, container, false)
             markwon.setMarkdown(binding.componentScpContentBlockMdContentTextView, mdContent)
+
             container.addView(binding.root)
         }
 
@@ -181,6 +174,7 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
             val audioComponent: ComponentAudioBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_audio, container, false)
             audioComponent.url = audioUrl
             audioComponent.boombox = boombox
+
             container.addView(audioComponent.root)
         }
 

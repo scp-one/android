@@ -29,11 +29,11 @@ class AppearanceFragmentViewModel @Inject constructor(
 
         view.makePopupMenu(displayNames) { index ->
             if (displayNames[index].endsWith(ShopkeepConstants.PREMIUM_INDICATOR)) {
-//                val customer = shopkeep.customer.value
-//                if (customer == null) {
-//                    toastMessage.value = "User  does not appear to be logged in."
-//                    return@makePopupMenu
-//                }
+                val customer = shopkeep.customer.value
+                if (customer == null) {
+                    toastMessage.value = "User does not appear to be logged in."
+                    return@makePopupMenu
+                }
 
                 val productProperties = prefKey.productProperties(rawValues[index])
                 if (productProperties == null) {
@@ -41,18 +41,18 @@ class AppearanceFragmentViewModel @Inject constructor(
                     return@makePopupMenu
                 }
 
-//                if (customer.allPurchasedSkus.contains(productProperties.id)) {
-//                    preferences.set(prefKey, rawValues[index])
-//                    return@makePopupMenu
-//                }
+                if (customer.allPurchasedSkus.contains(productProperties.id)) {
+                    preferences.set(prefKey, rawValues[index])
+                    return@makePopupMenu
+                }
 
-//                val unlockedByEntitlement = productProperties.unlockedByEntitlement
-//                if (unlockedByEntitlement != null) {
-//                    if (customer.entitlements[unlockedByEntitlement.rawValue] != null) {
-//                        preferences.set(prefKey, rawValues[index])
-//                        return@makePopupMenu
-//                    }
-//                }
+                val unlockedByEntitlement = productProperties.unlockedByEntitlement
+                if (unlockedByEntitlement != null) {
+                    if (customer.entitlements[unlockedByEntitlement.rawValue] != null) {
+                        preferences.set(prefKey, rawValues[index])
+                        return@makePopupMenu
+                    }
+                }
 
                 onCompleteSuccessAction.value = {
                     preferences.set(prefKey, rawValues[index])

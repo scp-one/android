@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/spacingRegular"
+        android:layout_gravity="center_horizontal"
         app:cardElevation="@dimen/defaultCardElevation"
         app:cardCornerRadius="@dimen/defaultCornerRadius"
         app:cardBackgroundColor="?attr/themeColorPrimaryLight">

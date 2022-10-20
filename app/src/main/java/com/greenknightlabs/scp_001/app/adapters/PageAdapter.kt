@@ -1,12 +1,9 @@
 package com.greenknightlabs.scp_001.app.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.greenknightlabs.scp_001.app.fragments.PageViewModel
+import com.greenknightlabs.scp_001.app.view_models.PageViewModel
 import com.greenknightlabs.scp_001.databinding.ComponentFailToLoadPageBinding
 
 class PageAdapter<T>(

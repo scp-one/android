@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="user" type="com.greenknightlabs.scp_001.users.models.User" />
+        <variable name="listener" type="com.greenknightlabs.scp_001.posts.fragments.posts_fragment.view_holders.UserCollectionComponentUserViewHolder.Listener" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="@dimen/spacingRegular"
+        android:gravity="center_horizontal"
+        android:onClick="@{_ -> listener.handleOnTapUser(user)}">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/component_user_collection_user_image_view"
+            android:layout_width="@dimen/sizeAvatarRegular"
+            android:layout_height="@dimen/sizeAvatarRegular"
+            android:src="?attr/themeColorPrimaryDark"
+            tools:src="@drawable/default_avatar" />
+
+        <TextView
+            android:layout_width="@dimen/sizeAvatarLarge"
+            android:layout_height="wrap_content"
+            android:fontFamily="?attr/themeFontFamilyRegular"
+            android:textSize="?attr/themeFontSizeSub"
+            android:textColor="?attr/themeColorFontDim"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textAlignment="center"
+            android:text="@{user.username}"
+            tools:text="vassangel" />
+        
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    
+</layout>

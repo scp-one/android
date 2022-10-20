@@ -128,7 +128,8 @@
                 android:textColor="?attr/themeColorFontBright"
                 android:textAllCaps="false"
                 android:background="@drawable/ripple_button_borderless"
-                android:onClick="@{() -> vm.handleOnTapRestore()}" />
+                android:onClick="@{() -> vm.handleOnTapRestore()}"
+                android:visibility="@{(vm.hasUnlockedProAccess == true) ? View.GONE : View.VISIBLE}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
@@ -142,7 +143,8 @@
                 android:textColor="?attr/themeColorFontNormal"
                 android:textAllCaps="false"
                 android:background="@drawable/ripple_button"
-                android:onClick="@{() -> vm.handleOnTapBuy()}"/>
+                android:onClick="@{() -> vm.handleOnTapBuy()}"
+                android:visibility="@{(vm.hasUnlockedProAccess == true) ? View.GONE : View.VISIBLE}" />
 
         </LinearLayout>
 

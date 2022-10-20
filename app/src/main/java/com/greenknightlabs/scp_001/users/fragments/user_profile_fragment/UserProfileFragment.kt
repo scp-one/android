@@ -14,6 +14,7 @@ import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
+import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentUserProfileBinding
@@ -21,6 +22,7 @@ import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapter
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentHeaderAdapter
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -66,7 +68,10 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
         }
         if (vm.user == null) {
             vm.user = user
+            vm.onRefreshAction()
         }
+
+        vm.itemsAdapter?.screenWidth = activity?.screenWidth() ?: 0
 
         val layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 

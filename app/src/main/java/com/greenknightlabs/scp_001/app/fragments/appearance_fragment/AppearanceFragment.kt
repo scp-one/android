@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.greenknightlabs.scp_001.R
+import com.greenknightlabs.scp_001.app.activities.MainActivity
+import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
@@ -31,5 +33,15 @@ class AppearanceFragment : BaseFragment<FragmentAppearanceBinding>(R.layout.frag
         super.configureView(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = vm
+
+        vm.state.observe(viewLifecycleOwner) {
+            (activity as? MainActivity)?.showProgressBar(it == PageState.Fetching)
+        }
+        vm.toastMessage.observe(viewLifecycleOwner) {
+            if (it != null) {
+                activity?.makeToast(it)
+                vm.toastMessage.value = null
+            }
+        }
     }
 }

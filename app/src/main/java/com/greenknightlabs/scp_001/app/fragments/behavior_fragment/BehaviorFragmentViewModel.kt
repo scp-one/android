@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
+import com.greenknightlabs.scp_001.app.fragments.product_preview_fragment.ProductPreviewFragment
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.app.util.preferences.enums.PrefKey
@@ -17,7 +18,10 @@ class BehaviorFragmentViewModel @Inject constructor(
     val preferences: Preferences,
     private val navMan: NavMan,
     private val shopkeep: Shopkeep
-) : BaseViewModel() {
+) : BaseViewModel(), ProductPreviewFragment.Listener {
+    // properties
+    private val onCompleteSuccessAction = MutableLiveData<() -> Unit>()
+
     // functions
     fun handleOnTapPreferenceComponent(prefKey: PrefKey, view: View) {
         val displayNames = prefKey.displayNames()
@@ -27,7 +31,7 @@ class BehaviorFragmentViewModel @Inject constructor(
             if (displayNames[index].endsWith(ShopkeepConstants.PREMIUM_INDICATOR)) {
                 val customer = shopkeep.customer.value
                 if (customer == null) {
-                    toastMessage.value = "User  does not appear to be logged in."
+                    toastMessage.value = "User does not appear to be logged in."
                     return@makePopupMenu
                 }
 
@@ -50,10 +54,22 @@ class BehaviorFragmentViewModel @Inject constructor(
                     }
                 }
 
-                toastMessage.value = "Show preview now"
+                onCompleteSuccessAction.value = {
+                    preferences.set(prefKey, rawValues[index])
+                }
+
+                val productPreviewFragment = ProductPreviewFragment()
+                productPreviewFragment.productProperties = productProperties
+                productPreviewFragment.listener = this
+                navMan.pushFragment(productPreviewFragment, true)
             } else {
                 preferences.set(prefKey, rawValues[index])
             }
         }
+    }
+
+    override fun onCompleteSuccessHandler() {
+        onCompleteSuccessAction.value?.invoke()
+        onCompleteSuccessAction.value = {}
     }
 }
