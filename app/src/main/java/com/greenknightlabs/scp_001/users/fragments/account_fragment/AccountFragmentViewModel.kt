@@ -42,8 +42,9 @@ class AccountFragmentViewModel @Inject constructor(
     // functions
     fun save(user: MutableLiveData<User?>) {
         val userValue = user.value ?: return
+        val nickname = nickname.value ?: return
 
-        if (nickname.value?.isEmpty() == true) {
+        if (nickname.isEmpty()) {
             toastMessage.value = "Invalid input."
             return
         }
@@ -52,7 +53,7 @@ class AccountFragmentViewModel @Inject constructor(
         state.value = PageState.Fetching
 
         val dto = EditUserDto(
-            nickname.value,
+            nickname,
             avatarUrl.value,
             null,
             null

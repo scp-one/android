@@ -25,6 +25,11 @@ class EmailUpdateFragmentViewModel @Inject constructor(
     fun didTapButtonRequest() {
         val email = email.value ?: return
 
+        if (email.isEmpty()) {
+            toastMessage.value = "Invalid input."
+            return
+        }
+
         isLocked.value = true
         state.value = PageState.Fetching
 

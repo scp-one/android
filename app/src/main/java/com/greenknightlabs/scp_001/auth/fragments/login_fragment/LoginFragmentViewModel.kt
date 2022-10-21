@@ -38,6 +38,12 @@ class LoginFragmentViewModel @Inject constructor(
     fun didTapButtonLogin() {
         val email = email.value ?: return
         val passw = passw.value ?: return
+
+        if (email.isEmpty() || passw.isEmpty()) {
+            toastMessage.value = "Invalid input."
+            return
+        }
+
         val dto = LoginDto(null, email, passw)
 
         isLocked.value = true

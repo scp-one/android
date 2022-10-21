@@ -35,6 +35,12 @@ class RegisterFragmentViewModel @Inject constructor(
         val usern = usern.value ?: return
         val email = email.value ?: return
         val passw = passw.value ?: return
+
+        if (usern.isEmpty() || email.isEmpty() || passw.isEmpty()) {
+            toastMessage.value = "Invalid input."
+            return
+        }
+
         val dto = RegisterDto(usern, email, passw)
 
         isLocked.value = true

@@ -28,7 +28,7 @@ class DeleteAccountFragmentViewModel @Inject constructor(
 
     // functions
     fun didTapButtonDelete() {
-        confirmAlertText.value = "Are you sure you want to delete your account?"
+        confirmAlertText.value = "Are you sure you want to delete your account?\nThis action is irreversible and will delete all data related to your account"
         confirmAlertAction.value = {
             deleteAccount()
         }
@@ -36,8 +36,14 @@ class DeleteAccountFragmentViewModel @Inject constructor(
     }
 
     private fun deleteAccount() {
-        val passw = passw.value ?: return
         val id = authMan.payload?.id ?: return
+        val passw = passw.value ?: return
+
+        if (passw.isEmpty()) {
+            toastMessage.value = "Invalid input."
+            return
+        }
+
         val dto = DeleteUserDto(passw)
 
         isLocked.value = true

@@ -39,7 +39,7 @@ class ProductPreviewFragmentViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-//                shopkeep.purchase(activity, productId)
+                shopkeep.purchase(activity, productId)
                 isLocked.value = false
                 state.value = PageState.Idle
                 navMan.popFragment()
