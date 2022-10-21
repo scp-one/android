@@ -95,7 +95,7 @@
                     android:textSize="?attr/themeFontSizeSub"
                     android:fontFamily="?attr/themeFontFamilyRegular"
                     android:textColor="?attr/themeColorFontDim"
-                    android:text='@{"Account Status: " + (vm.user != null ? vm.user.accessLevel : "Loading")}'
+                    android:text='@{"Account Status: " + (vm.user != null ? vm.user.accessLevel.displayName() : "Loading")}'
                     tools:text="Account Status: Testing"/>
 
                 <ImageView

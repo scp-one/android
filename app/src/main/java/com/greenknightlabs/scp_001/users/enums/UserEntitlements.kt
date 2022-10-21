@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 enum class UserEntitlements(val rawValue: String) {
     Supporter("supporter"),
-    Pro("pro"),
+    Pro("pro");
 }

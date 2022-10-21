@@ -14,6 +14,15 @@ enum class UserAccessLevel(val value: Int) {
     Moderator(50),
     Admin(99);
 
+    fun displayName(): String {
+        return when (this) {
+            UnverifiedUser -> "Unverified"
+            VerifiedUser -> "Verified"
+            Moderator -> "Moderator"
+            Admin -> "Admin"
+        }
+    }
+
     @Serializer(UserAccessLevel::class)
     companion object : KSerializer<UserAccessLevel> {
         override val descriptor: SerialDescriptor
