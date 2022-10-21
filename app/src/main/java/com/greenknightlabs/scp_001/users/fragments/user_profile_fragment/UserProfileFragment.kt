@@ -1,6 +1,8 @@
 package com.greenknightlabs.scp_001.users.fragments.user_profile_fragment
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -17,6 +19,7 @@ import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
+import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.databinding.FragmentUserProfileBinding
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentItemsAdapter
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentHeaderAdapter
@@ -29,6 +32,7 @@ import javax.inject.Inject
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fragment_user_profile) {
     // dependencies
     @Inject lateinit var kairos: Kairos
+    @Inject lateinit var authMan: AuthMan
 
     // properties
     private val vm: UserProfileFragmentViewModel by viewModels()
@@ -41,6 +45,15 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
 
     override fun menuId(): Int? {
         return R.menu.menu_fragment_user_profile
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
+        val menuItemAdd = menu.getItem(1)
+
+        if (user?.id != null && authMan.payload?.id != null) {
+            menuItemAdd?.isVisible = user!!.id == authMan.payload!!.id
+        }
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

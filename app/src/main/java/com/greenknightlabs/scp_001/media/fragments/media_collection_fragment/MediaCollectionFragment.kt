@@ -53,6 +53,11 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
         return R.menu.menu_fragment_media_collection
     }
 
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateMenu(menu, menuInflater)
+        setMenuItemsVisibility()
+    }
+
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.menu_fragment_media_collection_delete -> handleOnTapMenuDelete()
@@ -104,11 +109,6 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
             vm.adapter?.handleSelectedMediaChanged(vm.selectedMediaPosition)
             setMenuItemsVisibility()
         }
-    }
-
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        super.onCreateMenu(menu, menuInflater)
-        setMenuItemsVisibility()
     }
 
     private fun setMenuItemsVisibility() {

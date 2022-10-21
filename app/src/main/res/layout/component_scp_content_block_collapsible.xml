@@ -7,7 +7,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacingRegular"
+        android:layout_marginBottom="@dimen/spacingRegular"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -34,12 +34,10 @@
             android:id="@+id/component_scp_content_block_collapsible_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacingRegular"
             android:orientation="vertical"
-            android:padding="4dp"
-            android:background="@drawable/shape_collapsed_border">
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_marginTop="@dimen/spacingSmall"
+            android:padding="@dimen/spacingSmall"
+            android:background="@drawable/shape_collapsed_border" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
