@@ -113,11 +113,9 @@ class PostActionsFragmentViewModel @Inject constructor(
                 if (refresh) {
                     actionsList.value?.clear()
 
-                    val originalItemCount = items.value?.size ?: 0
-                    itemsAdapter?.notifyItemRangeRemoved(0, originalItemCount)
                     items.value?.clear()
                     items.value?.addAll(posts)
-                    itemsAdapter?.notifyItemRangeInserted(0, items.value?.size ?: 0)
+                    itemsAdapter?.notifyDataSetChanged()
                 } else if (actions.isNotEmpty()) {
                     val rangeStart = (items.value?.size ?: 0)
                     items.value?.addAll(posts)

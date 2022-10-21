@@ -9,7 +9,7 @@ import com.greenknightlabs.scp_001.scps.enums.ScpSortField
 import com.greenknightlabs.scp_001.scps.enums.ScpSortOrder
 
 enum class PrefKey(val rawValue: String) {
-    Theme("Theme"),
+    Theme("theme"),
     AppFontSize("appFontSize"),
     ScpFontSize("scpFontSize"),
 
@@ -33,7 +33,7 @@ enum class PrefKey(val rawValue: String) {
 
     fun defaultRawValue(): String {
         return when (this) {
-            Theme -> Themes.Dark.rawValue
+            Theme -> Themes.Slate.rawValue
             AppFontSize -> FontSizes.Regular.rawValue
             ScpFontSize -> FontSizes.Small.rawValue
 

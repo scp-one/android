@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- SPACING -->
-    <dimen name="spacingSmallest">4dp</dimen>
-    <dimen name="spacingSmall">8dp</dimen>
-    <dimen name="spacingSmallPlus">12dp</dimen>
-    <dimen name="spacingRegular">16dp</dimen>
-    <dimen name="spacingRegularPlus">20dp</dimen>
-    <dimen name="spacingLarge">24dp</dimen>
+    <dimen name="spacingSmallest">2dp</dimen>
+    <dimen name="spacingSmall">6dp</dimen>
+    <dimen name="spacingSmallPlus">10dp</dimen>
+    <dimen name="spacingRegular">14dp</dimen>
+    <dimen name="spacingRegularPlus">22dp</dimen>
+    <dimen name="spacingLarge">22dp</dimen>
     <dimen name="spacingFormHeaderImage">64dp</dimen>
+
+<!--    <dimen name="spacingSmallest">4dp</dimen>-->
+<!--    <dimen name="spacingSmall">8dp</dimen>-->
+<!--    <dimen name="spacingSmallPlus">12dp</dimen>-->
+<!--    <dimen name="spacingRegular">16dp</dimen>-->
+<!--    <dimen name="spacingRegularPlus">20dp</dimen>-->
+<!--    <dimen name="spacingLarge">24dp</dimen>-->
+<!--    <dimen name="spacingFormHeaderImage">64dp</dimen>-->
 
     <dimen name="sizeAvatarSmall">32dp</dimen>
     <dimen name="sizeAvatarSmallPlus">40dp</dimen>
@@ -20,19 +28,19 @@
 
     <!-- FONTS -->
     <!-- small font sizes -->
-    <dimen name="fontSizeSmallSub">10sp</dimen>
-    <dimen name="fontSizeSmallBody">14sp</dimen>
-    <dimen name="fontSizeSmallHeadline">22sp</dimen>
+    <dimen name="fontSizeSmallSub">8sp</dimen>
+    <dimen name="fontSizeSmallBody">12sp</dimen>
+    <dimen name="fontSizeSmallHeadline">20sp</dimen>
 
     <!-- regular font sizes -->
-    <dimen name="fontSizeRegularSub">12sp</dimen>
-    <dimen name="fontSizeRegularBody">16sp</dimen>
-    <dimen name="fontSizeRegularHeadline">24sp</dimen>
+    <dimen name="fontSizeRegularSub">10sp</dimen>
+    <dimen name="fontSizeRegularBody">14sp</dimen>
+    <dimen name="fontSizeRegularHeadline">22sp</dimen>
 
     <!-- large font sizes -->
-    <dimen name="fontSizeLargeSub">16sp</dimen>
-    <dimen name="fontSizeLargeBody">20sp</dimen>
-    <dimen name="fontSizeLargeHeadline">28sp</dimen>
+    <dimen name="fontSizeLargeSub">14sp</dimen>
+    <dimen name="fontSizeLargeBody">18sp</dimen>
+    <dimen name="fontSizeLargeHeadline">26sp</dimen>
 
     <!-- VIEW WIDTH -->
     <dimen name="viewThreshold1">600dp</dimen>

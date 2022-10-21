@@ -101,11 +101,9 @@ class ScpActionsFragmentViewModel @Inject constructor(
                 if (refresh) {
                     actionsList.value?.clear()
 
-                    val originalItemCount = items.value?.size ?: 0
-                    itemsAdapter?.notifyItemRangeRemoved(0, originalItemCount)
                     items.value?.clear()
                     items.value?.addAll(scps)
-                    itemsAdapter?.notifyItemRangeInserted(0, items.value?.size ?: 0)
+                    itemsAdapter?.notifyDataSetChanged()
                 } else if (actions.isNotEmpty()) {
                     val rangeStart = (items.value?.size ?: 0)
                     items.value?.addAll(scps)

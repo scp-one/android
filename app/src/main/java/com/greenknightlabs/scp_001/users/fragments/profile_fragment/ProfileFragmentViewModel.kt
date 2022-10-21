@@ -129,7 +129,7 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapProAccess() {
-        navMan.pushFragment(ProAccessFragment())
+        navMan.pushFragment(ProAccessFragment(), true)
     }
 
     fun handleOnTapClearCache() {

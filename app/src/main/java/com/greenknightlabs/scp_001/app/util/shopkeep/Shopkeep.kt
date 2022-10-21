@@ -8,6 +8,7 @@ import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.users.enums.UserAccessLevel
 import com.greenknightlabs.scp_001.users.enums.UserEntitlements
 import com.revenuecat.purchases.*
+import com.revenuecat.purchases.interfaces.UpdatedCustomerInfoListener
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -18,7 +19,7 @@ import kotlin.coroutines.suspendCoroutine
 @Singleton
 class Shopkeep @Inject constructor(
     private val context: Context
-) {
+) : UpdatedCustomerInfoListener {
     // properties
     private val _customer = MutableLiveData<CustomerInfo?>(null)
     val customer: LiveData<CustomerInfo?> get() = _customer
@@ -33,6 +34,7 @@ class Shopkeep @Inject constructor(
 
         Purchases.debugLogsEnabled = true
         Purchases.configure(configuration.build())
+        Purchases.sharedInstance.updatedCustomerInfoListener = this
     }
 
     // functions
@@ -112,5 +114,10 @@ class Shopkeep @Inject constructor(
 
     private fun hasEntitlement(entitlement: UserEntitlements): Boolean {
         return customer.value?.entitlements?.get(entitlement.rawValue) != null
+    }
+
+    // UpdatedCustomerInfoListener
+    override fun onReceived(customerInfo: CustomerInfo) {
+        _customer.value = customerInfo
     }
 }

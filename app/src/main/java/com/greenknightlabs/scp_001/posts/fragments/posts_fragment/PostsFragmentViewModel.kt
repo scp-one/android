@@ -100,8 +100,9 @@ class PostsFragmentViewModel @Inject constructor(
             try {
                 val user = usersService.getUserFromRequest()
                 val originalItemCount = users.value?.size ?: 0
-                headerSubAdapter?.notifyItemRangeRemoved(0, originalItemCount)
                 users.value?.clear()
+                headerSubAdapter?.notifyItemRangeRemoved(0, originalItemCount)
+
                 users.value?.add(user)
                 headerSubAdapter?.notifyItemRangeInserted(0, users.value?.size ?: 0)
             } catch (e: Throwable) {
@@ -143,8 +144,9 @@ class PostsFragmentViewModel @Inject constructor(
 
                 if (refresh) {
                     val originalItemCount = items.value?.size ?: 0
-                    itemsAdapter?.notifyItemRangeRemoved(0, originalItemCount)
                     items.value?.clear()
+                    itemsAdapter?.notifyItemRangeRemoved(0, originalItemCount)
+
                     items.value?.addAll(posts)
                     itemsAdapter?.notifyItemRangeInserted(0, items.value?.size ?: 0)
                 } else if (posts.isNotEmpty()) {
