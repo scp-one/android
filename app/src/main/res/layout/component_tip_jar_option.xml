@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="kotlin.jvm.functions.Function1"/>
@@ -13,7 +14,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacingRegular"
+        android:layout_marginTop="@dimen/spacingLarge"
         android:orientation="horizontal">
 
         <TextView
@@ -28,12 +29,15 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="65dp"
+            android:minWidth="55dp"
+            android:minHeight="0dp"
+            android:padding="@dimen/spacingSmall"
             android:background="@drawable/ripple_button"
             android:fontFamily="?attr/themeFontFamilyMedium"
             android:textSize="?attr/themeFontSizeBody"
             android:textColor="?attr/themeColorFontNormal"
             android:text="@{tipJarOption.productProperties().price}"
+            tools:text="$99.99"
             android:onClick="@{_ -> onTapAction.invoke(tipJarOption)}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
