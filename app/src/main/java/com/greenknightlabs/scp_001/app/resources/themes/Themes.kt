@@ -71,25 +71,25 @@ enum class Themes(
     fun productProperties(): ProductProperties? {
         return when (this) {
             Retrolight -> ProductProperties(
-                "",
+                "com.greenknightlabs.and.scp_one.theme_retrolight.102122",
                 "$1.99",
                 UserEntitlements.Pro,
                 R.layout.component_preview_theme_retrolight
             )
             Dark -> ProductProperties(
-                "",
+                "com.greenknightlabs.and.scp_one.theme_dark.102122",
                 "$1.99",
                 UserEntitlements.Pro,
                 R.layout.component_preview_theme_dark,
             )
             Midnight -> ProductProperties(
-                "",
+                "com.greenknightlabs.and.scp_one.theme_midnight.102122",
                 "$1.99",
                 UserEntitlements.Pro,
                 R.layout.component_preview_theme_midnight,
             )
             Void -> ProductProperties(
-                "",
+                "com.greenknightlabs.and.scp_one.theme_void.102122",
                 "$1.99",
                 UserEntitlements.Pro,
                 R.layout.component_preview_theme_void

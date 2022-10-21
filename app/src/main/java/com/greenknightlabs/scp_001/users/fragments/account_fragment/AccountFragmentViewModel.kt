@@ -43,6 +43,11 @@ class AccountFragmentViewModel @Inject constructor(
     fun save(user: MutableLiveData<User?>) {
         val userValue = user.value ?: return
 
+        if (nickname.value?.isEmpty() == true) {
+            toastMessage.value = "Invalid input."
+            return
+        }
+
         isLocked.value = true
         state.value = PageState.Fetching
 
