@@ -60,6 +60,7 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
         val view = activity?.getView(menuItem.itemId)
         when (menuItem.itemId) {
             R.id.menu_fragment_user_profile_sort -> vm.handleOnTapMenuSort(view)
+            R.id.menu_fragment_user_profile_post -> vm.handleOnTapMenuPost()
         }
 
         return false

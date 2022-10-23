@@ -99,6 +99,12 @@ class ScpFragmentViewModel @Inject constructor(
         shouldShowWebView.value = true
     }
 
+    fun handleOnTapButtonMarkAsRead() {
+        val scp = scp.value ?: return
+        scp.read = !scp.read
+        didChangeScpAction(scp, ScpActionsType.READ, scp.read)
+    }
+
     override fun handleSignal(signal: ScpSignaler.ScpSignal) {
         when (signal) {
             is ScpSignaler.ScpSignal.ScpDidChange -> {

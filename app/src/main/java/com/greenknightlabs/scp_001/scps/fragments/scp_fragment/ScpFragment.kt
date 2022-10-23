@@ -117,9 +117,6 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
                     collapsibleContainer.visibility = View.GONE
 
                     addComponentsToContainer(markwon, collapsibleContainer, block)
-                    block.contentBlocks?.let {
-                        renderContentBlocks(markwon, collapsibleContainer, it)
-                    }
 
                     container.addView(binding.root)
                 }

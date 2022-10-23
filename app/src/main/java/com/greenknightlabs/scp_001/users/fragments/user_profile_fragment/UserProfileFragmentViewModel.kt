@@ -11,9 +11,11 @@ import com.greenknightlabs.scp_001.actions.enums.PostActionsType
 import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
+import com.greenknightlabs.scp_001.app.fragments.pro_access_fragment.ProAccessFragment
 import com.greenknightlabs.scp_001.app.view_models.PageViewModel
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.Queuey
+import com.greenknightlabs.scp_001.app.util.shopkeep.Shopkeep
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.posts.PostsService
 import com.greenknightlabs.scp_001.posts.config.PostsConstants
@@ -22,6 +24,7 @@ import com.greenknightlabs.scp_001.posts.enums.PostSortField
 import com.greenknightlabs.scp_001.posts.enums.PostSortOrder
 import com.greenknightlabs.scp_001.posts.enums.PostStatus
 import com.greenknightlabs.scp_001.posts.enums.PostVisibility
+import com.greenknightlabs.scp_001.posts.fragments.create_post_fragment.CreatePostFragment
 import com.greenknightlabs.scp_001.posts.fragments.edit_post_fragment.EditPostFragment
 import com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragment
 import com.greenknightlabs.scp_001.posts.models.Post
@@ -51,6 +54,7 @@ class UserProfileFragmentViewModel @Inject constructor(
     private val json: Json,
     private val postSignaler: PostSignaler,
     private val queuey: Queuey,
+    private val shopkeep: Shopkeep,
 ) : PageViewModel<Post>(), PostComponentViewHolder.Listener, PostSignaler.Listener {
     // properties
     var headerAdapter: UserProfileFragmentHeaderAdapter? = null
@@ -216,6 +220,14 @@ class UserProfileFragmentViewModel @Inject constructor(
     private fun didChangeSort() {
         if (state.value == PageState.Fetching) return
         paginate(true)
+    }
+
+    fun handleOnTapMenuPost() {
+        if (shopkeep.hasProAccess()) {
+            navMan.pushFragment(CreatePostFragment(), true)
+        } else {
+            navMan.pushFragment(ProAccessFragment(), true)
+        }
     }
 
     override fun handleOnTapPost(post: Post) {

@@ -10,7 +10,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/menu_fragment_posts_post"
+        android:id="@+id/menu_fragment_user_profile_post"
         android:icon="@drawable/ic_add"
         app:iconTint="?attr/themeColorFontDim"
         android:title="Post"
