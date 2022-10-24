@@ -16,28 +16,33 @@
     </style>
 
     <!-- ACTION BAR -->
-    <style name="Theme.Base.ActionBar.Theme"
-        parent="@style/ThemeOverlay.AppCompat.ActionBar">
+    <style name="Theme.Base.ActionBar.Theme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="colorControlNormal">?attr/themeColorBtnNavBarInactive</item>
+
+        <item name="autoCompleteTextViewStyle">@style/SearchViewAutoComplete</item>
+        <item name="searchViewStyle">@style/SearchView</item>
     </style>
 
-    <style name="Theme.Base.ActionBar.Style"
-        parent="@style/Widget.AppCompat.ActionBar">
+    <style name="Theme.Base.ActionBar.Style" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">?attr/themeColorPrimary</item>
         <item name="elevation">0dp</item>
         <item name="titleTextStyle">@style/Theme.Base.ActionBar.Style.TitleTextStyle</item>
     </style>
 
-    <style name="Theme.Base.ActionBar.Style.TitleTextStyle"
-        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="Theme.Base.ActionBar.Style.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">?attr/themeColorFontNormal</item>
         <item name="android:fontFamily">?attr/themeFontFamilyRegular</item>
     </style>
 
-    <!-- SEARCH BAR -->
-    <style name="SearchViewTheme" parent="Widget.AppCompat.Light.SearchView">
-        <item name="tint">?attr/themeColorFontTextFieldHint</item>
-        <item name="android:editTextColor">?attr/themeColorFontTextFieldText</item>
+    <!-- SEARCH VIEW -->
+    <style name="SearchViewAutoComplete" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textColor">?attr/themeColorFontTextFieldText</item>
         <item name="android:textColorHint">?attr/themeColorFontTextFieldHint</item>
     </style>
+
+    <style name="SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="queryBackground">@drawable/ripple_edit_text</item>
+        <item name="searchIcon">@drawable/ic_search</item>
+    </style>
+
 </resources>

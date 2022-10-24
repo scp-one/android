@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <import type="com.greenknightlabs.scp_001.app.util.Preferences.FontScale" />
+
+        <variable name="preferences" type="com.greenknightlabs.scp_001.app.util.Preferences" />
+    </data>
+
     <TextView
         android:id="@+id/component_table_header_text"
         android:layout_width="wrap_content"
@@ -9,7 +15,7 @@
         android:textAlignment="viewStart"
         android:padding="@dimen/spacingSmallest"
         android:fontFamily="?attr/themeFontFamilyBold"
-        android:textSize="?attr/themeFontSizeBody"
+        android:textSize="@{preferences.scpFontSizeDim(FontScale.Body)}"
         android:textColor="?attr/themeColorFontBright" />
 
 </layout>

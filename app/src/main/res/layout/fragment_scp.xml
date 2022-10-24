@@ -5,6 +5,7 @@
 
     <data>
         <import type="android.view.View" />
+        <import type="com.greenknightlabs.scp_001.app.util.Preferences.FontScale" />
 
         <variable name="vm" type="com.greenknightlabs.scp_001.scps.fragments.scp_fragment.ScpFragmentViewModel" />
     </data>
@@ -27,8 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacingRegular"
-                android:textSize="?attr/themeFontSizeBody"
                 android:fontFamily="?attr/themeFontFamilyBold"
+                android:textSize="@{vm.preferences.scpFontSizeDim(FontScale.Body)}"
                 android:textColor="?attr/themeColorFontNormal"
                 android:text="@{vm.scp.name}" />
 
@@ -45,8 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacingRegular"
-                android:textSize="?attr/themeFontSizeSub"
                 android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textSize="@{vm.preferences.scpFontSizeDim(FontScale.Sub)}"
                 android:textColor="?attr/themeColorFontDim"
                 android:text="@{vm.scp.media.caption}"
                 android:visibility="@{(vm.scp.media.caption != null) ? View.VISIBLE : View.GONE}" />
@@ -72,8 +73,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/spacingRegular"
-                    android:textSize="?attr/themeFontSizeBody"
                     android:fontFamily="?attr/themeFontFamilyRegular"
+                    android:textSize="@{vm.preferences.scpFontSizeDim(FontScale.Body)}"
                     android:textColor="?attr/themeColorFontNormal"
                     android:text="@{vm.scp.license}" />
 
@@ -87,7 +88,7 @@
                 android:padding="@dimen/spacingSmall"
                 android:layout_gravity="center"
                 android:fontFamily="?attr/themeFontFamilyMedium"
-                android:textSize="?attr/themeFontSizeBody"
+                android:textSize="@{vm.preferences.scpFontSizeDim(FontScale.Body)}"
                 android:textColor="?attr/themeColorFontNormal"
                 android:background="@drawable/ripple_button"
                 android:text="@{!vm.scp.read ? `Mark as read` : `Mark as unread`}"

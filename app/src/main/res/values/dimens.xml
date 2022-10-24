@@ -9,14 +9,6 @@
     <dimen name="spacingLarge">22dp</dimen>
     <dimen name="spacingFormHeaderImage">64dp</dimen>
 
-<!--    <dimen name="spacingSmallest">4dp</dimen>-->
-<!--    <dimen name="spacingSmall">8dp</dimen>-->
-<!--    <dimen name="spacingSmallPlus">12dp</dimen>-->
-<!--    <dimen name="spacingRegular">16dp</dimen>-->
-<!--    <dimen name="spacingRegularPlus">20dp</dimen>-->
-<!--    <dimen name="spacingLarge">24dp</dimen>-->
-<!--    <dimen name="spacingFormHeaderImage">64dp</dimen>-->
-
     <dimen name="sizeAvatarSmall">32dp</dimen>
     <dimen name="sizeAvatarSmallPlus">40dp</dimen>
     <dimen name="sizeAvatarRegular">48dp</dimen>

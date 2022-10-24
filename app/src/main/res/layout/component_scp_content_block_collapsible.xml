@@ -4,10 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="com.greenknightlabs.scp_001.app.util.Preferences.FontScale" />
+
+        <variable name="preferences" type="com.greenknightlabs.scp_001.app.util.Preferences" />
+    </data>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacingRegular"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -24,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacingRegular"
                 android:fontFamily="?attr/themeFontFamilyMedium"
-                android:textSize="?attr/themeFontSizeSub"
+                android:textSize="@{preferences.scpFontSizeDim(FontScale.Sub)}"
                 android:textColor="?attr/themeColorFontBright"
                 tools:text="test" />
 

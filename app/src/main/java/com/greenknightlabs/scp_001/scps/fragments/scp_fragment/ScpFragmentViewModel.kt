@@ -10,6 +10,7 @@ import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import com.greenknightlabs.scp_001.app.util.NavMan
+import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.app.util.Queuey
 import com.greenknightlabs.scp_001.scps.models.Scp
 import com.greenknightlabs.scp_001.scps.util.ScpSignaler
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class ScpFragmentViewModel @Inject constructor(
     private val scpActionsService: ScpActionsService,
     private val scpSignaler: ScpSignaler,
-    private val queuey: Queuey
+    private val queuey: Queuey,
+    val preferences: Preferences
 ) : BaseViewModel(), ScpSignaler.Listener {
     // properties
     val scp = MutableLiveData<Scp?>(null)

@@ -23,7 +23,6 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonConfiguration
 import io.noties.markwon.image.ImagesPlugin
 import io.noties.markwon.image.network.NetworkSchemeHandler
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -39,7 +38,7 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
 
     // functions
     override fun activityTitle(): String {
-        return scp?.name ?: "SCP"
+        return vm.scp.value?.name ?: "SCP"
     }
 
     override fun menuId(): Int? {
@@ -107,6 +106,7 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
                     val binding: ComponentScpContentBlockCollapsibleBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block_collapsible, container, false)
                     val collapsibleContainer = binding.componentScpContentBlockCollapsibleContainer
 
+                    binding.preferences = vm.preferences
                     binding.componentScpContentBlockCollapsibleTextView.text = block.title ?: "Collapsible block"
                     binding.componentScpContentBlockCollapsibleCardView.setOnClickListener {
                         collapsibleContainer.visibility = when (collapsibleContainer.visibility) {
@@ -129,50 +129,53 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
 
     private fun addComponentsToContainer(markwon: Markwon, container: LinearLayoutCompat, block: ScpContentBlock) {
         block.mdContent?.let { mdContent ->
-            val binding: ComponentScpContentBlockMdContentBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block_md_content, container, false)
-            markwon.setMarkdown(binding.componentScpContentBlockMdContentTextView, mdContent)
+            val mdContentBinding: ComponentScpContentBlockMdContentBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_scp_content_block_md_content, container, false)
 
-            container.addView(binding.root)
+            mdContentBinding.preferences = vm.preferences
+            markwon.setMarkdown(mdContentBinding.componentScpContentBlockMdContentTextView, mdContent)
+            container.addView(mdContentBinding.root)
         }
 
         block.table?.let { table ->
-            val tableLayout: ComponentTableBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table, container, false)
+            val tableLayoutBinding: ComponentTableBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table, container, false)
 
             table.headers?.let { headers ->
-                val rowLayout: ComponentTableRowBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_row, tableLayout.componentTableLayout, false)
+                val rowLayoutBinding: ComponentTableRowBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_row, tableLayoutBinding.componentTableLayout, false)
 
                 for (header in headers) {
-                    val headerLayout: ComponentTableHeaderBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_header, rowLayout.componentTableRow, false)
-                    headerLayout.componentTableHeaderText.text = header
+                    val headerLayout: ComponentTableHeaderBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_header, rowLayoutBinding.componentTableRow, false)
 
-                    rowLayout.componentTableRow.addView(headerLayout.root)
+                    headerLayout.preferences = vm.preferences
+                    headerLayout.componentTableHeaderText.text = header
+                    rowLayoutBinding.componentTableRow.addView(headerLayout.root)
                 }
 
-                tableLayout.componentTableLayout.addView(rowLayout.root)
+                tableLayoutBinding.componentTableLayout.addView(rowLayoutBinding.root)
             }
 
             for (row in table.rows) {
-                val rowLayout: ComponentTableRowBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_row, tableLayout.componentTableLayout, false)
+                val rowLayoutBinding: ComponentTableRowBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_row, tableLayoutBinding.componentTableLayout, false)
 
                 for (column in row) {
-                    val columnLayout: ComponentTableColumnBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_column, rowLayout.componentTableRow, false)
-                    columnLayout.componentTableColumnText.text = column
+                    val columnLayoutBinding: ComponentTableColumnBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_table_column, rowLayoutBinding.componentTableRow, false)
 
-                    rowLayout.componentTableRow.addView(columnLayout.root)
+                    columnLayoutBinding.preferences = vm.preferences
+                    columnLayoutBinding.componentTableColumnText.text = column
+                    rowLayoutBinding.componentTableRow.addView(columnLayoutBinding.root)
                 }
 
-                tableLayout.componentTableLayout.addView(rowLayout.root)
+                tableLayoutBinding.componentTableLayout.addView(rowLayoutBinding.root)
             }
 
-            container.addView(tableLayout.root)
+            container.addView(tableLayoutBinding.root)
         }
 
         block.audioUrl?.let { audioUrl ->
-            val audioComponent: ComponentAudioBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_audio, container, false)
-            audioComponent.url = audioUrl
-            audioComponent.boombox = boombox
+            val audioComponentBinding: ComponentAudioBinding = DataBindingUtil.inflate(layoutInflater, R.layout.component_audio, container, false)
 
-            container.addView(audioComponent.root)
+            audioComponentBinding.url = audioUrl
+            audioComponentBinding.boombox = boombox
+            container.addView(audioComponentBinding.root)
         }
 
         block.contentBlocks?.let { subBlocks ->

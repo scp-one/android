@@ -2,6 +2,7 @@ package com.greenknightlabs.scp_001.app.util
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
+import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.enums.DefaultAppLaunchTab
 import com.greenknightlabs.scp_001.app.resources.fonts.FontSizes
 import com.greenknightlabs.scp_001.app.resources.themes.Themes
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 
 @Singleton
 class Preferences @Inject constructor(
-    context: Context
+    private val context: Context
 ) {
     // dependencies
     private val sharedPrefs = context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
@@ -83,7 +84,7 @@ class Preferences @Inject constructor(
         }
     }
 
-    fun readString(prefKey: PrefKey): String {
+    private fun readString(prefKey: PrefKey): String {
         return sharedPrefs.getString(prefKey.rawValue, prefKey.defaultRawValue())!!
     }
 
@@ -95,5 +96,32 @@ class Preferences @Inject constructor(
             else -> "Default"
         }
         return currentDisplayName
+    }
+
+    enum class FontScale {
+        Sub,
+        Body,
+        Headline
+    }
+
+    fun scpFontSizeDim(scale: FontScale): Float {
+        return context.resources.getDimension(when (scpFontSize.value) {
+            FontSizes.Small -> when (scale) {
+                FontScale.Sub -> R.dimen.fontSizeSmallSub
+                FontScale.Body -> R.dimen.fontSizeSmallBody
+                FontScale.Headline -> R.dimen.fontSizeSmallHeadline
+            }
+            FontSizes.Regular -> when (scale) {
+                FontScale.Sub -> R.dimen.fontSizeRegularSub
+                FontScale.Body -> R.dimen.fontSizeRegularBody
+                FontScale.Headline -> R.dimen.fontSizeRegularHeadline
+            }
+            FontSizes.Large -> when (scale) {
+                FontScale.Sub -> R.dimen.fontSizeLargeSub
+                FontScale.Body -> R.dimen.fontSizeLargeBody
+                FontScale.Headline -> R.dimen.fontSizeLargeHeadline
+            }
+            else -> 0
+        })
     }
 }
