@@ -10,7 +10,7 @@
         android:id="@+id/component_media_image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:foreground="@{(vm.selectedMedia.id == media.id) ? @color/halfTransparent : @android:color/transparent}"
         android:background="?attr/themeColorPrimaryDark"
         android:src="@null" />

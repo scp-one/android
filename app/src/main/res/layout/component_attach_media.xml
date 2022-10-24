@@ -27,6 +27,7 @@
             android:id="@+id/component_attach_media_image_view"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:scaleType="centerCrop"
             android:src="@null"
             android:visibility="@{(media != null) ? View.VISIBLE : View.GONE}" />
 

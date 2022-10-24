@@ -1,7 +1,10 @@
 package com.greenknightlabs.scp_001.media.fragments.media_collection_fragment
 
+import android.content.Context
+import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.view_models.PageViewModel
@@ -14,6 +17,8 @@ import com.greenknightlabs.scp_001.media.enums.MediaSortOrder
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.adapters.MediaCollectionFragmentAdapter
 import com.greenknightlabs.scp_001.media.models.Media
 import dagger.hilt.android.lifecycle.HiltViewModel
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
@@ -108,21 +113,35 @@ class MediaCollectionFragmentViewModel @Inject constructor(
         )
     }
 
-    fun uploadImage(file: File) {
+    fun uploadImage(context: Context, file: File) {
         val originalState = state.value
         state.value = PageState.Fetching
 
         viewModelScope.launch {
-            try {
-                val media = mediaService.uploadMedia(file)
+            val compressedFile = Compressor.compress(context, file) {
+                resolution(AppConstants.IMAGE_MAX_WIDTH, AppConstants.IMAGE_MAX_WIDTH)
+                quality(80)
+                format(Bitmap.CompressFormat.JPEG)
+                size(1_048_576) // 1 MB
+            }
 
-                state.value = originalState
-                items.value?.add(0, media)
+            val fileSize = compressedFile.length() / 1024
 
-                adapter?.notifyItemInserted(0)
-            } catch (e: Throwable) {
+            if (fileSize > 1000) {
                 state.value = originalState
-                toastMessage.value = e.message
+                toastMessage.value = "Image is too large."
+            } else {
+                try {
+                    val media = mediaService.uploadMedia(compressedFile)
+
+                    state.value = originalState
+                    items.value?.add(0, media)
+
+                    adapter?.notifyItemInserted(0)
+                } catch (e: Throwable) {
+                    state.value = originalState
+                    toastMessage.value = e.message
+                }
             }
         }
     }

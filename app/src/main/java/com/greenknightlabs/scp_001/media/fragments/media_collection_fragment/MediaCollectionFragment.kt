@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.webkit.MimeTypeMap
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -18,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.getFileExtension
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Kairos
@@ -26,6 +26,7 @@ import com.greenknightlabs.scp_001.databinding.FragmentMediaCollectionBinding
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.adapters.MediaCollectionFragmentAdapter
 import com.greenknightlabs.scp_001.media.models.Media
 import dagger.hilt.android.AndroidEntryPoint
+import id.zelory.compressor.Compressor
 import java.io.*
 import javax.inject.Inject
 
@@ -126,15 +127,15 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
 
-        startForResult.launch(intent)
+        registerForActivityResult.launch(intent)
     }
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    private val registerForActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == RESULT_OK) {
             try {
                 result.data?.data?.let {
-                    val file = fileFromContentUri(requireContext(), it)
-                    vm.uploadImage(file)
+                    val file = createTempFileFromUri(requireContext(), it)
+                    vm.uploadImage(requireContext(), file)
                 }
             } catch (e: Throwable) {
                 vm.toastMessage.value = e.message
@@ -142,9 +143,9 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
         }
     }
 
-    fun fileFromContentUri(context: Context, contentUri: Uri): File {
+    private fun createTempFileFromUri(context: Context, uri: Uri): File {
         // Preparing Temp file name
-        val fileExtension = getFileExtension(context, contentUri)
+        val fileExtension = uri.getFileExtension(context)
         val fileName = "temp_file" + if (fileExtension != null) ".$fileExtension" else ""
 
         // Creating Temp file
@@ -152,24 +153,19 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
         tempFile.createNewFile()
 
         try {
-            val oStream = FileOutputStream(tempFile)
-            val inputStream = context.contentResolver.openInputStream(contentUri)
+            val outputStream = FileOutputStream(tempFile)
+            val inputStream = context.contentResolver.openInputStream(uri)
 
             inputStream?.let {
-                copy(inputStream, oStream)
+                copy(inputStream, outputStream)
             }
 
-            oStream.flush()
+            outputStream.flush()
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
         return tempFile
-    }
-
-    private fun getFileExtension(context: Context, uri: Uri): String? {
-        val fileType: String? = context.contentResolver.getType(uri)
-        return MimeTypeMap.getSingleton().getExtensionFromMimeType(fileType)
     }
 
     @Throws(IOException::class)
