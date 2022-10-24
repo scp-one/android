@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="android.view.View" />
@@ -16,12 +17,12 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="@dimen/spacingRegular">
+        android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/spacingRegular"
             android:textSize="?attr/themeFontSizeBody"
             android:fontFamily="?attr/themeFontFamilyRegular"
             android:textColor="?attr/themeColorFontDim"
@@ -34,14 +35,17 @@
             android:id="@+id/component_preference_value"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/spacingRegular"
+            android:paddingStart="@dimen/spacingRegular"
+            android:paddingEnd="@dimen/spacingRegular"
+            android:gravity="center_vertical"
             android:textSize="?attr/themeFontSizeBody"
             android:fontFamily="?attr/themeFontFamilyRegular"
             android:textColor="?attr/themeColorFontBright"
             android:lines="1"
             android:ellipsize="end"
             android:text="@{preferences.currentDisplayName(prefKey)}"
-            android:onClick="@{_ -> onTapAction.invoke(prefKey, componentPreferenceValue)}" />
+            android:onClick="@{_ -> onTapAction.invoke(prefKey, componentPreferenceValue)}"
+            tools:text="Test" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

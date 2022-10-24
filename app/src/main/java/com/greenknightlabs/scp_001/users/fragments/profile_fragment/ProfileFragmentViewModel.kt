@@ -17,6 +17,9 @@ import com.greenknightlabs.scp_001.app.fragments.tip_jar_fragment.TipJarFragment
 import com.greenknightlabs.scp_001.app.util.shopkeep.Shopkeep
 import com.greenknightlabs.scp_001.auth.AuthService
 import com.greenknightlabs.scp_001.auth.util.AuthMan
+import com.greenknightlabs.scp_001.posts.fragments.local_posts_fragment.LocalPostsFragment
+import com.greenknightlabs.scp_001.posts.fragments.local_posts_fragment.local_posts.getPostClassifications
+import com.greenknightlabs.scp_001.posts.fragments.local_posts_fragment.local_posts.getPostOrientation
 import com.greenknightlabs.scp_001.users.UsersService
 import com.greenknightlabs.scp_001.users.fragments.account_fragment.AccountFragment
 import com.greenknightlabs.scp_001.users.models.User
@@ -161,7 +164,10 @@ class ProfileFragmentViewModel @Inject constructor(
     }
 
     fun handleOnTapAboutTheFoundation() {
-        toastMessage.value = "Not implemented"
+        val localPostsFragment = LocalPostsFragment()
+        localPostsFragment.activityTitle = "About The Foundation"
+        localPostsFragment.posts = listOf(getPostOrientation(), getPostClassifications())
+        navMan.pushFragment(localPostsFragment, false)
     }
 
     fun handleOnTapPrivacyPolicy() {

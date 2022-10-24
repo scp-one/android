@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:id="@+id/fragment_local_posts_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="?actionBarSize"
+        android:clipToPadding="false"
+        android:background="?attr/themeColorPrimary">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/fragment_local_posts_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacingRegular" />
+
+    </ScrollView>
+
+</layout>
