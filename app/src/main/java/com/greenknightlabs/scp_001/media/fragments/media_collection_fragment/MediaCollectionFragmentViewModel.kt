@@ -39,6 +39,10 @@ class MediaCollectionFragmentViewModel @Inject constructor(
     val sortField = MutableLiveData(MediaSortField.CreatedAt)
     val sortOrder = MutableLiveData(MediaSortOrder.Descending)
 
+    val confirmAlertText = MutableLiveData("")
+    val confirmAlertAction: MutableLiveData<() -> Unit> = MutableLiveData()
+    val shouldShowConfirmAlert = MutableLiveData(false)
+
     val selectedMedia = MutableLiveData<Media?>(null)
     var selectedMediaPosition = -1
 
@@ -121,12 +125,12 @@ class MediaCollectionFragmentViewModel @Inject constructor(
                 resolution(AppConstants.IMAGE_MAX_WIDTH, AppConstants.IMAGE_MAX_WIDTH)
                 quality(80)
                 format(Bitmap.CompressFormat.JPEG)
-                size(1_000_000) // 1 MB
+                size(AppConstants.MEDIA_MAX_BYTES.toLong())
             }
 
-            val fileSize = compressedFile.length() / 1024
+            val fileSizeInBytes = compressedFile.length()
 
-            if (fileSize > 1000) {
+            if (fileSizeInBytes > AppConstants.MEDIA_MAX_BYTES) {
                 state.value = originalState
                 toastMessage.value = "Image is too large."
             } else {
@@ -145,7 +149,13 @@ class MediaCollectionFragmentViewModel @Inject constructor(
         }
     }
 
-    fun deleteMedia() {
+    fun handleOnTapDelete() {
+        confirmAlertText.value = "Are you sure you want to delete this?"
+        confirmAlertAction.value = { deleteMedia() }
+        shouldShowConfirmAlert.value = true
+    }
+
+    private fun deleteMedia() {
         val media = selectedMedia.value ?: return
         val position = selectedMediaPosition
 

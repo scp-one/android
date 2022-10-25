@@ -33,6 +33,7 @@
             android:minHeight="0dp"
             android:padding="@dimen/spacingSmall"
             android:background="@drawable/ripple_button"
+            style="?android:attr/borderlessButtonStyle"
             android:fontFamily="?attr/themeFontFamilyMedium"
             android:textSize="?attr/themeFontSizeBody"
             android:textColor="?attr/themeColorFontNormal"

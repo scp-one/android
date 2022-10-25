@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
+import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.getFileExtension
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
@@ -69,7 +70,7 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
     }
 
     private fun handleOnTapMenuDelete() {
-        vm.deleteMedia()
+        vm.handleOnTapDelete()
     }
 
     private fun handleOnTapMenuAdd() {
@@ -104,6 +105,12 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
             if (it != null) {
                 activity?.makeToast(it)
                 vm.toastMessage.value = null
+            }
+        }
+        vm.shouldShowConfirmAlert.observe(viewLifecycleOwner) {
+            if (it == true) {
+                activity?.askConfirmation { vm.confirmAlertAction.value?.invoke() }
+                vm.shouldShowConfirmAlert.value = false
             }
         }
         vm.selectedMedia.observe(viewLifecycleOwner) {

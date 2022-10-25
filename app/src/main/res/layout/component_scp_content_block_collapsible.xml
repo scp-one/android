@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             app:cardElevation="@dimen/defaultCardElevation"
             app:cardCornerRadius="@dimen/defaultCornerRadius"
-            app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+            app:cardBackgroundColor="?attr/themeColorPrimaryLight"
+            android:foreground="@drawable/ripple_button_borderless">
 
             <TextView
                 android:id="@+id/component_scp_content_block_collapsible_text_view"
@@ -43,6 +44,10 @@
             android:layout_marginTop="@dimen/spacingSmall"
             android:padding="@dimen/spacingSmall"
             android:background="@drawable/shape_collapsed_border" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacingRegular" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

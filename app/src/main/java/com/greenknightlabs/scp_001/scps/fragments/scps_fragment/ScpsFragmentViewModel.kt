@@ -200,9 +200,9 @@ class ScpsFragmentViewModel @Inject constructor(
                     if (seriesLowerBounds < ScpsConstants.SCPS_LOWEST_NUMBER) {
                         seriesLowerBounds = ScpsConstants.SCPS_LOWEST_NUMBER
                     }
-                    random = (seriesLowerBounds..seriesUpperBounds).random()
+                    random = kotlin.random.Random.nextInt(seriesLowerBounds, seriesUpperBounds + 1)
                 } else {
-                    random = (ScpsConstants.SCPS_LOWEST_NUMBER..ScpsConstants.SCPS_COUNT).random()
+                    random = kotlin.random.Random.nextInt(ScpsConstants.SCPS_LOWEST_NUMBER, ScpsConstants.SCPS_COUNT + 1)
                 }
 
                 randomNumber.value = random
