@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "673264084430",
+    "project_id": "scp-one",
+    "storage_bucket": "scp-one.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673264084430:android:6e6adaa33712128d54379f",
+        "android_client_info": {
+          "package_name": "com.greenknightlabs.scp_001"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673264084430-i81n29q4eno7ircutkp20gnlaa3fl9ie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3Mw67XGHXcfhrSwSvXZqWvGbILHqnhUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673264084430-i81n29q4eno7ircutkp20gnlaa3fl9ie.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "673264084430-l2kubjj0891elds5sddlm33dkf8brd6n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.greenknightlabs.SCP-001",
+                "app_store_id": "1631783280"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

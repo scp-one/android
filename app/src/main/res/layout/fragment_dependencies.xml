@@ -20,16 +20,71 @@
             android:orientation="vertical"
             android:padding="@dimen/spacingRegular"
             android:clipToPadding="false"
-            android:clipChildren="false" >
+            android:clipChildren="false">
 
             <include layout="@layout/component_dependency"
-                app:title="@{`Test`}"
-                app:url="@{`https://scp-one.web.app`}"
+                app:title="@{`Crashlytics`}"
+                app:url="@{`https://firebase.google.com/terms/crashlytics`}"
                 app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
 
             <include layout="@layout/component_dependency"
-                app:title="@{`Test`}"
-                app:url="@{`https://scp-one.web.app`}"
+                app:title="@{`CircleImageView`}"
+                app:url="@{`https://github.com/hdodenhof/CircleImageView`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Compressor`}"
+                app:url="@{`https://github.com/zetbaitsu/Compressor`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Flaticon: flatart_icons`}"
+                app:url="@{`https://www.flaticon.com/authors/flatart-icons`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Flaticon: Freepik`}"
+                app:url="@{`https://www.flaticon.com/authors/freepik`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Hilt`}"
+                app:url="@{`https://dagger.dev/hilt`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Kotlin Coroutines`}"
+                app:url="@{`https://github.com/Kotlin/kotlinx.coroutines`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Kotlin Serialization`}"
+                app:url="@{`https://github.com/Kotlin/kotlinx.serialization`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Markwon`}"
+                app:url="@{`https://github.com/noties/Markwon`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`purchases-android`}"
+                app:url="@{`https://github.com/RevenueCat/purchases-android`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Retrofit`}"
+                app:url="@{`https://github.com/square/retrofit`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`SCP Wiki`}"
+                app:url="@{`https://scp-wiki.wikidot.com/`}"
+                app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
+
+            <include layout="@layout/component_dependency"
+                app:title="@{`Timber`}"
+                app:url="@{`https://github.com/JakeWharton/timber`}"
                 app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
 
         </LinearLayout>

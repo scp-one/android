@@ -15,6 +15,9 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         // hilt
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+        // firebase
+        classpath 'com.google.gms:google-services:4.3.14'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
     }
 }
 

@@ -21,25 +21,32 @@
             android:textColor="?attr/themeColorFontBright"
             android:text="Attach media"
             android:visibility="@{(media == null) ? View.VISIBLE : View.GONE}"
-            android:onClick="@{_ -> listener.handleOnTapAttachMedia()}"/>
+            android:onClick="@{_ -> listener.handleOnTapAttachMedia()}" />
 
-        <ImageView
-            android:id="@+id/component_attach_media_image_view"
+        <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@null"
-            android:visibility="@{(media != null) ? View.VISIBLE : View.GONE}" />
+            app:cardElevation="@dimen/defaultCardElevation"
+            app:cardCornerRadius="@dimen/defaultCornerRadius"
+            app:cardBackgroundColor="?attr/themeColorPrimaryLight"
+            android:visibility="@{(media != null) ? View.VISIBLE : View.GONE}">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end"
-            app:tint="?attr/themeColorBtnCancel"
-            android:background="?attr/themeColorPrimaryLight"
-            android:src="@drawable/ic_cancel"
-            android:visibility="@{(media != null) ? View.VISIBLE : View.GONE}"
-            android:onClick="@{_ -> listener.handleOnTapRemoveMedia()}" />
+            <ImageView
+                android:id="@+id/component_attach_media_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@null" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                app:tint="?attr/themeColorPrimaryDark"
+                android:src="@drawable/ic_cancel"
+                android:onClick="@{_ -> listener.handleOnTapRemoveMedia()}" />
+
+        </androidx.cardview.widget.CardView>
         
     </FrameLayout>
 

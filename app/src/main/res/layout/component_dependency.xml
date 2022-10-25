@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="kotlin.jvm.functions.Function1" />
@@ -14,28 +15,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/spacingRegular"
         android:onClick="@{_ -> onTapAction.invoke(url)}">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacingSmallest"
             android:textSize="?attr/themeFontSizeBody"
             android:fontFamily="?attr/themeFontFamilyRegular"
             android:textColor="?attr/themeColorFontNormal"
             android:lines="1"
             android:ellipsize="end"
-            android:text="@{title}" />
+            android:text="@{title}"
+            tools:text="SCP Wiki" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacingRegular"
             android:textSize="?attr/themeFontSizeSub"
             android:fontFamily="?attr/themeFontFamilyRegular"
             android:textColor="?attr/themeColorFontBright"
             android:lines="1"
             android:ellipsize="end"
-            android:text="@{url}" />
+            android:text="@{url}"
+            tools:text="https://example.com" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/spacingRegular"
+            android:background="?attr/themeColorPrimaryDark" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

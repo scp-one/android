@@ -31,7 +31,6 @@ import javax.inject.Inject
 class MediaCollectionFragmentViewModel @Inject constructor(
     private val mediaService: MediaService,
     private val authMan: AuthMan,
-    private val navMan: NavMan,
     private val json: Json
 ) : PageViewModel<Media>() {
     // properties
@@ -122,7 +121,7 @@ class MediaCollectionFragmentViewModel @Inject constructor(
                 resolution(AppConstants.IMAGE_MAX_WIDTH, AppConstants.IMAGE_MAX_WIDTH)
                 quality(80)
                 format(Bitmap.CompressFormat.JPEG)
-                size(1_048_576) // 1 MB
+                size(1_000_000) // 1 MB
             }
 
             val fileSize = compressedFile.length() / 1024
