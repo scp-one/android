@@ -13,6 +13,9 @@
         <item name="themeColorBtnCancel">@color/voidThemeColorBtnCancel</item>
         <item name="themeColorBtnNavBarActive">@color/voidThemeColorBtnNavBarActive</item>
         <item name="themeColorBtnNavBarInactive">@color/voidThemeColorBtnNavBarInactive</item>
+        <item name="themeColorBtnSaved">@color/voidThemeColorBtnSaved</item>
+        <item name="themeColorBtnLiked">@color/voidThemeColorBtnLiked</item>
+        <item name="themeColorBtnRead">@color/voidThemeColorBtnRead</item>
         <!-- colors - fonts -->
         <item name="themeColorFontBright">@color/voidThemeColorFontBright</item>
         <item name="themeColorFontNormal">@color/voidThemeColorFontNormal</item>

@@ -13,6 +13,9 @@
     <attr name="themeColorBtnCancel" format="reference" />
     <attr name="themeColorBtnNavBarActive" format="reference" />
     <attr name="themeColorBtnNavBarInactive" format="reference" />
+    <attr name="themeColorBtnSaved" format="reference" />
+    <attr name="themeColorBtnLiked" format="reference" />
+    <attr name="themeColorBtnRead" format="reference" />
 
     <!-- fonts -->
     <attr name="themeColorFontBright" format="reference" />

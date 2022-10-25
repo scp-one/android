@@ -13,6 +13,9 @@
         <item name="themeColorBtnCancel">@color/retrolightThemeColorBtnCancel</item>
         <item name="themeColorBtnNavBarActive">@color/retrolightThemeColorBtnNavBarActive</item>
         <item name="themeColorBtnNavBarInactive">@color/retrolightThemeColorBtnNavBarInactive</item>
+        <item name="themeColorBtnSaved">@color/retrolightThemeColorBtnSaved</item>
+        <item name="themeColorBtnLiked">@color/retrolightThemeColorBtnLiked</item>
+        <item name="themeColorBtnRead">@color/retrolightThemeColorBtnRead</item>
         <!-- colors - fonts -->
         <item name="themeColorFontBright">@color/retrolightThemeColorFontBright</item>
         <item name="themeColorFontNormal">@color/retrolightThemeColorFontNormal</item>

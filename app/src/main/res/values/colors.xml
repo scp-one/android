@@ -15,6 +15,9 @@
     <color name="slateThemeColorBtnCancel">#E24F48</color>
     <color name="slateThemeColorBtnNavBarActive">#688CCA</color>
     <color name="slateThemeColorBtnNavBarInactive">#A6A7B1</color>
+    <color name="slateThemeColorBtnSaved">#48B363</color>
+    <color name="slateThemeColorBtnLiked">#E24F48</color>
+    <color name="slateThemeColorBtnRead">#D5B723</color>
 
     <!-- fonts -->
     <color name="slateThemeColorFontBright">#5C9DDD</color>
@@ -41,6 +44,9 @@
     <color name="darkThemeColorBtnCancel">#e24f48</color>
     <color name="darkThemeColorBtnNavBarActive">#688CCA</color>
     <color name="darkThemeColorBtnNavBarInactive">#66686E</color>
+    <color name="darkThemeColorBtnSaved">#48B363</color>
+    <color name="darkThemeColorBtnLiked">#E24F48</color>
+    <color name="darkThemeColorBtnRead">#DFC028</color>
 
     <!-- fonts -->
     <color name="darkThemeColorFontBright">#2c94ff</color>
@@ -67,6 +73,9 @@
     <color name="lightThemeColorBtnCancel">#DA103F</color>
     <color name="lightThemeColorBtnNavBarActive">#3597fb</color>
     <color name="lightThemeColorBtnNavBarInactive">#1A1C23</color>
+    <color name="lightThemeColorBtnSaved">#48B363</color>
+    <color name="lightThemeColorBtnLiked">#E24F48</color>
+    <color name="lightThemeColorBtnRead">#FFD817</color>
 
     <!-- fonts -->
     <color name="lightThemeColorFontBright">#3597fb</color>
@@ -93,6 +102,9 @@
     <color name="midnightThemeColorBtnCancel">#E24F48</color>
     <color name="midnightThemeColorBtnNavBarActive">#688CCA</color>
     <color name="midnightThemeColorBtnNavBarInactive">#9A9EBB</color>
+    <color name="midnightThemeColorBtnSaved">#48B363</color>
+    <color name="midnightThemeColorBtnLiked">#E24F48</color>
+    <color name="midnightThemeColorBtnRead">#CCB128</color>
 
     <!-- fonts -->
     <color name="midnightThemeColorFontBright">#5C9DDD</color>
@@ -119,6 +131,9 @@
     <color name="retrolightThemeColorBtnCancel">#B95A64</color>
     <color name="retrolightThemeColorBtnNavBarActive">#B95A64</color>
     <color name="retrolightThemeColorBtnNavBarInactive">#1A1C23</color>
+    <color name="retrolightThemeColorBtnSaved">#85937a</color>
+    <color name="retrolightThemeColorBtnLiked">#E24F48</color>
+    <color name="retrolightThemeColorBtnRead">#ffbb6c</color>
 
     <!-- fonts -->
     <color name="retrolightThemeColorFontBright">#B95A64</color>
@@ -145,6 +160,9 @@
     <color name="voidThemeColorBtnCancel">#E24F48</color>
     <color name="voidThemeColorBtnNavBarActive">#688CCA</color>
     <color name="voidThemeColorBtnNavBarInactive">#C6C5B7</color>
+    <color name="voidThemeColorBtnSaved">#48B363</color>
+    <color name="voidThemeColorBtnLiked">#E24F48</color>
+    <color name="voidThemeColorBtnRead">#CCB128</color>
 
     <!-- fonts -->
     <color name="voidThemeColorFontBright">#2C94FF</color>

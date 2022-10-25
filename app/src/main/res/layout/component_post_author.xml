@@ -56,14 +56,21 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <ImageView
-            android:id="@+id/component_post_author_image_view_more"
-            android:layout_width="?attr/themeFontSizeHeadline"
-            android:layout_height="?attr/themeFontSizeHeadline"
-            android:layout_gravity="end"
-            app:tint="?attr/themeColorBtnNormal"
-            android:src="@drawable/ic_more_vert"
-            android:onClick="@{() -> listener.handleOnTapPostAuthorMore(post, componentPostAuthorImageViewMore)}" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/spacingRegular"
+            android:onClick="@{() -> listener.handleOnTapPostAuthorMore(post, componentPostAuthorImageViewMore)}">
+
+            <ImageView
+                android:id="@+id/component_post_author_image_view_more"
+                android:layout_width="?attr/themeFontSizeHeadline"
+                android:layout_height="?attr/themeFontSizeHeadline"
+                android:layout_gravity="end"
+                app:tint="?attr/themeColorBtnNormal"
+                android:src="@drawable/ic_more_vert" />
+
+        </FrameLayout>
     
     </androidx.appcompat.widget.LinearLayoutCompat>
 

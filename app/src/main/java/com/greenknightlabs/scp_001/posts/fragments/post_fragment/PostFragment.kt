@@ -27,7 +27,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post) {
 
     // functions
     override fun activityTitle(): String {
-        return post?.title ?: "Post"
+        return vm.post.value?.title ?: "Post"
     }
 
     override fun configureView(view: View, savedInstanceState: Bundle?) {
