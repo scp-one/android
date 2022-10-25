@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
@@ -13,7 +15,6 @@ import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.*
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -21,8 +22,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
-    @Inject lateinit var  kairos: Kairos
-
+    // properties
     private val vm: ProfileFragmentViewModel by viewModels()
 
     // functions
@@ -90,8 +90,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             }
         }
         vm.user.observe(viewLifecycleOwner) {
-            if (it != null) {
-                kairos.load(it.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.layoutHeaderFragmentProfile.layoutHeaderFragmentProfileAvatar)
+            binding.layoutHeaderFragmentProfile.layoutHeaderFragmentProfileAvatar.load(it?.avatarUrl) {
+                size(240)
+                transformations(CircleCropTransformation())
+                crossfade(true)
+                error(R.drawable.default_avatar)
             }
         }
     }

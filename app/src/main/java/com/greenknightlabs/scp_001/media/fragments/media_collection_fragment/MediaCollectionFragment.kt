@@ -21,7 +21,6 @@ import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.getFileExtension
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.databinding.FragmentMediaCollectionBinding
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.adapters.MediaCollectionFragmentAdapter
@@ -40,7 +39,6 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
 
     // dependencies
     @Inject lateinit var navMan: NavMan
-    @Inject lateinit var kairos: Kairos
 
     // properties
     private val vm: MediaCollectionFragmentViewModel by viewModels()
@@ -90,7 +88,7 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
             vm.listener = listener
         }
         if (vm.adapter == null) {
-            vm.adapter = MediaCollectionFragmentAdapter(vm, kairos)
+            vm.adapter = MediaCollectionFragmentAdapter(vm)
         }
 
         val layoutManager = GridLayoutManager(activity, 3, RecyclerView.VERTICAL, false)

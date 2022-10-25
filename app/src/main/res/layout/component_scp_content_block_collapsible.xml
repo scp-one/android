@@ -24,7 +24,7 @@
             app:cardBackgroundColor="?attr/themeColorPrimaryLight"
             android:foreground="@drawable/ripple_button_borderless">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/component_scp_content_block_collapsible_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -23,7 +23,7 @@
             android:layout_margin="@dimen/spacingRegular"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacingLarge"
@@ -50,7 +50,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="@dimen/sizeAvatarRegular"
                         android:layout_height="@dimen/sizeAvatarRegular"
                         android:src="@drawable/default_avatar" />
@@ -103,7 +103,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular"
@@ -129,7 +129,7 @@
                             android:tint="@{colorFontDim}"
                             android:src="@drawable/ic_scp_length" />
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/spacingRegular"
@@ -183,7 +183,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingRegular"
@@ -209,7 +209,7 @@
                             android:tint="@{colorFontDim}"
                             android:src="@drawable/ic_scp_length" />
 
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/spacingRegular"

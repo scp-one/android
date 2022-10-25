@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.greenknightlabs.scp_001.R
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.ComponentMediaBinding
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragmentViewModel
 import com.greenknightlabs.scp_001.media.models.Media
@@ -16,14 +16,13 @@ import com.greenknightlabs.scp_001.media.models.Media
 
 class MediaCollectionFragmentAdapter(
     private val vm: MediaCollectionFragmentViewModel,
-    private val kairos: Kairos,
 ) : RecyclerView.Adapter<MediaCollectionFragmentAdapter.MediaComponentViewHolder>() {
     // view holder
     class MediaComponentViewHolder(
         private val binding: ComponentMediaBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         // functions
-        fun bind(position: Int, adapter: MediaCollectionFragmentAdapter, kairos: Kairos) {
+        fun bind(position: Int, adapter: MediaCollectionFragmentAdapter) {
             val media = adapter.vm.items.value!![position]
 
             binding.vm = adapter.vm
@@ -31,8 +30,11 @@ class MediaCollectionFragmentAdapter(
             binding.componentMediaImageView.setOnClickListener {
                 adapter.vm.handleOnTapMedia(position)
             }
-
-            kairos.load(media.url).scale(240, 240).default(R.drawable.ic_face).into(binding.componentMediaImageView)
+            binding.componentMediaImageView.load(media.url) {
+                size(240)
+                crossfade(true)
+                error(R.drawable.ic_cancel)
+            }
         }
     }
 
@@ -51,7 +53,7 @@ class MediaCollectionFragmentAdapter(
     }
 
     override fun onBindViewHolder(holder: MediaComponentViewHolder, position: Int) {
-        holder.bind(position, this, kairos)
+        holder.bind(position, this)
     }
 
     fun handleSelectedMediaChanged(position: Int) {

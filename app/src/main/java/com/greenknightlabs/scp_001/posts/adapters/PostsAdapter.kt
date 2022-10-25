@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.ComponentPostBinding
 import com.greenknightlabs.scp_001.posts.PostsViewModel
 import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.PostsFragmentViewModel
@@ -12,7 +11,6 @@ import com.greenknightlabs.scp_001.posts.view_holders.PostComponentViewHolder
 
 class PostsAdapter(
     private val vm: PostsViewModel,
-    private val kairos: Kairos,
 ) : RecyclerView.Adapter<PostComponentViewHolder>() {
     // properties
     private lateinit var binding: ComponentPostBinding
@@ -29,6 +27,6 @@ class PostsAdapter(
     }
 
     override fun onBindViewHolder(holder: PostComponentViewHolder, position: Int) {
-        holder.bind(position, vm, vm, screenWidth, kairos)
+        holder.bind(position, vm, vm, screenWidth)
     }
 }

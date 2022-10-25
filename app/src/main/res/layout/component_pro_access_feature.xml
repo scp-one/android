@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         tools:showIn="@layout/fragment_pro_access">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -29,7 +29,7 @@
             android:layout_marginStart="@dimen/spacingRegular"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="?attr/themeFontFamilyBold"
@@ -37,7 +37,7 @@
                 android:textColor="?attr/themeColorFontNormal"
                 android:text="@{feature}" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="?attr/themeFontFamilyRegular"

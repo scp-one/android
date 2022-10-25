@@ -19,7 +19,6 @@ import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.hideKeyboard
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.databinding.FragmentScpsBinding
 import com.greenknightlabs.scp_001.scps.adapters.ScpsAdapter
@@ -30,7 +29,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
     // dependencies
-    @Inject lateinit var kairos: Kairos
     @Inject lateinit var preferences: Preferences
 
     // properties
@@ -79,7 +77,7 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
         binding.vm = vm
 
         if (vm.adapter == null) {
-            val itemsAdapter = ScpsAdapter(vm, kairos, preferences)
+            val itemsAdapter = ScpsAdapter(vm, preferences)
             val pageAdapter = PageAdapter(vm)
             vm.itemsAdapter = itemsAdapter
             vm.pageAdapter = pageAdapter

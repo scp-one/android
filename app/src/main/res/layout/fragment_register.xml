@@ -13,14 +13,14 @@
         android:fillViewport="true"
         android:background="?attr/themeColorPrimary">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/spacingRegular"
             android:clipToPadding="false" >
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/spacingFormHeaderImage"
@@ -30,7 +30,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="todo" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacingRegular"
@@ -47,7 +47,7 @@
                 app:cardCornerRadius="@dimen/defaultCornerRadius"
                 app:cardBackgroundColor="?attr/themeColorPrimaryLight">
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacingRegular"
@@ -76,7 +76,7 @@
                         android:layout_marginTop="@dimen/spacingRegular"
                         app:password="@={vm.passw}" />
 
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.cardview.widget.CardView>
 
@@ -116,7 +116,7 @@
                 android:background="@drawable/ripple_button"
                 android:onClick="@{() -> vm.didTapButtonRegister()}" />
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
 </layout>

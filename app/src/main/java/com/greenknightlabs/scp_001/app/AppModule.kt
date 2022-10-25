@@ -10,6 +10,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import retrofit2.Retrofit
 
 @Module
@@ -34,7 +35,7 @@ object AppModule {
 
     @Provides
     fun provideRetrofit(json: Json): Retrofit {
-        val contentType = MediaType.parse("application/json")!!
+        val contentType = "application/json".toMediaTypeOrNull()!!
         return Retrofit.Builder()
             .baseUrl(AppConstants.API_URL)
             .addConverterFactory(json.asConverterFactory(contentType))

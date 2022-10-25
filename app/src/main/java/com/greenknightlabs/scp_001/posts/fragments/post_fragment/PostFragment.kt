@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.viewModels
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentPostBinding
 import com.greenknightlabs.scp_001.posts.models.Post
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,9 +19,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post) {
-    // dendencies
-    @Inject lateinit var kairos: Kairos
-
     // properties
     private val vm: PostFragmentViewModel by viewModels()
     var post: Post? = null
@@ -39,12 +37,22 @@ class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post) {
         }
 
         vm.post.value?.user?.user?.avatarUrl?.let {
-            kairos.load(it).scale(140, 140).default(R.drawable.default_avatar).into(binding.fragmentPostComponentPostAuthor.componentPostAuthorImageView)
+            binding.fragmentPostComponentPostAuthor.componentPostAuthorImageView.load(it) {
+                size(140)
+                transformations(CircleCropTransformation())
+                crossfade(true)
+                error(R.drawable.default_avatar)
+            }
         }
         vm.post.value?.media?.let { media ->
             val screenWidth = activity?.screenWidth() ?: 0
             binding.fragmentPostImageView.layoutParams.height = media.calculateHeight(screenWidth, false)
-            kairos.load(media.url).scale(360, 360).default(R.drawable.ic_face).into(binding.fragmentPostImageView)
+
+            binding.fragmentPostImageView.load(media.url) {
+                size(360)
+                crossfade(true)
+                error(R.drawable.ic_cancel)
+            }
         }
 
         vm.toastMessage.observe(viewLifecycleOwner) {

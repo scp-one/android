@@ -18,7 +18,6 @@ import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.auth.util.AuthMan
 import com.greenknightlabs.scp_001.databinding.FragmentUserProfileBinding
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentItemsAdapter
@@ -31,7 +30,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fragment_user_profile) {
     // dependencies
-    @Inject lateinit var kairos: Kairos
     @Inject lateinit var authMan: AuthMan
 
     // properties
@@ -72,8 +70,8 @@ class UserProfileFragment : BaseFragment<FragmentUserProfileBinding>(R.layout.fr
         binding.vm = vm
 
         if (vm.adapter == null) {
-            val userProfileFragmentHeaderAdapter = UserProfileFragmentHeaderAdapter(vm, kairos)
-            val userProfileFragmentItemsAdapter = UserProfileFragmentItemsAdapter(vm, kairos)
+            val userProfileFragmentHeaderAdapter = UserProfileFragmentHeaderAdapter(vm)
+            val userProfileFragmentItemsAdapter = UserProfileFragmentItemsAdapter(vm)
             val pageAdapter = PageAdapter(vm)
             vm.headerAdapter = userProfileFragmentHeaderAdapter
             vm.itemsAdapter = userProfileFragmentItemsAdapter

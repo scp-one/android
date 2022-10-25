@@ -18,14 +18,14 @@
         android:paddingBottom="?actionBarSize"
         android:background="?attr/themeColorPrimary">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/spacingRegular"
             android:clipToPadding="false" >
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/spacingFormHeaderImage"
@@ -43,13 +43,13 @@
                 app:cardCornerRadius="@dimen/defaultCornerRadius"
                 app:cardBackgroundColor="?attr/themeColorPrimaryLight">
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/spacingRegular"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -58,7 +58,7 @@
                         android:textColor="?attr/themeColorFontNormal"
                         android:text="Tip Jar" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
@@ -80,11 +80,11 @@
                         app:tipJarOption="@{TipJarOptions.Option3}"
                         app:onTapAction="@{vm::handleOnTapBuy}" />
 
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
 

@@ -7,7 +7,7 @@
         <variable name="preferences" type="com.greenknightlabs.scp_001.app.util.Preferences" />
     </data>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/component_table_column_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -3,8 +3,8 @@ package com.greenknightlabs.scp_001.scps.view_holders
 import android.view.View
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.greenknightlabs.scp_001.R
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.databinding.ComponentScpBinding
 import com.greenknightlabs.scp_001.scps.enums.ScpLoadImages
@@ -23,7 +23,7 @@ class ScpComponentViewHolder(
     }
 
     // functions
-    fun bind(position: Int, vm: ScpsViewModel, screenWidth: Int, kairos: Kairos, preferences: Preferences) {
+    fun bind(position: Int, vm: ScpsViewModel, screenWidth: Int, preferences: Preferences) {
         val scp = vm.items.value!![position]
 
         binding.scp = scp
@@ -36,10 +36,12 @@ class ScpComponentViewHolder(
 
             scp.media?.let { scpMedia ->
                 binding.componentScpImageView.layoutParams.height = scpMedia.calculateHeight(screenWidth)
-                kairos.load(scpMedia.url)
-                    .scale(360, 360)
-                    .default(R.drawable.ic_face)
-                    .into(binding.componentScpImageView)
+
+                binding.componentScpImageView.load(scpMedia.url) {
+                    size(360)
+                    crossfade(true)
+                    error(R.drawable.ic_cancel)
+                }
             }
         }
     }

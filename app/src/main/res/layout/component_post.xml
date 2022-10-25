@@ -35,7 +35,8 @@
                 app:post="@{post}"
                 app:listener="@{listener}" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/component_post_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacingRegular"
@@ -44,24 +45,22 @@
                 android:textSize="?attr/themeFontSizeBody"
                 android:fontFamily="?attr/themeFontFamilyBold"
                 android:textColor="?attr/themeColorFontNormal"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:text="@{post.title}"/>
+                android:ellipsize="end" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/component_post_content_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacingRegular"
                 android:layout_marginStart="@dimen/spacingRegular"
                 android:layout_marginEnd="@dimen/spacingRegular"
+                android:maxHeight="100dp"
                 android:textSize="?attr/themeFontSizeBody"
                 android:fontFamily="?attr/themeFontFamilyRegular"
                 android:textColor="?attr/themeColorFontNormal"
-                android:maxLines="8"
-                android:ellipsize="end"
-                android:text="@{post.content}"/>
+                android:ellipsize="end" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/component_post_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

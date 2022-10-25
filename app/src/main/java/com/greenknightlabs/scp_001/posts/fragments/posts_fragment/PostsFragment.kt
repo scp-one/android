@@ -16,7 +16,6 @@ import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.app.util.shopkeep.Shopkeep
 import com.greenknightlabs.scp_001.databinding.FragmentPostsBinding
 import com.greenknightlabs.scp_001.posts.adapters.PostsAdapter
@@ -28,7 +27,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PostsFragment : BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts) {
     // dependencies
-    @Inject lateinit var kairos: Kairos
     @Inject lateinit var shopkeep: Shopkeep
 
     // properties
@@ -60,8 +58,8 @@ class PostsFragment : BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts
 
         if (vm.adapter == null) {
             val headerAdapter = UserCollectionComponentAdapter(vm, shopkeep)
-            val headerSubAdapter = UserCollectionComponentUserAdapter(vm, kairos)
-            val itemsAdapter = PostsAdapter(vm, kairos)
+            val headerSubAdapter = UserCollectionComponentUserAdapter(vm)
+            val itemsAdapter = PostsAdapter(vm)
             val pageAdapter = PageAdapter(vm)
             vm.headerAdapter = headerAdapter
             vm.headerSubAdapter = headerSubAdapter

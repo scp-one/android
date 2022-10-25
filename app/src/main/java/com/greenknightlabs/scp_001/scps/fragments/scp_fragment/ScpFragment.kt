@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import coil.load
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.extensions.screenWidth
@@ -13,7 +14,6 @@ import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.pushWebView
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.BoomBox
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.*
 import com.greenknightlabs.scp_001.scps.models.Scp
 import com.greenknightlabs.scp_001.scps.models.ScpContentBlock
@@ -29,7 +29,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
     // dependencies
-    @Inject lateinit var kairos: Kairos
     @Inject lateinit var boombox: BoomBox
 
     // properties
@@ -71,7 +70,11 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
         vm.scp.value?.media?.let { media ->
             val screenWidth = activity?.screenWidth() ?: 0
             binding.fragmentScpImageView.layoutParams.height = media.calculateHeight(screenWidth, false)
-            kairos.load(media.url).scale(360, 360).default(R.drawable.ic_face).into(binding.fragmentScpImageView)
+            binding.fragmentScpImageView.load(media.url) {
+                size(360)
+                crossfade(true)
+                error(R.drawable.ic_cancel)
+            }
         }
         vm.scp.value?.contentBlocks?.let { contentBlocks ->
             val markwon = Markwon.builder(requireContext())

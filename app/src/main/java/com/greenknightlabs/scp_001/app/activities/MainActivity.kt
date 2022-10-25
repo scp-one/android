@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     // dependencies
     @Inject lateinit var authMan: AuthMan
     @Inject lateinit var navMan: NavMan
-    @Inject lateinit var kairos: Kairos
     @Inject lateinit var stash: Stash
     @Inject lateinit var preferences: Preferences
 
@@ -154,28 +153,28 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     // component callbacks
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        when (level) {
-            TRIM_MEMORY_UI_HIDDEN -> {}
-            // while app is running
-            TRIM_MEMORY_RUNNING_MODERATE -> {
-                kairos.trimMemory(MemTrimLevel.LOW)
-            }
-            TRIM_MEMORY_RUNNING_LOW -> {
-                kairos.trimMemory(MemTrimLevel.MEDIUM)
-            }
-            TRIM_MEMORY_RUNNING_CRITICAL -> {
-                kairos.trimMemory(MemTrimLevel.HIGH)
-            }
-            // while app is in background
-            TRIM_MEMORY_BACKGROUND -> {
-                kairos.trimMemory(MemTrimLevel.FULLY)
-            }
-            TRIM_MEMORY_MODERATE -> {
-                kairos.trimMemory(MemTrimLevel.FULLY)
-            }
-            TRIM_MEMORY_COMPLETE -> {
-                kairos.trimMemory(MemTrimLevel.FULLY)
-            }
-        }
+//        when (level) {
+//            TRIM_MEMORY_UI_HIDDEN -> {}
+//            // while app is running
+//            TRIM_MEMORY_RUNNING_MODERATE -> {
+//                kairos.trimMemory(MemTrimLevel.LOW)
+//            }
+//            TRIM_MEMORY_RUNNING_LOW -> {
+//                kairos.trimMemory(MemTrimLevel.MEDIUM)
+//            }
+//            TRIM_MEMORY_RUNNING_CRITICAL -> {
+//                kairos.trimMemory(MemTrimLevel.HIGH)
+//            }
+//            // while app is in background
+//            TRIM_MEMORY_BACKGROUND -> {
+//                kairos.trimMemory(MemTrimLevel.FULLY)
+//            }
+//            TRIM_MEMORY_MODERATE -> {
+//                kairos.trimMemory(MemTrimLevel.FULLY)
+//            }
+//            TRIM_MEMORY_COMPLETE -> {
+//                kairos.trimMemory(MemTrimLevel.FULLY)
+//            }
+//        }
     }
 }

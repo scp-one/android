@@ -6,13 +6,13 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
+import coil.load
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentAccountBinding
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragmentViewModel
 import com.greenknightlabs.scp_001.users.models.User
@@ -21,8 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {
-    @Inject lateinit var kairos: Kairos
-
+    // properties
     private val vm: AccountFragmentViewModel by viewModels()
     var user: MutableLiveData<User?>? = null
 
@@ -70,14 +69,20 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
         }
         vm.avatarUrl.observe(viewLifecycleOwner) {
             it?.let {
-                kairos.load(it).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
+                binding.fragmentAccountAvatarImageView.load(it) {
+                    size(340)
+                    crossfade(true)
+                    error(R.drawable.default_avatar)
+                }
             }
         }
         vm.user?.observe(viewLifecycleOwner) {
             if (it != null) {
                 vm.nickname.value = it.nickname
-                if (vm.avatarUrl.value == null) {
-                    kairos.load(it.avatarUrl).scale(240, 240).default(R.drawable.default_avatar).into(binding.fragmentAccountAvatarImageView)
+                binding.fragmentAccountAvatarImageView.load(it.avatarUrl) {
+                    size(240)
+                    crossfade(true)
+                    error(R.drawable.default_avatar)
                 }
             }
         }

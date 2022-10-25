@@ -33,11 +33,10 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/layout_header_fragment_profile_avatar"
                     android:layout_width="@dimen/sizeAvatarRegular"
                     android:layout_height="@dimen/sizeAvatarRegular"
-                    android:src="?attr/themeColorPrimaryDark"
                     tools:src="@drawable/default_avatar" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -72,7 +71,7 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeBody"
                     android:layout_height="?attr/themeFontSizeBody"
                     android:src="@drawable/ic_account" />
@@ -87,7 +86,7 @@
                 android:paddingEnd="@dimen/spacingRegular"
                 android:paddingBottom="@dimen/spacingRegular">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -98,13 +97,13 @@
                     android:text='@{"Account Status: " + (vm.user != null ? vm.user.accessLevel.displayName() : "Loading")}'
                     tools:text="Account Status: Testing"/>
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeBody"
                     android:layout_height="?attr/themeFontSizeBody"
                     android:visibility="@{vm.hasEntitlementSupporter() ? View.VISIBLE : View.GONE}"
                     android:src="@drawable/badge_supporter" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeBody"
                     android:layout_height="?attr/themeFontSizeBody"
                     android:layout_marginStart="@dimen/spacingRegular"
@@ -120,7 +119,7 @@
                 android:padding="@dimen/spacingRegular"
                 android:background="?attr/themeColorPrimaryDark">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -129,7 +128,7 @@
                     android:textColor="?attr/themeColorFontDim"
                     android:text='@{"SECURITY CARD V" + vm.appVersionNumber}' />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="?attr/themeFontSizeSub"

@@ -15,7 +15,6 @@ import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.FragmentPostActionsBinding
 import com.greenknightlabs.scp_001.posts.adapters.PostsAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,9 +22,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PostActionsFragment : BaseFragment<FragmentPostActionsBinding>(R.layout.fragment_post_actions) {
-    // dependencies
-    @Inject lateinit var kairos: Kairos
-
     // properties
     private val vm: PostActionsFragmentViewModel by viewModels()
 
@@ -53,7 +49,7 @@ class PostActionsFragment : BaseFragment<FragmentPostActionsBinding>(R.layout.fr
         binding.vm = vm
 
         if (vm.adapter == null) {
-            val itemsAdapter = PostsAdapter(vm, kairos)
+            val itemsAdapter = PostsAdapter(vm)
             val pageAdapter = PageAdapter(vm)
             vm.itemsAdapter = itemsAdapter
             vm.pageAdapter = pageAdapter

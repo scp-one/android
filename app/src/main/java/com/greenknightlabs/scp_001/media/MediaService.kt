@@ -9,8 +9,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.jsonObject
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
@@ -24,7 +26,9 @@ class MediaService @Inject constructor(
     @Throws
     suspend fun uploadMedia(file: File) = withContext(Dispatchers.IO) {
         try {
-            val multiPartBody = MultipartBody.Part.createFormData("mediaFile", file.name, RequestBody.create(MediaType.parse("image/*"), file))
+            val multiPartBody = MultipartBody.Part.createFormData("mediaFile", file.name,
+                file.asRequestBody("image/*".toMediaTypeOrNull())
+            )
 
             val accessToken = authService.getAccessTokenAsBearer()
             val media = mediaServiceApi.uploadMedia(accessToken, multiPartBody)

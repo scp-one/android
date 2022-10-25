@@ -6,7 +6,8 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/component_form_input_flair_image_view"
             android:layout_width="@dimen/sizeAvatarSmall"
             android:layout_height="@dimen/sizeAvatarSmall"
             android:src="@drawable/default_avatar" />

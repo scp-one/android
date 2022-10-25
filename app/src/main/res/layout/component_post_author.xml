@@ -17,7 +17,7 @@
         android:layout_marginStart="@dimen/spacingRegular"
         android:layout_marginEnd="8dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/component_post_author_image_view"
             android:layout_width="@dimen/sizeAvatarSmallPlus"
             android:layout_height="@dimen/sizeAvatarSmallPlus"
@@ -62,7 +62,7 @@
             android:paddingStart="@dimen/spacingRegular"
             android:onClick="@{() -> listener.handleOnTapPostAuthorMore(post, componentPostAuthorImageViewMore)}">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/component_post_author_image_view_more"
                 android:layout_width="?attr/themeFontSizeHeadline"
                 android:layout_height="?attr/themeFontSizeHeadline"

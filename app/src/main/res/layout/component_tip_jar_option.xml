@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/spacingLarge"
         android:orientation="horizontal">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -26,7 +26,7 @@
             android:textColor="?attr/themeColorFontNormal"
             android:text="@{tipJarOption.displayName()}" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="55dp"

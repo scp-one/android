@@ -14,7 +14,7 @@
         android:paddingBottom="?actionBarSize"
         android:background="?attr/themeColorPrimary">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -28,8 +28,8 @@
                 app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
 
             <include layout="@layout/component_dependency"
-                app:title="@{`CircleImageView`}"
-                app:url="@{`https://github.com/hdodenhof/CircleImageView`}"
+                app:title="@{`Coil`}"
+                app:url="@{`https://github.com/coil-kt/coil`}"
                 app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
 
             <include layout="@layout/component_dependency"
@@ -87,7 +87,7 @@
                 app:url="@{`https://github.com/JakeWharton/timber`}"
                 app:onTapAction="@{vm::handleOnTapDependencyComponent}" />
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
 

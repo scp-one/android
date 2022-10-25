@@ -15,15 +15,14 @@
         android:gravity="center_horizontal"
         android:onClick="@{_ -> listener.handleOnTapUser(user)}">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/component_user_collection_user_image_view"
             android:layout_width="@dimen/sizeAvatarRegular"
             android:layout_height="@dimen/sizeAvatarRegular"
             android:layout_marginBottom="@dimen/spacingSmallest"
-            android:src="?attr/themeColorPrimaryDark"
             tools:src="@drawable/default_avatar" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="@dimen/sizeAvatarLarge"
             android:layout_height="wrap_content"
             android:fontFamily="?attr/themeFontFamilyRegular"

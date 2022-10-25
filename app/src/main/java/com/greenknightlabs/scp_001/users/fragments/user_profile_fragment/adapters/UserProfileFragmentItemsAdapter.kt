@@ -3,14 +3,12 @@ package com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapte
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.ComponentPostBinding
 import com.greenknightlabs.scp_001.posts.view_holders.PostComponentViewHolder
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragmentViewModel
 
 class UserProfileFragmentItemsAdapter(
     private val vm: UserProfileFragmentViewModel,
-    private val kairos: Kairos,
 ) : RecyclerView.Adapter<PostComponentViewHolder>() {
     // properties
     private lateinit var binding: ComponentPostBinding
@@ -27,6 +25,6 @@ class UserProfileFragmentItemsAdapter(
     }
 
     override fun onBindViewHolder(holder: PostComponentViewHolder, position: Int) {
-        holder.bind(position, vm, vm, screenWidth, kairos)
+        holder.bind(position, vm, vm, screenWidth)
     }
 }

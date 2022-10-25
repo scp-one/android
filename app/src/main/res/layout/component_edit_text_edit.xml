@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -12,7 +12,7 @@
         <include layout="@layout/component_icon_edit_text"
             app:iconId="@{@drawable/ic_edit}" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/layout_edit_text_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,6 +28,6 @@
             android:textCursorDrawable="@null"
             android:background="@null" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>

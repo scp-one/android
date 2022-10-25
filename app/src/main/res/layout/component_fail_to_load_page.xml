@@ -7,7 +7,7 @@
         <variable name="vm" type="com.greenknightlabs.scp_001.app.view_models.PageViewModel" />
     </data>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/component_fail_to_load_page_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

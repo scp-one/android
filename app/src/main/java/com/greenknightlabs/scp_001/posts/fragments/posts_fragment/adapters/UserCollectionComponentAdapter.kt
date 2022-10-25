@@ -3,7 +3,6 @@ package com.greenknightlabs.scp_001.posts.fragments.posts_fragment.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.app.util.shopkeep.Shopkeep
 import com.greenknightlabs.scp_001.databinding.ComponentUserCollectionBinding
 import com.greenknightlabs.scp_001.posts.PostsViewModel

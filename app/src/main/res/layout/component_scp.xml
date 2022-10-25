@@ -27,7 +27,7 @@
             android:focusable="true"
             android:onClick="@{_ -> listener.handleOnTapScp(scp)}">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacingRegular"
@@ -40,7 +40,7 @@
                 android:ellipsize="end"
                 android:text="@{scp.name}"/>
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/component_scp_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -54,13 +54,13 @@
                 android:padding="@dimen/spacingRegular"
                 android:gravity="center_vertical">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeBody"
                     android:layout_height="?attr/themeFontSizeBody"
                     app:tint="?attr/themeColorFontDim"
                     android:src="@drawable/ic_scp_length" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacingRegular"
@@ -75,20 +75,20 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeHeadline"
                     android:layout_height="?attr/themeFontSizeHeadline"
                     android:src="@{scp.read ? @drawable/ic_read_filled_color : @drawable/ic_read_unfilled}"
                     android:onClick="@{_ -> listener.handleOnTapRead(scp)}" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeHeadline"
                     android:layout_height="?attr/themeFontSizeHeadline"
                     android:layout_marginStart="@dimen/spacingRegular"
                     android:src="@{scp.liked ? @drawable/ic_heart_filled_color : @drawable/ic_heart_unfilled}"
                     android:onClick="@{_ -> listener.handleOnTapLike(scp)}" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeHeadline"
                     android:layout_height="?attr/themeFontSizeHeadline"
                     android:layout_marginStart="@dimen/spacingRegular"

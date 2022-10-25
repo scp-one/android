@@ -3,7 +3,6 @@ package com.greenknightlabs.scp_001.scps.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.databinding.ComponentScpBinding
 import com.greenknightlabs.scp_001.scps.view_holders.ScpComponentViewHolder
@@ -11,7 +10,6 @@ import com.greenknightlabs.scp_001.scps.view_models.ScpsViewModel
 
 class ScpsAdapter(
     private val vm: ScpsViewModel,
-    private val kairos: Kairos,
     private val preferences: Preferences
 ) : RecyclerView.Adapter<ScpComponentViewHolder>() {
     // properties
@@ -29,6 +27,6 @@ class ScpsAdapter(
     }
 
     override fun onBindViewHolder(holder: ScpComponentViewHolder, position: Int) {
-        holder.bind(position, vm, screenWidth, kairos, preferences)
+        holder.bind(position, vm, screenWidth, preferences)
     }
 }

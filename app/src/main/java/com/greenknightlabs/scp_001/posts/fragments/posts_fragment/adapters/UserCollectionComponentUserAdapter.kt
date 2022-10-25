@@ -3,14 +3,12 @@ package com.greenknightlabs.scp_001.posts.fragments.posts_fragment.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.greenknightlabs.scp_001.app.util.Kairos
 import com.greenknightlabs.scp_001.databinding.ComponentUserCollectionUserBinding
 import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.PostsFragmentViewModel
 import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.view_holders.UserCollectionComponentUserViewHolder
 
 class UserCollectionComponentUserAdapter(
     private val vm: PostsFragmentViewModel,
-    private val kairos: Kairos,
 ) : RecyclerView.Adapter<UserCollectionComponentUserViewHolder>() {
     // properties
     private lateinit var binding: ComponentUserCollectionUserBinding
@@ -26,6 +24,6 @@ class UserCollectionComponentUserAdapter(
     }
 
     override fun onBindViewHolder(holder: UserCollectionComponentUserViewHolder, position: Int) {
-        holder.bind(position, vm, kairos)
+        holder.bind(position, vm)
     }
 }
