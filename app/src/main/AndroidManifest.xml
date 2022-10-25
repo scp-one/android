@@ -12,6 +12,7 @@
         android:theme="@style/Theme.Slate.FontRegular"
         android:allowBackup="true"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:hardwareAccelerated="true">
 
         <activity

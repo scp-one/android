@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import coil.load
 import com.greenknightlabs.scp_001.R
+import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.config.AppConstants
 import com.greenknightlabs.scp_001.app.extensions.screenWidth
 import com.greenknightlabs.scp_001.app.extensions.getView
@@ -21,8 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonConfiguration
-import io.noties.markwon.image.ImagesPlugin
-import io.noties.markwon.image.network.NetworkSchemeHandler
+import io.noties.markwon.image.coil.CoilImagesPlugin
 import javax.inject.Inject
 
 
@@ -93,12 +93,15 @@ class ScpFragment : BaseFragment<FragmentScpBinding>(R.layout.fragment_scp) {
                         super.configureConfiguration(builder)
                     }
                 })
-                .usePlugin(ImagesPlugin.create {
-                    it.addSchemeHandler(NetworkSchemeHandler.create())
-                })
+                .usePlugin(CoilImagesPlugin.create(requireContext()))
                 .build()
 
-            renderContentBlocks(markwon, binding.fragmentScpLinearLayoutContentBlocks, contentBlocks)
+            val activity = activity as? MainActivity
+            if (activity != null && activity.getAvailableMemory().lowMemory) {
+                vm.toastMessage.value = "Running low on memory"
+            } else {
+                renderContentBlocks(markwon, binding.fragmentScpLinearLayoutContentBlocks, contentBlocks)
+            }
         }
     }
 

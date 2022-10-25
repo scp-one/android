@@ -21,7 +21,7 @@ android {
         applicationId 'com.greenknightlabs.scp_001'
         minSdkVersion 25
         targetSdkVersion 33
-        versionCode 15
+        versionCode 16
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -87,7 +87,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
     // markdown
     implementation "io.noties.markwon:core:4.6.2"
-    implementation "io.noties.markwon:image:4.6.2"
+    implementation "io.noties.markwon:image-coil:4.6.2"
     implementation "io.noties.markwon:linkify:4.6.2"
     // revenuecat
     implementation 'com.revenuecat.purchases:purchases:5.4.0'

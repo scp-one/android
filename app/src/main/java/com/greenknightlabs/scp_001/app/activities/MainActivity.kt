@@ -1,10 +1,13 @@
 package com.greenknightlabs.scp_001.app.activities
 
+import android.app.ActivityManager
 import android.content.ComponentCallbacks2
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import coil.Coil
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.enums.DefaultAppLaunchTab
 import com.greenknightlabs.scp_001.app.enums.MemTrimLevel
@@ -26,6 +29,7 @@ import com.greenknightlabs.scp_001.scps.fragments.scps_fragment.ScpsFragment
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragment
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -150,31 +154,16 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
         }
     }
 
+    fun getAvailableMemory(): ActivityManager.MemoryInfo {
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        return ActivityManager.MemoryInfo().also { memoryInfo ->
+            activityManager.getMemoryInfo(memoryInfo)
+        }
+    }
+
     // component callbacks
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-//        when (level) {
-//            TRIM_MEMORY_UI_HIDDEN -> {}
-//            // while app is running
-//            TRIM_MEMORY_RUNNING_MODERATE -> {
-//                kairos.trimMemory(MemTrimLevel.LOW)
-//            }
-//            TRIM_MEMORY_RUNNING_LOW -> {
-//                kairos.trimMemory(MemTrimLevel.MEDIUM)
-//            }
-//            TRIM_MEMORY_RUNNING_CRITICAL -> {
-//                kairos.trimMemory(MemTrimLevel.HIGH)
-//            }
-//            // while app is in background
-//            TRIM_MEMORY_BACKGROUND -> {
-//                kairos.trimMemory(MemTrimLevel.FULLY)
-//            }
-//            TRIM_MEMORY_MODERATE -> {
-//                kairos.trimMemory(MemTrimLevel.FULLY)
-//            }
-//            TRIM_MEMORY_COMPLETE -> {
-//                kairos.trimMemory(MemTrimLevel.FULLY)
-//            }
-//        }
+        Coil.imageLoader(this).memoryCache?.trimMemory(level)
     }
 }

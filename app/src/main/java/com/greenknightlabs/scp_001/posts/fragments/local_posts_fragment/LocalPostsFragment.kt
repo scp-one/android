@@ -18,8 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonConfiguration
-import io.noties.markwon.image.ImagesPlugin
-import io.noties.markwon.image.network.NetworkSchemeHandler
 
 @AndroidEntryPoint
 class LocalPostsFragment : BaseFragment<FragmentLocalPostsBinding>(R.layout.fragment_local_posts) {
@@ -73,9 +71,6 @@ class LocalPostsFragment : BaseFragment<FragmentLocalPostsBinding>(R.layout.frag
 
                     super.configureConfiguration(builder)
                 }
-            })
-            .usePlugin(ImagesPlugin.create {
-                it.addSchemeHandler(NetworkSchemeHandler.create())
             })
             .build()
 

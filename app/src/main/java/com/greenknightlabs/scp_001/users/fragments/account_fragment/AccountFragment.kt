@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
@@ -17,6 +18,7 @@ import com.greenknightlabs.scp_001.databinding.FragmentAccountBinding
 import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragmentViewModel
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -68,21 +70,18 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
             }
         }
         vm.avatarUrl.observe(viewLifecycleOwner) {
-            it?.let {
-                binding.fragmentAccountAvatarImageView.load(it) {
-                    size(340)
-                    crossfade(true)
-                    error(R.drawable.default_avatar)
-                }
+            binding.fragmentAccountAvatarImageView.load(it) {
+                size(240)
+                transformations(CircleCropTransformation())
+                crossfade(true)
+                error(R.drawable.default_avatar)
             }
         }
         vm.user?.observe(viewLifecycleOwner) {
             if (it != null) {
                 vm.nickname.value = it.nickname
-                binding.fragmentAccountAvatarImageView.load(it.avatarUrl) {
-                    size(240)
-                    crossfade(true)
-                    error(R.drawable.default_avatar)
+                if (vm.avatarUrl.value == null) {
+                    vm.avatarUrl.value = it.avatarUrl
                 }
             }
         }

@@ -157,8 +157,6 @@ class BoomBox @Inject constructor(
                 progress.value = (mediaPlayer.currentPosition.toFloat() / mediaPlayer.duration.toFloat() * 100).roundToInt()
                 progressBar?.get()?.progress = progress.value!!
 
-                Timber.d("progress: ${progress.value.toString()}")
-
                 if ((progress.value ?: 0) >= 100) {
                     onAudioEnded()
                 } else {
