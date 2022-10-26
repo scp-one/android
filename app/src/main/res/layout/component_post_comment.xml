@@ -24,6 +24,7 @@
                 android:id="@+id/component_post_comment_nickname_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:lines="1"
                 android:fontFamily="?attr/themeFontFamilyBold"
                 android:textSize="?attr/themeFontSizeBody"
                 android:textColor="?attr/themeColorFontNormal"
@@ -35,10 +36,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/spacingSmallest"
+                android:lines="1"
                 android:fontFamily="?attr/themeFontFamilyRegular"
                 android:textSize="?attr/themeFontSizeBody"
                 android:textColor="?attr/themeColorFontDim"
-                android:text="@{comment.username}"
+                android:text="@{`@` + comment.username}"
                 tools:text="Tester" />
 
             <Space

@@ -323,6 +323,8 @@ class PostFragmentViewModel @Inject constructor(
                 if (signal.comment.post.id == post.value?.id) {
                     items.value?.add(0, signal.comment)
                     itemsAdapter?.notifyItemInserted(0)
+                    hasNoComments.value = false
+                    tappedLoadComments.value = true
                     pageAdapter?.notifyDataSetChanged()
                 }
             }

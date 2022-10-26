@@ -6,7 +6,7 @@ class AppConstants {
 //        const val API_URL = "http://192.168.86.152:3000/"
 
         const val WIKI_URL = "https://scp-wiki.wikidot.com/"
-        const val APP_STORE_URL = "https://play.google.com/store/apps/details?id=com.greenknightlabs.scp_001" // TODO: change to play store
+        const val APP_STORE_URL = "https://play.google.com/store/apps/details?id=com.greenknightlabs.scp_001"
 
         const val REVENUE_CAT_API_KEY = "goog_AlRIrkrRBSoFfigEElJyqelTdoS"
 
