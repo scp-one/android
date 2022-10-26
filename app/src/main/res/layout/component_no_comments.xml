@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <import type="android.view.View" />
-
-        <variable name="vm" type="com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragmentViewModel" />
-    </data>
-
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/component_no_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:fontFamily="?attr/themeFontFamilyRegular"
         android:textSize="?attr/themeFontSizeBody"
         android:textColor="?attr/themeColorFontDim"
-        android:text="No comments"
-        android:visibility="@{vm.hasNoComments ? View.VISIBLE : View.GONE}" />
+        android:text="No comments" />
 
 </layout>

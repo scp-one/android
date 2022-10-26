@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="vm" type="com.greenknightlabs.scp_001.comments.fragments.create_post_comment_fragment.CreatePostCommentFragmentViewModel" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/fragment_create_post_comment_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="?attr/themeColorPrimary">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacingRegular"
+            android:clipToPadding="false"
+            app:cardElevation="@dimen/defaultCardElevation"
+            app:cardCornerRadius="@dimen/defaultCornerRadius"
+            app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/spacingRegular"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacingSmall"
+                    android:inputType="textMultiLine"
+                    android:fontFamily="?attr/themeFontFamilyRegular"
+                    android:textSize="?attr/themeFontSizeBody"
+                    android:textColor="?attr/themeColorFontNormal"
+                    android:hint=""
+                    android:text="@={vm.content}" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="?attr/themeFontFamilyMedium"
+                        android:textSize="?attr/themeFontSizeSub"
+                        android:textColor="?attr/themeColorFontDim"
+                        android:text="@{vm.charactersLeft}" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
+    </ScrollView>
+
+</layout>

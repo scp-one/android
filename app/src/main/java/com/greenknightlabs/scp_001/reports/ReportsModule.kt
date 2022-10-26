@@ -1,5 +1,6 @@
 package com.greenknightlabs.scp_001.reports
 
+import com.greenknightlabs.scp_001.comments.PostCommentsServiceApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,5 +13,10 @@ class ReportsModule {
     @Provides
     fun providePostReportsServiceApi(retrofit: Retrofit): PostReportsServiceApi {
         return retrofit.create(PostReportsServiceApi::class.java)
+    }
+
+    @Provides
+    fun providePostCommentReportsServiceApi(retrofit: Retrofit): PostCommentReportsServiceApi {
+        return retrofit.create(PostCommentReportsServiceApi::class.java)
     }
 }

@@ -346,8 +346,10 @@ class UserProfileFragmentViewModel @Inject constructor(
                 }
             }
             is PostSignaler.PostSignal.PostDidDelete -> {
-                items.value?.reversed()?.forEachIndexed { index, post ->
-                    if (post.id == signal.post.id) {
+                val list = items.value ?: return
+
+                for (index in list.size - 1 downTo 0) {
+                    if (list[index].id == signal.post.id) {
                         items.value?.removeAt(index)
                         itemsAdapter?.notifyItemRemoved(index)
                     }

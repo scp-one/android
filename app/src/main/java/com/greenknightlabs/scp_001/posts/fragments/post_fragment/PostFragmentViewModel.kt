@@ -18,6 +18,8 @@ import com.greenknightlabs.scp_001.comments.config.CommentsConstants
 import com.greenknightlabs.scp_001.comments.dtos.GetPostCommentsFilterDto
 import com.greenknightlabs.scp_001.comments.enums.PostCommentSortField
 import com.greenknightlabs.scp_001.comments.enums.PostCommentSortOrder
+import com.greenknightlabs.scp_001.comments.fragments.create_post_comment_fragment.CreatePostCommentFragment
+import com.greenknightlabs.scp_001.comments.fragments.edit_post_comment_fragment.EditPostCommentFragment
 import com.greenknightlabs.scp_001.comments.models.PostComment
 import com.greenknightlabs.scp_001.comments.util.PostCommentsSignaler
 import com.greenknightlabs.scp_001.posts.fragments.post_fragment.view_holders.PostCommentComponentViewHolder
@@ -30,6 +32,7 @@ import com.greenknightlabs.scp_001.posts.fragments.post_fragment.view_holders.Lo
 import com.greenknightlabs.scp_001.posts.fragments.post_fragment.view_holders.PostDetailsComponentViewHolder
 import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.posts.util.PostSignaler
+import com.greenknightlabs.scp_001.reports.PostCommentReportsService
 import com.greenknightlabs.scp_001.reports.PostReportsService
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.UserProfileFragment
 import com.greenknightlabs.scp_001.users.models.User
@@ -49,6 +52,7 @@ class PostFragmentViewModel @Inject constructor(
     private val postCommentsService: PostCommentsService,
     private val postActionsService: PostActionsService,
     private val postReportsService: PostReportsService,
+    private val postCommentReportsService: PostCommentReportsService,
     private val authMan: AuthMan,
     private val navMan: NavMan,
     private val postSignaler: PostSignaler,
@@ -201,7 +205,9 @@ class PostFragmentViewModel @Inject constructor(
             didChangePostActions(PostActionsType.LIKED, post)
         })
         options.add(Pair("Report Post") {
-            reportPost(post)
+            confirmAlertText.value = "Are you sure you want to report this post?"
+            confirmAlertAction.value = { reportPost(post) }
+            shouldShowConfirmAlert.value = true
         })
 
         if (authMan.payload?.id == post.user.id) {
@@ -300,6 +306,7 @@ class PostFragmentViewModel @Inject constructor(
             is PostSignaler.PostSignal.PostDidChange -> {
                 if (post.value?.id == signal.post.id) {
                     post.value = signal.post
+                    headerAdapter?.notifyItemChanged(0)
                 }
             }
             is PostSignaler.PostSignal.PostDidDelete -> {
@@ -316,19 +323,22 @@ class PostFragmentViewModel @Inject constructor(
                 if (signal.comment.post.id == post.value?.id) {
                     items.value?.add(0, signal.comment)
                     itemsAdapter?.notifyItemInserted(0)
+                    pageAdapter?.notifyDataSetChanged()
                 }
             }
             is PostCommentsSignaler.PostCommentSignal.PostCommentDidChange -> {
-                items.value?.forEachIndexed { index, post ->
-                    if (post.id == signal.comment.id) {
+                items.value?.forEachIndexed { index, comment ->
+                    if (comment.id == signal.comment.id) {
                         items.value?.set(index, signal.comment)
                         itemsAdapter?.notifyItemChanged(index)
                     }
                 }
             }
             is PostCommentsSignaler.PostCommentSignal.PostCommentDidDelete -> {
-                items.value?.reversed()?.forEachIndexed { index, post ->
-                    if (post.id == signal.comment.id) {
+                val list = items.value ?: return
+
+                for (index in list.size - 1 downTo 0) {
+                    if (list[index].id == signal.comment.id) {
                         items.value?.removeAt(index)
                         itemsAdapter?.notifyItemRemoved(index)
                     }
@@ -343,11 +353,70 @@ class PostFragmentViewModel @Inject constructor(
     }
 
     override fun handleOnTapAddComment() {
-        toastMessage.value = "Not implemented"
+        if (wasDeleted.value == true) {
+            toastMessage.value = "This post has been deleted"
+            return
+        }
+
+        val createPostCommentFragment = CreatePostCommentFragment()
+        createPostCommentFragment.post = post.value
+        navMan.pushFragment(createPostCommentFragment, true)
     }
 
-    override fun handleOnTapMore(comment: PostComment) {
-        toastMessage.value = "Not implemented"
+    override fun handleOnTapMore(comment: PostComment, view: View) {
+        val options = mutableListOf<Pair<String, () -> Unit>>()
+
+        if (authMan.payload?.id == comment.user.id) {
+            options.add(Pair("Edit Comment") {
+                val editPostCommentFragment = EditPostCommentFragment()
+                editPostCommentFragment.comment = comment
+                navMan.pushFragment(editPostCommentFragment, true)
+            })
+            options.add(Pair("Delete Comment") {
+                confirmAlertText.value = "Are you sure you want to delete this comment?"
+                confirmAlertAction.value = {
+                    if (state.value != PageState.Fetching) {
+                        val originalState = state.value
+                        state.value = PageState.Fetching
+
+                        viewModelScope.launch {
+                            try {
+                                postCommentsService.deletePostComment(comment.id)
+
+                                state.value = originalState
+
+                                postCommentsSignaler.send(PostCommentsSignaler.PostCommentSignal.PostCommentDidDelete(comment))
+                            } catch (e: Throwable) {
+                                state.value = originalState
+                                toastMessage.value = e.message
+                            }
+                        }
+                    }
+                }
+                shouldShowConfirmAlert.value = true
+            })
+            options.add(Pair("") {})
+        }
+
+        options.add(Pair("Report Comment") {
+            confirmAlertText.value = "Are you sure you want to report this comment?"
+            confirmAlertAction.value = { reportComment(comment) }
+            shouldShowConfirmAlert.value = true
+        })
+
+        view.makePopupMenu(options.map { it.first }) {
+            options[it].second.invoke()
+        }
+    }
+
+    private fun reportComment(comment: PostComment) {
+        viewModelScope.launch {
+            try {
+                postCommentReportsService.createPostCommentReport(comment.id)
+            } catch (e: Throwable) {
+                toastMessage.value = e.message
+            }
+        }
     }
 
     override fun handleOnTapLoadComments() {

@@ -2,14 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="android.view.View" />
-
-        <variable name="vm" type="com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragmentViewModel" />
         <variable name="listener" type="com.greenknightlabs.scp_001.posts.fragments.post_fragment.view_holders.LoadCommentsComponentViewHolder.Listener" />
     </data>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/component_no_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -17,7 +13,6 @@
         android:textSize="?attr/themeFontSizeBody"
         android:textColor="?attr/themeColorFontBright"
         android:text="Load comments"
-        android:onClick="@{_ -> listener.handleOnTapLoadComments()}"
-        android:visibility="@{!vm.tappedLoadComments ? View.VISIBLE : View.GONE}"/>
+        android:onClick="@{_ -> listener.handleOnTapLoadComments()}" />
 
 </layout>
