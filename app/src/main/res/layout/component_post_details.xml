@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable name="post" type="com.greenknightlabs.scp_001.posts.models.Post" />
+        <variable name="listener" type="com.greenknightlabs.scp_001.posts.fragments.post_fragment.view_holders.PostDetailsComponentViewHolder.Listener" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacingRegular"
+            app:cardElevation="@dimen/defaultCardElevation"
+            app:cardCornerRadius="@dimen/defaultCornerRadius"
+            app:cardBackgroundColor="?attr/themeColorPrimaryLight"
+            android:onClick="@{_ -> listener.handleOnTapPostSource(post.sourceUrl)}"
+            android:visibility="@{post.sourceUrl != null ? View.VISIBLE : View.GONE}">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/spacingRegular"
+                android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textSize="?attr/themeFontSizeBody"
+                android:textColor="?attr/themeColorFontDim"
+                android:lines="1"
+                android:text="@{post.sourceUrl}"
+                tools:text="https://example.com" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacingRegular"
+            app:cardElevation="@dimen/defaultCardElevation"
+            app:cardCornerRadius="@dimen/defaultCornerRadius"
+            app:cardBackgroundColor="?attr/themeColorPrimaryLight">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/component_post_author"
+                    android:id="@+id/component_post_details_component_post_author"
+                    app:post="@{post}"
+                    app:listener="@{listener}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacingRegular"
+                    android:paddingStart="@dimen/spacingRegular"
+                    android:paddingEnd="@dimen/spacingRegular"
+                    android:textSize="?attr/themeFontSizeBody"
+                    android:fontFamily="?attr/themeFontFamilyBold"
+                    android:textColor="?attr/themeColorFontNormal"
+                    android:text="@{post.title}" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/component_post_details_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:paddingTop="@dimen/spacingRegular"
+                    android:scaleType="centerCrop"
+                    android:cropToPadding="true"
+                    android:visibility="@{(post.media != null) ? View.VISIBLE : View.GONE}"
+                    android:src="?attr/themeColorPrimaryDark" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacingRegular"
+                    android:textSize="?attr/themeFontSizeBody"
+                    android:fontFamily="?attr/themeFontFamilyRegular"
+                    android:textColor="?attr/themeColorFontNormal"
+                    android:text="@{post.content}" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/spacingRegular"
+            android:background="?attr/themeColorPrimaryLight" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/spacingLarge">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="?attr/themeFontFamilyBold"
+                android:textSize="?attr/themeFontSizeBody"
+                android:textColor="?attr/themeColorFontDim"
+                android:text="Comments" />
+            
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp" 
+                android:layout_weight="1" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/spacingRegular"
+                android:onClick="@{_ -> listener.handleOnTapAddComment()}">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="?attr/themeFontSizeHeadline"
+                    android:layout_height="?attr/themeFontSizeHeadline"
+                    android:layout_gravity="center_vertical"
+                    app:tint="?attr/themeColorFontBright"
+                    android:src="@drawable/ic_add" />
+
+            </FrameLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

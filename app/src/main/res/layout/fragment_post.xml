@@ -2,81 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <import type="android.view.View" />
-
-        <variable name="vm" type="com.greenknightlabs.scp_001.posts.fragments.post_fragment.PostFragmentViewModel" />
-    </data>
-
-    <ScrollView
-        android:id="@+id/fragment_post_scroll_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_post_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:paddingBottom="?actionBarSize"
-        android:background="?attr/themeColorPrimary">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/spacingRegular"
-            android:clipToPadding="false"
-            android:clipChildren="false">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="@dimen/defaultCardElevation"
-                app:cardCornerRadius="@dimen/defaultCornerRadius"
-                app:cardBackgroundColor="?attr/themeColorPrimaryLight">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <include layout="@layout/component_post_author"
-                        android:id="@+id/fragment_post_component_post_author"
-                        app:post="@{vm.post}"
-                        app:listener="@{vm}" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/spacingRegular"
-                        android:paddingStart="@dimen/spacingRegular"
-                        android:paddingEnd="@dimen/spacingRegular"
-                        android:textSize="?attr/themeFontSizeBody"
-                        android:fontFamily="?attr/themeFontFamilyBold"
-                        android:textColor="?attr/themeColorFontNormal"
-                        android:text="@{vm.post.title}" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/fragment_post_image_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:paddingTop="@dimen/spacingRegular"
-                        android:scaleType="centerCrop"
-                        android:cropToPadding="true"
-                        android:visibility="@{(vm.post.media != null) ? View.VISIBLE : View.GONE}"
-                        android:src="?attr/themeColorPrimaryDark" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/spacingRegular"
-                        android:textSize="?attr/themeFontSizeBody"
-                        android:fontFamily="?attr/themeFontFamilyRegular"
-                        android:textColor="?attr/themeColorFontNormal"
-                        android:text="@{vm.post.content}" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-            </androidx.cardview.widget.CardView>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </ScrollView>
+        android:paddingTop="@dimen/spacingRegular"
+        android:paddingStart="@dimen/spacingRegular"
+        android:paddingEnd="@dimen/spacingRegular"
+        android:paddingBottom="250dp"
+        android:clipToPadding="false"
+        android:background="?attr/themeColorPrimary" />
 
 </layout>

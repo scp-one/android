@@ -69,11 +69,11 @@ class PostsFragmentViewModel @Inject constructor(
 
     val users = MutableLiveData<MutableList<User>>(mutableListOf())
 
-    val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
-    val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
-    val postStatus = MutableLiveData(PostStatus.APPROVED)
+    private val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
+    private val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
+    private val postStatus = MutableLiveData(PostStatus.APPROVED)
 
-    val canRefresh = MutableLiveData(true)
+    private val canRefresh = MutableLiveData(true)
     val isRefreshing = MutableLiveData(false)
 
     val confirmAlertText = MutableLiveData("")
