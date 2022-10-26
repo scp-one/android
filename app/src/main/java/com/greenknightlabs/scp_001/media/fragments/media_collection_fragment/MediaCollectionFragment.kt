@@ -95,6 +95,14 @@ class MediaCollectionFragment : BaseFragment<FragmentMediaCollectionBinding>(R.l
 
         binding.fragmentMediaCollectionRecyclerView.adapter = vm.adapter!!
         binding.fragmentMediaCollectionRecyclerView.layoutManager = layoutManager
+        binding.fragmentMediaCollectionRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (vm.state.value != PageState.Idle) return
+                if (layoutManager.findLastVisibleItemPosition() != (vm.items.value?.size ?: 0) - 1) return
+                vm.paginate(false)
+            }
+        })
 
         vm.state.observe(viewLifecycleOwner) {
             (activity as? MainActivity)?.showProgressBar(it == PageState.Fetching)

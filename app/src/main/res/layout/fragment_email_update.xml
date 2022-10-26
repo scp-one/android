@@ -53,7 +53,8 @@
                     android:layout_margin="@dimen/spacingRegular"
                     android:orientation="vertical">
 
-                    <include layout="@layout/component_form_input_flair" />
+                    <include layout="@layout/component_form_input_flair"
+                        app:appVersion="@{vm.appVersionNumber}" />
 
                     <include android:id="@+id/fragment_email_update_edit_text_email"
                         layout="@layout/component_edit_text_email"

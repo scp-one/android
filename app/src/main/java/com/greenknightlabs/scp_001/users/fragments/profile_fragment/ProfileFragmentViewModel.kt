@@ -191,8 +191,4 @@ class ProfileFragmentViewModel @Inject constructor(
     fun hasEntitlementProAccess(): Boolean {
         return shopkeep.hasProAccess()
     }
-
-    fun getAppVersionNumber(): String {
-        return BuildConfig.VERSION_NAME
-    }
 }

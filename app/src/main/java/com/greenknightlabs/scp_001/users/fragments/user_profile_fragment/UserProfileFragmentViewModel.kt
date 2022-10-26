@@ -357,8 +357,4 @@ class UserProfileFragmentViewModel @Inject constructor(
             }
         }
     }
-
-    fun getAppVersionNumber(): String {
-        return BuildConfig.VERSION_NAME
-    }
 }
