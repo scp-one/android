@@ -98,12 +98,15 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     }
 
     private fun configureNavMan() {
-        val defaultTab: NavMan.NavTabs = when (preferences.defaultLaunchTab.value) {
-            DefaultAppLaunchTab.ARCHIVES -> NavMan.NavTabs.TAB1
-            DefaultAppLaunchTab.POSTS -> NavMan.NavTabs.TAB2
-            DefaultAppLaunchTab.BOOKMARKS -> NavMan.NavTabs.TAB3
-            DefaultAppLaunchTab.PROFILE -> NavMan.NavTabs.TAB4
-            else -> NavMan.NavTabs.TAB1
+        val defaultTab: NavMan.NavTabs = when (!authMan.isLoggedIn) {
+            true -> NavMan.NavTabs.TAB1
+            else -> when (preferences.defaultLaunchTab.value) {
+                DefaultAppLaunchTab.ARCHIVES -> NavMan.NavTabs.TAB1
+                DefaultAppLaunchTab.POSTS -> NavMan.NavTabs.TAB2
+                DefaultAppLaunchTab.BOOKMARKS -> NavMan.NavTabs.TAB3
+                DefaultAppLaunchTab.PROFILE -> NavMan.NavTabs.TAB4
+                else -> NavMan.NavTabs.TAB1
+            }
         }
 
         navMan.configure(this, binding.navBar, R.id.main_container, !authMan.isLoggedIn, defaultTab)
