@@ -18,7 +18,7 @@
     <string name="fragment_login_button_forgot_password_text">Lost access card?</string>
     <string name="fragment_login_text_view_register_hint">Don\'t have an access card?</string>
     <string name="fragment_login_button_register_text">Register</string>
-    <string name="fragment_login_button_login_text">Swipe</string>
+    <string name="fragment_login_button_login_text">Login</string>
 
     <string name="fragment_register_text_view_register_hint">AUTHORIZED PERSONNEL</string>
     <string name="fragment_register_text_view_login_hint">Already have an access card?</string>

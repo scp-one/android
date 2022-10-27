@@ -4,6 +4,7 @@
     <dimen name="spacingSmallest">2dp</dimen>
     <dimen name="spacingSmall">6dp</dimen>
     <dimen name="spacingSmallPlus">10dp</dimen>
+    <dimen name="spacingHalfRegular">7dp</dimen>
     <dimen name="spacingRegular">14dp</dimen>
     <dimen name="spacingRegularPlus">22dp</dimen>
     <dimen name="spacingLarge">22dp</dimen>

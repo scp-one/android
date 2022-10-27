@@ -73,7 +73,7 @@
                         android:fontFamily="?attr/themeFontFamilyRegular"
                         android:textSize="?attr/themeFontSizeBody"
                         android:textColor="?attr/themeColorFontDim"
-                        android:text="Posting Guidelines"
+                        android:text="Guidelines"
                         android:onClick="@{_ -> vm.handleOnTapPostingGuidelines()}" />
 
                     <Space

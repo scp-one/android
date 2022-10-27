@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="@dimen/spacingRegular"
+                android:layout_marginStart="@dimen/spacingRegular"
                 android:gravity="center_vertical">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -75,25 +75,53 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="?attr/themeFontSizeHeadline"
-                    android:layout_height="?attr/themeFontSizeHeadline"
-                    android:src="@{scp.read ? @drawable/ic_read_filled_color : @drawable/ic_read_unfilled_dim}"
-                    android:onClick="@{_ -> listener.handleOnTapRead(scp)}" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacingRegular"
+                    android:paddingBottom="@dimen/spacingRegular"
+                    android:paddingStart="@dimen/spacingRegular"
+                    android:paddingEnd="@dimen/spacingHalfRegular"
+                    android:onClick="@{_ -> listener.handleOnTapRead(scp)}">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="?attr/themeFontSizeHeadline"
-                    android:layout_height="?attr/themeFontSizeHeadline"
-                    android:layout_marginStart="@dimen/spacingRegular"
-                    android:src="@{scp.liked ? @drawable/ic_heart_filled_color : @drawable/ic_heart_unfilled_dim}"
-                    android:onClick="@{_ -> listener.handleOnTapLike(scp)}" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="?attr/themeFontSizeHeadline"
+                        android:layout_height="?attr/themeFontSizeHeadline"
+                        android:src="@{scp.read ? @drawable/ic_read_filled_color : @drawable/ic_read_unfilled_dim}" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="?attr/themeFontSizeHeadline"
-                    android:layout_height="?attr/themeFontSizeHeadline"
-                    android:layout_marginStart="@dimen/spacingRegular"
-                    android:src="@{scp.saved ? @drawable/ic_bookmark_filled_color : @drawable/ic_bookmark_unfilled_dim}"
-                    android:onClick="@{_ -> listener.handleOnTapSave(scp)}" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacingRegular"
+                    android:paddingBottom="@dimen/spacingRegular"
+                    android:paddingStart="@dimen/spacingHalfRegular"
+                    android:paddingEnd="@dimen/spacingHalfRegular"
+                    android:onClick="@{_ -> listener.handleOnTapLike(scp)}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="?attr/themeFontSizeHeadline"
+                        android:layout_height="?attr/themeFontSizeHeadline"
+                        android:src="@{scp.liked ? @drawable/ic_heart_filled_color : @drawable/ic_heart_unfilled_dim}" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/spacingRegular"
+                    android:paddingBottom="@dimen/spacingRegular"
+                    android:paddingStart="@dimen/spacingHalfRegular"
+                    android:paddingEnd="@dimen/spacingRegular"
+                    android:onClick="@{_ -> listener.handleOnTapSave(scp)}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="?attr/themeFontSizeHeadline"
+                        android:layout_height="?attr/themeFontSizeHeadline"
+                        android:src="@{scp.saved ? @drawable/ic_bookmark_filled_color : @drawable/ic_bookmark_unfilled_dim}" />
+
+                </FrameLayout>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

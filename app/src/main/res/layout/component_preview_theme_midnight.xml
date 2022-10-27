@@ -11,7 +11,10 @@
             app:colorPrimary="@{@color/midnightThemeColorPrimary}"
             app:colorPrimaryLight="@{@color/midnightThemeColorPrimaryLight}"
             app:colorFontNormal="@{@color/midnightThemeColorFontNormal}"
-            app:colorFontDim="@{@color/midnightThemeColorFontDim}" />
+            app:colorFontDim="@{@color/midnightThemeColorFontDim}"
+            app:colorBtnRead="@{@color/midnightThemeColorBtnRead}"
+            app:colorBtnLiked="@{@color/midnightThemeColorBtnLiked}"
+            app:colorBtnSaved="@{@color/midnightThemeColorBtnSaved}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

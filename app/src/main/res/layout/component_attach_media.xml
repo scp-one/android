@@ -13,15 +13,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="?attr/themeFontSizeBody"
-            android:fontFamily="?attr/themeFontFamilyRegular"
-            android:textColor="?attr/themeColorFontBright"
-            android:text="Attach media"
-            android:visibility="@{(media == null) ? View.VISIBLE : View.GONE}"
-            android:onClick="@{_ -> listener.handleOnTapAttachMedia()}" />
+            android:orientation="horizontal"
+            android:onClick="@{_ -> listener.handleOnTapAttachMedia()}"
+            android:visibility="@{(media == null) ? View.VISIBLE : View.GONE}">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:tint="?attr/themeColorFontBright"
+                android:src="@drawable/ic_attach_file" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacingSmallest"
+                android:layout_gravity="center_vertical"
+                android:textSize="?attr/themeFontSizeBody"
+                android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textColor="?attr/themeColorFontBright"
+                android:text="Attach media" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
@@ -38,13 +53,24 @@
                 android:scaleType="centerCrop"
                 android:src="@null" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <androidx.cardview.widget.CardView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="end"
-                app:tint="?attr/themeColorBtnCancel"
-                android:src="@drawable/ic_cancel"
-                android:onClick="@{_ -> listener.handleOnTapRemoveMedia()}" />
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                app:cardElevation="@dimen/defaultCardElevation"
+                app:cardCornerRadius="24dp"
+                app:cardBackgroundColor="?attr/themeColorPrimary"
+                android:onClick="@{_ -> listener.handleOnTapRemoveMedia()}">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:tint="?attr/themeColorBtnCancel"
+                    android:src="@drawable/ic_cancel" />
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>
         

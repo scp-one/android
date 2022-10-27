@@ -11,7 +11,10 @@
             app:colorPrimary="@{@color/voidThemeColorPrimary}"
             app:colorPrimaryLight="@{@color/voidThemeColorPrimaryLight}"
             app:colorFontNormal="@{@color/voidThemeColorFontNormal}"
-            app:colorFontDim="@{@color/voidThemeColorFontDim}" />
+            app:colorFontDim="@{@color/voidThemeColorFontDim}"
+            app:colorBtnRead="@{@color/voidThemeColorBtnRead}"
+            app:colorBtnLiked="@{@color/voidThemeColorBtnLiked}"
+            app:colorBtnSaved="@{@color/voidThemeColorBtnSaved}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

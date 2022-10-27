@@ -54,6 +54,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:fontFamily="?attr/themeFontFamilyBold"
+                        android:textSize="?attr/themeFontSizeHeadline"
+                        android:textColor="?attr/themeColorFontNormal"
+                        android:text="Pro Access" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:fontFamily="?attr/themeFontFamilyMedium"
                         android:textSize="?attr/themeFontSizeBody"
                         android:textColor="?attr/themeColorFontNormal"
@@ -81,7 +90,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacingLarge"
-                        android:gravity="center"
                         android:fontFamily="?attr/themeFontFamilyMedium"
                         android:textSize="?attr/themeFontSizeBody"
                         android:textColor="?attr/themeColorFontNormal"
@@ -114,28 +122,24 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:minHeight="@dimen/spacingRegular"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:padding="@dimen/spacingSmallest"
-                android:text="Restore Pro Access"
-                android:textSize="?attr/themeFontSizeSub"
+                android:paddingTop="@dimen/spacingRegular"
+                android:layout_marginBottom="@dimen/spacingRegular"
+                android:gravity="center"
                 android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textSize="?attr/themeFontSizeSub"
                 android:textColor="?attr/themeColorFontBright"
-                android:textAllCaps="false"
-                android:background="@drawable/ripple_button_borderless"
+                android:text="Restore Pro Access"
                 android:onClick="@{() -> vm.handleOnTapRestore()}"
                 android:visibility="@{(vm.hasUnlockedProAccess == true) ? View.GONE : View.VISIBLE}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacingRegular"
                 android:paddingTop="@dimen/spacingRegularPlus"
                 android:paddingBottom="@dimen/spacingRegularPlus"
                 android:text="@{vm.product.price}"

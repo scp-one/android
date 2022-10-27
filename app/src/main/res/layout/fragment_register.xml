@@ -85,23 +85,19 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/fragment_register_button_terms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/spacingRegular"
                 android:layout_marginBottom="@dimen/spacingRegular"
-                android:padding="@dimen/spacingSmallest"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
                 android:gravity="center"
-                android:text="@string/fragment_register_button_terms_text"
-                android:textSize="?attr/themeFontSizeSub"
                 android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textSize="?attr/themeFontSizeSub"
                 android:textColor="?attr/themeColorFontBright"
-                android:textAllCaps="false"
-                android:background="@drawable/ripple_button_borderless"
+                android:text="@string/fragment_register_button_terms_text"
                 android:onClick="@{() -> vm.didTapButtonTermsAndConditions()}" />
 
             <androidx.appcompat.widget.AppCompatButton

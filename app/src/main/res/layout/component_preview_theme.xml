@@ -8,6 +8,9 @@
         <variable name="colorPrimaryLight" type="int" />
         <variable name="colorFontNormal" type="int" />
         <variable name="colorFontDim" type="int" />
+        <variable name="colorBtnRead" type="int" />
+        <variable name="colorBtnLiked" type="int" />
+        <variable name="colorBtnSaved" type="int" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -154,7 +157,7 @@
                             android:layout_width="?attr/themeFontSizeHeadline"
                             android:layout_height="?attr/themeFontSizeHeadline"
                             android:layout_marginStart="@dimen/spacingRegular"
-                            android:tint="@{colorFontDim}"
+                            android:tint="@{colorBtnLiked}"
                             android:src="@drawable/ic_heart_filled" />
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -227,7 +230,7 @@
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="?attr/themeFontSizeHeadline"
                             android:layout_height="?attr/themeFontSizeHeadline"
-                            android:tint="@{colorFontDim}"
+                            android:tint="@{colorBtnRead}"
                             android:src="@drawable/ic_read_filled" />
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -241,7 +244,7 @@
                             android:layout_width="?attr/themeFontSizeHeadline"
                             android:layout_height="?attr/themeFontSizeHeadline"
                             android:layout_marginStart="@dimen/spacingRegular"
-                            android:tint="@{colorFontDim}"
+                            android:tint="@{colorBtnSaved}"
                             android:src="@drawable/ic_bookmark_filled" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>

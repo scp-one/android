@@ -11,7 +11,10 @@
             app:colorPrimary="@{@color/retrolightThemeColorPrimary}"
             app:colorPrimaryLight="@{@color/retrolightThemeColorPrimaryLight}"
             app:colorFontNormal="@{@color/retrolightThemeColorFontNormal}"
-            app:colorFontDim="@{@color/retrolightThemeColorFontDim}" />
+            app:colorFontDim="@{@color/retrolightThemeColorFontDim}"
+            app:colorBtnRead="@{@color/retrolightThemeColorBtnRead}"
+            app:colorBtnLiked="@{@color/retrolightThemeColorBtnLiked}"
+            app:colorBtnSaved="@{@color/retrolightThemeColorBtnSaved}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
