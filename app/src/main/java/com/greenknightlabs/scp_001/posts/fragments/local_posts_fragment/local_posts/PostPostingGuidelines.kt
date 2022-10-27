@@ -11,22 +11,22 @@ fun getPostPostingGuidelines(): Post {
         UserRef(false, "123", null),
         "",
         """
-        ## Posting\n
-        - It is advised not to post personal information\n
-        - If posting existing content, please make sure you have permission to do so\n
+        ## Posting
+        - It is advised not to post personal information
+        - If posting existing content, please make sure you have permission to do so
         - Posts should be well formatted
 
-        ## Approval\n
-        - Posts are subject to approval before other users can see them\n
-        - As long as you have followed the guidelines, your post should be approved within a day or two\n
+        ## Approval
+        - Posts are subject to approval before other users can see them
+        - As long as you have followed the guidelines, your post should be approved within a day or two
 
-        ## Rejections\n
-        Your post can be rejected for the following reasons:\n
+        ## Rejections
+        Your post can be rejected for the following reasons:
         - Content is unrelated
         - Inappropriate content
         - Improper use of formatting
 
-        If your post is rejected, verify that your content is following the guidelines, make an edit and re-submit for approval\n
+        If your post is rejected, verify that your content is following the guidelines, make an edit and re-submit for approval
         """.trimIndent(),
         null,
         PostVisibility.VISIBLE,

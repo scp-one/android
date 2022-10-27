@@ -37,6 +37,7 @@ class TipJarFragmentViewModel @Inject constructor(
                 shopkeep.purchase(activity, tipJarOption.productProperties().id)
                 isLocked.value = false
                 state.value = PageState.Idle
+                toastMessage.value = "Thank you for your kindness!"
             } catch (e: Throwable) {
                 isLocked.value = false
                 state.value = PageState.Idle

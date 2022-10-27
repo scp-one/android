@@ -31,14 +31,23 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fragment_product_preview_unlock_entitlement_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/spacingRegular"
+                android:layout_marginBottom="@dimen/spacingRegular"
+                android:gravity="center"
+                android:fontFamily="?attr/themeFontFamilyRegular"
+                android:textSize="?attr/themeFontSizeBody"
+                android:textColor="?attr/themeColorFontBright" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fragment_product_preview_button_buy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacingRegular"
                 android:paddingTop="@dimen/spacingRegularPlus"
                 android:paddingBottom="@dimen/spacingRegularPlus"
-                android:text="@string/fragment_login_button_login_text"
                 android:textSize="?attr/themeFontSizeBody"
                 android:fontFamily="?attr/themeFontFamilyMedium"
                 android:textColor="?attr/themeColorFontNormal"

@@ -30,7 +30,8 @@ class EditPostCommentFragmentViewModel @Inject constructor(
 
     // functions
     fun calculateCharactersLeft(): Int {
-        return CommentsConstants.POST_COMMENT_MAX_LENGTH - (content.value?.length ?: 0)
+        val content = content.value ?: return 0
+        return CommentsConstants.POST_COMMENT_MAX_LENGTH - (content.codePointCount(0, content.length))
     }
 
     fun handleOnTapEdit() {

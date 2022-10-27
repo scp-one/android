@@ -14,6 +14,8 @@ import com.greenknightlabs.scp_001.posts.dtos.CreatePostDto
 import com.greenknightlabs.scp_001.posts.dtos.EditPostDto
 import com.greenknightlabs.scp_001.posts.enums.PostStatus
 import com.greenknightlabs.scp_001.posts.fragments.create_post_fragment.interfaces.AttachMediaComponentListener
+import com.greenknightlabs.scp_001.posts.fragments.local_posts_fragment.LocalPostsFragment
+import com.greenknightlabs.scp_001.posts.fragments.local_posts_fragment.local_posts.getPostPostingGuidelines
 import com.greenknightlabs.scp_001.posts.models.Post
 import com.greenknightlabs.scp_001.posts.util.PostSignaler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -99,6 +101,13 @@ class EditPostFragmentViewModel @Inject constructor(
                 toastMessage.value = e.message
             }
         }
+    }
+
+    fun handleOnTapPostingGuidelines() {
+        val localPostsFragment = LocalPostsFragment()
+        localPostsFragment.activityTitle = "Guidelines"
+        localPostsFragment.posts = listOf(getPostPostingGuidelines())
+        navMan.pushFragment(localPostsFragment, true)
     }
 
     override fun handleOnTapAttachMedia() {

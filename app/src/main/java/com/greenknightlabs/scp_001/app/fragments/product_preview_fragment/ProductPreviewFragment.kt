@@ -11,19 +11,27 @@ import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
+import com.greenknightlabs.scp_001.app.fragments.pro_access_fragment.ProAccessFragment
+import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.shopkeep.objects.ProductProperties
 import com.greenknightlabs.scp_001.databinding.ComponentTableBinding
 import com.greenknightlabs.scp_001.databinding.FragmentProductPreviewBinding
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.ref.WeakReference
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProductPreviewFragment : BaseFragment<FragmentProductPreviewBinding>(R.layout.fragment_product_preview), ProductPreviewFragmentViewModel.Listener {
+class ProductPreviewFragment : BaseFragment<FragmentProductPreviewBinding>(R.layout.fragment_product_preview),
+    ProductPreviewFragmentViewModel.Listener,
+    ProAccessFragment.Listener {
     // interfaces
     interface Listener {
         fun onCompleteSuccessHandler()
     }
+
+    // dependencies
+    @Inject lateinit var navMan: NavMan
 
     // properties
     private val vm: ProductPreviewFragmentViewModel by viewModels()
@@ -55,6 +63,19 @@ class ProductPreviewFragment : BaseFragment<FragmentProductPreviewBinding>(R.lay
             container.addView(previewLayout.root)
         }
 
+        if (vm.productProperties != null && vm.productProperties?.unlockedByEntitlement != null) {
+            // TODO: switch text and action dependending on entitlement
+            binding.fragmentProductPreviewUnlockEntitlementTextView.text = "Unlock this and more with Pro Access"
+            binding.fragmentProductPreviewUnlockEntitlementTextView.setOnClickListener {
+                val proAccessFragment = ProAccessFragment()
+                proAccessFragment.listener = this
+                navMan.pushFragment(proAccessFragment, true)
+            }
+            binding.fragmentProductPreviewUnlockEntitlementTextView.visibility = View.VISIBLE
+        } else {
+            binding.fragmentProductPreviewUnlockEntitlementTextView.visibility = View.GONE
+        }
+
         binding.fragmentProductPreviewButtonBuy.text = vm.productProperties?.price ?: "Error: Missing Product Properties"
 
         vm.isLocked.observe(viewLifecycleOwner) {
@@ -73,5 +94,10 @@ class ProductPreviewFragment : BaseFragment<FragmentProductPreviewBinding>(R.lay
 
     override fun provideActivity(): MainActivity? {
         return activity as? MainActivity
+    }
+
+    override fun onCompleteSuccess() {
+        vm.fragmentListener?.onCompleteSuccessHandler()
+        navMan.popFragment()
     }
 }

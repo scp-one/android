@@ -16,7 +16,7 @@ class AuthService @Inject constructor(
     private val apiErrorHandler: ApiErrorHandler
 ) {
     @Throws
-    suspend fun register(registerDto: RegisterDto): AuthAccessInfo = withContext(Dispatchers.IO) {
+    suspend fun register(registerDto: RegisterDto) = withContext(Dispatchers.IO) {
         try {
             val accessInfo = authServiceApi.register(registerDto)
             accessInfo
@@ -48,7 +48,7 @@ class AuthService @Inject constructor(
     }
 
     @Throws
-    private suspend inline fun refresh(authAccessInfo: AuthAccessInfo): AuthAccessInfo = withContext(Dispatchers.IO) {
+    private suspend fun refresh(authAccessInfo: AuthAccessInfo) = withContext(Dispatchers.IO) {
         try {
             val newAccessInfo = authServiceApi.refresh(authAccessInfo)
             newAccessInfo
@@ -90,7 +90,7 @@ class AuthService @Inject constructor(
     }
 
     @Throws
-    suspend fun getAccessTokenAsBearer(): String = withContext(Dispatchers.IO) {
+    suspend fun getAccessTokenAsBearer() = withContext(Dispatchers.IO) {
         val oldAccessInfo = authMan.accessInfo
         val isExpired = authMan.isExpired()
 

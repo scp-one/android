@@ -21,8 +21,6 @@ import io.noties.markwon.MarkwonConfiguration
 
 @AndroidEntryPoint
 class LocalPostsFragment : BaseFragment<FragmentLocalPostsBinding>(R.layout.fragment_local_posts) {
-    // dependencies
-
     // properties
     private val vm: LocalPostsFragmentViewModel by viewModels()
     var activityTitle: String? = null

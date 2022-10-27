@@ -2,6 +2,7 @@ package com.greenknightlabs.scp_001.users.fragments.profile_fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import coil.Coil
 import com.greenknightlabs.scp_001.BuildConfig
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.config.AppConstants

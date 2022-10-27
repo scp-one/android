@@ -7,8 +7,6 @@ import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseViewModel
 import com.greenknightlabs.scp_001.app.util.shopkeep.Shopkeep
 import com.greenknightlabs.scp_001.app.util.shopkeep.standalone_products.ProAccess
-import com.greenknightlabs.scp_001.users.enums.UserEntitlements
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
@@ -25,13 +23,14 @@ class ProAccessFragmentViewModel @Inject constructor(
 
     // properties
     val product = ProAccess()
-    var listener: WeakReference<Listener>? = null
+    var fragmentListener: ProAccessFragment.Listener? = null
+    var vmListener: WeakReference<Listener>? = null
     val isLocked = MutableLiveData(false)
     val hasUnlockedProAccess = MutableLiveData(shopkeep.hasProAccess())
 
     // functions
     fun handleOnTapBuy() {
-        val activity = listener?.get()?.provideActivity() ?: return
+        val activity = vmListener?.get()?.provideActivity() ?: return
         isLocked.value = true
         state.value = PageState.Fetching
 

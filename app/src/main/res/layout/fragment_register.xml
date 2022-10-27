@@ -23,6 +23,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacingRegular"
                 android:paddingStart="@dimen/spacingFormHeaderImage"
                 android:paddingEnd="@dimen/spacingFormHeaderImage"
                 android:src="@drawable/header_register"
@@ -33,7 +34,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacingRegular"
+                android:layout_marginBottom="@dimen/spacingRegular"
                 android:text="@string/fragment_register_text_view_register_hint"
                 android:textSize="?attr/themeFontSizeHeadline"
                 android:fontFamily="?attr/themeFontFamilyMedium"
@@ -42,7 +43,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacingRegular"
+                android:layout_marginBottom="@dimen/spacingRegular"
                 app:cardElevation="@dimen/defaultCardElevation"
                 app:cardCornerRadius="@dimen/defaultCornerRadius"
                 app:cardBackgroundColor="?attr/themeColorPrimaryLight">
@@ -90,6 +91,7 @@
                 android:id="@+id/fragment_register_button_terms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacingRegular"
                 android:padding="@dimen/spacingSmallest"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
@@ -106,7 +108,6 @@
                 android:id="@+id/fragment_register_button_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacingRegular"
                 android:paddingTop="@dimen/spacingRegularPlus"
                 android:paddingBottom="@dimen/spacingRegularPlus"
                 android:text="@string/fragment_register_button_register_text"

@@ -370,31 +370,11 @@ class PostFragmentViewModel @Inject constructor(
 
         if (authMan.payload?.id == comment.user.id) {
             options.add(Pair("Edit Comment") {
-                val editPostCommentFragment = EditPostCommentFragment()
-                editPostCommentFragment.comment = comment
-                navMan.pushFragment(editPostCommentFragment, true)
+                pushEditCommentFragment(comment)
             })
             options.add(Pair("Delete Comment") {
                 confirmAlertText.value = "Are you sure you want to delete this comment?"
-                confirmAlertAction.value = {
-                    if (state.value != PageState.Fetching) {
-                        val originalState = state.value
-                        state.value = PageState.Fetching
-
-                        viewModelScope.launch {
-                            try {
-                                postCommentsService.deletePostComment(comment.id)
-
-                                state.value = originalState
-
-                                postCommentsSignaler.send(PostCommentsSignaler.PostCommentSignal.PostCommentDidDelete(comment))
-                            } catch (e: Throwable) {
-                                state.value = originalState
-                                toastMessage.value = e.message
-                            }
-                        }
-                    }
-                }
+                confirmAlertAction.value = { deleteComment(comment) }
                 shouldShowConfirmAlert.value = true
             })
             options.add(Pair("") {})
@@ -411,7 +391,48 @@ class PostFragmentViewModel @Inject constructor(
         }
     }
 
+    private fun pushEditCommentFragment(comment: PostComment) {
+        if (wasDeleted.value == true) {
+            toastMessage.value = "This post has been deleted"
+            return
+        }
+
+        val editPostCommentFragment = EditPostCommentFragment()
+        editPostCommentFragment.comment = comment
+        navMan.pushFragment(editPostCommentFragment, true)
+    }
+
+    private fun deleteComment(comment: PostComment) {
+        if (wasDeleted.value == true) {
+            toastMessage.value = "This post has been deleted"
+            return
+        }
+
+        if (state.value == PageState.Fetching) return
+
+        val originalState = state.value
+        state.value = PageState.Fetching
+
+        viewModelScope.launch {
+            try {
+                postCommentsService.deletePostComment(comment.id)
+
+                state.value = originalState
+
+                postCommentsSignaler.send(PostCommentsSignaler.PostCommentSignal.PostCommentDidDelete(comment))
+            } catch (e: Throwable) {
+                state.value = originalState
+                toastMessage.value = e.message
+            }
+        }
+    }
+
     private fun reportComment(comment: PostComment) {
+        if (wasDeleted.value == true) {
+            toastMessage.value = "This post has been deleted"
+            return
+        }
+
         viewModelScope.launch {
             try {
                 postCommentReportsService.createPostCommentReport(comment.id)
@@ -422,9 +443,14 @@ class PostFragmentViewModel @Inject constructor(
     }
 
     override fun handleOnTapLoadComments() {
-        if (state.value != PageState.Fetching) {
-            tappedLoadComments.value = true
-            paginate(true)
+        if (wasDeleted.value == true) {
+            toastMessage.value = "This post has been deleted"
+            return
         }
+
+        if (state.value == PageState.Fetching) return
+
+        tappedLoadComments.value = true
+        paginate(true)
     }
 }

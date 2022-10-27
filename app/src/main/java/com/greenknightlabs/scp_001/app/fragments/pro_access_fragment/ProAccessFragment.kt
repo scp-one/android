@@ -8,14 +8,25 @@ import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
+import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.databinding.FragmentProAccessBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.ref.WeakReference
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProAccessFragment : BaseFragment<FragmentProAccessBinding>(R.layout.fragment_pro_access), ProAccessFragmentViewModel.Listener {
+    // interfaces
+    interface Listener {
+        fun onCompleteSuccess()
+    }
+
+    // dependencies
+    @Inject lateinit var navMan: NavMan
+
     // properties
     private val vm: ProAccessFragmentViewModel by viewModels()
+    var listener: Listener? = null
 
     // functions
     override fun activityTitle(): String {
@@ -27,7 +38,10 @@ class ProAccessFragment : BaseFragment<FragmentProAccessBinding>(R.layout.fragme
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = vm
 
-        vm.listener = WeakReference(this)
+        vm.vmListener = WeakReference(this)
+        if (vm.fragmentListener == null) {
+            vm.fragmentListener = listener
+        }
 
         vm.isLocked.observe(viewLifecycleOwner) {
             (activity as? MainActivity)?.lockUI(it)
@@ -39,6 +53,12 @@ class ProAccessFragment : BaseFragment<FragmentProAccessBinding>(R.layout.fragme
             if (it != null) {
                 activity?.makeToast(it)
                 vm.toastMessage.value = null
+            }
+        }
+        vm.hasUnlockedProAccess.observe(viewLifecycleOwner) {
+            if (vm.fragmentListener != null && it == true) {
+                vm.fragmentListener?.onCompleteSuccess()
+                navMan.popFragment()
             }
         }
     }
