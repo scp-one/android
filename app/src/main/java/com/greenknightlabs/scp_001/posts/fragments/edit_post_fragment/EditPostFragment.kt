@@ -10,6 +10,7 @@ import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
+import com.greenknightlabs.scp_001.app.extensions.showKeyboard
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.databinding.FragmentEditPostBinding
 import com.greenknightlabs.scp_001.media.models.Media
@@ -70,6 +71,8 @@ class EditPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragment
                 }
             }
         }
+
+        binding.fragmentEditPostTitleEditText.showKeyboard()
     }
 
     private fun restorePost() {

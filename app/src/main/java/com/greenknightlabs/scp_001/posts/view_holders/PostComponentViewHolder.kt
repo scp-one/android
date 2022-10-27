@@ -26,8 +26,10 @@ class PostComponentViewHolder(
         binding.post = post
         binding.listener = listener
 
-        binding.componentPostTitleText.setTextAsync(post.title.take(128))
-        binding.componentPostContentText.setTextAsync(post.content.take(150))
+        val title = post.title.take(128) + if (post.title.length > 128) "..." else ""
+        val content = post.content.take(150) + if (post.content.length > 150) "..." else ""
+        binding.componentPostTitleText.setTextAsync(title)
+        binding.componentPostContentText.setTextAsync(content)
 
         binding.componentPostComponentAuthor.componentPostAuthorImageView.load(when (post.user.user?.avatarUrl) {
             null -> R.drawable.default_avatar

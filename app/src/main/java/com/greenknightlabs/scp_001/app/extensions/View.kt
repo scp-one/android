@@ -1,7 +1,9 @@
 package com.greenknightlabs.scp_001.app.extensions
 
+import android.content.Context
 import android.os.Build
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
 
 fun View.makePopupMenu(items: List<String>, onTapAction: (index: Int) -> Unit) {
@@ -24,4 +26,10 @@ fun View.makePopupMenu(items: List<String>, onTapAction: (index: Int) -> Unit) {
     }
 
     menu.show()
+}
+
+fun View.showKeyboard() {
+    this.requestFocus()
+    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }

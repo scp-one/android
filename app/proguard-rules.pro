@@ -88,3 +88,9 @@
 #-keepnames class <1>$$serializer { # -keepnames suffices; class is kept when serializer() is kept.
 #    static <1>$$serializer INSTANCE;
 #}
+
+
+
+# Crashlytics
+-keepattributes SourceFile,LineNumberTable        # Keep file names and line numbers.
+-keep public class * extends java.lang.Exception  # Optional: Keep custom exceptions.

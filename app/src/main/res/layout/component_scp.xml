@@ -38,7 +38,7 @@
                 android:textColor="?attr/themeColorFontNormal"
                 android:lines="1"
                 android:ellipsize="end"
-                android:text="@{scp.name}"/>
+                android:text="@{scp.name}" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/component_scp_image_view"
@@ -68,7 +68,7 @@
                     android:fontFamily="?attr/themeFontFamilyBold"
                     android:textColor="?attr/themeColorFontDim"
                     android:lines="1"
-                    android:text="@{scp.length.rawValue}"/>
+                    android:text="@{scp.length.rawValue}" />
 
                 <Space
                     android:layout_width="0dp"
@@ -78,21 +78,21 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeHeadline"
                     android:layout_height="?attr/themeFontSizeHeadline"
-                    android:src="@{scp.read ? @drawable/ic_read_filled_color : @drawable/ic_read_unfilled}"
+                    android:src="@{scp.read ? @drawable/ic_read_filled_color : @drawable/ic_read_unfilled_dim}"
                     android:onClick="@{_ -> listener.handleOnTapRead(scp)}" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeHeadline"
                     android:layout_height="?attr/themeFontSizeHeadline"
                     android:layout_marginStart="@dimen/spacingRegular"
-                    android:src="@{scp.liked ? @drawable/ic_heart_filled_color : @drawable/ic_heart_unfilled}"
+                    android:src="@{scp.liked ? @drawable/ic_heart_filled_color : @drawable/ic_heart_unfilled_dim}"
                     android:onClick="@{_ -> listener.handleOnTapLike(scp)}" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeHeadline"
                     android:layout_height="?attr/themeFontSizeHeadline"
                     android:layout_marginStart="@dimen/spacingRegular"
-                    android:src="@{scp.saved ? @drawable/ic_bookmark_filled_color : @drawable/ic_bookmark_unfilled}"
+                    android:src="@{scp.saved ? @drawable/ic_bookmark_filled_color : @drawable/ic_bookmark_unfilled_dim}"
                     android:onClick="@{_ -> listener.handleOnTapSave(scp)}" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

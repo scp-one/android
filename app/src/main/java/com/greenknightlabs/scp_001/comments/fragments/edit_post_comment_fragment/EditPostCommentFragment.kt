@@ -8,6 +8,7 @@ import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.makeToast
+import com.greenknightlabs.scp_001.app.extensions.showKeyboard
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.comments.models.PostComment
 import com.greenknightlabs.scp_001.databinding.FragmentEditPostCommentBinding
@@ -59,6 +60,8 @@ class EditPostCommentFragment : BaseFragment<FragmentEditPostCommentBinding>(R.l
         vm.content.observe(viewLifecycleOwner) {
             vm.charactersLeft.value = vm.calculateCharactersLeft().toString()
         }
+
+        binding.fragmentEditPostCommentEditText.showKeyboard()
     }
 
     private fun restorePostComment() {

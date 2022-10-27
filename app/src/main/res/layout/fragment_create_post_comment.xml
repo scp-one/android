@@ -29,40 +29,38 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_create_post_comment_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacingSmall"
                     android:inputType="textMultiLine"
                     android:fontFamily="?attr/themeFontFamilyRegular"
                     android:textSize="?attr/themeFontSizeBody"
                     android:textColor="?attr/themeColorFontNormal"
+                    android:textColorHint="?attr/themeColorFontDim"
+                    android:textColorHighlight="?attr/themeColorFontBright"
+                    android:background="@null"
                     android:hint=""
                     android:text="@={vm.content}" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="@dimen/spacingRegular"
                     android:layout_weight="1" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
+                    android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end"
                         android:fontFamily="?attr/themeFontFamilyMedium"
                         android:textSize="?attr/themeFontSizeSub"
                         android:textColor="?attr/themeColorFontDim"
                         android:text="@{vm.charactersLeft}" />
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                </FrameLayout>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

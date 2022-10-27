@@ -1,8 +1,11 @@
 package com.greenknightlabs.scp_001.posts.fragments.create_post_fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import coil.load
 import com.greenknightlabs.scp_001.R
@@ -10,11 +13,11 @@ import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.getView
 import com.greenknightlabs.scp_001.app.extensions.makeToast
+import com.greenknightlabs.scp_001.app.extensions.showKeyboard
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.databinding.FragmentCreatePostBinding
-import com.greenknightlabs.scp_001.posts.models.Post
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class CreatePostFragment : BaseFragment<FragmentCreatePostBinding>(R.layout.fragment_create_post) {
@@ -64,5 +67,7 @@ class CreatePostFragment : BaseFragment<FragmentCreatePostBinding>(R.layout.frag
                 }
             }
         }
+
+        binding.fragmentCreatePostTitleEditText.showKeyboard()
     }
 }

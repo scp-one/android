@@ -29,12 +29,16 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/fragment_edit_post_title_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:fontFamily="?attr/themeFontFamilyBold"
                     android:textSize="?attr/themeFontSizeBody"
                     android:textColor="?attr/themeColorFontNormal"
+                    android:textColorHint="?attr/themeColorFontDim"
+                    android:textColorHighlight="?attr/themeColorFontBright"
+                    android:background="@null"
                     android:hint="Title"
                     android:text="@={vm.title}" />
 
@@ -46,12 +50,15 @@
                     android:fontFamily="?attr/themeFontFamilyRegular"
                     android:textSize="?attr/themeFontSizeBody"
                     android:textColor="?attr/themeColorFontNormal"
+                    android:textColorHint="?attr/themeColorFontDim"
+                    android:textColorHighlight="?attr/themeColorFontBright"
+                    android:background="@null"
                     android:hint="Content of your post..."
                     android:text="@={vm.content}" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="@dimen/spacingRegular"
                     android:layout_weight="1" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
