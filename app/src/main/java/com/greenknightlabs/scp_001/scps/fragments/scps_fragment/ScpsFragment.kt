@@ -14,10 +14,7 @@ import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
-import com.greenknightlabs.scp_001.app.extensions.screenWidth
-import com.greenknightlabs.scp_001.app.extensions.getView
-import com.greenknightlabs.scp_001.app.extensions.hideKeyboard
-import com.greenknightlabs.scp_001.app.extensions.makeToast
+import com.greenknightlabs.scp_001.app.extensions.*
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.databinding.FragmentScpsBinding
@@ -106,6 +103,12 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
             if (it != null) {
                 activity?.makeToast(it)
                 vm.toastMessage.value = null
+            }
+        }
+        vm.shouldShowWebView.observe(viewLifecycleOwner) {
+            if (it == true) {
+                vm.shouldShowWebView.value = false
+                vm.webViewUrl.value?.let { url -> activity?.pushWebView(url) }
             }
         }
         vm.failedToLoad.observe(viewLifecycleOwner) {

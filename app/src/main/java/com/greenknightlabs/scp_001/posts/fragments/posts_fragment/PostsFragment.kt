@@ -101,5 +101,14 @@ class PostsFragment : BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts
         vm.failedToLoad.observe(viewLifecycleOwner) {
             vm.pageAdapter!!.notifyItemChanged(0)
         }
+        shopkeep.customer.observe(viewLifecycleOwner) {
+            if (it != null &&
+                shopkeep.hasProAccess() &&
+                vm.hasLoadedHeaderAdapter.value == false &&
+                vm.isLoadingHeaderAdapter.value == false
+            ) {
+                vm.loadUsers()
+            }
+        }
     }
 }

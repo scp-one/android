@@ -74,6 +74,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="?attr/themeFontSizeBody"
                     android:layout_height="?attr/themeFontSizeBody"
+                    app:tint="?attr/themeColorFontDim"
                     android:src="@drawable/ic_account" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

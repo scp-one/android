@@ -61,6 +61,9 @@ class ScpsFragmentViewModel @Inject constructor(
     val canRefresh = MutableLiveData(true)
     val isRefreshing = MutableLiveData(false)
 
+    val webViewUrl = MutableLiveData<String?>(null)
+    val shouldShowWebView = MutableLiveData(false)
+
     // init
     init {
         scpSignaler.add(this)
@@ -254,10 +257,15 @@ class ScpsFragmentViewModel @Inject constructor(
     }
 
     override fun handleOnTapScp(scp: Scp) {
-        val scpFragment = ScpFragment()
-        scpFragment.scp = scp
+        if (preferences.loadScpWiki.value == true && scp.sourceUrl != null) {
+            webViewUrl.value = scp.sourceUrl
+            shouldShowWebView.value = true
+        } else {
+            val scpFragment = ScpFragment()
+            scpFragment.scp = scp
 
-        navMan.pushFragment(scpFragment)
+            navMan.pushFragment(scpFragment)
+        }
     }
 
     override fun handleOnTapRead(scp: Scp) {

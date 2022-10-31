@@ -8,6 +8,7 @@ import com.greenknightlabs.scp_001.app.resources.fonts.FontSizes
 import com.greenknightlabs.scp_001.app.resources.themes.Themes
 import com.greenknightlabs.scp_001.app.util.preferences.enums.PrefKey
 import com.greenknightlabs.scp_001.scps.enums.ScpLoadImages
+import com.greenknightlabs.scp_001.scps.enums.ScpLoadWiki
 import com.greenknightlabs.scp_001.scps.enums.ScpSortField
 import com.greenknightlabs.scp_001.scps.enums.ScpSortOrder
 import javax.inject.Inject
@@ -30,13 +31,15 @@ class Preferences @Inject constructor(
         private set
 
     // behavior
+    var defaultLaunchTab: MutableLiveData<DefaultAppLaunchTab>
+        private set
     var defaultScpSortField: MutableLiveData<ScpSortField>
         private set
     var defaultScpSortOrder: MutableLiveData<ScpSortOrder>
         private set
     var loadScpImages: MutableLiveData<ScpLoadImages>
         private set
-    var defaultLaunchTab: MutableLiveData<DefaultAppLaunchTab>
+    var loadScpWiki: MutableLiveData<Boolean>
         private set
 
     init {
@@ -49,6 +52,9 @@ class Preferences @Inject constructor(
         val scpFontSizeRawValue = readString(PrefKey.ScpFontSize)
         scpFontSize = MutableLiveData(FontSizes.find(scpFontSizeRawValue) ?: FontSizes.find(PrefKey.ScpFontSize.defaultRawValue()))
 
+        val defaultLaunchTabRawValue = readString(PrefKey.DefaultLaunchTab)
+        defaultLaunchTab = MutableLiveData(DefaultAppLaunchTab.find(defaultLaunchTabRawValue) ?: DefaultAppLaunchTab.find(PrefKey.DefaultLaunchTab.defaultRawValue()))
+
         val defaultScpSortFieldRawValue = readString(PrefKey.DefaultScpSortField)
         defaultScpSortField = MutableLiveData(ScpSortField.find(defaultScpSortFieldRawValue) ?: ScpSortField.find(PrefKey.DefaultScpSortField.defaultRawValue()))
 
@@ -58,8 +64,9 @@ class Preferences @Inject constructor(
         val loadScpImagesRawValue = readString(PrefKey.LoadScpImages)
         loadScpImages = MutableLiveData(ScpLoadImages.find(loadScpImagesRawValue) ?: ScpLoadImages.find(PrefKey.LoadScpImages.defaultRawValue()))
 
-        val defaultLaunchTabRawValue = readString(PrefKey.DefaultLaunchTab)
-        defaultLaunchTab = MutableLiveData(DefaultAppLaunchTab.find(defaultLaunchTabRawValue) ?: DefaultAppLaunchTab.find(PrefKey.DefaultLaunchTab.defaultRawValue()))
+        val loadScpWikiRawValue = readString(PrefKey.LoadScpWiki)
+        val loadScpWikiValue = ScpLoadWiki.find(loadScpWikiRawValue) ?: ScpLoadWiki.find(PrefKey.LoadScpWiki.defaultRawValue())
+        loadScpWiki = MutableLiveData(loadScpWikiValue == ScpLoadWiki.ALWAYS)
     }
 
     fun set(key: PrefKey, rawValue: String) {
@@ -70,10 +77,11 @@ class Preferences @Inject constructor(
             PrefKey.AppFontSize -> appFontSize.value = FontSizes.find(rawValue)
             PrefKey.ScpFontSize -> scpFontSize.value = FontSizes.find(rawValue)
 
+            PrefKey.DefaultLaunchTab -> defaultLaunchTab.value = DefaultAppLaunchTab.find(rawValue)
             PrefKey.DefaultScpSortField -> defaultScpSortField.value = ScpSortField.find(rawValue)
             PrefKey.DefaultScpSortOrder -> defaultScpSortOrder.value = ScpSortOrder.find(rawValue)
             PrefKey.LoadScpImages -> loadScpImages.value = ScpLoadImages.find(rawValue)
-            PrefKey.DefaultLaunchTab -> defaultLaunchTab.value = DefaultAppLaunchTab.find(rawValue)
+            PrefKey.LoadScpWiki -> loadScpWiki.value = ScpLoadWiki.find(rawValue) == ScpLoadWiki.ALWAYS
         }
     }
 

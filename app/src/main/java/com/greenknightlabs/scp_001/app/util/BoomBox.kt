@@ -2,6 +2,7 @@ package com.greenknightlabs.scp_001.app.util
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Handler
@@ -47,7 +48,10 @@ class BoomBox @Inject constructor(
     private var progressBar: WeakReference<ProgressBar>? = null
 
     init {
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
+        val attributes = AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+
+        mediaPlayer.setAudioAttributes(attributes.build())
     }
 
     // functions
@@ -96,9 +100,9 @@ class BoomBox @Inject constructor(
             try {
                 mediaPlayer.setDataSource(url)
                 mediaPlayer.prepare()
-                mediaPlayer.start()
 
                 this.launch(Dispatchers.Main) {
+                    mediaPlayer.start()
                     startTimer(progressBar)
                     imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
                 }
@@ -157,7 +161,7 @@ class BoomBox @Inject constructor(
                 progress.value = (mediaPlayer.currentPosition.toFloat() / mediaPlayer.duration.toFloat() * 100).roundToInt()
                 progressBar?.get()?.progress = progress.value!!
 
-                if ((progress.value ?: 0) >= 100) {
+                if ((progress.value ?: 100) >= 100) {
                     onAudioEnded()
                 } else {
                     handler.postDelayed(this, 1000)

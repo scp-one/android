@@ -80,6 +80,11 @@
                         app:prefKey="@{PrefKey.LoadScpImages}"
                         app:onTapAction="@{vm::handleOnTapPreferenceComponent}" />
 
+                    <include layout="@layout/component_preference"
+                        app:preferences="@{vm.preferences}"
+                        app:prefKey="@{PrefKey.LoadScpWiki}"
+                        app:onTapAction="@{vm::handleOnTapPreferenceComponent}" />
+
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.cardview.widget.CardView>

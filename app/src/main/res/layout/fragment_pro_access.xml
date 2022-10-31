@@ -53,6 +53,7 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacingLarge"
                         android:gravity="center"
                         android:fontFamily="?attr/themeFontFamilyBold"
                         android:textSize="?attr/themeFontSizeHeadline"
@@ -80,6 +81,7 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacingLarge"
                         android:gravity="center"
                         android:fontFamily="?attr/themeFontFamilyBold"
                         android:textSize="?attr/themeFontSizeHeadline"
@@ -89,7 +91,6 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacingLarge"
                         android:fontFamily="?attr/themeFontFamilyMedium"
                         android:textSize="?attr/themeFontSizeBody"
                         android:textColor="?attr/themeColorFontNormal"

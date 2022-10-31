@@ -21,6 +21,7 @@ import com.greenknightlabs.scp_001.databinding.ActivityMainBinding
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment
 import com.greenknightlabs.scp_001.posts.fragments.posts_fragment.PostsFragment
 import com.greenknightlabs.scp_001.scps.enums.ScpLoadImages
+import com.greenknightlabs.scp_001.scps.enums.ScpLoadWiki
 import com.greenknightlabs.scp_001.scps.enums.ScpSortField
 import com.greenknightlabs.scp_001.scps.enums.ScpSortOrder
 import com.greenknightlabs.scp_001.scps.fragments.scp_actions_fragment.ScpActionsFragment
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     private lateinit var currentDefaultScpSortField: ScpSortField
     private lateinit var currentDefaultScpSortOrder: ScpSortOrder
     private lateinit var currentLoadScpImages: ScpLoadImages
+    private var currentLoadScpWiki: Boolean = false
 
     // functions
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +74,7 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
         currentDefaultScpSortField = preferences.defaultScpSortField.value!!
         currentDefaultScpSortOrder = preferences.defaultScpSortOrder.value!!
         currentLoadScpImages = preferences.loadScpImages.value!!
+        currentLoadScpWiki = preferences.loadScpWiki.value!!
 
         preferences.theme.observe(this) {
             if (currentTheme != it) { recreate() }
@@ -94,6 +97,9 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
         }
         preferences.loadScpImages.observe(this) {
             if (currentLoadScpImages != it) { recreate() }
+        }
+        preferences.loadScpWiki.observe(this) {
+            if (currentLoadScpWiki != it) { recreate() }
         }
     }
 

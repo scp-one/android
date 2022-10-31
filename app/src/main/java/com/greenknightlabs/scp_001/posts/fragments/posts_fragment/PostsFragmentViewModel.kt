@@ -68,6 +68,8 @@ class PostsFragmentViewModel @Inject constructor(
     var adapter: ConcatAdapter? = null
 
     val users = MutableLiveData<MutableList<User>>(mutableListOf())
+    val isLoadingHeaderAdapter = MutableLiveData(false)
+    val hasLoadedHeaderAdapter = MutableLiveData(false)
 
     private val sortField = MutableLiveData(PostSortField.PUBLISHED_AT)
     private val sortOrder = MutableLiveData(PostSortOrder.DESCENDING)
@@ -84,7 +86,9 @@ class PostsFragmentViewModel @Inject constructor(
     init {
         postSignaler.add(this)
         onRefreshAction()
-        loadUsers()
+        if (shopkeep.hasProAccess()) {
+            loadUsers()
+        }
     }
 
     override fun onCleared() {
@@ -93,8 +97,8 @@ class PostsFragmentViewModel @Inject constructor(
     }
 
     // functions
-    private fun loadUsers() {
-        if (!shopkeep.hasProAccess()) return
+    fun loadUsers() {
+        isLoadingHeaderAdapter.value = true
 
         viewModelScope.launch {
             try {
@@ -105,6 +109,9 @@ class PostsFragmentViewModel @Inject constructor(
 
                 users.value?.add(user)
                 headerSubAdapter?.notifyItemRangeInserted(0, users.value?.size ?: 0)
+
+                hasLoadedHeaderAdapter.value = true
+                isLoadingHeaderAdapter.value = false
             } catch (e: Throwable) {
                 toastMessage.value = e.message
             }
