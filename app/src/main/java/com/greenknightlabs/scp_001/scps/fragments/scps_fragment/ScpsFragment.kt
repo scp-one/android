@@ -43,7 +43,7 @@ class ScpsFragment : BaseFragment<FragmentScpsBinding>(R.layout.fragment_scps) {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         super.onCreateMenu(menu, menuInflater)
 
-        (menu.findItem(R.id.menu_fragment_scps_search).actionView as SearchView).apply {
+        (menu.findItem(R.id.menu_fragment_scps_search).actionView as? SearchView)?.apply {
             this.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     activity?.hideKeyboard()
