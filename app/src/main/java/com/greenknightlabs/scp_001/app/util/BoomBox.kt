@@ -154,6 +154,11 @@ class BoomBox @Inject constructor(
     }
 
     private fun startTimer(progressBar: WeakReference<ProgressBar>?) {
+        if (mediaPlayer.duration <= 0) {
+            playingStatus.value = PlayingStatus.Error
+            return
+        }
+
         playingStatus.value = PlayingStatus.Playing
 
         val runnableCode: Runnable = object : Runnable {

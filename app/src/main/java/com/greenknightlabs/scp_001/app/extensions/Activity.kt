@@ -21,7 +21,7 @@ fun Activity.pushWebView(url: String) {
 //        tab.setToolbarColor(getColorFromAttr(R.attr.themeColorPrimary))
         tab.build().launchUrl(this, Uri.parse(url))
     } catch (e: Exception) {
-        //
+        this.makeToast("Unable to launch web view.")
     }
 }
 
