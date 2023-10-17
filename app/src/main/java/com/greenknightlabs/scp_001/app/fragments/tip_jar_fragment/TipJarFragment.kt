@@ -1,6 +1,5 @@
 package com.greenknightlabs.scp_001.app.fragments.tip_jar_fragment
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels

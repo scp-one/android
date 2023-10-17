@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.greenknightlabs.scp_001.app.config.AppConstants
-import com.greenknightlabs.scp_001.users.enums.UserAccessLevel
 import com.greenknightlabs.scp_001.users.enums.UserEntitlements
 import com.revenuecat.purchases.*
 import com.revenuecat.purchases.interfaces.UpdatedCustomerInfoListener
@@ -32,7 +31,7 @@ class Shopkeep @Inject constructor(
             configuration = configuration.appUserID(uid)
         }
 
-        Purchases.debugLogsEnabled = true
+        Purchases.logLevel = LogLevel.DEBUG
         Purchases.configure(configuration.build())
         Purchases.sharedInstance.updatedCustomerInfoListener = this
     }
@@ -64,32 +63,24 @@ class Shopkeep @Inject constructor(
 
     @Throws
     suspend fun purchase(activity: Activity, productId: String): Nothing? = suspendCoroutine { cont ->
-        Purchases.sharedInstance.getNonSubscriptionSkusWith(
-            listOf(productId),
-            { error ->
-                Timber.e(error.message)
-                cont.resumeWithException(Throwable(error.message))
-            },
-            { storeProducts ->
-                if (storeProducts.isEmpty()) {
-                    cont.resumeWithException(Throwable("No products found."))
-                }
-
-                Purchases.sharedInstance.purchaseProductWith(
-                    activity,
-                    storeProducts.first(),
-                    { error, userCancelled ->
-                        Timber.e(error.message)
-                        val error = if (userCancelled) Throwable("Canceled") else Throwable(error.message)
-                        cont.resumeWithException(error)
-                    },
-                    { _, customerInfo ->
-                        _customer.value = customerInfo
-                        cont.resume(null)
-                    }
-                )
+        Purchases.sharedInstance.getProductsWith(listOf(productId)) { storeProducts ->
+            if (storeProducts.isEmpty()) {
+                cont.resumeWithException(Throwable("No products found."))
             }
-        )
+
+            Purchases.sharedInstance.purchaseWith(
+                PurchaseParams.Builder(activity, storeProducts.first()).build(),
+                onError = { error, userCancelled ->
+                    Timber.e(error.message)
+                    val error = if (userCancelled) Throwable("Canceled") else Throwable(error.message)
+                    cont.resumeWithException(error)
+                },
+                onSuccess = { _, customerInfo ->
+                    _customer.value = customerInfo
+                    cont.resume(null)
+                }
+            )
+        }
     }
 
     suspend fun restore(): Nothing? = suspendCoroutine { cont ->

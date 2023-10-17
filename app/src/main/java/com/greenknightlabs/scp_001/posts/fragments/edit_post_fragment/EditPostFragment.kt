@@ -14,7 +14,6 @@ import com.greenknightlabs.scp_001.app.extensions.showKeyboard
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.databinding.FragmentEditPostBinding
 import com.greenknightlabs.scp_001.media.models.Media
-import com.greenknightlabs.scp_001.posts.fragments.create_post_fragment.CreatePostFragmentViewModel
 import com.greenknightlabs.scp_001.posts.models.Post
 import dagger.hilt.android.AndroidEntryPoint
 

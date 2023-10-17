@@ -5,18 +5,15 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.View
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 
 var toast: Toast? = null
 
-fun Context.makeToast(message: String?, gravity: Int = Gravity.TOP) {
+fun Context.makeToast(message: String?) {
     val message = message ?: return
     if (message.isEmpty()) { return }
 

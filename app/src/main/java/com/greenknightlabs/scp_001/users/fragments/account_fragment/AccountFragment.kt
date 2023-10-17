@@ -3,7 +3,6 @@ package com.greenknightlabs.scp_001.users.fragments.account_fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import coil.load
@@ -15,11 +14,8 @@ import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.databinding.FragmentAccountBinding
-import com.greenknightlabs.scp_001.users.fragments.profile_fragment.ProfileFragmentViewModel
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {

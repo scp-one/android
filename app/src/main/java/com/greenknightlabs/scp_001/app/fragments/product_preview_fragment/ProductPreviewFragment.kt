@@ -5,7 +5,6 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
-import androidx.viewbinding.ViewBinding
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
@@ -14,9 +13,7 @@ import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.app.fragments.pro_access_fragment.ProAccessFragment
 import com.greenknightlabs.scp_001.app.util.NavMan
 import com.greenknightlabs.scp_001.app.util.shopkeep.objects.ProductProperties
-import com.greenknightlabs.scp_001.databinding.ComponentTableBinding
 import com.greenknightlabs.scp_001.databinding.FragmentProductPreviewBinding
-import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.MediaCollectionFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.ref.WeakReference
 import javax.inject.Inject

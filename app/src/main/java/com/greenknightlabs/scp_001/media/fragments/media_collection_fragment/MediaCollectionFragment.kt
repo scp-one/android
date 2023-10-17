@@ -26,7 +26,6 @@ import com.greenknightlabs.scp_001.databinding.FragmentMediaCollectionBinding
 import com.greenknightlabs.scp_001.media.fragments.media_collection_fragment.adapters.MediaCollectionFragmentAdapter
 import com.greenknightlabs.scp_001.media.models.Media
 import dagger.hilt.android.AndroidEntryPoint
-import id.zelory.compressor.Compressor
 import java.io.*
 import javax.inject.Inject
 

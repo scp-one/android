@@ -18,7 +18,6 @@ import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
 import com.greenknightlabs.scp_001.databinding.FragmentPostActionsBinding
 import com.greenknightlabs.scp_001.posts.adapters.PostsAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class PostActionsFragment : BaseFragment<FragmentPostActionsBinding>(R.layout.fragment_post_actions) {

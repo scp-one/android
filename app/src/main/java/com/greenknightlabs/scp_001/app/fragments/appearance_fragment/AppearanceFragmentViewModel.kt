@@ -41,7 +41,7 @@ class AppearanceFragmentViewModel @Inject constructor(
                     return@makePopupMenu
                 }
 
-                if (customer.allPurchasedSkus.contains(productProperties.id)) {
+                if (customer.allPurchasedProductIds.contains(productProperties.id)) {
                     preferences.set(prefKey, rawValues[index])
                     return@makePopupMenu
                 }

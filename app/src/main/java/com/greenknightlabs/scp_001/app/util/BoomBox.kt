@@ -3,7 +3,6 @@ package com.greenknightlabs.scp_001.app.util
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.media.AudioAttributes
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
@@ -68,7 +67,7 @@ class BoomBox @Inject constructor(
                     this.imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
                 }
                 PlayingStatus.Paused -> {
-                    resume(this.progressBar, url)
+                    resume(this.progressBar)
                     this.imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
                 }
                 PlayingStatus.Buffering -> {
@@ -76,7 +75,7 @@ class BoomBox @Inject constructor(
                 }
                 PlayingStatus.Ended -> {
                     mediaPlayer.seekTo(0)
-                    resume(this.progressBar, url)
+                    resume(this.progressBar)
                     this.imageView?.get()?.setImageDrawable(determineImageViewDrawable(url))
                 }
                 PlayingStatus.Error -> {
@@ -116,7 +115,7 @@ class BoomBox @Inject constructor(
         }
     }
 
-    private fun resume(progressBar: WeakReference<ProgressBar>?, url: String) {
+    private fun resume(progressBar: WeakReference<ProgressBar>?) {
         mediaPlayer.start()
         startTimer(progressBar)
     }

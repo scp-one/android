@@ -6,11 +6,8 @@ import androidx.fragment.app.viewModels
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
 import com.greenknightlabs.scp_001.app.enums.PageState
-import com.greenknightlabs.scp_001.app.extensions.makePopupMenu
 import com.greenknightlabs.scp_001.app.extensions.makeToast
 import com.greenknightlabs.scp_001.app.fragments.base_fragment.BaseFragment
-import com.greenknightlabs.scp_001.app.resources.fonts.FontSizes
-import com.greenknightlabs.scp_001.app.resources.themes.Themes
 import com.greenknightlabs.scp_001.app.util.Preferences
 import com.greenknightlabs.scp_001.databinding.FragmentAppearanceBinding
 import dagger.hilt.android.AndroidEntryPoint

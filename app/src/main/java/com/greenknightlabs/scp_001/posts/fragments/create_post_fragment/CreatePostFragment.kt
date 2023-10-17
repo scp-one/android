@@ -1,11 +1,8 @@
 package com.greenknightlabs.scp_001.posts.fragments.create_post_fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import coil.load
 import com.greenknightlabs.scp_001.R

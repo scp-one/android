@@ -2,16 +2,12 @@ package com.greenknightlabs.scp_001.posts.fragments.post_fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.doOnLayout
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.CircleCropTransformation
 import com.greenknightlabs.scp_001.R
 import com.greenknightlabs.scp_001.app.activities.MainActivity
-import com.greenknightlabs.scp_001.app.adapters.PageAdapter
 import com.greenknightlabs.scp_001.app.enums.PageState
 import com.greenknightlabs.scp_001.app.extensions.askConfirmation
 import com.greenknightlabs.scp_001.app.extensions.makeToast
@@ -24,8 +20,6 @@ import com.greenknightlabs.scp_001.posts.fragments.post_fragment.adapters.PostCo
 import com.greenknightlabs.scp_001.posts.fragments.post_fragment.adapters.PostDetailsAdapter
 import com.greenknightlabs.scp_001.posts.models.Post
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post) {

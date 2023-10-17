@@ -3,7 +3,7 @@ package com.greenknightlabs.scp_001.app.config
 class AppConstants {
     companion object {
         const val API_URL = "https://api.v1.alt.scp-one.greenknightlabs.com/"
-//        const val API_URL = "http://192.168.86.152:3000/"
+//        const val API_URL = "http://192.168.86.21:3000/"
 
         const val WIKI_URL = "https://scp-wiki.wikidot.com/"
         const val APP_STORE_URL = "https://play.google.com/store/apps/details?id=com.greenknightlabs.scp_001"

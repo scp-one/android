@@ -24,7 +24,6 @@ import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapter
 import com.greenknightlabs.scp_001.users.fragments.user_profile_fragment.adapters.UserProfileFragmentHeaderAdapter
 import com.greenknightlabs.scp_001.users.models.User
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
