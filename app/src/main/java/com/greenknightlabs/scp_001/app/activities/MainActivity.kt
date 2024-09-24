@@ -128,6 +128,7 @@ class MainActivity : AppCompatActivity(), NavMan.Listener, ComponentCallbacks2 {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         navMan.popFragment()
     }
 
